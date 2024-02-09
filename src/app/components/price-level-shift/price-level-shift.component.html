@@ -1,0 +1,507 @@
+<div fxLayout="row wrap" fxLayoutAlign="start center" class="addPadding">
+  <div fxFlex="100">
+    <div class="backgroundWhite">
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between center"
+        class="marginTopAdded"
+        fxHide.sm
+        fxHide.md
+        fxHide.lg
+        fxHide.xl
+      >
+        <div>
+          <h2>Item Report By Price Level/Shift</h2>
+        </div>
+        <div>
+          <h2 (click)="formFieldsAdded()" *ngIf="!priceLevelFormFields">+</h2>
+          <h2 (click)="formFieldsRemoved()" *ngIf="priceLevelFormFields">-</h2>
+        </div>
+      </div>
+      <h2 class="marginBottomAdded" fxHide.xs>
+        Item Report By Price Level/Shift
+      </h2>
+      <div fxLayout="row wrap" fxLayoutAlign="start center">
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Search Filter</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              [(ngModel)]="filterValue"
+              (keyup)="applyFilter($event)"
+            />
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="25"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+        >
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Search Filter</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              [(ngModel)]="filterValue"
+              (keyup)="applyFilter($event)"
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <div fxFlex="100" fxHide.xs>
+        <table>
+          <thead>
+            <tr>
+              <th (click)="sortTable('SDTL_STOCK_CODE')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Code</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_SHORTDESC')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Description</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_QTY')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Quantity</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_GROSS')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Gross</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_DISC')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Disc</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_NETSALES')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Net Amt</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>STORE : {{ store_code }}</td>
+              <td>{{ store_name }}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr *ngFor="let data of filteredData">
+              <td>
+                PRICE LEVEL : {{ data.SDTL_SALES_PRICELVL }}<br />
+                PRICE SHIFT : {{ data.SDTL_SALES_PRICE_SHIFT }}<br />
+                {{ data.SDTL_STOCK_CODE }}
+              </td>
+              <td>{{ data.SDTL_SHORTDESC }}</td>
+              <td>{{ data.SDTL_QTY }}</td>
+              <td class="alignRight">
+                RM {{ data.SDTL_GROSS | decimalFormat }}
+              </td>
+              <td class="alignRight">
+                RM {{ data.SDTL_DISC | decimalFormat }}
+              </td>
+              <td class="alignRight">
+                RM {{ data.SDTL_NETSALES | decimalFormat }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot class="footer-fixed">
+            <tr class="emptyRow">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr class="subTotalPL">
+              <td></td>
+              <td class="boldText">Sub Total PL/PS</td>
+              <td class="boldText">
+                {{ subTotalPriceLevelData?.sub_total_price_level_quantity }}
+              </td>
+              <td class="boldText alignRight">
+                RM
+                {{
+                  subTotalPriceLevelData?.sub_total_price_level_gross
+                    | decimalFormat
+                }}
+              </td>
+              <td class="boldText alignRight">
+                RM {{ subTotalPriceLevelData?.sub_total_price_level_disc }}
+              </td>
+              <td class="boldText alignRight">
+                RM
+                {{
+                  subTotalPriceLevelData?.sub_total_price_level_net_amount
+                    | decimalFormat
+                }}
+              </td>
+            </tr>
+            <tr class="subTotalSC01">
+              <td></td>
+              <td class="boldText blueText">Sub Total {{ store_code }}</td>
+              <td class="boldText blueText">
+                {{ subTotalData?.sub_total_quantity }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_total_gross | decimalFormat }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_total_disc | decimalFormat }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_total_net_amount | decimalFormat }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="boldText greenText">Grand Total</td>
+              <td class="boldText greenText">
+                {{ grandTotalData?.grand_quantity }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_gross | decimalFormat }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_disc | decimalFormat }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_net_amount | decimalFormat }}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
+        <!-- <mat-accordion class="example-headers-align" multi>
+          <mat-expansion-panel *ngFor="let data of filteredData">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Item Report By Price Level/Shift
+              </mat-panel-title>
+            </mat-expansion-panel-header> -->
+        <div class="addedScroll">
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            *ngFor="let data of filteredData"
+            class="addedBorder addColor"
+          >
+            <div fxFlex="40">
+              <h4>Code</h4>
+            </div>
+            <div fxFlex="60">
+              <p>STORE : {{ store_code }}</p>
+              <p>
+                PRICE LEVEL : {{ data.SDTL_SALES_PRICELVL }}<br />
+                PRICE SHIFT : {{ data.SDTL_SALES_PRICE_SHIFT }}<br />
+                {{ data.SDTL_STOCK_CODE }}
+              </p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>Description</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ store_name }}</p>
+              <p>{{ data.SDTL_SHORTDESC }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Quantity</h4>
+            </div>
+            <div>
+              <p>{{ data.SDTL_QTY }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Gross</h4>
+            </div>
+            <div>
+              <p>RM {{ data.SDTL_GROSS | decimalFormat }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Disc</h4>
+            </div>
+            <div>
+              <p>RM {{ data.SDTL_DISC | decimalFormat }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Net Amt</h4>
+            </div>
+            <div>
+              <p>RM {{ data.SDTL_NETSALES | decimalFormat }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- </mat-expansion-panel>
+        </mat-accordion> -->
+        <div class="addedBorder">
+          <h4>Sub Total PL/PS</h4>
+          <hr />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4>Qty :</h4>
+            </div>
+            <div>
+              <h4>
+                {{ subTotalPriceLevelData?.sub_total_price_level_quantity }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4>Gross :</h4>
+            </div>
+            <div>
+              <h4>
+                RM
+                {{
+                  subTotalPriceLevelData?.sub_total_price_level_gross
+                    | decimalFormat
+                }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4>Disc :</h4>
+            </div>
+            <div>
+              <h4>
+                RM {{ subTotalPriceLevelData?.sub_total_price_level_disc }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4>Net Amt :</h4>
+            </div>
+            <div>
+              <h4>
+                RM
+                {{
+                  subTotalPriceLevelData?.sub_total_price_level_net_amount
+                    | decimalFormat
+                }}
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="addedBorder">
+          <h4 class="blueText">Sub Total {{ store_code }}</h4>
+          <hr />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Qty :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                {{ subTotalData?.sub_total_quantity }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Gross :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM
+                {{ subTotalData?.sub_total_gross | decimalFormat }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Disc :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalData?.sub_total_disc | decimalFormat }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Net Amt :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalData?.sub_total_net_amount | decimalFormat }}
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="addedBorder marginBottomAdded">
+          <h4 class="greenText">Grand Total</h4>
+          <hr />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Qty :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                {{ grandTotalData?.grand_quantity }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Gross :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM
+                {{ grandTotalData?.grand_gross | decimalFormat }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Disc :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">RM {{ grandTotalData?.grand_disc }}</h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Net Amt :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_net_amount | decimalFormat }}
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
