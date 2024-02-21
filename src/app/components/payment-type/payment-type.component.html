@@ -1,0 +1,295 @@
+<!--  -->
+<!-- <button (click)="downloadExcel()">1234</button> -->
+<div fxLayout="row wrap" fxLayoutAlign="start center" class="addPadding">
+  <div fxFlex="100">
+    <div class="backgroundWhite">
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between center"
+        class="marginTopAdded"
+        fxHide.sm
+        fxHide.md
+        fxHide.lg
+        fxHide.xl
+      >
+        <div>
+          <h2>Payment Type Report</h2>
+        </div>
+        <div>
+          <h2 (click)="formFieldsAdded()" *ngIf="!priceLevelFormFields">+</h2>
+          <h2 (click)="formFieldsRemoved()" *ngIf="priceLevelFormFields">-</h2>
+        </div>
+      </div>
+      <h2 class="marginBottomAdded" fxHide.xs>Payment Type REPORT</h2>
+      <div fxLayout="row wrap" fxLayoutAlign="start center">
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Search Filter</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              [(ngModel)]="filterValue"
+              (keyup)="applyFilter($event)"
+            />
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="25"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Search Filter</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              [(ngModel)]="filterValue"
+              (keyup)="applyFilter($event)"
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <div fxFlex="100" fxHide.xs>
+        <table *ngIf="displayTable && rows">
+          <thead>
+            <tr>
+              <th>STORE</th>
+              <th>TERMINAL CODE</th>
+              <th>TERMINAL</th>
+              <th>PAYMENT</th>
+              <th *ngFor="let column of columns">{{ column }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of rows">
+              <td>{{ row.store_code }}</td>
+              <td>{{ row.terminal_code }}</td>
+              <td>{{ row.terminal }}</td>
+              <td>{{ row.payment }}</td>
+              <td>
+                <span
+                  *ngIf="row.DATE == 'Sub Total of Payment 1'"
+                  style="font-weight: bold"
+                  >{{ row.DATE }}</span
+                ><span *ngIf="row.DATE != 'Sub Total of Payment 1'">{{
+                  row.DATE
+                }}</span>
+              </td>
+              <td>{{ row["PRICE LEVEL"] }}</td>
+              <td>{{ row.SHIFT }}</td>
+              <td class="alignRight">
+                <span *ngIf="row.AMOUNT != undefined">RM {{ row.AMOUNT }}</span>
+              </td>
+              <td class="alignRight">
+                <span *ngIf="row['ROUNDING ADJUST'] != undefined"
+                  >RM {{ row["ROUNDING ADJUST"] }}</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm *ngIf="rows">
+        <div class="addedScroll">
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            *ngFor="let data of rows"
+            class="addedBorder addColor"
+          >
+            <div fxFlex="40">
+              <h4>STORE</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.store_code }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+
+            <div fxFlex="40">
+              <h4>TERMINAL CODE</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.terminal_code }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40"><h4>TERMINAL</h4></div>
+            <div fxFlex="60">
+              <p>{{ data.terminal }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>PAYMENT</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.payment }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>DATE</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.DATE }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>PRICE LEVEL</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data["PRICE LEVEL"] }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>SHIFT</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.SHIFT }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>AMOUNT</h4>
+            </div>
+            <div>
+              <p *ngIf="data.AMOUNT != undefined">RM {{ data.AMOUNT }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>ROUNDING ADJUST</h4>
+            </div>
+            <div>
+              <p *ngIf="data['ROUNDING ADJUST'] != undefined">
+                RM {{ data["ROUNDING ADJUST"] }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loadingSpinner">
+  <app-loader></app-loader>
+</div>

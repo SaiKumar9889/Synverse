@@ -32,7 +32,7 @@ export class SidenavComponent implements OnInit {
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener("change", this._mobileQueryListener);
   }
-  selectedNavItem: string = "priceLevelShift";
+  selectedNavItem: string = "";
 
   onNavItemClicked(item: string): void {
     this.selectedNavItem = item;

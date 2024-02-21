@@ -55,6 +55,7 @@ export class SalesRemarkComponent {
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
+  loadingSpinner: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -121,11 +122,13 @@ export class SalesRemarkComponent {
         // this.store_name = result.data[0].store_name;
         if (result) {
           this.filteredData = result.data.remark;
+          console.log(this.filteredData[40].SALES_GROSS);
           this.storesFilterData = result.data.remark;
           // this.subTotalPriceLevelData = result.data[0].item_price.P1;
           this.subTotalData = result.data;
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
+          this.loadingSpinner = false;
         }
       });
   }

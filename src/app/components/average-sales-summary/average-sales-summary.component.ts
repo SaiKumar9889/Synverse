@@ -55,6 +55,8 @@ export class AverageSalesSummaryComponent {
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
+  loadingSpinner: boolean = true;
+  storeIdValue: string = "";
 
   constructor(
     private authService: AuthService,
@@ -68,6 +70,15 @@ export class AverageSalesSummaryComponent {
         this.averageSalesSummary();
       }
     });
+  }
+  selectedStoreId: any;
+  foods: any[] = [
+    { value: "%5B%22SC01%22%5D", viewValue: "SC01" },
+    { value: "%5B%22SC02%22%5D", viewValue: "SC02" },
+  ];
+  onSelectionChange(event: any): void {
+    this.storeIdValue = event.value;
+    console.log("Selection change event:", event.value);
   }
   formFieldsAdded() {
     this.priceLevelFormFields = true;
@@ -120,8 +131,14 @@ export class AverageSalesSummaryComponent {
   }
 
   averageSalesSummary() {
+    console.log(this.storeIdValue);
     this.appService
-      .averageSalesSummary("json", this.searchFrom, this.searchTo)
+      .averageSalesSummary(
+        "json",
+        this.searchFrom,
+        this.searchTo,
+        this.storeIdValue
+      )
       .subscribe((result) => {
         this.store_code = result.data[0].store_code;
         this.store_name = result.data[0].store_desc;
@@ -132,6 +149,7 @@ export class AverageSalesSummaryComponent {
           this.subTotalData = result.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
+          this.loadingSpinner = false;
         }
       });
   }

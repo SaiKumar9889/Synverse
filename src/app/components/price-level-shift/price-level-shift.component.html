@@ -157,7 +157,7 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
-        <table>
+        <table *ngIf="filteredData">
           <thead>
             <tr>
               <th (click)="sortTable('SDTL_STOCK_CODE')">
@@ -295,7 +295,14 @@
           </tfoot>
         </table>
       </div>
-      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
+      <div
+        fxFlex="100"
+        fxHide.xl
+        fxHide.lg
+        fxHide.md
+        fxHide.sm
+        *ngIf="filteredData"
+      >
         <!-- <mat-accordion class="example-headers-align" multi>
           <mat-expansion-panel *ngFor="let data of filteredData">
             <mat-expansion-panel-header>
@@ -504,4 +511,7 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="loadingSpinner">
+  <app-loader></app-loader>
 </div>

@@ -155,7 +155,7 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
-        <table>
+        <table *ngIf="filteredData">
           <thead>
             <tr>
               <th (click)="sortTable('SALES_STORE')">
@@ -167,6 +167,12 @@
               <th (click)="sortTable('SALES_OPERID')">
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>OPERID</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('name')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Name</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
@@ -214,6 +220,7 @@
                 {{ data.SALES_STORE }}
               </td>
               <td>{{ data.SALES_OPERID }}</td>
+              <td></td>
               <td>{{ data.SALES_QTY_NS }}</td>
               <td class="alignRight">
                 RM {{ data.SALES_NETSALES_NS | decimalFormat }}
@@ -242,10 +249,12 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
             </tr>
             <tr class="subTotalPL">
               <td></td>
               <td class="boldText">OPERID Subtotal</td>
+              <td></td>
               <td class="boldText">
                 {{ subTotalPriceLevelData?.sub_total_operator_net_qty }}
               </td>
@@ -280,6 +289,7 @@
             <tr class="subTotalSC01">
               <td></td>
               <td class="boldText blueText">Store Subtotal</td>
+              <td></td>
               <td class="boldText blueText">
                 {{ subTotalData?.subtotal_total_sale_quantity }}
               </td>
@@ -304,6 +314,7 @@
             <tr>
               <td></td>
               <td class="boldText greenText">Grand Total</td>
+              <td></td>
               <td class="boldText greenText">
                 {{ grandTotalData?.grand_total_sale_quantity }}
               </td>
@@ -327,7 +338,14 @@
           </tfoot>
         </table>
       </div>
-      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
+      <div
+        fxFlex="100"
+        fxHide.xl
+        fxHide.lg
+        fxHide.md
+        fxHide.sm
+        *ngIf="filteredData"
+      >
         <!-- <mat-accordion class="example-headers-align" multi>
             <mat-expansion-panel *ngFor="let data of filteredData">
               <mat-expansion-panel-header>
@@ -612,4 +630,7 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="loadingSpinner">
+  <app-loader></app-loader>
 </div>

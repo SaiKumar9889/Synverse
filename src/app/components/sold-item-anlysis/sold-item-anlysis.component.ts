@@ -55,6 +55,10 @@ export class SoldItemAnlysisComponent {
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
+  loadingSpinner: boolean = true;
+  terminal_code: any;
+  terminal_name: any;
+  subTotalTerminal: any;
 
   constructor(
     private authService: AuthService,
@@ -100,13 +104,21 @@ export class SoldItemAnlysisComponent {
     const filteredDataValue = filterValue.trim().toLowerCase();
     this.filteredData = this.storesFilterData.filter(
       (item: any) =>
-        item.hourly_range.toString().includes(filteredDataValue) ||
-        item.total_rcptno.toString().includes(filteredDataValue) ||
-        item.total_gross.toString().includes(filteredDataValue) ||
-        item.total_disc.toString().includes(filteredDataValue) ||
-        item.total_netsales.toString().includes(filteredDataValue) ||
-        item.total.toString().includes(filteredDataValue) ||
-        item.contribution.toString().includes(filteredDataValue)
+        item.detail.SDTL_SALES_RCPTNO.toString().includes(filteredDataValue) ||
+        item.detail.SDTL_STOCK_CODE.toLowerCase().includes(filteredDataValue) ||
+        item.detail.SDTL_SHORTDESC.toLowerCase().includes(filteredDataValue) ||
+        item.detail.SDTL_SALES_PRICELVL.toLowerCase().includes(
+          filteredDataValue
+        ) ||
+        item.detail.SDTL_SALES_PRICE_SHIFT.toLowerCase().includes(
+          filteredDataValue
+        ) ||
+        item.detail.SDTL_STATUS.toLowerCase().includes(filteredDataValue) ||
+        item.detail.SDTL_QTY.toString().includes(filteredDataValue) ||
+        item.detail.SDTL_GROSS.toString().includes(filteredDataValue) ||
+        item.detail.SDTL_DISCAMT.toString().includes(filteredDataValue) ||
+        item.detail.SDTL_NETT.toString().includes(filteredDataValue) ||
+        item.detail.SDTL_CHANGEPRC.toString().includes(filteredDataValue)
     );
     console.log(this.filteredData);
   }
@@ -118,14 +130,20 @@ export class SoldItemAnlysisComponent {
       .soldItemAnalysis(this.searchFrom, this.searchTo)
       .subscribe((result) => {
         this.store_code = result.data[0].store_code;
-        this.store_name = result.data[0].store_name;
+        this.store_name = result.data[0].store_desc;
+        this.terminal_code = result.data[0].sold_item[0].terminal_code;
+        this.terminal_name = result.data[0].sold_item[0].terminal_desc;
         if (result) {
-          this.filteredData = result.data[0].hourly_sales;
-          this.storesFilterData = result.data[0].hourly_sales;
-          // this.subTotalPriceLevelData = result.data[0].item_price.P1;
+          this.filteredData = Object.values(result.data[0].sold_item[0].data);
+          console.log(this.filteredData);
+          this.storesFilterData = Object.values(
+            result.data[0].sold_item[0].data
+          );
+          this.subTotalTerminal = result.data[0].sold_item[0];
           this.subTotalData = result.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
+          this.loadingSpinner = false;
         }
       });
   }

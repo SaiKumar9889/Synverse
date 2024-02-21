@@ -13,7 +13,9 @@
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */
   z-index: 2;
 }
-
+.full-width {
+  font-size: 14px !important;
+}
 h1.example-app-name {
   margin-left: 8px;
 }

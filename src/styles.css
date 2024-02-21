@@ -36,3 +36,6 @@ body {
 [mat-list-item].is-active {
   background: hsla(0, 0%, 100%, 0.1) !important;
 }
+.mdc-list-item.mdc-list-item--with-one-line {
+  height: 40px !important;
+}

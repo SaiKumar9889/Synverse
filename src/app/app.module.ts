@@ -20,12 +20,21 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { SidenavComponent } from "./components/sidenav/sidenav.component";
-import { TerminalCollectionComponent } from './components/terminal-collection/terminal-collection.component';
-import { SalesRemarkComponent } from './components/sales-remark/sales-remark.component';
-import { HourSalesComponent } from './components/hour-sales/hour-sales.component';
-import { SoldItemAnlysisComponent } from './components/sold-item-anlysis/sold-item-anlysis.component';
-import { OperatorCollectionComponent } from './components/operator-collection/operator-collection.component';
-import { AverageSalesSummaryComponent } from './components/average-sales-summary/average-sales-summary.component';
+import { TerminalCollectionComponent } from "./components/terminal-collection/terminal-collection.component";
+import { SalesRemarkComponent } from "./components/sales-remark/sales-remark.component";
+import { HourSalesComponent } from "./components/hour-sales/hour-sales.component";
+import { SoldItemAnlysisComponent } from "./components/sold-item-anlysis/sold-item-anlysis.component";
+import { OperatorCollectionComponent } from "./components/operator-collection/operator-collection.component";
+import { AverageSalesSummaryComponent } from "./components/average-sales-summary/average-sales-summary.component";
+import { TaxTransactionComponent } from "./components/tax-transaction/tax-transaction.component";
+import { PaymentTypeComponent } from "./components/payment-type/payment-type.component";
+import { VendorVoucherComponent } from "./components/vendor-voucher/vendor-voucher.component";
+import { ReceiptAnalysisComponent } from "./components/receipt-analysis/receipt-analysis.component";
+import { LoaderComponent } from "./components/loader/loader.component";
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from "ngx-loading";
+import { SkuSalesComponent } from './components/sku-sales/sku-sales.component';
+import { GroupSalesComponent } from './components/group-sales/group-sales.component';
+import { DepartmentSalesComponent } from './components/department-sales/department-sales.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +49,14 @@ import { AverageSalesSummaryComponent } from './components/average-sales-summary
     SoldItemAnlysisComponent,
     OperatorCollectionComponent,
     AverageSalesSummaryComponent,
+    TaxTransactionComponent,
+    PaymentTypeComponent,
+    VendorVoucherComponent,
+    ReceiptAnalysisComponent,
+    LoaderComponent,
+    SkuSalesComponent,
+    GroupSalesComponent,
+    DepartmentSalesComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +69,15 @@ import { AverageSalesSummaryComponent } from './components/average-sales-summary
     FormsModule,
     ReactiveFormsModule,
     MatMomentDateModule,
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.cubeGrid,
+      backdropBackgroundColour: "rgba(0,0,0,0.1)",
+      fullScreenBackdrop: true,
+      backdropBorderRadius: "4px",
+      primaryColour: "#ffffff",
+      secondaryColour: "#ffffff",
+      tertiaryColour: "#ffffff",
+    }),
   ],
   providers: [
     AppService,

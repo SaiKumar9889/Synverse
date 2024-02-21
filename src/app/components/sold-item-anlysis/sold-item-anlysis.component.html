@@ -11,14 +11,14 @@
         fxHide.xl
       >
         <div>
-          <h2>Terminal Collection Report</h2>
+          <h2>Sold Item Analysis Report</h2>
         </div>
         <div>
           <h2 (click)="formFieldsAdded()" *ngIf="!priceLevelFormFields">+</h2>
           <h2 (click)="formFieldsRemoved()" *ngIf="priceLevelFormFields">-</h2>
         </div>
       </div>
-      <h2 class="marginBottomAdded" fxHide.xs>Terminal Collection Report</h2>
+      <h2 class="marginBottomAdded" fxHide.xs>Sold Item Analysis Report</h2>
       <div fxLayout="row wrap" fxLayoutAlign="start center">
         <div
           fxFlex="23"
@@ -171,12 +171,12 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
-        <table>
+        <table *ngIf="filteredData">
           <thead>
             <tr>
               <th (click)="sortTable('date')">
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
-                  <div>Date</div>
+                  <div>Store</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
@@ -186,33 +186,75 @@
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('netsales')">
+              <th (click)="sortTable('SDTL_DATETIME')">
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
-                  <div>NetSales</div>
+                  <div>Date</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('tax1')">
+              <th (click)="sortTable('SDTL_SALES_RCPTNO')">
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
-                  <div>Tax1</div>
+                  <div>RCPTNO</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('tax2')">
+              <th (click)="sortTable('SDTL_STOCK_CODE')">
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
-                  <div>Tax2</div>
+                  <div>Stock Code</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('round')">
+              <th (click)="sortTable('SDTL_SHORTDESC')">
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
-                  <div>Round</div>
+                  <div>Description</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('ttl_sales')">
+              <th (click)="sortTable('SDTL_SALES_PRICELVL')">
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
-                  <div>TTL_Sales</div>
+                  <div>P/L</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_SALES_PRICE_SHIFT')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>P/S</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_STATUS')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Status</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_QTY')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Qty</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_GROSS')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Gross</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_DISCAMT')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Disc</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_NETT')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>NET</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_CHANGEPRC')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>CHGPRC</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
@@ -220,27 +262,75 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{ store_code }}</td>
-              <td>{{ store_name }}</td>
+              <td></td>
+              <td>{{ terminal_code }}</td>
+              <td>{{ terminal_name }}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
             </tr>
-
-            <tr *ngFor="let data of filteredData">
-              <td>
-                {{ data.date }}
-              </td>
-              <td>{{ data.terminal }}</td>
-              <td class="alignRight">RM {{ data.netsales | decimalFormat }}</td>
-              <td class="alignRight">RM {{ data.tax1 | decimalFormat }}</td>
-              <td class="alignRight">RM {{ data.tax2 | decimalFormat }}</td>
-              <td class="alignRight">RM {{ data.round | decimalFormat }}</td>
-              <td class="alignRight">
-                RM {{ data.ttl_sales | decimalFormat }}
-              </td>
-            </tr>
+            <ng-container *ngFor="let data of filteredData">
+              <tr *ngFor="let row of data.detail">
+                <td></td>
+                <td></td>
+                <td>
+                  {{ row.SDTL_DATETIME }}
+                </td>
+                <td>{{ row?.SDTL_SALES_RCPTNO }}</td>
+                <td>
+                  {{ row?.SDTL_STOCK_CODE }}
+                </td>
+                <td>{{ row?.SDTL_SHORTDESC }}</td>
+                <td>{{ row?.SDTL_SALES_PRICELVL }}</td>
+                <td>{{ row?.SDTL_SALES_PRICE_SHIFT }}</td>
+                <td>
+                  {{ row?.SDTL_STATUS }}
+                </td>
+                <td>{{ row.SDTL_QTY }}</td>
+                <td class="alignRight">
+                  RM {{ row.SDTL_GROSS | decimalFormat }}
+                </td>
+                <td class="alignRight">
+                  RM {{ row.SDTL_DISCAMT | decimalFormat }}
+                </td>
+                <td class="alignRight">
+                  RM {{ row.SDTL_NETT | decimalFormat }}
+                </td>
+                <td class="alignRight">
+                  RM {{ row.SDTL_CHANGEPRC | decimalFormat }}
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText">SubTotal</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText">{{ data.rcpt_quantity }}</td>
+                <td class="boldText alignRight">
+                  RM {{ data.rcpt_gross_sales | decimalFormat }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ data.rcpt_discount | decimalFormat }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ data.rcpt_net_sales | decimalFormat }}
+                </td>
+                <td></td>
+              </tr>
+            </ng-container>
           </tbody>
           <tfoot class="footer-fixed">
             <tr class="emptyRow">
@@ -250,170 +340,331 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr class="subTotalPL">
               <td></td>
-              <td class="boldText blueText">Sub-Total of</td>
-              <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_net_sales }}
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Terminal Total</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalTerminal.terminal_quantity }}
+              </td>
+              <td class="boldText alignRight">
+                RM {{ subTotalTerminal.terminal_gross_sales | decimalFormat }}
+              </td>
+              <td class="boldText alignRight">
+                RM {{ subTotalTerminal.terminal_disc | decimalFormat }}
+              </td>
+              <td class="boldText alignRight">
+                RM {{ subTotalTerminal.terminal_net_sales | decimalFormat }}
+              </td>
+              <td></td>
+            </tr>
+            <tr class="subTotalSC01">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText blueText">Sub Total</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText blueText">
+                {{ subTotalData.sub_total_net_quantity }}
               </td>
               <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_tax_1 | decimalFormat }}
+                RM {{ subTotalData.sub_total_net_gross | decimalFormat }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_tax_2 | decimalFormat }}
+                RM {{ subTotalData.sub_total_net_discount | decimalFormat }}
               </td>
               <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_round | decimalFormat }}
+                RM {{ subTotalData.sub_total_net_sales | decimalFormat }}
               </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_ttl_sales | decimalFormat }}
-              </td>
+              <td></td>
             </tr>
             <tr>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td class="boldText greenText">Grand Total</td>
-              <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_net_sales }}
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText greenText">
+                {{ grandTotalData?.grand_total_quantity }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_tax_1 | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_gross_sales | decimalFormat }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_tax_2 | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_disc | decimalFormat }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_round | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_net_sales | decimalFormat }}
               </td>
-              <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_ttl_sales | decimalFormat }}
-              </td>
+              <td></td>
             </tr>
           </tfoot>
         </table>
       </div>
-      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
-        <!-- <mat-accordion class="example-headers-align" multi>
-              <mat-expansion-panel *ngFor="let data of filteredData">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Item Report By Price Level/Shift
-                  </mat-panel-title>
-                </mat-expansion-panel-header> -->
+      <div
+        fxFlex="100"
+        fxHide.xl
+        fxHide.lg
+        fxHide.md
+        fxHide.sm
+        *ngIf="filteredData"
+      >
         <div class="addedScroll">
-          <div
-            fxLayout="row wrap"
-            fxLayoutAlign="space-between start"
-            *ngFor="let data of filteredData"
-            class="addedBorder addColor"
-          >
-            <div fxFlex="40">
-              <h4>Date</h4>
-            </div>
-            <div fxFlex="60">
-              <p>{{ store_code }}</p>
-              <p>{{ data.date }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
+          <div *ngFor="let data of filteredData">
+            <div
+              fxLayout="row wrap"
+              fxLayoutAlign="space-between start"
+              *ngFor="let row of data.detail"
+              class="addedBorder addColor"
+            >
+              <div fxFlex="40">
+                <h4>Store</h4>
+              </div>
+              <div fxFlex="60">
+                <p></p>
+              </div>
+              <div fxFlex="100"><hr /></div>
 
-            <div fxFlex="40">
-              <h4>Terminal</h4>
+              <div fxFlex="40">
+                <h4>Terminal</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ terminal_code }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div><h4 fxFlex="40">Date</h4></div>
+              <div fxFlex="60">
+                <p>{{ terminal_name }}</p>
+                <p>{{ row.SDTL_DATETIME }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>RCPTNO</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ row.SDTL_SALES_RCPTNO }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>Stock Code</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ row.SDTL_STOCK_CODE }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>Description</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ row.SDTL_SHORTDESC }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>P/L</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ row.SDTL_SALES_PRICELVL }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>P/S</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ row.SDTL_SALES_PRICE_SHIFT }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>Status</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ row.SDTL_STATUS }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>Qty</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ row.SDTL_QTY }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>Gross</h4>
+              </div>
+              <div>
+                <p>RM {{ row.SDTL_GROSS | decimalFormat }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>Disc</h4>
+              </div>
+              <div>
+                <p>RM {{ row.SDTL_DISCAMT | decimalFormat }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>Net</h4>
+              </div>
+              <div>
+                <p>RM {{ row.SDTL_NETT | decimalFormat }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>CHGPRC</h4>
+              </div>
+              <div>
+                <p>RM {{ row.SDTL_CHANGEPRC | decimalFormat }}</p>
+              </div>
             </div>
-            <div fxFlex="60">
-              <p>{{ store_name }}</p>
-              <p>{{ data.terminal }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div><h4>Net Sales</h4></div>
-            <div>
-              <p>RM {{ data.netsales }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div>
-              <h4>Tax1</h4>
-            </div>
-            <div>
-              <p>RM {{ data.tax1 | decimalFormat }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div>
-              <h4>Tax2</h4>
-            </div>
-            <div>
-              <p>RM {{ data.tax2 | decimalFormat }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div>
-              <h4>Round</h4>
-            </div>
-            <div>
-              <p>RM {{ data.round | decimalFormat }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div>
-              <h4>TTL_Sales</h4>
-            </div>
-            <div>
-              <p>RM {{ data.ttl_sales | decimalFormat }}</p>
+            <div
+              fxLayout="row wrap"
+              fxLayoutAlign="space-between start"
+              class="addedBorder addColor"
+            >
+              <div>
+                <h4>Sub Total</h4>
+              </div>
+              <div>
+                <p></p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>Qty</h4>
+              </div>
+              <div>
+                <p>RM {{ data.rcpt_quantity }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>Gross</h4>
+              </div>
+              <div>
+                <p>RM {{ data.rcpt_gross_sales | decimalFormat }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>Disc</h4>
+              </div>
+              <div>
+                <p>RM {{ data.rcpt_discount | decimalFormat }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>Net</h4>
+              </div>
+              <div>
+                <p>RM {{ data.rcpt_net_sales | decimalFormat }}</p>
+              </div>
             </div>
           </div>
         </div>
-        <!-- </mat-expansion-panel>
-            </mat-accordion> -->
         <div class="addedBorder">
-          <h4 class="blueText">Sub-Total of</h4>
+          <h4>Terminal Total</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
-              <h4 class="blueText">Netsales :</h4>
+              <h4>Qty :</h4>
             </div>
             <div>
-              <h4 class="blueText">RM {{ subTotalData?.sub_net_sales }}</h4>
+              <h4>{{ subTotalTerminal.terminal_quantity }}</h4>
             </div>
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
-              <h4 class="blueText">Tax1 :</h4>
+              <h4>Gross :</h4>
             </div>
             <div>
-              <h4 class="blueText">
+              <h4>
                 RM
-                {{ subTotalData?.sub_tax_1 | decimalFormat }}
+                {{ subTotalTerminal.terminal_gross_sales | decimalFormat }}
               </h4>
             </div>
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
-              <h4 class="blueText">Tax2 :</h4>
+              <h4>Disc :</h4>
+            </div>
+            <div>
+              <h4>RM {{ subTotalTerminal.terminal_disc | decimalFormat }}</h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4>Net :</h4>
+            </div>
+            <div>
+              <h4>
+                RM
+                {{ subTotalTerminal.terminal_net_sales | decimalFormat }}
+              </h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="addedBorder">
+          <h4 class="blueText">Sub Total</h4>
+          <hr />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Qty :</h4>
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_tax_2 | decimalFormat }}
+                {{ subTotalData.sub_total_net_quantity }}
               </h4>
             </div>
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
-              <h4 class="blueText">Round :</h4>
+              <h4 class="blueText">Gross :</h4>
             </div>
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_round | decimalFormat }}
+                {{ subTotalData.sub_total_net_gross | decimalFormat }}
               </h4>
             </div>
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
-              <h4 class="blueText">TTL_Sales :</h4>
+              <h4 class="blueText">Discount :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalData.sub_total_net_discount | decimalFormat }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Net :</h4>
             </div>
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_ttl_sales | decimalFormat }}
+                {{ subTotalData.sub_total_net_sales | decimalFormat }}
               </h4>
             </div>
           </div>
@@ -423,51 +674,41 @@
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
-              <h4 class="greenText">Netsales :</h4>
+              <h4 class="greenText">Qty :</h4>
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_net_sales }}
+                {{ grandTotalData?.grand_total_quantity }}
               </h4>
             </div>
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
-              <h4 class="greenText">Tax1 :</h4>
+              <h4 class="greenText">Gross :</h4>
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_tax_1 | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_gross_sales | decimalFormat }}
               </h4>
             </div>
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
-              <h4 class="greenText">Tax2 :</h4>
+              <h4 class="greenText">Disc :</h4>
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_tax_2 | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_disc | decimalFormat }}
               </h4>
             </div>
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
-              <h4 class="greenText">Round :</h4>
+              <h4 class="greenText">Net :</h4>
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_round | decimalFormat }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="greenText">TTL_Sales :</h4>
-            </div>
-            <div>
-              <h4 class="greenText">
-                RM {{ grandTotalData?.grand_ttl_sales | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_net_sales | decimalFormat }}
               </h4>
             </div>
           </div>
@@ -475,4 +716,7 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="loadingSpinner">
+  <app-loader></app-loader>
 </div>

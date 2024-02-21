@@ -1,0 +1,344 @@
+<!--  -->
+<div fxLayout="row wrap" fxLayoutAlign="start center" class="addPadding">
+  <div fxFlex="100">
+    <div class="backgroundWhite">
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between center"
+        class="marginTopAdded"
+        fxHide.sm
+        fxHide.md
+        fxHide.lg
+        fxHide.xl
+      >
+        <div>
+          <h2>Vendor Voucher Report</h2>
+        </div>
+        <div>
+          <h2 (click)="formFieldsAdded()" *ngIf="!priceLevelFormFields">+</h2>
+          <h2 (click)="formFieldsRemoved()" *ngIf="priceLevelFormFields">-</h2>
+        </div>
+      </div>
+      <h2 class="marginBottomAdded" fxHide.xs>Vendor Voucher Report</h2>
+      <div fxLayout="row wrap" fxLayoutAlign="start center">
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Search Filter</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              [(ngModel)]="filterValue"
+              (keyup)="applyFilter($event)"
+            />
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="25"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Search Filter</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              [(ngModel)]="filterValue"
+              (keyup)="applyFilter($event)"
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <div fxFlex="100" fxHide.xs>
+        <table *ngIf="displayTable && rows">
+          <thead>
+            <tr>
+              <th *ngFor="let column of columns">{{ column }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of rows">
+              <td *ngFor="let column of columns">{{ row[column] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
+        <!-- <div class="addedScroll">
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            class="addedBorder addColor"
+          >
+            <div fxFlex="40">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <h4>{{ column }}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div fxFlex="60">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <p class="marginAdded">{{ rows[0][column] }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            class="addedBorder addColor"
+          >
+            <div fxFlex="40">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <h4>{{ column }}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div fxFlex="60">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <p class="marginAdded">{{ rows[1][column] }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            class="addedBorder addColor"
+          >
+            <div fxFlex="40">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <h4>{{ column }}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div fxFlex="60">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <p class="marginAdded">{{ rows[2][column] }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            class="addedBorder addColor"
+          >
+            <div fxFlex="40">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <h4>{{ column }}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div fxFlex="60">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <p class="marginAdded">{{ rows[3][column] }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            class="addedBorder addColor"
+          >
+            <div fxFlex="40">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <h4>{{ column }}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div fxFlex="60">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <p class="marginAdded">{{ rows[4][column] }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="addedBorder">
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div fxFlex="40">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <h4 class="blueText">{{ column }}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div fxFlex="60">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <p class="marginAdded blueText textRight">
+                    {{ rows[5][column] }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="addedBorder">
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div fxFlex="40">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <h4 class="greenText">{{ column }}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div fxFlex="60">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" *ngFor="let column of columns">
+                  <p class="marginAdded greenText textRight">
+                    {{ rows[6][column] }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="loadingSpinner">
+  <app-loader></app-loader>
+</div>

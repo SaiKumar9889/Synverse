@@ -55,6 +55,7 @@ export class OperatorCollectionComponent {
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
+  loadingSpinner: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -123,7 +124,7 @@ export class OperatorCollectionComponent {
           this.subTotalData = result.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
-          console.log(this.filteredData);
+          this.loadingSpinner = false;
         }
       });
   }

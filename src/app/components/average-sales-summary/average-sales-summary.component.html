@@ -74,6 +74,25 @@
         </div>
         <div
           fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Favorite food</mat-label>
+            <mat-select [ngModel]="selectedStoreId">
+              <mat-option *ngFor="let food of foods" [value]="food.value">
+                {{ food.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
           fxFlex.xs="75"
           class="alignCenter"
           *ngIf="priceLevelFormFields"
@@ -112,7 +131,7 @@
           </button>
         </div>
 
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="20" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
@@ -129,7 +148,7 @@
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="20" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
             <input
@@ -146,7 +165,20 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="20" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Stores</mat-label>
+            <mat-select
+              [ngModel]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
+              <mat-option *ngFor="let food of foods" [value]="food.value">
+                {{ food.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="20" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Search Filter</mat-label>
             <input
@@ -157,7 +189,7 @@
             />
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="20" fxHide.xs class="alignCenter">
           <button
             mat-flat-button
             class="btn"
@@ -171,7 +203,7 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
-        <table>
+        <table *ngIf="filteredData">
           <thead>
             <tr>
               <th (click)="sortTable('CI_CLOSEDATE')">
@@ -476,7 +508,7 @@
                     Item Report By Price Level/Shift
                   </mat-panel-title>
                 </mat-expansion-panel-header> -->
-        <div class="addedScroll">
+        <div class="addedScroll" *ngIf="filteredData">
           <div
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
@@ -597,7 +629,7 @@
         </div>
         <!-- </mat-expansion-panel>
             </mat-accordion> -->
-        <div class="addedBorder">
+        <div class="addedBorder" *ngIf="filteredData">
           <h4 class="blueText">Sub Total of Store</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -750,7 +782,7 @@
             </div>
           </div>
         </div>
-        <div class="addedBorder marginBottomAdded">
+        <div class="addedBorder marginBottomAdded" *ngIf="filteredData">
           <h4 class="greenText">Grand Total</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -910,4 +942,7 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="loadingSpinner">
+  <app-loader></app-loader>
 </div>

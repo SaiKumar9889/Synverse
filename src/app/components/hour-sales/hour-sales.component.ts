@@ -55,6 +55,7 @@ export class HourSalesComponent {
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
+  loadingSpinner: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -126,6 +127,7 @@ export class HourSalesComponent {
           this.subTotalData = result.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
+          this.loadingSpinner = false;
         }
       });
   }

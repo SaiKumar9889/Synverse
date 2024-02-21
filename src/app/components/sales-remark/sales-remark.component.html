@@ -11,14 +11,14 @@
         fxHide.xl
       >
         <div>
-          <h2>Terminal Collection Report</h2>
+          <h2>Sales Remark Report</h2>
         </div>
         <div>
           <h2 (click)="formFieldsAdded()" *ngIf="!priceLevelFormFields">+</h2>
           <h2 (click)="formFieldsRemoved()" *ngIf="priceLevelFormFields">-</h2>
         </div>
       </div>
-      <h2 class="marginBottomAdded" fxHide.xs>Terminal Collection Report</h2>
+      <h2 class="marginBottomAdded" fxHide.xs>Sales Remark Report</h2>
       <div fxLayout="row wrap" fxLayoutAlign="start center">
         <div
           fxFlex="23"
@@ -171,7 +171,7 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
-        <table>
+        <table *ngIf="filteredData">
           <thead>
             <tr>
               <th (click)="sortTable('SALES_STATUS')">
@@ -255,9 +255,15 @@
               <td>
                 {{ data.SALES_QTY }}
               </td>
-              <td class="alignRight">RM {{ data.SALES_GROSS }}</td>
-              <td class="alignRight">RM {{ data.SALES_NETSALES }}</td>
-              <td class="alignRight">RM {{ data.SALES_TOT_COST }}</td>
+              <td class="alignRight">
+                RM {{ data.SALES_GROSS | decimalFormat }}
+              </td>
+              <td class="alignRight">
+                RM {{ data.SALES_NETSALES | decimalFormat }}
+              </td>
+              <td class="alignRight">
+                RM {{ data.SALES_TOT_COST | decimalFormat }}
+              </td>
             </tr>
           </tbody>
           <tfoot class="footer-fixed">
@@ -318,7 +324,14 @@
           </tfoot>
         </table>
       </div>
-      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
+      <div
+        fxFlex="100"
+        fxHide.xl
+        fxHide.lg
+        fxHide.md
+        fxHide.sm
+        *ngIf="filteredData"
+      >
         <!-- <mat-accordion class="example-headers-align" multi>
               <mat-expansion-panel *ngFor="let data of filteredData">
                 <mat-expansion-panel-header>
@@ -498,4 +511,7 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="loadingSpinner">
+  <app-loader></app-loader>
 </div>

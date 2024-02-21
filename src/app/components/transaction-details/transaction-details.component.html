@@ -1,1 +1,351 @@
-<p>transaction-details works!</p>
+<!--  -->
+<div fxLayout="row wrap" fxLayoutAlign="start center" class="addPadding">
+  <div fxFlex="100">
+    <div class="backgroundWhite">
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between center"
+        class="marginTopAdded"
+        fxHide.sm
+        fxHide.md
+        fxHide.lg
+        fxHide.xl
+      >
+        <div>
+          <h2>Tax Transaction Detail Report</h2>
+        </div>
+        <div>
+          <h2 (click)="formFieldsAdded()" *ngIf="!priceLevelFormFields">+</h2>
+          <h2 (click)="formFieldsRemoved()" *ngIf="priceLevelFormFields">-</h2>
+        </div>
+      </div>
+      <h2 class="marginBottomAdded" fxHide.xs>Tax Transaction Detail Report</h2>
+      <div fxLayout="row wrap" fxLayoutAlign="start center">
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Search Filter</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              [(ngModel)]="filterValue"
+              (keyup)="applyFilter($event)"
+            />
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="25"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Search Filter</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              [(ngModel)]="filterValue"
+              (keyup)="applyFilter($event)"
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <div fxFlex="100" fxHide.xs>
+        <table *ngIf="displayTable && rows">
+          <thead>
+            <tr>
+              <th *ngFor="let column of columns">{{ column }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of rows">
+              <td>{{ row.TERM }}</td>
+              <td>{{ row.DATE }}</td>
+              <td class="alignRight">
+                <span *ngIf="row.GROSS_SALES != undefined">RM</span>
+                {{ row.GROSS_SALES }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="row.ITEM_DISC != undefined">RM</span>
+                {{ row.ITEM_DISC }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="row.SUB_DISC != undefined">RM</span>
+                {{ row.SUB_DISC }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="row.NET_SALES != undefined">RM</span>
+                {{ row.NET_SALES }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="row.TAX_1 != undefined">RM</span> {{ row.TAX_1 }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="row.TAX_2 != undefined">RM</span> {{ row.TAX_2 }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="row.ROUND != undefined">RM</span> {{ row.ROUND }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="row.TOTAL_SALES != undefined">RM</span>
+                {{ row.TOTAL_SALES }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="row.ITEM_VOID != undefined">RM</span>
+                {{ row.ITEM_VOID }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="row.ALL_VOID != undefined">RM</span>
+                {{ row.ALL_VOID }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="row.TRANS_VOID != undefined">RM</span>
+                {{ row.TRANS_VOID }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="row.REFUND != undefined">RM</span> {{ row.REFUND }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm *ngIf="rows">
+        <div class="addedScroll">
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            *ngFor="let data of rows"
+            class="addedBorder addColor"
+          >
+            <div fxFlex="40">
+              <h4>TERM</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.TERM }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+
+            <div fxFlex="40">
+              <h4>DATE</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.DATE }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div><h4>GROSS_SALES</h4></div>
+            <div>
+              <p *ngIf="data.GROSS_SALES != undefined">
+                RM {{ data.GROSS_SALES }}
+              </p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>ITEM_DISC</h4>
+            </div>
+            <div>
+              <p *ngIf="data.ITEM_DISC != undefined">RM {{ data.ITEM_DISC }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>SUB_DISC</h4>
+            </div>
+            <div>
+              <p *ngIf="data.SUB_DISC != undefined">RM {{ data.SUB_DISC }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>NET_SALES</h4>
+            </div>
+            <div>
+              <p *ngIf="data.NET_SALES != undefined">RM {{ data.NET_SALES }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>TAX_1</h4>
+            </div>
+            <div>
+              <p *ngIf="data.TAX_1 != undefined">RM {{ data.TAX_1 }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>TAX_2</h4>
+            </div>
+            <div>
+              <p *ngIf="data.TAX_2 != undefined">RM {{ data.TAX_2 }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>ROUND</h4>
+            </div>
+            <div>
+              <p *ngIf="data.ROUND != undefined">RM {{ data.ROUND }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>TOTAL_SALES</h4>
+            </div>
+            <div>
+              <p *ngIf="data.TOTAL_SALES != undefined">
+                RM {{ data.TOTAL_SALES }}
+              </p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>ITEM_VOID</h4>
+            </div>
+            <div>
+              <p *ngIf="data.ITEM_VOID != undefined">RM {{ data.ITEM_VOID }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>ALL_VOID</h4>
+            </div>
+            <div>
+              <p *ngIf="data.ALL_VOID != undefined">RM {{ data.ALL_VOID }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>TRANS_VOID</h4>
+            </div>
+            <div>
+              <p *ngIf="data.TRANS_VOID != undefined">
+                RM {{ data.TRANS_VOID }}
+              </p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>REFUND</h4>
+            </div>
+            <div>
+              <p *ngIf="data.REFUND != undefined">RM {{ data.REFUND }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="loadingSpinner">
+  <app-loader></app-loader>
+</div>
