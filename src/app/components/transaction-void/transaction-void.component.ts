@@ -101,13 +101,15 @@ export class TransactionVoidComponent {
     const filteredDataValue = filterValue.trim().toLowerCase();
     this.filteredData = this.storesFilterData.filter(
       (item: any) =>
-        item.SALES_STATUS.toLowerCase().includes(filteredDataValue) ||
-        item.SALES_STORE.toLowerCase().includes(filteredDataValue) ||
-        item.SALES_CTRNO.toLowerCase().includes(filteredDataValue) ||
-        item.SALES_DATETIME.toLowerCase().includes(filteredDataValue) ||
-        item.tax2.toString().includes(filteredDataValue) ||
-        item.round.toString().includes(filteredDataValue) ||
-        item.ttl_sales.toString().includes(filteredDataValue)
+        item.Store.toLowerCase().includes(filteredDataValue) ||
+        item.Ctrno.toLowerCase().includes(filteredDataValue) ||
+        item.OperId.toLowerCase().includes(filteredDataValue) ||
+        item["Date time"].toString().includes(filteredDataValue) ||
+        item["Close date"].toString().includes(filteredDataValue) ||
+        item["Trans No"].toString().includes(filteredDataValue) ||
+        item["Net sales"].toString().includes(filteredDataValue) ||
+        item["Sum disc by MNY"].toString().includes(filteredDataValue) ||
+        item["Round Adj"].toString().includes(filteredDataValue)
     );
     console.log(this.filteredData);
   }

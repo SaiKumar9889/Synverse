@@ -12,39 +12,54 @@
   width: 100% !important;
   height: 60vh !important;
 }
+/* HTML: <div class="loader"></div> */
 .loader {
-  width: 60px;
-  aspect-ratio: 1;
-  --c: no-repeat linear-gradient(#046d8b 0 0) !important;
-  background: var(--c), var(--c), var(--c), var(--c);
-  animation: l9-1 1.5s infinite, l9-2 1.5s infinite;
+  font-weight: bold;
+  font-family: monospace;
+  display: inline-grid;
+  font-size: 30px;
 }
-@keyframes l9-1 {
+.loader:before,
+.loader:after {
+  content: "Loading...";
+  grid-area: 1/1;
+  -webkit-mask-size: 1.5ch 100%, 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: l36-1 1s infinite;
+}
+.loader:before {
+  -webkit-mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+}
+.loader:after {
+  -webkit-mask-image: linear-gradient(#000 0 0);
+  animation: l36-1 1s infinite,
+    l36-2 0.2s infinite cubic-bezier(0.5, 200, 0.5, -200);
+}
+
+@keyframes l36-1 {
   0% {
-    background-size: 0 4px, 4px 0;
+    -webkit-mask-position: 0 0, 0 0;
   }
-  25% {
-    background-size: 40px 4px, 4px 0;
+  20% {
+    -webkit-mask-position: 0.5ch 0, 0 0;
   }
-  45%,
-  55% {
-    background-size: 40px 4px, 4px 42px;
+  40% {
+    -webkit-mask-position: 100% 0, 0 0;
   }
-  75% {
-    background-size: 0 4px, 4px 42px;
+  60% {
+    -webkit-mask-position: 4.5ch 0, 0 0;
+  }
+  80% {
+    -webkit-mask-position: 6.5ch 0, 0 0;
   }
   100% {
-    background-size: 0 4px, 4px 0;
+    -webkit-mask-position: 2.5ch 0, 0 0;
   }
 }
-@keyframes l9-2 {
-  0%,
-  49.9% {
-    background-position: 0 38px, 18px 18px, 100% 18px, right 18px bottom 18px;
-  }
-  50%,
+@keyframes l36-2 {
   100% {
-    background-position: right 20px bottom 18px, 18px 100%, 20px 18px,
-      right 18px top 0;
+    transform: translateY(0.2px);
   }
 }

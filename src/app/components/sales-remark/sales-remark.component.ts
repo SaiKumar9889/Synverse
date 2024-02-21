@@ -104,10 +104,13 @@ export class SalesRemarkComponent {
         item.SALES_STATUS.toLowerCase().includes(filteredDataValue) ||
         item.SALES_STORE.toLowerCase().includes(filteredDataValue) ||
         item.SALES_CTRNO.toLowerCase().includes(filteredDataValue) ||
-        item.SALES_DATETIME.toLowerCase().includes(filteredDataValue) ||
-        item.tax2.toString().includes(filteredDataValue) ||
-        item.round.toString().includes(filteredDataValue) ||
-        item.ttl_sales.toString().includes(filteredDataValue)
+        item.SALES_DATETIME.toString().includes(filteredDataValue) ||
+        item.SALES_RCPTNO.toString().includes(filteredDataValue) ||
+        item.SALES_SHIFT.toLowerCase().includes(filteredDataValue) ||
+        item.SALES_QTY.toString().includes(filteredDataValue) ||
+        item.SALES_GROSS.toString().includes(filteredDataValue) ||
+        item.SALES_NETSALES.toString().includes(filteredDataValue) ||
+        item.SALES_TOT_COST.toString().includes(filteredDataValue)
     );
     console.log(this.filteredData);
   }

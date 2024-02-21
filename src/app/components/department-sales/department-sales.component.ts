@@ -101,13 +101,10 @@ export class DepartmentSalesComponent {
     const filteredDataValue = filterValue.trim().toLowerCase();
     this.filteredData = this.storesFilterData.filter(
       (item: any) =>
-        item.SALES_STATUS.toLowerCase().includes(filteredDataValue) ||
-        item.SALES_STORE.toLowerCase().includes(filteredDataValue) ||
-        item.SALES_CTRNO.toLowerCase().includes(filteredDataValue) ||
-        item.SALES_DATETIME.toLowerCase().includes(filteredDataValue) ||
-        item.tax2.toString().includes(filteredDataValue) ||
-        item.round.toString().includes(filteredDataValue) ||
-        item.ttl_sales.toString().includes(filteredDataValue)
+        item.department.toLowerCase().includes(filteredDataValue) ||
+        item.qty.toString().includes(filteredDataValue) ||
+        item.netprice.toString().includes(filteredDataValue) ||
+        item.discbymny.toString().includes(filteredDataValue)
     );
     console.log(this.filteredData);
   }

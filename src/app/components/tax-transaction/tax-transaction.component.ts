@@ -102,13 +102,19 @@ export class TaxTransactionComponent {
     const filteredDataValue = filterValue.trim().toLowerCase();
     this.filteredData = this.storesFilterData.filter(
       (item: any) =>
-        item.date.toLowerCase().includes(filteredDataValue) ||
+        item.store.toLowerCase().includes(filteredDataValue) ||
         item.terminal.toLowerCase().includes(filteredDataValue) ||
-        item.netsales.toString().includes(filteredDataValue) ||
+        item.date.toString().includes(filteredDataValue) ||
+        item.rcpt.toString().includes(filteredDataValue) ||
+        item.operator.toString().includes(filteredDataValue) ||
+        item.shift.toLowerCase().includes(filteredDataValue) ||
+        item.status.toLowerCase().includes(filteredDataValue) ||
+        item.gross.toString().includes(filteredDataValue) ||
         item.tax1.toString().includes(filteredDataValue) ||
         item.tax2.toString().includes(filteredDataValue) ||
-        item.round.toString().includes(filteredDataValue) ||
-        item.ttl_sales.toString().includes(filteredDataValue)
+        item.tax3.toString().includes(filteredDataValue) ||
+        item.tax4.toString().includes(filteredDataValue) ||
+        item.netSales.toString().includes(filteredDataValue)
     );
     console.log(this.filteredData);
   }

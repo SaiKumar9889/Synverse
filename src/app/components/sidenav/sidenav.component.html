@@ -1,5 +1,5 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
-  <mat-toolbar color="primary" class="example-toolbar">
+  <mat-toolbar class="example-toolbar">
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
@@ -8,40 +8,16 @@
 
   <mat-sidenav-container
     class="example-sidenav-container"
-    [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
+    [style.marginTop.px]="mobileQuery.matches ? 45 : 0"
   >
     <mat-sidenav
       #snav
       [mode]="mobileQuery.matches ? 'over' : 'side'"
       [fixedInViewport]="mobileQuery.matches"
-      fixedTopGap="56"
+      fixedTopGap="45"
       opened="true"
     >
       <mat-nav-list>
-        <a
-          mat-list-item
-          class="parent"
-          [ngClass]="{ selected: selectedNavItem === 'paymentType' }"
-          (click)="onNavItemClicked('paymentType')"
-        >
-          <div fxLayout="row wrap" fxLayoutAlign="start center">
-            <div>
-              <span class="full-width">Payment Type</span>
-            </div>
-          </div>
-        </a>
-        <a
-          mat-list-item
-          class="parent"
-          [ngClass]="{ selected: selectedNavItem === 'priceLevelShift' }"
-          (click)="onNavItemClicked('priceLevelShift')"
-        >
-          <div fxLayout="row wrap" fxLayoutAlign="start center">
-            <div>
-              <span class="full-width">Price Level Shift</span>
-            </div>
-          </div>
-        </a>
         <a
           mat-list-item
           class="parent"
@@ -51,6 +27,18 @@
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
               <span class="full-width">Transaction Details</span>
+            </div>
+          </div>
+        </a>
+        <a
+          mat-list-item
+          class="parent"
+          [ngClass]="{ selected: selectedNavItem === 'paymentType' }"
+          (click)="onNavItemClicked('paymentType')"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div>
+              <span class="full-width">Payment Type</span>
             </div>
           </div>
         </a>
@@ -69,6 +57,103 @@
         <a
           mat-list-item
           class="parent"
+          [ngClass]="{ selected: selectedNavItem === 'hourSales' }"
+          (click)="onNavItemClicked('hourSales')"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div>
+              <span class="full-width">Hourly Sales</span>
+            </div>
+          </div>
+        </a>
+        <a
+          mat-list-item
+          class="parent"
+          [ngClass]="{ selected: selectedNavItem === 'taxTransaction' }"
+          (click)="onNavItemClicked('taxTransaction')"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div>
+              <span class="full-width">Tax Transaction</span>
+            </div>
+          </div>
+        </a>
+        <a
+          mat-list-item
+          class="parent"
+          [ngClass]="{ selected: selectedNavItem === 'departmentSales' }"
+          (click)="onNavItemClicked('departmentSales')"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div>
+              <span class="full-width">Department Sales</span>
+            </div>
+          </div>
+        </a>
+        <a
+          mat-list-item
+          class="parent"
+          [ngClass]="{ selected: selectedNavItem === 'groupSales' }"
+          (click)="onNavItemClicked('groupSales')"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div>
+              <span class="full-width">Group Sales</span>
+            </div>
+          </div>
+        </a>
+        <a
+          mat-list-item
+          class="parent"
+          [ngClass]="{ selected: selectedNavItem === 'skuSales' }"
+          (click)="onNavItemClicked('skuSales')"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div>
+              <span class="full-width">Sku Sales</span>
+            </div>
+          </div>
+        </a>
+        <a
+          mat-list-item
+          class="parent"
+          [ngClass]="{ selected: selectedNavItem === 'transactionSales' }"
+          (click)="onNavItemClicked('transactionSales')"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div>
+              <span class="full-width">Transaction Sales</span>
+            </div>
+          </div>
+        </a>
+        <a
+          mat-list-item
+          class="parent"
+          [ngClass]="{ selected: selectedNavItem === 'transactionVoid' }"
+          (click)="onNavItemClicked('transactionVoid')"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div>
+              <span class="full-width">Transaction Void</span>
+            </div>
+          </div>
+        </a>
+        <a
+          mat-list-item
+          class="parent"
+          [ngClass]="{ selected: selectedNavItem === 'priceLevelShift' }"
+          (click)="onNavItemClicked('priceLevelShift')"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div>
+              <span class="full-width">Price Level Shift</span>
+            </div>
+          </div>
+        </a>
+
+        <a
+          mat-list-item
+          class="parent"
           [ngClass]="{ selected: selectedNavItem === 'salesRemark' }"
           (click)="onNavItemClicked('salesRemark')"
         >
@@ -78,18 +163,7 @@
             </div>
           </div>
         </a>
-        <a
-          mat-list-item
-          class="parent"
-          [ngClass]="{ selected: selectedNavItem === 'hourSales' }"
-          (click)="onNavItemClicked('hourSales')"
-        >
-          <div fxLayout="row wrap" fxLayoutAlign="start center">
-            <div>
-              <span class="full-width">Hour Sales</span>
-            </div>
-          </div>
-        </a>
+
         <a
           mat-list-item
           class="parent"
@@ -111,30 +185,6 @@
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
               <span class="full-width">Operator Collection</span>
-            </div>
-          </div>
-        </a>
-        <a
-          mat-list-item
-          class="parent"
-          [ngClass]="{ selected: selectedNavItem === 'averageSalesSummary' }"
-          (click)="onNavItemClicked('averageSalesSummary')"
-        >
-          <div fxLayout="row wrap" fxLayoutAlign="start center">
-            <div>
-              <span class="full-width">Average Sales Summary</span>
-            </div>
-          </div>
-        </a>
-        <a
-          mat-list-item
-          class="parent"
-          [ngClass]="{ selected: selectedNavItem === 'taxTransaction' }"
-          (click)="onNavItemClicked('taxTransaction')"
-        >
-          <div fxLayout="row wrap" fxLayoutAlign="start center">
-            <div>
-              <span class="full-width">Tax Transaction</span>
             </div>
           </div>
         </a>
@@ -165,60 +215,12 @@
         <a
           mat-list-item
           class="parent"
-          [ngClass]="{ selected: selectedNavItem === 'skuSales' }"
-          (click)="onNavItemClicked('skuSales')"
+          [ngClass]="{ selected: selectedNavItem === 'averageSalesSummary' }"
+          (click)="onNavItemClicked('averageSalesSummary')"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
-              <span class="full-width">Sku Sales</span>
-            </div>
-          </div>
-        </a>
-        <a
-          mat-list-item
-          class="parent"
-          [ngClass]="{ selected: selectedNavItem === 'groupSales' }"
-          (click)="onNavItemClicked('groupSales')"
-        >
-          <div fxLayout="row wrap" fxLayoutAlign="start center">
-            <div>
-              <span class="full-width">Group Sales</span>
-            </div>
-          </div>
-        </a>
-        <a
-          mat-list-item
-          class="parent"
-          [ngClass]="{ selected: selectedNavItem === 'departmentSales' }"
-          (click)="onNavItemClicked('departmentSales')"
-        >
-          <div fxLayout="row wrap" fxLayoutAlign="start center">
-            <div>
-              <span class="full-width">Department Sales</span>
-            </div>
-          </div>
-        </a>
-        <a
-          mat-list-item
-          class="parent"
-          [ngClass]="{ selected: selectedNavItem === 'transactionSales' }"
-          (click)="onNavItemClicked('transactionSales')"
-        >
-          <div fxLayout="row wrap" fxLayoutAlign="start center">
-            <div>
-              <span class="full-width">Transaction Sales</span>
-            </div>
-          </div>
-        </a>
-        <a
-          mat-list-item
-          class="parent"
-          [ngClass]="{ selected: selectedNavItem === 'transactionVoid' }"
-          (click)="onNavItemClicked('transactionVoid')"
-        >
-          <div fxLayout="row wrap" fxLayoutAlign="start center">
-            <div>
-              <span class="full-width">Transaction Void</span>
+              <span class="full-width">Average Sales Summary</span>
             </div>
           </div>
         </a>

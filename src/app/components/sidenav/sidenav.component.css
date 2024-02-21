@@ -32,9 +32,19 @@ h1.example-app-name {
   flex: 1 0 auto;
 }
 .selected {
-  background-color: #3f51b5; /* Change this to your desired color */
+  background-color: #be2026; /* Change this to your desired color */
   /* Change this to your desired text color */
 }
 .selected span {
   color: #ffffff !important;
+}
+mat-toolbar {
+  background: #be2026;
+}
+mat-icon {
+  margin-top: 4px;
+}
+mat-icon,
+.example-app-name {
+  color: #fff;
 }

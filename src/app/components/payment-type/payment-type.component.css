@@ -30,7 +30,7 @@ td {
   border-collapse: collapse;
 }
 .boldText {
-  font-weight: 700;
+  font-weight: 600;
 }
 .btn {
   margin-bottom: 20px;
@@ -71,7 +71,7 @@ thead th {
   top: 96px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
-  background-color: gray;
+  background-color: #be2026;
 }
 
 tfoot tr {

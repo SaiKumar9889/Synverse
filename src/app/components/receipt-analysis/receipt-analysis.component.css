@@ -30,7 +30,7 @@ td {
   border-collapse: collapse;
 }
 .boldText {
-  font-weight: 700;
+  font-weight: 600;
 }
 .btn {
   margin-bottom: 20px;
@@ -68,7 +68,7 @@ thead th {
   top: 96px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
-  background-color: gray;
+  background-color: #be2026;
 }
 
 tfoot tr {
@@ -79,18 +79,17 @@ tfoot tr {
   border: 1px solid #6d6a6ab3;
 }
 tfoot .emptyRow {
-  bottom: 44px !important;
+  bottom: 53px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
   border: 1px solid #6d6a6ab3;
   height: 28px;
 }
-tfoot .subTotalPL {
-  bottom: 28px !important;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-  z-index: 9;
-  background: #fff;
+@media screen and (min-width: 1595px) {
+  tfoot .emptyRow {
+    bottom: 32px !important;
+  }
 }
 .alignRight {
   text-align: right !important;
