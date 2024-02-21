@@ -16,6 +16,8 @@ import { ReceiptAnalysisComponent } from "./components/receipt-analysis/receipt-
 import { SkuSalesComponent } from "./components/sku-sales/sku-sales.component";
 import { GroupSalesComponent } from "./components/group-sales/group-sales.component";
 import { DepartmentSalesComponent } from "./components/department-sales/department-sales.component";
+import { TransactionSalesComponent } from "./components/transaction-sales/transaction-sales.component";
+import { TransactionVoidComponent } from "./components/transaction-void/transaction-void.component";
 
 const routes: Routes = [
   { path: "", component: PriceLevelShiftComponent },
@@ -34,6 +36,8 @@ const routes: Routes = [
   { path: "skuSales", component: SkuSalesComponent },
   { path: "groupSales", component: GroupSalesComponent },
   { path: "departmentSales", component: DepartmentSalesComponent },
+  { path: "transactionSales", component: TransactionSalesComponent },
+  { path: "transactionVoid", component: TransactionVoidComponent },
 ];
 
 @NgModule({

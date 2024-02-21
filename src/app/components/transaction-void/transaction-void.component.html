@@ -1,0 +1,403 @@
+<div fxLayout="row wrap" fxLayoutAlign="start center" class="addPadding">
+  <div fxFlex="100">
+    <div class="backgroundWhite">
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between center"
+        class="marginTopAdded"
+        fxHide.sm
+        fxHide.md
+        fxHide.lg
+        fxHide.xl
+      >
+        <div>
+          <h2>Transaction Void Report</h2>
+        </div>
+        <div>
+          <h2 (click)="formFieldsAdded()" *ngIf="!priceLevelFormFields">+</h2>
+          <h2 (click)="formFieldsRemoved()" *ngIf="priceLevelFormFields">-</h2>
+        </div>
+      </div>
+      <h2 class="marginBottomAdded" fxHide.xs>Transaction Void Report</h2>
+      <div fxLayout="row wrap" fxLayoutAlign="start center">
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Search Filter</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              [(ngModel)]="filterValue"
+              (keyup)="applyFilter($event)"
+            />
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="25"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Search Filter</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              [(ngModel)]="filterValue"
+              (keyup)="applyFilter($event)"
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <div fxFlex="100" fxHide.xs>
+        <table *ngIf="filteredData">
+          <thead>
+            <tr>
+              <th (click)="sortTable('stock_code')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Store</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('barcode')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Ctrno</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('shortdesc')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>OperId</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('uom')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Date Time</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('stk_group')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Close Date</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('stk_department')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Trans No</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('stk_category')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Net Sales</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('qty')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Sum disc by MNY</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('netprice')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Round Adj</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of filteredData">
+              <td>
+                {{ data.Store }}
+              </td>
+
+              <td>{{ data.Ctrno }}</td>
+
+              <td>{{ data.OperId }}</td>
+              <td>{{ data["Date time"] }}</td>
+              <td>
+                {{ data["Close date"] }}
+              </td>
+              <td>{{ data["Trans No"] }}</td>
+              <td class="alignRight">
+                {{ data["Net sales"] | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">
+                RM {{ data["Sum disc by MNY"] | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">
+                RM {{ data["Round Adj"] | number : "1.2-2" }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot class="footer-fixed">
+            <tr class="emptyRow">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+              <td class="boldText greenText">Total</td>
+              <td class="boldText greenText alignRight">
+                {{ grandTotalData?.net_sales | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.sum_discbymny | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
+        <div class="addedScroll" *ngIf="filteredData">
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            *ngFor="let data of filteredData"
+            class="addedBorder addColor"
+          >
+            <div fxFlex="40">
+              <h4>Store</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.Store }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40"><h4>Ctrno</h4></div>
+            <div fxFlex="60">
+              <p>{{ data.Ctrno }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>OperId</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.OperId }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>Date Time</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data["Date time"] }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>Close Date</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data["Close date"] }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>Trans No</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data["Trans No"] }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Net Sales</h4>
+            </div>
+            <div>
+              <p>{{ data["Net sales"] | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Sum disc by MNY</h4>
+            </div>
+            <div>
+              <p>RM {{ data["Sum disc by MNY"] | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Round Adj</h4>
+            </div>
+            <div>
+              <p>RM {{ data["Round Adj"] | number : "1.2-2" }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- </mat-expansion-panel>
+                  </mat-accordion> -->
+        <div class="addedBorder marginBottomAdded" *ngIf="filteredData">
+          <h4 class="greenText">Total</h4>
+          <hr />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Net Sales :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                {{ grandTotalData?.net_sales | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Sum disc by MNY :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.sum_discbymny | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Round Adj :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.round_adj | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="loadingSpinner">
+  <app-loader></app-loader>
+</div>

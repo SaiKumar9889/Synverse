@@ -35,6 +35,8 @@ import { NgxLoadingModule, ngxLoadingAnimationTypes } from "ngx-loading";
 import { SkuSalesComponent } from './components/sku-sales/sku-sales.component';
 import { GroupSalesComponent } from './components/group-sales/group-sales.component';
 import { DepartmentSalesComponent } from './components/department-sales/department-sales.component';
+import { TransactionSalesComponent } from './components/transaction-sales/transaction-sales.component';
+import { TransactionVoidComponent } from './components/transaction-void/transaction-void.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { DepartmentSalesComponent } from './components/department-sales/departme
     SkuSalesComponent,
     GroupSalesComponent,
     DepartmentSalesComponent,
+    TransactionSalesComponent,
+    TransactionVoidComponent,
   ],
   imports: [
     BrowserModule,

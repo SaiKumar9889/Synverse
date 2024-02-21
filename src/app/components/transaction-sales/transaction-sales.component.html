@@ -1,0 +1,418 @@
+<div fxLayout="row wrap" fxLayoutAlign="start center" class="addPadding">
+  <div fxFlex="100">
+    <div class="backgroundWhite">
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between center"
+        class="marginTopAdded"
+        fxHide.sm
+        fxHide.md
+        fxHide.lg
+        fxHide.xl
+      >
+        <div>
+          <h2>Transaction Sales Report</h2>
+        </div>
+        <div>
+          <h2 (click)="formFieldsAdded()" *ngIf="!priceLevelFormFields">+</h2>
+          <h2 (click)="formFieldsRemoved()" *ngIf="priceLevelFormFields">-</h2>
+        </div>
+      </div>
+      <h2 class="marginBottomAdded" fxHide.xs>Transaction Sales Report</h2>
+      <div fxLayout="row wrap" fxLayoutAlign="start center">
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Search Filter</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              [(ngModel)]="filterValue"
+              (keyup)="applyFilter($event)"
+            />
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="25"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Search Filter</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              [(ngModel)]="filterValue"
+              (keyup)="applyFilter($event)"
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="23" fxHide.xs class="alignCenter">
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <div fxFlex="100" fxHide.xs>
+        <table *ngIf="filteredData">
+          <thead>
+            <tr>
+              <th (click)="sortTable('stock_code')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Stock Code</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('barcode')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Barcode</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('shortdesc')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Short Desc</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('uom')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>UOM</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('stk_group')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Stk Group</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('stk_department')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Stk Department</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('stk_category')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Stk Category</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('qty')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Qty</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('netprice')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Net Price</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('discbymny')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Disc by mny</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of filteredData">
+              <td>
+                {{ data.stock_code }}
+              </td>
+              <td>{{ data.barcode }}</td>
+              <td>{{ data.shortdesc }}</td>
+              <td>{{ data.uom }}</td>
+              <td>{{ data.stk_group }}</td>
+              <td>{{ data.stk_department }}</td>
+              <td>
+                {{ data.stk_category }}
+              </td>
+              <td class="alignRight">
+                {{ data.qty }}
+              </td>
+              <td class="alignRight">
+                RM {{ data.netprice | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">
+                RM {{ data.discbymny | number : "1.2-2" }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot class="footer-fixed">
+            <tr class="emptyRow">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+              <td class="boldText greenText">Total</td>
+              <td class="boldText greenText alignRight">
+                {{ grandTotalData?.qty_total }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.netprice_total | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.discbymny_total | number : "1.2-2" }}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
+        <div class="addedScroll" *ngIf="filteredData">
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            *ngFor="let data of filteredData"
+            class="addedBorder addColor"
+          >
+            <div fxFlex="40">
+              <h4>Stock Code</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.stock_code }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+
+            <div fxFlex="40">
+              <h4>Barcode</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.barcode }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40"><h4>Short Desc</h4></div>
+            <div fxFlex="60">
+              <p>{{ data.shortdesc }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>UOM</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.uom }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>Stk Group</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.stk_group }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>Department</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.stk_department }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>Category</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.stk_category }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Qty</h4>
+            </div>
+            <div>
+              <p>{{ data.qty }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Net Sales</h4>
+            </div>
+            <div>
+              <p>RM {{ data.netprice | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Disc by mny</h4>
+            </div>
+            <div>
+              <p>RM {{ data.discbymny | number : "1.2-2" }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- </mat-expansion-panel>
+                </mat-accordion> -->
+        <div class="addedBorder marginBottomAdded" *ngIf="filteredData">
+          <h4 class="greenText">Total</h4>
+          <hr />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Qty :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                {{ grandTotalData?.qty_total }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Net Price :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.netprice_total | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Disc by mny :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.discbymny_total | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="loadingSpinner">
+  <app-loader></app-loader>
+</div>

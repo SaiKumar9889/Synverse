@@ -67,6 +67,24 @@ export class AppService {
     const url = `${this.apiUrl}/bereport/groupsalesresport?file_type=${fileType}&store_id=${storeId}&${start}&end_date=${end}&datetype=lyear`;
     return this.http.get<any>(url);
   }
+  transactionVoid(
+    fileType: string,
+    start: string,
+    end: string,
+    storeId: string
+  ) {
+    const url = `${this.apiUrl}/bereport/transactionvoidreport?file_type=${fileType}&store_id=${storeId}&${start}&end_date=${end}&datetype=lyear`;
+    return this.http.get<any>(url);
+  }
+  transactionSales(
+    fileType: string,
+    start: string,
+    end: string,
+    storeId: string
+  ) {
+    const url = `${this.apiUrl}/bereport/transactionsalesresport?file_type=${fileType}&store_id=${storeId}&${start}&end_date=${end}&datetype=lyear`;
+    return this.http.get<any>(url);
+  }
   departmentSales(
     fileType: string,
     start: string,
