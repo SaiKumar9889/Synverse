@@ -111,17 +111,33 @@ export class OperatorCollectionComponent {
     );
   }
 
+  storeIdValue: string = "";
+  selectedStoreId: any;
+  stores: any[] = [
+    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
+    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+  ];
+  onSelectionChange(event: any): void {
+    this.storeIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
   operatorCollection() {
     this.appService
-      .operatorCollection("json", this.searchFrom, this.searchTo)
+      .operatorCollection(
+        "json",
+        this.searchFrom,
+        this.searchTo,
+        this.storeIdValue
+      )
       .subscribe((result) => {
         this.store_code = result.data.store_code;
         // this.store_name = result.data[0].store_name;
         if (result) {
-          this.storeData = result.data[0].collection["5162"].details;
-          this.storesFilterData = result.data[0].collection["5162"].details;
-          this.subTotalPriceLevelData = result.data[0].collection["5162"];
-          this.subTotalData = result.data[0];
+          this.storeData = result?.data[0]?.collection["5162"]?.details;
+          this.storesFilterData = result?.data[0]?.collection["5162"]?.details;
+          this.subTotalPriceLevelData = result?.data[0]?.collection["5162"];
+          this.subTotalData = result?.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
           this.loadingSpinner = false;

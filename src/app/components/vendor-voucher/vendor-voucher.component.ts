@@ -128,9 +128,22 @@ export class VendorVoucherComponent {
   //   );
   // };
 
+  selectedTerminalId: any;
+  terminalIdValue: string = "";
+  terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
+  onTerminalChange(event: any): void {
+    this.terminalIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
   vendorVoucher() {
     this.appService
-      .vendorVoucher("xls", this.searchFrom, this.searchTo)
+      .vendorVoucher(
+        "xls",
+        this.searchFrom,
+        this.searchTo,
+        this.terminalIdValue
+      )
       .subscribe(async (result) => {
         const excelData = await this.readFile(result);
         this.rows = [];

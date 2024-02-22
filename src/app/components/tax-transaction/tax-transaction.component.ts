@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ColDef } from "ag-grid-community";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
@@ -41,7 +41,7 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
-export class TaxTransactionComponent {
+export class TaxTransactionComponent implements OnInit {
   store_code: any;
   store_name: any;
   storeData: any = [];
@@ -56,7 +56,7 @@ export class TaxTransactionComponent {
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
   store_id: any;
-  storeId: string;
+  storeId: string = "%5B%22SC01%22%5D";
   loadingSpinner: boolean = true;
 
   constructor(
@@ -119,22 +119,80 @@ export class TaxTransactionComponent {
     console.log(this.filteredData);
   }
 
+  storeIdValue: string = "";
+  selectedStoreId: any;
+  stores: any[] = [
+    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
+    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+  ];
+  onSelectionChange(event: any): void {
+    this.storeId = event.value;
+    console.log("Selection change event:", event.value);
+  }
+  selectedTerminalId: any;
+  terminalIdValue: string = "";
+  terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
+  onTerminalChange(event: any): void {
+    this.terminalIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  isChecked: boolean;
+  ngOnInit(): void {
+    // Retrieve the stored checkbox state from localStorage
+    const storedState = localStorage.getItem("checkboxState");
+
+    // If a state is stored, use it; otherwise, default to false
+    this.isChecked = storedState ? JSON.parse(storedState) : false;
+    this.logCheckboxState();
+  }
+
+  isCheckbox: string;
+
+  onCheckboxChange(event: any): void {
+    this.isChecked = event.checked;
+
+    // Store the checkbox state in localStorage
+    localStorage.setItem("checkboxState", JSON.stringify(this.isChecked));
+
+    // Print "true" or "false" based on the checkbox state
+    this.logCheckboxState();
+  }
+
+  logCheckboxState(): void {
+    // Print "true" or "false" based on the current checkbox state
+    if (this.isChecked) {
+      console.log("true");
+      this.isCheckbox = "true";
+    } else {
+      console.log("false");
+      this.isCheckbox = "false";
+    }
+  }
+
   taxTransaction() {
     // this.store_id = ;
-    this.storeId = "%5B%22SC01%22%5D";
+    // this.storeId = "";
 
     // this.storeId = JSON.stringify(this.store_id);
     // this.storeId = this.store_id;
     this.appService
-      .taxTransaction("json", this.searchFrom, this.searchTo, this.storeId)
+      .taxTransaction(
+        "json",
+        this.searchFrom,
+        this.searchTo,
+        this.storeId,
+        this.terminalIdValue,
+        this.isCheckbox
+      )
       .subscribe((result) => {
-        this.store_code = result.data[0].store_code;
-        this.store_name = result.data[0].store_name;
         if (result) {
-          this.filteredData = result.data[0].tax_trx;
-          this.storesFilterData = result.data[0].tax_trx;
+          this.store_code = result?.data[0]?.store_code;
+          this.store_name = result?.data[0]?.store_name;
+          this.filteredData = result?.data[0]?.tax_trx;
+          this.storesFilterData = result?.data[0]?.tax_trx;
           // this.subTotalPriceLevelData = result.data[0].item_price.P1;
-          this.subTotalData = result.data[0];
+          this.subTotalData = result?.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
           this.loadingSpinner = false;

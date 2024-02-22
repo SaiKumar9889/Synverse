@@ -86,6 +86,9 @@ tfoot .emptyRow {
   border: 1px solid #6d6a6ab3;
   height: 28px;
 }
+.checkboxBottom {
+  margin-bottom: 22px;
+}
 tfoot .subTotalPL {
   bottom: 33px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);

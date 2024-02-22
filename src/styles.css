@@ -77,3 +77,12 @@ h2 {
   height: 44px;
   padding: 0px;
 }
+.mdc-checkbox label {
+  font-size: 15px !important;
+}
+.mat-mdc-checkbox.mat-accent {
+  --mdc-checkbox-selected-focus-icon-color: #ff4081;
+  --mdc-checkbox-selected-hover-icon-color: #ff4081;
+  --mdc-checkbox-selected-icon-color: #ff4081;
+  --mdc-checkbox-selected-pressed-icon-color: #ff4081;
+}

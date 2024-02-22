@@ -74,25 +74,6 @@
         </div>
         <div
           fxFlex="23"
-          fxFlex.xs="100"
-          class="alignCenter"
-          *ngIf="priceLevelFormFields"
-          fxHide.sm
-          fxHide.md
-          fxHide.lg
-          fxHide.xl
-        >
-          <mat-form-field appearance="outline">
-            <mat-label>Favorite food</mat-label>
-            <mat-select [ngModel]="selectedStoreId">
-              <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{ food.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div
-          fxFlex="23"
           fxFlex.xs="75"
           class="alignCenter"
           *ngIf="priceLevelFormFields"
@@ -102,13 +83,12 @@
           fxHide.xl
         >
           <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
+            <mat-label>Stores</mat-label>
+            <mat-select [ngModel]="selectedStoreId">
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <div
@@ -131,7 +111,7 @@
           </button>
         </div>
 
-        <div fxFlex="20" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
@@ -148,7 +128,7 @@
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="20" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
             <input
@@ -165,31 +145,20 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="20" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
               [ngModel]="selectedStoreId"
               (selectionChange)="onSelectionChange($event)"
             >
-              <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{ food.viewValue }}
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="20" fxHide.xs class="alignCenter">
-          <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
-          </mat-form-field>
-        </div>
-        <div fxFlex="20" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <button
             mat-flat-button
             class="btn"
@@ -330,42 +299,42 @@
               </td>
               <td>{{ data.CI_DAY }}</td>
               <td class="alignRight">
-                RM {{ data.F_SALES_DINEIN | decimalFormat }}
+                RM {{ data.F_SALES_DINEIN | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.F_BILL_DINEIN | decimalFormat }}
+                RM {{ data.F_BILL_DINEIN | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.AVG_DINEIN | decimalFormat }}
+                RM {{ data.AVG_DINEIN | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.F_SALES_TABLE | decimalFormat }}
+                RM {{ data.F_SALES_TABLE | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.F_BILL_TABLE | decimalFormat }}
+                RM {{ data.F_BILL_TABLE | number : "1.2-2" }}
               </td>
-              <td>RM {{ data.AVG_TABLE | decimalFormat }}</td>
+              <td>RM {{ data.AVG_TABLE | number : "1.2-2" }}</td>
               <td>RM {{ data.F_PAX_TABLE }}</td>
               <td class="alignRight">
-                RM {{ data.AVG_PAX_TABLE | decimalFormat }}
+                RM {{ data.AVG_PAX_TABLE | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.F_SALES_TAKEAWAY | decimalFormat }}
+                RM {{ data.F_SALES_TAKEAWAY | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.F_BILL_TAKEAWAY | decimalFormat }}
+                RM {{ data.F_BILL_TAKEAWAY | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.AVG_TAKEAWAY | decimalFormat }}
+                RM {{ data.AVG_TAKEAWAY | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.F_SALES_DELIVERY | decimalFormat }}
+                RM {{ data.F_SALES_DELIVERY | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.F_BILL_DELIVERY | decimalFormat }}
+                RM {{ data.F_BILL_DELIVERY | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.AVG_DELIVERY | decimalFormat }}
+                RM {{ data.AVG_DELIVERY | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
@@ -392,109 +361,130 @@
               <td></td>
               <td class="boldText blueText">Sub Total of Store</td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_total_sales | decimalFormat }}
+                RM {{ subTotalData?.sub_total_total_sales | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_total_bill | decimalFormat }}
+                {{ subTotalData?.sub_total_total_bill | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_total_avg | decimalFormat }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_total_table_sales | decimalFormat }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_table_bill | decimalFormat }}
+                RM {{ subTotalData?.sub_total_total_avg | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_table_avg | decimalFormat }}
+                {{ subTotalData?.sub_total_table_sales | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_total_table_bill | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ subTotalData?.sub_total_table_avg | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
                 {{ subTotalData?.sub_total_table_pax }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_table_pax_avg | decimalFormat }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_take_away_sales | decimalFormat }}
+                RM
+                {{ subTotalData?.sub_total_table_pax_avg | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_take_away_bill | decimalFormat }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_take_away_avg | decimalFormat }}
+                {{ subTotalData?.sub_total_take_away_sales | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_delivery_sales | decimalFormat }}
+                {{ subTotalData?.sub_total_take_away_bill | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_delivery_bill | decimalFormat }}
+                {{ subTotalData?.sub_total_take_away_avg | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_delivery_avg | decimalFormat }}
+                {{ subTotalData?.sub_total_delivery_sales | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ subTotalData?.sub_total_delivery_bill | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ subTotalData?.sub_total_delivery_avg | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
               <td></td>
               <td class="boldText greenText">Grand Total</td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_total_sales | decimalFormat }}
+                RM
+                {{ grandTotalData?.grand_total_total_sales | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_total_bill | decimalFormat }}
+                RM
+                {{ grandTotalData?.grand_total_total_bill | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_total_avg | decimalFormat }}
+                RM
+                {{ grandTotalData?.grand_total_total_avg | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_table_sales | decimalFormat }}
+                RM
+                {{ grandTotalData?.grand_total_table_sales | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_table_bill | decimalFormat }}
+                RM
+                {{ grandTotalData?.grand_total_table_bill | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_table_avg | decimalFormat }}
+                RM
+                {{ grandTotalData?.grand_total_table_avg | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
                 RM {{ grandTotalData?.grand_total_table_pax }}
               </td>
               <td class="boldText greenText alignRight">
                 RM
-                {{ grandTotalData?.grand_total_table_pax_avg | decimalFormat }}
-              </td>
-              <td class="boldText greenText alignRight">
-                RM
                 {{
-                  grandTotalData?.grand_total_take_away_sales | decimalFormat
+                  grandTotalData?.grand_total_table_pax_avg | number : "1.2-2"
                 }}
               </td>
               <td class="boldText greenText alignRight">
                 RM
-                {{ grandTotalData?.grand_total_take_away_bill | decimalFormat }}
+                {{
+                  grandTotalData?.grand_total_take_away_sales | number : "1.2-2"
+                }}
               </td>
               <td class="boldText greenText alignRight">
                 RM
-                {{ grandTotalData?.grand_total_take_away_avg | decimalFormat }}
+                {{
+                  grandTotalData?.grand_total_take_away_bill | number : "1.2-2"
+                }}
               </td>
               <td class="boldText greenText alignRight">
                 RM
-                {{ grandTotalData?.grand_total_delivery_sales | decimalFormat }}
+                {{
+                  grandTotalData?.grand_total_take_away_avg | number : "1.2-2"
+                }}
               </td>
               <td class="boldText greenText alignRight">
                 RM
-                {{ grandTotalData?.grand_total_delivery_bill | decimalFormat }}
+                {{
+                  grandTotalData?.grand_total_delivery_sales | number : "1.2-2"
+                }}
               </td>
               <td class="boldText greenText alignRight">
                 RM
-                {{ grandTotalData?.grand_total_delivery_avg | decimalFormat }}
+                {{
+                  grandTotalData?.grand_total_delivery_bill | number : "1.2-2"
+                }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM
+                {{
+                  grandTotalData?.grand_total_delivery_avg | number : "1.2-2"
+                }}
               </td>
             </tr>
           </tfoot>
@@ -534,40 +524,40 @@
             <div fxFlex="100"><hr /></div>
             <div><h4>SALES AMT</h4></div>
             <div>
-              <p>RM {{ data.F_SALES_DINEIN | decimalFormat }}</p>
+              <p>RM {{ data.F_SALES_DINEIN | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.F_BILL_DINEIN | decimalFormat }}</p>
+              <p>RM {{ data.F_BILL_DINEIN | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>AVG/BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.AVG_DINEIN | decimalFormat }}</p>
+              <p>RM {{ data.AVG_DINEIN | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>SALES AMT</h4>
             </div>
             <div>
-              <p>RM {{ data.F_SALES_TABLE | decimalFormat }}</p>
+              <p>RM {{ data.F_SALES_TABLE | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.F_BILL_TABLE | decimalFormat }}</p>
+              <p>RM {{ data.F_BILL_TABLE | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div><h4>AVG/BILL</h4></div>
             <div>
-              <p>RM {{ data.AVG_TABLE | decimalFormat }}</p>
+              <p>RM {{ data.AVG_TABLE | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
@@ -581,49 +571,49 @@
               <h4>AVG/PAX</h4>
             </div>
             <div>
-              <p>RM {{ data.AVG_PAX_TABLE | decimalFormat }}</p>
+              <p>RM {{ data.AVG_PAX_TABLE | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>SALES AMT</h4>
             </div>
             <div>
-              <p>RM {{ data.F_SALES_TAKEAWAY | decimalFormat }}</p>
+              <p>RM {{ data.F_SALES_TAKEAWAY | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.F_BILL_TAKEAWAY | decimalFormat }}</p>
+              <p>RM {{ data.F_BILL_TAKEAWAY | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>AVG/BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.AVG_TAKEAWAY | decimalFormat }}</p>
+              <p>RM {{ data.AVG_TAKEAWAY | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>SALES AMT</h4>
             </div>
             <div>
-              <p>RM {{ data.F_SALES_DELIVERY | decimalFormat }}</p>
+              <p>RM {{ data.F_SALES_DELIVERY | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.F_BILL_DELIVERY | decimalFormat }}</p>
+              <p>RM {{ data.F_BILL_DELIVERY | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>AVG/BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.AVG_DELIVERY | decimalFormat }}</p>
+              <p>RM {{ data.AVG_DELIVERY | number : "1.2-2" }}</p>
             </div>
           </div>
         </div>
@@ -638,7 +628,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_total_sales | decimalFormat }}
+                RM {{ subTotalData?.sub_total_total_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -649,7 +639,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_total_bill | decimalFormat }}
+                {{ subTotalData?.sub_total_total_bill | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -659,7 +649,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_total_avg | decimalFormat }}
+                RM {{ subTotalData?.sub_total_total_avg | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -670,7 +660,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_table_sales | decimalFormat }}
+                {{ subTotalData?.sub_total_table_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -681,7 +671,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_table_bill | decimalFormat }}
+                {{ subTotalData?.sub_total_table_bill | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -691,7 +681,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_table_avg | decimalFormat }}
+                RM {{ subTotalData?.sub_total_table_avg | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -712,7 +702,8 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_table_pax_avg | decimalFormat }}
+                RM
+                {{ subTotalData?.sub_total_table_pax_avg | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -723,7 +714,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_take_away_sales | decimalFormat }}
+                {{ subTotalData?.sub_total_take_away_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -734,7 +725,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_take_away_bill | decimalFormat }}
+                {{ subTotalData?.sub_total_take_away_bill | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -745,7 +736,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_take_away_avg | decimalFormat }}
+                {{ subTotalData?.sub_total_take_away_avg | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -755,7 +746,8 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_delivery_sales | decimalFormat }}
+                RM
+                {{ subTotalData?.sub_total_delivery_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -766,7 +758,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_delivery_bill | decimalFormat }}
+                {{ subTotalData?.sub_total_delivery_bill | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -777,7 +769,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_delivery_avg | decimalFormat }}
+                {{ subTotalData?.sub_total_delivery_avg | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -791,7 +783,8 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_total_sales | decimalFormat }}
+                RM
+                {{ grandTotalData?.grand_total_total_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -802,7 +795,7 @@
             <div>
               <h4 class="greenText">
                 RM
-                {{ grandTotalData?.grand_total_total_bill | decimalFormat }}
+                {{ grandTotalData?.grand_total_total_bill | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -812,7 +805,8 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_total_avg | decimalFormat }}
+                RM
+                {{ grandTotalData?.grand_total_total_avg | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -823,7 +817,7 @@
             <div>
               <h4 class="greenText">
                 RM
-                {{ grandTotalData?.grand_total_table_sales | decimalFormat }}
+                {{ grandTotalData?.grand_total_table_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -834,7 +828,7 @@
             <div>
               <h4 class="greenText">
                 RM
-                {{ grandTotalData?.grand_total_table_bill | decimalFormat }}
+                {{ grandTotalData?.grand_total_table_bill | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -844,7 +838,8 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_table_avg | decimalFormat }}
+                RM
+                {{ grandTotalData?.grand_total_table_avg | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -866,7 +861,9 @@
             <div>
               <h4 class="greenText">
                 RM
-                {{ grandTotalData?.grand_total_table_pax_avg | decimalFormat }}
+                {{
+                  grandTotalData?.grand_total_table_pax_avg | number : "1.2-2"
+                }}
               </h4>
             </div>
           </div>
@@ -878,7 +875,7 @@
               <h4 class="greenText">
                 RM
                 {{
-                  grandTotalData?.grand_total_take_away_sales | decimalFormat
+                  grandTotalData?.grand_total_take_away_sales | number : "1.2-2"
                 }}
               </h4>
             </div>
@@ -890,7 +887,9 @@
             <div>
               <h4 class="greenText">
                 RM
-                {{ grandTotalData?.grand_total_take_away_bill | decimalFormat }}
+                {{
+                  grandTotalData?.grand_total_take_away_bill | number : "1.2-2"
+                }}
               </h4>
             </div>
           </div>
@@ -901,7 +900,9 @@
             <div>
               <h4 class="greenText">
                 RM
-                {{ grandTotalData?.grand_total_take_away_avg | decimalFormat }}
+                {{
+                  grandTotalData?.grand_total_take_away_avg | number : "1.2-2"
+                }}
               </h4>
             </div>
           </div>
@@ -912,7 +913,9 @@
             <div>
               <h4 class="greenText">
                 RM
-                {{ grandTotalData?.grand_total_delivery_sales | decimalFormat }}
+                {{
+                  grandTotalData?.grand_total_delivery_sales | number : "1.2-2"
+                }}
               </h4>
             </div>
           </div>
@@ -923,7 +926,9 @@
             <div>
               <h4 class="greenText">
                 RM
-                {{ grandTotalData?.grand_total_delivery_bill | decimalFormat }}
+                {{
+                  grandTotalData?.grand_total_delivery_bill | number : "1.2-2"
+                }}
               </h4>
             </div>
           </div>
@@ -934,7 +939,9 @@
             <div>
               <h4 class="greenText">
                 RM
-                {{ grandTotalData?.grand_total_delivery_avg | decimalFormat }}
+                {{
+                  grandTotalData?.grand_total_delivery_avg | number : "1.2-2"
+                }}
               </h4>
             </div>
           </div>

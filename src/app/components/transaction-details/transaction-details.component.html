@@ -75,7 +75,7 @@
         </div>
         <div
           fxFlex="23"
-          fxFlex.xs="75"
+          fxFlex.xs="100"
           class="alignCenter"
           *ngIf="priceLevelFormFields"
           fxHide.sm
@@ -84,14 +84,54 @@
           fxHide.xl
         >
           <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
+            <mat-label>Stores</mat-label>
+            <mat-select [ngModel]="selectedStoreId">
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Terminal</mat-label>
+            <mat-select
+              [ngModel]="selectedTerminalId"
+              (selectionChange)="onTerminalChange($event)"
+            >
+              <mat-option
+                *ngFor="let terminal of terminalId"
+                [value]="terminal.value"
+              >
+                {{ terminal.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="checkboxBottom"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-checkbox
+            [checked]="isChecked"
+            (change)="onCheckboxChange($event)"
+            >Check me</mat-checkbox
+          >
         </div>
         <div
           fxFlex="23"
@@ -113,7 +153,7 @@
           </button>
         </div>
 
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
@@ -130,7 +170,7 @@
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
             <input
@@ -147,18 +187,43 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
+            <mat-label>Stores</mat-label>
+            <mat-select
+              [ngModel]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Terminal</mat-label>
+            <mat-select
+              [ngModel]="selectedTerminalId"
+              (selectionChange)="onTerminalChange($event)"
+            >
+              <mat-option
+                *ngFor="let terminal of terminalId"
+                [value]="terminal.value"
+              >
+                {{ terminal.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isChecked"
+            (change)="onCheckboxChange($event)"
+            >Tax Inclusive</mat-checkbox
+          >
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <button
             mat-flat-button
             class="btn"

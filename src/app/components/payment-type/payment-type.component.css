@@ -47,6 +47,9 @@ td {
   top: 0px;
   width: 100% !important;
 }
+.checkboxBottom {
+  margin-bottom: 22px;
+}
 mat-form-field {
   width: 90%;
 

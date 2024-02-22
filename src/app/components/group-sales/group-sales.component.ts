@@ -47,7 +47,7 @@ export class GroupSalesComponent {
   storesFilterData: any = [];
   subTotalPriceLevelData: any;
   subTotalData: any;
-  searchFrom: any = "";
+  searchFrom: any = "2019-03-01";
   searchTo: any = "2023-05-31";
   dateFrom: FormControl = new FormControl();
   dateTo: FormControl = new FormControl();
@@ -108,11 +108,22 @@ export class GroupSalesComponent {
     console.log(this.filteredData);
   }
 
+  storeIdValue: string = "SC01";
+  selectedStoreId: any;
+  stores: any[] = [
+    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
+    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+  ];
+  onSelectionChange(event: any): void {
+    this.storeIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
   groupSales() {
     console.log(this.searchFrom);
     console.log(this.searchTo);
     this.appService
-      .groupSales("json", this.searchFrom, this.searchTo, "SC01")
+      .groupSales("json", this.searchFrom, this.searchTo, this.storeIdValue)
       .subscribe((result) => {
         // this.store_code = result.data[0].store_code;
         // this.store_name = result.data[0].store_name;

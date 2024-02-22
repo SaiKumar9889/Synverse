@@ -18,11 +18,29 @@
       opened="true"
     >
       <mat-nav-list>
+        <h4 style="margin: 0px 18px">Reports</h4>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          style="margin: 10px 18px 8px; height: 20px"
+        >
+          <div>
+            <h4 style="margin: 0px">Transaction Reports</h4>
+          </div>
+          <div>
+            <h2 (click)="formFieldsAdded()" *ngIf="!priceLevelFormFields">+</h2>
+            <h2 (click)="formFieldsRemoved()" *ngIf="priceLevelFormFields">
+              -
+            </h2>
+          </div>
+        </div>
+
         <a
           mat-list-item
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'transactionDetails' }"
           (click)="onNavItemClicked('transactionDetails')"
+          *ngIf="priceLevelFormFields"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -35,6 +53,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'paymentType' }"
           (click)="onNavItemClicked('paymentType')"
+          *ngIf="priceLevelFormFields"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -47,6 +66,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'terminalCollection' }"
           (click)="onNavItemClicked('terminalCollection')"
+          *ngIf="priceLevelFormFields"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -54,11 +74,30 @@
             </div>
           </div>
         </a>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          style="margin: 0px 18px 0px; height: 20px"
+        >
+          <div>
+            <h4 style="margin: 0px">Operation Reports</h4>
+          </div>
+          <div>
+            <h2 (click)="operationReportsAdded()" *ngIf="!operationReports">
+              +
+            </h2>
+            <h2 (click)="operationReportsRemoved()" *ngIf="operationReports">
+              -
+            </h2>
+          </div>
+        </div>
+
         <a
           mat-list-item
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'hourSales' }"
           (click)="onNavItemClicked('hourSales')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -66,11 +105,13 @@
             </div>
           </div>
         </a>
+
         <a
           mat-list-item
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'taxTransaction' }"
           (click)="onNavItemClicked('taxTransaction')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -83,6 +124,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'departmentSales' }"
           (click)="onNavItemClicked('departmentSales')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -95,6 +137,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'groupSales' }"
           (click)="onNavItemClicked('groupSales')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -107,6 +150,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'skuSales' }"
           (click)="onNavItemClicked('skuSales')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -119,6 +163,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'transactionSales' }"
           (click)="onNavItemClicked('transactionSales')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -131,6 +176,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'transactionVoid' }"
           (click)="onNavItemClicked('transactionVoid')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -143,6 +189,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'priceLevelShift' }"
           (click)="onNavItemClicked('priceLevelShift')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -156,6 +203,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'salesRemark' }"
           (click)="onNavItemClicked('salesRemark')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -169,6 +217,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'soldItemAnalysis' }"
           (click)="onNavItemClicked('soldItemAnalysis')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -181,6 +230,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'operatorCollection' }"
           (click)="onNavItemClicked('operatorCollection')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -193,6 +243,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'vendorVoucher' }"
           (click)="onNavItemClicked('vendorVoucher')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -205,6 +256,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'receiptAnalysis' }"
           (click)="onNavItemClicked('receiptAnalysis')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
@@ -217,6 +269,7 @@
           class="parent"
           [ngClass]="{ selected: selectedNavItem === 'averageSalesSummary' }"
           (click)="onNavItemClicked('averageSalesSummary')"
+          *ngIf="operationReports"
         >
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>

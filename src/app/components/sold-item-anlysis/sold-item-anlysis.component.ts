@@ -123,24 +123,50 @@ export class SoldItemAnlysisComponent {
     console.log(this.filteredData);
   }
 
+  storeIdValue: string = "";
+  selectedStoreId: any;
+  stores: any[] = [
+    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
+    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+  ];
+  onSelectionChange(event: any): void {
+    this.storeIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  selectedTerminalId: any;
+  terminalIdValue: string = "";
+  terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
+  onTerminalChange(event: any): void {
+    this.terminalIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
   salesRemark() {
     console.log(this.searchFrom);
     console.log(this.searchTo);
     this.appService
-      .soldItemAnalysis(this.searchFrom, this.searchTo)
+      .soldItemAnalysis(
+        this.searchFrom,
+        this.searchTo,
+        this.storeIdValue,
+        this.terminalIdValue
+      )
       .subscribe((result) => {
-        this.store_code = result.data[0].store_code;
-        this.store_name = result.data[0].store_desc;
-        this.terminal_code = result.data[0].sold_item[0].terminal_code;
-        this.terminal_name = result.data[0].sold_item[0].terminal_desc;
-        if (result) {
-          this.filteredData = Object.values(result.data[0].sold_item[0].data);
+        if (result || result == null || result == undefined) {
+          this.store_code = result?.data[0]?.store_code;
+          this.store_name = result?.data[0]?.store_desc;
+          this.terminal_code = result?.data[0]?.sold_item[0]?.terminal_code;
+          this.terminal_name = result?.data[0]?.sold_item[0]?.terminal_desc;
+          this.filteredData = Object.values(
+            result?.data[0]?.sold_item[0]?.data || {}
+          );
           console.log(this.filteredData);
           this.storesFilterData = Object.values(
-            result.data[0].sold_item[0].data
+            result?.data[0]?.sold_item[0]?.data || {}
           );
-          this.subTotalTerminal = result.data[0].sold_item[0];
-          this.subTotalData = result.data[0];
+          this.subTotalTerminal = result?.data[0]?.sold_item[0];
+          this.subTotalData = result?.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
           this.loadingSpinner = false;

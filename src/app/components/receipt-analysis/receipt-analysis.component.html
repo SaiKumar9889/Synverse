@@ -83,13 +83,37 @@
           fxHide.xl
         >
           <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
+            <mat-label>Stores</mat-label>
+            <mat-select [ngModel]="selectedStoreId">
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Terminal</mat-label>
+            <mat-select
+              [ngModel]="selectedTerminalId"
+              (selectionChange)="onTerminalChange($event)"
+            >
+              <mat-option
+                *ngFor="let terminal of terminalId"
+                [value]="terminal.value"
+              >
+                {{ terminal.viewValue }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <div
@@ -112,7 +136,7 @@
           </button>
         </div>
 
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
@@ -129,7 +153,7 @@
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
             <input
@@ -146,18 +170,36 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
+            <mat-label>Stores</mat-label>
+            <mat-select
+              [ngModel]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Terminal</mat-label>
+            <mat-select
+              [ngModel]="selectedTerminalId"
+              (selectionChange)="onTerminalChange($event)"
+            >
+              <mat-option
+                *ngFor="let terminal of terminalId"
+                [value]="terminal.value"
+              >
+                {{ terminal.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <button
             mat-flat-button
             class="btn"
@@ -315,11 +357,11 @@
                   <td>{{ item.SALES_PRICE_SHIFT }}</td>
                   <td>{{ item.SALES_STATUS }}</td>
                   <td>{{ item.SALES_QTY }}</td>
-                  <td>RM {{ item.SALES_GROSS | decimalFormat }}</td>
-                  <td>RM {{ item.SALES_SUMDISCBYMNY | decimalFormat }}</td>
-                  <td>RM {{ item.SALES_TAXAMT | decimalFormat }}</td>
-                  <td>RM {{ item.SALES_ROUND_ADJ | decimalFormat }}</td>
-                  <td>RM {{ item.SALES_NETSALES | decimalFormat }}</td>
+                  <td>RM {{ item.SALES_GROSS | number : "1.2-2" }}</td>
+                  <td>RM {{ item.SALES_SUMDISCBYMNY | number : "1.2-2" }}</td>
+                  <td>RM {{ item.SALES_TAXAMT | number : "1.2-2" }}</td>
+                  <td>RM {{ item.SALES_ROUND_ADJ | number : "1.2-2" }}</td>
+                  <td>RM {{ item.SALES_NETSALES | number : "1.2-2" }}</td>
                 </tr>
                 <tr>
                   <td></td>
@@ -335,19 +377,19 @@
                     {{ row.terminal_quantity }}
                   </td>
                   <td class="boldText alignRight">
-                    RM {{ row.terminal_sales | decimalFormat }}
+                    RM {{ row.terminal_sales | number : "1.2-2" }}
                   </td>
                   <td class="boldText alignRight">
-                    RM {{ row.terminal_discount | decimalFormat }}
+                    RM {{ row.terminal_discount | number : "1.2-2" }}
                   </td>
                   <td class="boldText alignRight">
-                    RM {{ row.terminal_tax_amt | decimalFormat }}
+                    RM {{ row.terminal_tax_amt | number : "1.2-2" }}
                   </td>
                   <td class="boldText alignRight">
-                    RM {{ row.terminal_round_adj | decimalFormat }}
+                    RM {{ row.terminal_round_adj | number : "1.2-2" }}
                   </td>
                   <td class="boldText alignRight">
-                    RM {{ row.terminal_amount | decimalFormat }}
+                    RM {{ row.terminal_amount | number : "1.2-2" }}
                   </td>
                 </tr>
               </ng-container>
@@ -365,19 +407,19 @@
                   {{ data.sub_total_quantity }}
                 </td>
                 <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_sales | decimalFormat }}
+                  RM {{ data.sub_total_sales | number : "1.2-2" }}
                 </td>
                 <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_discount | decimalFormat }}
+                  RM {{ data.sub_total_discount | number : "1.2-2" }}
                 </td>
                 <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_tax_amt | decimalFormat }}
+                  RM {{ data.sub_total_tax_amt | number : "1.2-2" }}
                 </td>
                 <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_round_adj | decimalFormat }}
+                  RM {{ data.sub_total_round_adj | number : "1.2-2" }}
                 </td>
                 <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_amount | decimalFormat }}
+                  RM {{ data.sub_total_amount | number : "1.2-2" }}
                 </td>
               </tr>
             </ng-container>
@@ -415,19 +457,20 @@
                 {{ grandTotalData?.grand_total_quantity }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_sales | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_sales | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_discount | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_discount | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_tax_amt | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_tax_amt | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_round_adj | decimalFormat }}
+                RM
+                {{ grandTotalData?.grand_total_round_adj | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_amount | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_amount | number : "1.2-2" }}
               </td>
             </tr>
           </tfoot>
@@ -546,35 +589,35 @@
                       <h4>Gross</h4>
                     </div>
                     <div>
-                      <p>RM {{ item.SALES_GROSS | decimalFormat }}</p>
+                      <p>RM {{ item.SALES_GROSS | number : "1.2-2" }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Disc Amt</h4>
                     </div>
                     <div>
-                      <p>RM {{ item.SALES_SUMDISCBYMNY | decimalFormat }}</p>
+                      <p>RM {{ item.SALES_SUMDISCBYMNY | number : "1.2-2" }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Tax Amt</h4>
                     </div>
                     <div>
-                      <p>RM {{ item.SALES_TAXAMT | decimalFormat }}</p>
+                      <p>RM {{ item.SALES_TAXAMT | number : "1.2-2" }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Round Adj</h4>
                     </div>
                     <div>
-                      <p>RM {{ item.SALES_ROUND_ADJ | decimalFormat }}</p>
+                      <p>RM {{ item.SALES_ROUND_ADJ | number : "1.2-2" }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Total Sales</h4>
                     </div>
                     <div>
-                      <p>RM {{ item.SALES_NETSALES | decimalFormat }}</p>
+                      <p>RM {{ item.SALES_NETSALES | number : "1.2-2" }}</p>
                     </div>
                   </div>
                 </div>
@@ -592,35 +635,35 @@
                   <h4>Gross</h4>
                 </div>
                 <div>
-                  <p>RM {{ row.terminal_sales | decimalFormat }}</p>
+                  <p>RM {{ row.terminal_sales | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div>
                   <h4>Disc Amt</h4>
                 </div>
                 <div>
-                  <p>RM {{ row.terminal_discount | decimalFormat }}</p>
+                  <p>RM {{ row.terminal_discount | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div>
                   <h4>Tax Amt</h4>
                 </div>
                 <div>
-                  <p>RM {{ row.terminal_tax_amt | decimalFormat }}</p>
+                  <p>RM {{ row.terminal_tax_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div>
                   <h4>Round Adj</h4>
                 </div>
                 <div>
-                  <p>RM {{ row.terminal_round_adj | decimalFormat }}</p>
+                  <p>RM {{ row.terminal_round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div>
                   <h4>Total Sales</h4>
                 </div>
                 <div>
-                  <p>RM {{ row.terminal_amount | decimalFormat }}</p>
+                  <p>RM {{ row.terminal_amount | number : "1.2-2" }}</p>
                 </div>
               </div>
             </div>
@@ -639,7 +682,7 @@
             </div>
             <div>
               <p class="blueText">
-                RM {{ data.sub_total_sales | decimalFormat }}
+                RM {{ data.sub_total_sales | number : "1.2-2" }}
               </p>
             </div>
             <div fxFlex="100"><hr /></div>
@@ -648,7 +691,7 @@
             </div>
             <div>
               <p class="blueText">
-                RM {{ data.sub_total_discount | decimalFormat }}
+                RM {{ data.sub_total_discount | number : "1.2-2" }}
               </p>
             </div>
             <div fxFlex="100"><hr /></div>
@@ -657,7 +700,7 @@
             </div>
             <div>
               <p class="blueText">
-                RM {{ data.sub_total_tax_amt | decimalFormat }}
+                RM {{ data.sub_total_tax_amt | number : "1.2-2" }}
               </p>
             </div>
             <div fxFlex="100"><hr /></div>
@@ -666,7 +709,7 @@
             </div>
             <div>
               <p class="blueText">
-                RM {{ data.sub_total_round_adj | decimalFormat }}
+                RM {{ data.sub_total_round_adj | number : "1.2-2" }}
               </p>
             </div>
             <div fxFlex="100"><hr /></div>
@@ -675,7 +718,7 @@
             </div>
             <div>
               <p class="blueText">
-                RM {{ data.sub_total_amount | decimalFormat }}
+                RM {{ data.sub_total_amount | number : "1.2-2" }}
               </p>
             </div>
           </div>
@@ -699,7 +742,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_sales | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -709,7 +752,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_discount | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_discount | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -719,7 +762,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_tax_amt | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_tax_amt | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -729,7 +772,8 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_round_adj | decimalFormat }}
+                RM
+                {{ grandTotalData?.grand_total_round_adj | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -739,7 +783,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_sales | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -762,7 +806,7 @@
             <div>
               <h4>
                 RM
-                {{ subTotalTerminal.terminal_gross_sales | decimalFormat }}
+                {{ subTotalTerminal.terminal_gross_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -771,7 +815,7 @@
               <h4>Disc :</h4>
             </div>
             <div>
-              <h4>RM {{ subTotalTerminal.terminal_disc | decimalFormat }}</h4>
+              <h4>RM {{ subTotalTerminal.terminal_disc | number : "1.2-2" }}</h4>
             </div>
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -781,7 +825,7 @@
             <div>
               <h4>
                 RM
-                {{ subTotalTerminal.terminal_net_sales | decimalFormat }}
+                {{ subTotalTerminal.terminal_net_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -807,7 +851,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData.sub_total_net_gross | decimalFormat }}
+                {{ subTotalData.sub_total_net_gross | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -817,7 +861,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData.sub_total_net_discount | decimalFormat }}
+                RM {{ subTotalData.sub_total_net_discount | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -828,7 +872,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData.sub_total_net_sales | decimalFormat }}
+                {{ subTotalData.sub_total_net_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -852,7 +896,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_gross_sales | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_gross_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -862,7 +906,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_disc | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_disc | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -872,7 +916,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_net_sales | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_net_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>

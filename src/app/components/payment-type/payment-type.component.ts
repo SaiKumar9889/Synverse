@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ColDef } from "ag-grid-community";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
@@ -42,7 +42,7 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
-export class PaymentTypeComponent {
+export class PaymentTypeComponent implements OnInit {
   [x: string]: any;
   store_code: any;
   store_name: any;
@@ -128,9 +128,109 @@ export class PaymentTypeComponent {
   //   );
   // };
 
+  storeIdValue: string = "";
+  selectedStoreId: any;
+  stores: any[] = [
+    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
+    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+  ];
+  onSelectionChange(event: any): void {
+    this.storeIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  selectedTerminalId: any;
+  terminalIdValue: string = "";
+  terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
+  onTerminalChange(event: any): void {
+    this.terminalIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  selectedPaymentId: any;
+  paymentIdValue: string = "";
+  paymentId: any[] = [
+    { value: "%5B%22MASTER%22%5D", viewValue: "MASTER" },
+    { value: "%5B%22PC01%22%5D", viewValue: "Payment 1" },
+    { value: "%5B%22VISA%22%5D", viewValue: "VISA" },
+  ];
+  onPaymentChange(event: any): void {
+    this.paymentIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  isChecked: boolean;
+  isCheckedShift: boolean;
+  ngOnInit(): void {
+    // Retrieve the stored checkbox state from localStorage
+    const storedState = localStorage.getItem("checkboxState");
+
+    // If a state is stored, use it; otherwise, default to false
+    this.isChecked = storedState ? JSON.parse(storedState) : false;
+
+    const shiftState = localStorage.getItem("checkboxState");
+
+    // If a state is stored, use it; otherwise, default to false
+    this.isCheckedShift = shiftState ? JSON.parse(shiftState) : false;
+    this.logCheckboxState();
+    this.shiftCheckboxState();
+  }
+
+  isCheckbox: string;
+  isCheckboxShift: string;
+  onCheckboxChange(event: any): void {
+    this.isChecked = event.checked;
+
+    // Store the checkbox state in localStorage
+    localStorage.setItem("checkboxState", JSON.stringify(this.isChecked));
+
+    // Print "true" or "false" based on the checkbox state
+    this.logCheckboxState();
+  }
+
+  onShiftChange(event: any): void {
+    this.isCheckedShift = event.checked;
+
+    // Store the checkbox state in localStorage
+    localStorage.setItem("checkboxState", JSON.stringify(this.isCheckedShift));
+
+    // Print "true" or "false" based on the checkbox state
+    this.shiftCheckboxState();
+  }
+
+  logCheckboxState(): void {
+    // Print "true" or "false" based on the current checkbox state
+    if (this.isChecked) {
+      console.log("true");
+      this.isCheckbox = "true";
+    } else {
+      console.log("false");
+      this.isCheckbox = "false";
+    }
+  }
+  shiftCheckboxState(): void {
+    // Print "true" or "false" based on the current checkbox state
+    if (this.isCheckedShift) {
+      console.log("true");
+      this.isCheckboxShift = "true";
+    } else {
+      console.log("false");
+      this.isCheckboxShift = "false";
+    }
+  }
+
   paymentType() {
     this.appService
-      .paymentType("xls", this.searchFrom, this.searchTo)
+      .paymentType(
+        "xls",
+        this.searchFrom,
+        this.searchTo,
+        this.storeIdValue,
+        this.terminalIdValue,
+        this.paymentIdValue,
+        this.isCheckbox,
+        this.isCheckboxShift
+      )
       .subscribe(async (result) => {
         const excelData = await this.readFile(result);
         this.rows = [];
@@ -199,7 +299,16 @@ export class PaymentTypeComponent {
   downloadExcel(): void {
     // Make the API call to get the Blob data
     this.appService
-      .paymentType("xls", this.searchFrom, this.searchTo)
+      .paymentType(
+        "xls",
+        this.searchFrom,
+        this.searchTo,
+        this.storeIdValue,
+        this.terminalIdValue,
+        this.paymentIdValue,
+        this.isCheckbox,
+        this.isCheckboxShift
+      )
       .subscribe((blobData) => {
         // Create a download link
         const downloadLink = document.createElement("a");

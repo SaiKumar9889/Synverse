@@ -20,7 +20,7 @@ import { TransactionSalesComponent } from "./components/transaction-sales/transa
 import { TransactionVoidComponent } from "./components/transaction-void/transaction-void.component";
 
 const routes: Routes = [
-  { path: "", component: PriceLevelShiftComponent },
+  { path: "", component: TransactionDetailsComponent },
   { path: "priceLevelShift", component: PriceLevelShiftComponent },
   { path: "transactionDetails", component: TransactionDetailsComponent },
   { path: "terminalCollection", component: TerminalCollectionComponent },

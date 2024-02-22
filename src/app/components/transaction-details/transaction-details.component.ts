@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ColDef } from "ag-grid-community";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
@@ -42,7 +42,7 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
-export class TransactionDetailsComponent {
+export class TransactionDetailsComponent implements OnInit {
   [x: string]: any;
   store_code: any;
   store_name: any;
@@ -58,6 +58,7 @@ export class TransactionDetailsComponent {
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
   loadingSpinner: boolean = true;
+  isChecked: boolean;
 
   constructor(
     private authService: AuthService,
@@ -116,6 +117,7 @@ export class TransactionDetailsComponent {
   rows: any = [];
   columns: string[] = [];
   displayTable = false;
+  storeIdValue: string = "";
 
   // public blobToFile = (theBlob: Blob, fileName: string): File => {
   //   return new File(
@@ -127,10 +129,66 @@ export class TransactionDetailsComponent {
   //     }
   //   );
   // };
+  selectedStoreId: any;
+  stores: any[] = [
+    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
+    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+  ];
+  onSelectionChange(event: any): void {
+    this.storeIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+  selectedTerminalId: any;
+  terminalIdValue: string = "";
+  terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
+  onTerminalChange(event: any): void {
+    this.terminalIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  ngOnInit(): void {
+    // Retrieve the stored checkbox state from localStorage
+    const storedState = localStorage.getItem("checkboxState");
+
+    // If a state is stored, use it; otherwise, default to false
+    this.isChecked = storedState ? JSON.parse(storedState) : false;
+    this.logCheckboxState();
+  }
+
+  isCheckbox: string;
+
+  onCheckboxChange(event: any): void {
+    this.isChecked = event.checked;
+
+    // Store the checkbox state in localStorage
+    localStorage.setItem("checkboxState", JSON.stringify(this.isChecked));
+
+    // Print "true" or "false" based on the checkbox state
+    this.logCheckboxState();
+  }
+
+  logCheckboxState(): void {
+    // Print "true" or "false" based on the current checkbox state
+    if (this.isChecked) {
+      console.log("true");
+      this.isCheckbox = "true";
+    } else {
+      console.log("false");
+      this.isCheckbox = "false";
+    }
+  }
 
   transactionDetail() {
+    console.log(this.isCheckbox);
     this.appService
-      .transactionDetail("xls", this.searchFrom, this.searchTo)
+      .transactionDetail(
+        "xls",
+        this.searchFrom,
+        this.searchTo,
+        this.storeIdValue,
+        this.terminalIdValue,
+        this.isCheckbox
+      )
       .subscribe(async (result) => {
         const excelData = await this.readFile(result);
         this.rows = [];

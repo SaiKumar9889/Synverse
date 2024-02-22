@@ -73,7 +73,7 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div
+        <!-- <div
           fxFlex="23"
           fxFlex.xs="75"
           class="alignCenter"
@@ -91,6 +91,31 @@
               [(ngModel)]="filterValue"
               (keyup)="applyFilter($event)"
             />
+          </mat-form-field>
+        </div> -->
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Terminal</mat-label>
+            <mat-select
+              [ngModel]="selectedTerminalId"
+              (selectionChange)="onTerminalChange($event)"
+            >
+              <mat-option
+                *ngFor="let terminal of terminalId"
+                [value]="terminal.value"
+              >
+                {{ terminal.viewValue }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <div
@@ -113,7 +138,7 @@
           </button>
         </div>
 
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
@@ -130,7 +155,7 @@
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
             <input
@@ -147,7 +172,7 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <!-- <div fxFlex="23" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Search Filter</mat-label>
             <input
@@ -157,8 +182,24 @@
               (keyup)="applyFilter($event)"
             />
           </mat-form-field>
+        </div> -->
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Terminal</mat-label>
+            <mat-select
+              [ngModel]="selectedTerminalId"
+              (selectionChange)="onTerminalChange($event)"
+            >
+              <mat-option
+                *ngFor="let terminal of terminalId"
+                [value]="terminal.value"
+              >
+                {{ terminal.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <button
             mat-flat-button
             class="btn"

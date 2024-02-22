@@ -25,7 +25,9 @@ h1.example-app-name {
      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
   flex: 1;
 }
-
+mat-nav-list {
+  width: 230px;
+}
 .example-is-mobile .example-sidenav-container {
   /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
      `<body>` to be our scrolling element for mobile layouts. */
@@ -47,4 +49,7 @@ mat-icon {
 mat-icon,
 .example-app-name {
   color: #fff;
+}
+h2 {
+  margin: 0px;
 }

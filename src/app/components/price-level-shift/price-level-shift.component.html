@@ -68,18 +68,90 @@
         </div>
         <div
           fxFlex="23"
-          fxFlex.xs="75"
+          fxFlex.xs="100"
           class="alignCenter"
           *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
         >
           <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
+            <mat-label>Stores</mat-label>
+            <mat-select [ngModel]="selectedStoreId">
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Price Level</mat-label>
+            <mat-select
+              [ngModel]="selectedPaymentId"
+              (selectionChange)="onPaymentChange($event)"
+            >
+              <mat-option
+                *ngFor="let payment of paymentId"
+                [value]="payment.value"
+              >
+                {{ payment.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Stock Code</mat-label>
+            <mat-select
+              [ngModel]="selectedStockId"
+              (selectionChange)="onStockChange($event)"
+            >
+              <mat-option *ngFor="let stock of stockId" [value]="stock.value">
+                {{ stock.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="73"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Shift Code</mat-label>
+            <mat-select
+              [ngModel]="selectedShiftId"
+              (selectionChange)="onShiftChange($event)"
+            >
+              <mat-option *ngFor="let shift of shiftId" [value]="shift.value">
+                {{ shift.viewValue }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <div
@@ -98,7 +170,7 @@
           </button>
         </div>
 
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
@@ -115,7 +187,7 @@
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
             <input
@@ -132,18 +204,62 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
+            <mat-label>Stores</mat-label>
+            <mat-select
+              [ngModel]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Price Level</mat-label>
+            <mat-select
+              [ngModel]="selectedPaymentId"
+              (selectionChange)="onPaymentChange($event)"
+            >
+              <mat-option
+                *ngFor="let payment of paymentId"
+                [value]="payment.value"
+              >
+                {{ payment.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="14" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Stock Code</mat-label>
+            <mat-select
+              [ngModel]="selectedStockId"
+              (selectionChange)="onStockChange($event)"
+            >
+              <mat-option *ngFor="let stock of stockId" [value]="stock.value">
+                {{ stock.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="14" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Shift Code</mat-label>
+            <mat-select
+              [ngModel]="selectedShiftId"
+              (selectionChange)="onShiftChange($event)"
+            >
+              <mat-option *ngFor="let shift of shiftId" [value]="shift.value">
+                {{ shift.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <button
             mat-flat-button
             class="btn"
@@ -217,13 +333,13 @@
               <td>{{ data.SDTL_SHORTDESC }}</td>
               <td>{{ data.SDTL_QTY }}</td>
               <td class="alignRight">
-                RM {{ data.SDTL_GROSS | decimalFormat }}
+                RM {{ data.SDTL_GROSS | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.SDTL_DISC | decimalFormat }}
+                RM {{ data.SDTL_DISC | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.SDTL_NETSALES | decimalFormat }}
+                RM {{ data.SDTL_NETSALES | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
@@ -246,7 +362,7 @@
                 RM
                 {{
                   subTotalPriceLevelData?.sub_total_price_level_gross
-                    | decimalFormat
+                    | number : "1.2-2"
                 }}
               </td>
               <td class="boldText alignRight">
@@ -256,7 +372,7 @@
                 RM
                 {{
                   subTotalPriceLevelData?.sub_total_price_level_net_amount
-                    | decimalFormat
+                    | number : "1.2-2"
                 }}
               </td>
             </tr>
@@ -267,13 +383,13 @@
                 {{ subTotalData?.sub_total_quantity }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_gross | decimalFormat }}
+                RM {{ subTotalData?.sub_total_gross | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_disc | decimalFormat }}
+                RM {{ subTotalData?.sub_total_disc | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_net_amount | decimalFormat }}
+                RM {{ subTotalData?.sub_total_net_amount | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -283,13 +399,13 @@
                 {{ grandTotalData?.grand_quantity }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_gross | decimalFormat }}
+                RM {{ grandTotalData?.grand_gross | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_disc | decimalFormat }}
+                RM {{ grandTotalData?.grand_disc | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_net_amount | decimalFormat }}
+                RM {{ grandTotalData?.grand_net_amount | number : "1.2-2" }}
               </td>
             </tr>
           </tfoot>
@@ -348,21 +464,21 @@
               <h4>Gross</h4>
             </div>
             <div>
-              <p>RM {{ data.SDTL_GROSS | decimalFormat }}</p>
+              <p>RM {{ data.SDTL_GROSS | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Disc</h4>
             </div>
             <div>
-              <p>RM {{ data.SDTL_DISC | decimalFormat }}</p>
+              <p>RM {{ data.SDTL_DISC | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Net Amt</h4>
             </div>
             <div>
-              <p>RM {{ data.SDTL_NETSALES | decimalFormat }}</p>
+              <p>RM {{ data.SDTL_NETSALES | number : "1.2-2" }}</p>
             </div>
           </div>
         </div>
@@ -390,7 +506,7 @@
                 RM
                 {{
                   subTotalPriceLevelData?.sub_total_price_level_gross
-                    | decimalFormat
+                    | number : "1.2-2"
                 }}
               </h4>
             </div>
@@ -414,7 +530,7 @@
                 RM
                 {{
                   subTotalPriceLevelData?.sub_total_price_level_net_amount
-                    | decimalFormat
+                    | number : "1.2-2"
                 }}
               </h4>
             </div>
@@ -440,7 +556,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_gross | decimalFormat }}
+                {{ subTotalData?.sub_total_gross | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -450,7 +566,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_disc | decimalFormat }}
+                RM {{ subTotalData?.sub_total_disc | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -460,7 +576,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_net_amount | decimalFormat }}
+                RM {{ subTotalData?.sub_total_net_amount | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -485,7 +601,7 @@
             <div>
               <h4 class="greenText">
                 RM
-                {{ grandTotalData?.grand_gross | decimalFormat }}
+                {{ grandTotalData?.grand_gross | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -503,7 +619,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_net_amount | decimalFormat }}
+                RM {{ grandTotalData?.grand_net_amount | number : "1.2-2" }}
               </h4>
             </div>
           </div>

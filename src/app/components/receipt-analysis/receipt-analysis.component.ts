@@ -126,12 +126,38 @@ export class ReceiptAnalysisComponent {
   //     }
   //   );
   // };
+
+  storeIdValue: string = "";
+  selectedStoreId: any;
+  stores: any[] = [
+    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
+    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+  ];
+  onSelectionChange(event: any): void {
+    this.storeIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  selectedTerminalId: any;
+  terminalIdValue: string = "";
+  terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
+  onTerminalChange(event: any): void {
+    this.terminalIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
   term1: any;
   terminal: any;
   subTotalTerminal: any;
   receiptAnalysis() {
     this.appService
-      .receiptAnalysis("json", this.searchFrom, this.searchTo)
+      .receiptAnalysis(
+        "json",
+        this.searchFrom,
+        this.searchTo,
+        this.storeIdValue,
+        this.terminalIdValue
+      )
       .subscribe((result) => {
         this.store_code = result.data[0].terminal_code;
         this.store_name = result.data[0].terminal_desc;

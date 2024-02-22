@@ -16,7 +16,8 @@ import { Router } from "@angular/router";
 })
 export class SidenavComponent implements OnInit {
   mobileQuery: MediaQueryList;
-
+  priceLevelFormFields: boolean = false;
+  operationReports: boolean = false;
   private _mobileQueryListener: () => void;
 
   constructor(
@@ -32,7 +33,7 @@ export class SidenavComponent implements OnInit {
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener("change", this._mobileQueryListener);
   }
-  selectedNavItem: string = "";
+  selectedNavItem: string = "transactionDetails";
 
   onNavItemClicked(item: string): void {
     this.selectedNavItem = item;
@@ -43,6 +44,19 @@ export class SidenavComponent implements OnInit {
     const savedNavItem = localStorage.getItem("selectedNavItem");
     if (savedNavItem) {
       this.selectedNavItem = savedNavItem;
+      console.log(this.selectedNavItem);
     }
+  }
+  formFieldsAdded() {
+    this.priceLevelFormFields = true;
+  }
+  formFieldsRemoved() {
+    this.priceLevelFormFields = false;
+  }
+  operationReportsAdded() {
+    this.operationReports = true;
+  }
+  operationReportsRemoved() {
+    this.operationReports = false;
   }
 }

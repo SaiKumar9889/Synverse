@@ -72,7 +72,7 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div
+        <!-- <div
           fxFlex="23"
           fxFlex.xs="75"
           class="alignCenter"
@@ -91,7 +91,7 @@
               (keyup)="applyFilter($event)"
             />
           </mat-form-field>
-        </div>
+        </div> -->
         <div
           fxFlex="23"
           fxFlex.xs="25"
@@ -112,7 +112,7 @@
           </button>
         </div>
 
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
@@ -129,7 +129,7 @@
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
             <input
@@ -146,7 +146,7 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <!-- <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Search Filter</mat-label>
             <input
@@ -156,8 +156,8 @@
               (keyup)="applyFilter($event)"
             />
           </mat-form-field>
-        </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        </div> -->
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <button
             mat-flat-button
             class="btn"
@@ -233,12 +233,14 @@
                 {{ data.date }}
               </td>
               <td>{{ data.terminal }}</td>
-              <td class="alignRight">RM {{ data.netsales | decimalFormat }}</td>
-              <td class="alignRight">RM {{ data.tax1 | decimalFormat }}</td>
-              <td class="alignRight">RM {{ data.tax2 | decimalFormat }}</td>
-              <td class="alignRight">RM {{ data.round | decimalFormat }}</td>
               <td class="alignRight">
-                RM {{ data.ttl_sales | decimalFormat }}
+                RM {{ data.netsales | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">RM {{ data.tax1 | number : "1.2-2" }}</td>
+              <td class="alignRight">RM {{ data.tax2 | number : "1.2-2" }}</td>
+              <td class="alignRight">RM {{ data.round | number : "1.2-2" }}</td>
+              <td class="alignRight">
+                RM {{ data.ttl_sales | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
@@ -260,18 +262,18 @@
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_tax_1 | decimalFormat }}
+                {{ subTotalData?.sub_tax_1 | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_tax_2 | decimalFormat }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_round | decimalFormat }}
+                RM {{ subTotalData?.sub_tax_2 | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_ttl_sales | decimalFormat }}
+                {{ subTotalData?.sub_round | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ subTotalData?.sub_ttl_sales | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -281,16 +283,16 @@
                 RM {{ grandTotalData?.grand_net_sales }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_tax_1 | decimalFormat }}
+                RM {{ grandTotalData?.grand_tax_1 | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_tax_2 | decimalFormat }}
+                RM {{ grandTotalData?.grand_tax_2 | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_round | decimalFormat }}
+                RM {{ grandTotalData?.grand_round | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_ttl_sales | decimalFormat }}
+                RM {{ grandTotalData?.grand_ttl_sales | number : "1.2-2" }}
               </td>
             </tr>
           </tfoot>
@@ -344,28 +346,28 @@
               <h4>Tax1</h4>
             </div>
             <div>
-              <p>RM {{ data.tax1 | decimalFormat }}</p>
+              <p>RM {{ data.tax1 | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Tax2</h4>
             </div>
             <div>
-              <p>RM {{ data.tax2 | decimalFormat }}</p>
+              <p>RM {{ data.tax2 | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Round</h4>
             </div>
             <div>
-              <p>RM {{ data.round | decimalFormat }}</p>
+              <p>RM {{ data.round | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>TTL_Sales</h4>
             </div>
             <div>
-              <p>RM {{ data.ttl_sales | decimalFormat }}</p>
+              <p>RM {{ data.ttl_sales | number : "1.2-2" }}</p>
             </div>
           </div>
         </div>
@@ -389,7 +391,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_tax_1 | decimalFormat }}
+                {{ subTotalData?.sub_tax_1 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -399,7 +401,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_tax_2 | decimalFormat }}
+                RM {{ subTotalData?.sub_tax_2 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -410,7 +412,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_round | decimalFormat }}
+                {{ subTotalData?.sub_round | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -421,7 +423,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_ttl_sales | decimalFormat }}
+                {{ subTotalData?.sub_ttl_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -445,7 +447,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_tax_1 | decimalFormat }}
+                RM {{ grandTotalData?.grand_tax_1 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -455,7 +457,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_tax_2 | decimalFormat }}
+                RM {{ grandTotalData?.grand_tax_2 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -465,7 +467,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_round | decimalFormat }}
+                RM {{ grandTotalData?.grand_round | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -475,7 +477,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_ttl_sales | decimalFormat }}
+                RM {{ grandTotalData?.grand_ttl_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>

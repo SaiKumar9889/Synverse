@@ -74,7 +74,7 @@
         </div>
         <div
           fxFlex="23"
-          fxFlex.xs="75"
+          fxFlex.xs="100"
           class="alignCenter"
           *ngIf="priceLevelFormFields"
           fxHide.sm
@@ -83,14 +83,54 @@
           fxHide.xl
         >
           <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
+            <mat-label>Stores</mat-label>
+            <mat-select [ngModel]="selectedStoreId">
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Terminal</mat-label>
+            <mat-select
+              [ngModel]="selectedTerminalId"
+              (selectionChange)="onTerminalChange($event)"
+            >
+              <mat-option
+                *ngFor="let terminal of terminalId"
+                [value]="terminal.value"
+              >
+                {{ terminal.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="checkboxBottom"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-checkbox
+            [checked]="isChecked"
+            (change)="onCheckboxChange($event)"
+            >Transaction Void</mat-checkbox
+          >
         </div>
         <div
           fxFlex="23"
@@ -112,7 +152,7 @@
           </button>
         </div>
 
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
@@ -129,7 +169,7 @@
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
             <input
@@ -146,18 +186,43 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
+            <mat-label>Stores</mat-label>
+            <mat-select
+              [ngModel]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="23" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Terminal</mat-label>
+            <mat-select
+              [ngModel]="selectedTerminalId"
+              (selectionChange)="onTerminalChange($event)"
+            >
+              <mat-option
+                *ngFor="let terminal of terminalId"
+                [value]="terminal.value"
+              >
+                {{ terminal.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isChecked"
+            (change)="onCheckboxChange($event)"
+            >Transaction Void</mat-checkbox
+          >
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <button
             mat-flat-button
             class="btn"
@@ -269,12 +334,14 @@
               <td>
                 {{ data.status }}
               </td>
-              <td class="alignRight">RM {{ data.gross | decimalFormat }}</td>
-              <td class="alignRight">RM {{ data.tax1 | decimalFormat }}</td>
-              <td class="alignRight">RM {{ data.tax2 | decimalFormat }}</td>
-              <td class="alignRight">RM {{ data.tax3 | decimalFormat }}</td>
-              <td class="alignRight">RM {{ data.tax4 | decimalFormat }}</td>
-              <td class="alignRight">RM {{ data.netSales | decimalFormat }}</td>
+              <td class="alignRight">RM {{ data.gross | number : "1.2-2" }}</td>
+              <td class="alignRight">RM {{ data.tax1 | number : "1.2-2" }}</td>
+              <td class="alignRight">RM {{ data.tax2 | number : "1.2-2" }}</td>
+              <td class="alignRight">RM {{ data.tax3 | number : "1.2-2" }}</td>
+              <td class="alignRight">RM {{ data.tax4 | number : "1.2-2" }}</td>
+              <td class="alignRight">
+                RM {{ data.netSales | number : "1.2-2" }}
+              </td>
             </tr>
           </tbody>
           <tfoot class="footer-fixed">
@@ -302,26 +369,26 @@
               <td class="boldText blueText">Sub-Total of</td>
               <td></td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_gross | decimalFormat }}
+                RM {{ subTotalData?.sub_total_gross | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_tax1 | decimalFormat }}
+                {{ subTotalData?.sub_total_tax1 | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_tax2 | decimalFormat }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_total_tax3 | decimalFormat }}
+                RM {{ subTotalData?.sub_total_tax2 | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_tax4 | decimalFormat }}
+                {{ subTotalData?.sub_total_tax3 | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_netsales | decimalFormat }}
+                {{ subTotalData?.sub_total_tax4 | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ subTotalData?.sub_total_netsales | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -333,22 +400,22 @@
               <td class="boldText greenText">Grand Total</td>
               <td></td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_gross | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_gross | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_tax1 | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_tax1 | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_tax2 | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_tax2 | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_tax3 | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_tax3 | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_tax4 | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_tax4 | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_netsales | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_netsales | number : "1.2-2" }}
               </td>
             </tr>
           </tfoot>
@@ -429,40 +496,40 @@
               <h4>Gross</h4>
             </div>
             <div>
-              <p>RM {{ data.gross | decimalFormat }}</p>
+              <p>RM {{ data.gross | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div><h4>Tax1</h4></div>
             <div>
-              <p>RM {{ data.tax1 | decimalFormat }}</p>
+              <p>RM {{ data.tax1 | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Tax2</h4>
             </div>
             <div>
-              <p>RM {{ data.tax2 | decimalFormat }}</p>
+              <p>RM {{ data.tax2 | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Tax3</h4>
             </div>
             <div>
-              <p>RM {{ data.tax3 | decimalFormat }}</p>
+              <p>RM {{ data.tax3 | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Tax4</h4>
             </div>
             <div>
-              <p>RM {{ data.tax4 | decimalFormat }}</p>
+              <p>RM {{ data.tax4 | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Total</h4>
             </div>
             <div>
-              <p>RM {{ data.netSales | decimalFormat }}</p>
+              <p>RM {{ data.netSales | number : "1.2-2" }}</p>
             </div>
           </div>
         </div>
@@ -486,7 +553,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_tax1 | decimalFormat }}
+                {{ subTotalData?.sub_total_tax1 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -496,7 +563,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_tax2 | decimalFormat }}
+                RM {{ subTotalData?.sub_total_tax2 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -507,7 +574,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_tax3 | decimalFormat }}
+                {{ subTotalData?.sub_total_tax3 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -518,7 +585,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_tax4 | decimalFormat }}
+                {{ subTotalData?.sub_total_tax4 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -529,7 +596,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_netsales | decimalFormat }}
+                {{ subTotalData?.sub_total_netsales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -553,7 +620,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_tax1 | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_tax1 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -563,7 +630,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_tax2 | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_tax2 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -573,7 +640,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_tax3 | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_tax3 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -583,7 +650,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_tax4 | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_tax4 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -593,7 +660,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_netsales | decimalFormat }}
+                RM {{ grandTotalData?.grand_total_netsales | number : "1.2-2" }}
               </h4>
             </div>
           </div>

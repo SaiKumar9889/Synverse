@@ -72,9 +72,9 @@ export class AverageSalesSummaryComponent {
     });
   }
   selectedStoreId: any;
-  foods: any[] = [
-    { value: "%5B%22SC01%22%5D", viewValue: "SC01" },
-    { value: "%5B%22SC02%22%5D", viewValue: "SC02" },
+  stores: any[] = [
+    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
+    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
     this.storeIdValue = event.value;

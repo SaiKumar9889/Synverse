@@ -110,6 +110,12 @@ tbody tr:last-of-type td {
 .blueText {
   color: rgb(61, 61, 234);
 }
+.checkboxBottom {
+  margin-bottom: 22px;
+}
+.checkboxBottom mat-checkbox {
+  font-size: 15px !important;
+}
 @media screen and (max-width: 599px) {
   mat-form-field {
     width: 95%;
