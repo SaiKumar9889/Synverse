@@ -74,7 +74,7 @@
         </div>
         <div
           fxFlex="23"
-          fxFlex.xs="75"
+          fxFlex.xs="100"
           class="alignCenter"
           *ngIf="priceLevelFormFields"
           fxHide.sm
@@ -84,7 +84,10 @@
         >
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
-            <mat-select [ngModel]="selectedStoreId">
+            <mat-select
+              [(ngModel)]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -104,7 +107,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [ngModel]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalId"
               (selectionChange)="onTerminalChange($event)"
             >
               <mat-option
@@ -115,6 +118,37 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="checkboxBottom"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-checkbox
+            [checked]="isChecked"
+            (change)="onCheckboxChange($event)"
+            >Transaction Void</mat-checkbox
+          >
+          <mat-checkbox
+            [checked]="isCheckedCombine"
+            (change)="onCombineChange($event)"
+            >Combine Void</mat-checkbox
+          >
+          <mat-checkbox
+            [checked]="isCheckedCombine"
+            (change)="onCombineChange($event)"
+            >Normal Sales</mat-checkbox
+          >
+          <mat-checkbox
+            [checked]="isCheckedRemark"
+            (change)="onRemarkChange($event)"
+            >Remark 1 NOT NULL</mat-checkbox
+          >
         </div>
         <div
           fxFlex="23"
@@ -174,7 +208,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [ngModel]="selectedStoreId"
+              [(ngModel)]="selectedStoreId"
               (selectionChange)="onSelectionChange($event)"
             >
               <mat-option *ngFor="let store of stores" [value]="store.value">
@@ -187,7 +221,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [ngModel]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalId"
               (selectionChange)="onTerminalChange($event)"
             >
               <mat-option
@@ -198,6 +232,34 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+        </div>
+        <div fxFlex="13" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isChecked"
+            (change)="onCheckboxChange($event)"
+            >Transaction Void</mat-checkbox
+          >
+        </div>
+        <div fxFlex="12" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isCheckedCombine"
+            (change)="onCombineChange($event)"
+            >Combine Void</mat-checkbox
+          >
+        </div>
+        <div fxFlex="12" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isCheckedCombine"
+            (change)="onCombineChange($event)"
+            >Normal Sales</mat-checkbox
+          >
+        </div>
+        <div fxFlex="20" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isCheckedRemark"
+            (change)="onRemarkChange($event)"
+            >Remark 1 NOT NULL</mat-checkbox
+          >
         </div>
         <div fxFlex="15" fxHide.xs class="alignCenter">
           <button

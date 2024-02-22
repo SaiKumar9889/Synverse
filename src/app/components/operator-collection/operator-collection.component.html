@@ -66,7 +66,7 @@
         </div>
         <div
           fxFlex="23"
-          fxFlex.xs="75"
+          fxFlex.xs="100"
           class="alignCenter"
           *ngIf="priceLevelFormFields"
           fxHide.sm
@@ -76,9 +76,37 @@
         >
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
-            <mat-select [ngModel]="selectedStoreId">
+            <mat-select
+              [(ngModel)]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Operator</mat-label>
+            <mat-select
+              [(ngModel)]="selectedOperator"
+              (selectionChange)="onOperatorChange($event)"
+            >
+              <mat-option
+                *ngFor="let operator of operators"
+                [value]="operator.value"
+              >
+                {{ operator.viewValue }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -137,11 +165,27 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [ngModel]="selectedStoreId"
+              [(ngModel)]="selectedStoreId"
               (selectionChange)="onSelectionChange($event)"
             >
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Operator</mat-label>
+            <mat-select
+              [(ngModel)]="selectedOperator"
+              (selectionChange)="onOperatorChange($event)"
+            >
+              <mat-option
+                *ngFor="let operator of operators"
+                [value]="operator.value"
+              >
+                {{ operator.viewValue }}
               </mat-option>
             </mat-select>
           </mat-form-field>

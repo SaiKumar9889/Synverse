@@ -85,7 +85,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Grouping By</mat-label>
             <mat-select
-              [ngModel]="selectedGroupingId"
+              [(ngModel)]="selectedGroupingId"
               (selectionChange)="onGroupingChange($event)"
             >
               <mat-option
@@ -175,7 +175,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Grouping By</mat-label>
             <mat-select
-              [ngModel]="selectedGroupingId"
+              [(ngModel)]="selectedGroupingId"
               (selectionChange)="onGroupingChange($event)"
             >
               <mat-option

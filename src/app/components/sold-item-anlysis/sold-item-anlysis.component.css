@@ -65,7 +65,7 @@ tfoot tr {
 }
 
 thead th {
-  top: 96px;
+  top: 226px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background-color: #be2026;
@@ -98,6 +98,9 @@ tfoot .subTotalSC01 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
+}
+.checkboxBottom {
+  margin-bottom: 22px;
 }
 @media screen and (min-width: 1547px) {
   tfoot .emptyRow {

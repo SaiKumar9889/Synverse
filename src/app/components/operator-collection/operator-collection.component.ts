@@ -122,13 +122,22 @@ export class OperatorCollectionComponent {
     console.log("Selection change event:", event.value);
   }
 
+  operatorValue: string = "";
+  selectedOperator: any;
+  operators: any[] = [{ value: "%5B%22SYNV%22%5D", viewValue: "SYNV" }];
+  onOperatorChange(event: any): void {
+    this.operatorValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
   operatorCollection() {
     this.appService
       .operatorCollection(
         "json",
         this.searchFrom,
         this.searchTo,
-        this.storeIdValue
+        this.storeIdValue,
+        this.operatorValue
       )
       .subscribe((result) => {
         this.store_code = result.data.store_code;

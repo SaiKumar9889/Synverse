@@ -84,7 +84,10 @@
         >
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
-            <mat-select [ngModel]="selectedStoreId">
+            <mat-select
+              [(ngModel)]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -93,7 +96,7 @@
         </div>
         <div
           fxFlex="23"
-          fxFlex.xs="75"
+          fxFlex.xs="100"
           class="alignCenter"
           *ngIf="priceLevelFormFields"
           fxHide.sm
@@ -104,7 +107,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [ngModel]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalId"
               (selectionChange)="onTerminalChange($event)"
             >
               <mat-option
@@ -115,6 +118,146 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Group</mat-label>
+            <mat-select
+              [(ngModel)]="selectedGroupId"
+              (selectionChange)="onGroupChange($event)"
+            >
+              <mat-option *ngFor="let group of groupId" [value]="group.value">
+                {{ group.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select
+              [(ngModel)]="selectedDepartmentId"
+              (selectionChange)="onDepartmentChange($event)"
+            >
+              <mat-option
+                *ngFor="let department of departmentId"
+                [value]="department.value"
+              >
+                {{ department.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <mat-select
+              [(ngModel)]="selectedCategoryId"
+              (selectionChange)="onCategoryChange($event)"
+            >
+              <mat-option
+                *ngFor="let category of categoryId"
+                [value]="category.value"
+              >
+                {{ category.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Stock Code</mat-label>
+            <mat-select
+              [(ngModel)]="selectedStockId"
+              (selectionChange)="onStockChange($event)"
+            >
+              <mat-option *ngFor="let stock of stockId" [value]="stock.value">
+                {{ stock.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="73"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+          class="checkboxBottom"
+        >
+          <mat-checkbox
+            [checked]="isChecked"
+            (change)="onCheckboxChange($event)"
+            >Changed Price Only</mat-checkbox
+          >
+          <mat-checkbox
+            [checked]="isCheckedShift"
+            (change)="onShiftChange($event)"
+            >Item Cancel Only</mat-checkbox
+          >
+          <mat-checkbox
+            [checked]="isCheckedChange"
+            (change)="onCheckboxChanged($event)"
+            >FOC Item Only</mat-checkbox
+          >
+          <mat-checkbox
+            [checked]="isCheckedDiscount"
+            (change)="onDiscountChange($event)"
+            >Discount Item Only</mat-checkbox
+          >
+          <mat-checkbox
+            [checked]="isCheckedTransaction"
+            (change)="onTransactionChange($event)"
+            >Transaction Void</mat-checkbox
+          >
+          <mat-checkbox
+            [checked]="isCheckedCombine"
+            (change)="onCombineChange($event)"
+            >Combine Void</mat-checkbox
+          >
+          <mat-checkbox
+            [checked]="isCheckedNormal"
+            (change)="onNormalChange($event)"
+            >Combine Void</mat-checkbox
+          >
         </div>
         <div
           fxFlex="23"
@@ -136,7 +279,7 @@
           </button>
         </div>
 
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
@@ -153,7 +296,7 @@
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
             <input
@@ -170,11 +313,11 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="12" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [ngModel]="selectedStoreId"
+              [(ngModel)]="selectedStoreId"
               (selectionChange)="onSelectionChange($event)"
             >
               <mat-option *ngFor="let store of stores" [value]="store.value">
@@ -183,11 +326,11 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="12" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [ngModel]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalId"
               (selectionChange)="onTerminalChange($event)"
             >
               <mat-option
@@ -199,7 +342,114 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="12" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Group</mat-label>
+            <mat-select
+              [(ngModel)]="selectedGroupId"
+              (selectionChange)="onGroupChange($event)"
+            >
+              <mat-option *ngFor="let group of groupId" [value]="group.value">
+                {{ group.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="12" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select
+              [(ngModel)]="selectedDepartmentId"
+              (selectionChange)="onDepartmentChange($event)"
+            >
+              <mat-option
+                *ngFor="let department of departmentId"
+                [value]="department.value"
+              >
+                {{ department.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="12" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <mat-select
+              [(ngModel)]="selectedCategoryId"
+              (selectionChange)="onCategoryChange($event)"
+            >
+              <mat-option
+                *ngFor="let category of categoryId"
+                [value]="category.value"
+              >
+                {{ category.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="12" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Stock Code</mat-label>
+            <mat-select
+              [(ngModel)]="selectedStockId"
+              (selectionChange)="onStockChange($event)"
+            >
+              <mat-option *ngFor="let stock of stockId" [value]="stock.value">
+                {{ stock.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isChecked"
+            (change)="onCheckboxChange($event)"
+            >Changed Price Only</mat-checkbox
+          >
+        </div>
+        <div fxFlex="14" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isCheckedShift"
+            (change)="onShiftChange($event)"
+            >Item Cancel Only</mat-checkbox
+          >
+        </div>
+        <div fxFlex="12" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isCheckedChange"
+            (change)="onCheckboxChanged($event)"
+            >FOC Item Only</mat-checkbox
+          >
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isCheckedDiscount"
+            (change)="onDiscountChange($event)"
+            >Discount Item Only</mat-checkbox
+          >
+        </div>
+        <div fxFlex="13" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isCheckedTransaction"
+            (change)="onTransactionChange($event)"
+            >Transaction Void</mat-checkbox
+          >
+        </div>
+        <div fxFlex="12" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isCheckedCombine"
+            (change)="onCombineChange($event)"
+            >Combine Void</mat-checkbox
+          >
+        </div>
+        <div fxFlex="12" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isCheckedNormal"
+            (change)="onNormalChange($event)"
+            >Normal Sales</mat-checkbox
+          >
+        </div>
+        <div fxFlex="10" fxHide.xs class="alignCenter">
           <button
             mat-flat-button
             class="btn"
@@ -336,18 +586,18 @@
                 <td>
                   {{ row?.SDTL_STATUS }}
                 </td>
-                <td>{{ row.SDTL_QTY }}</td>
+                <td>{{ row?.SDTL_QTY }}</td>
                 <td class="alignRight">
-                  RM {{ row.SDTL_GROSS | number : "1.2-2" }}
+                  RM {{ row?.SDTL_GROSS | number : "1.2-2" }}
                 </td>
                 <td class="alignRight">
-                  RM {{ row.SDTL_DISCAMT | number : "1.2-2" }}
+                  RM {{ row?.SDTL_DISCAMT | number : "1.2-2" }}
                 </td>
                 <td class="alignRight">
-                  RM {{ row.SDTL_NETT | number : "1.2-2" }}
+                  RM {{ row?.SDTL_NETT | number : "1.2-2" }}
                 </td>
                 <td class="alignRight">
-                  RM {{ row.SDTL_CHANGEPRC | number : "1.2-2" }}
+                  RM {{ row?.SDTL_CHANGEPRC | number : "1.2-2" }}
                 </td>
               </tr>
               <tr>
@@ -360,15 +610,15 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="boldText">{{ data.rcpt_quantity }}</td>
+                <td class="boldText">{{ data?.rcpt_quantity }}</td>
                 <td class="boldText alignRight">
-                  RM {{ data.rcpt_gross_sales | number : "1.2-2" }}
+                  RM {{ data?.rcpt_gross_sales | number : "1.2-2" }}
                 </td>
                 <td class="boldText alignRight">
-                  RM {{ data.rcpt_discount | number : "1.2-2" }}
+                  RM {{ data?.rcpt_discount | number : "1.2-2" }}
                 </td>
                 <td class="boldText alignRight">
-                  RM {{ data.rcpt_net_sales | number : "1.2-2" }}
+                  RM {{ data?.rcpt_net_sales | number : "1.2-2" }}
                 </td>
                 <td></td>
               </tr>
@@ -503,84 +753,84 @@
               <div><h4 fxFlex="40">Date</h4></div>
               <div fxFlex="60">
                 <p>{{ terminal_name }}</p>
-                <p>{{ row.SDTL_DATETIME }}</p>
+                <p>{{ row?.SDTL_DATETIME }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div fxFlex="40">
                 <h4>RCPTNO</h4>
               </div>
               <div fxFlex="60">
-                <p>{{ row.SDTL_SALES_RCPTNO }}</p>
+                <p>{{ row?.SDTL_SALES_RCPTNO }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div fxFlex="40">
                 <h4>Stock Code</h4>
               </div>
               <div fxFlex="60">
-                <p>{{ row.SDTL_STOCK_CODE }}</p>
+                <p>{{ row?.SDTL_STOCK_CODE }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div fxFlex="40">
                 <h4>Description</h4>
               </div>
               <div fxFlex="60">
-                <p>{{ row.SDTL_SHORTDESC }}</p>
+                <p>{{ row?.SDTL_SHORTDESC }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div fxFlex="40">
                 <h4>P/L</h4>
               </div>
               <div fxFlex="60">
-                <p>{{ row.SDTL_SALES_PRICELVL }}</p>
+                <p>{{ row?.SDTL_SALES_PRICELVL }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div fxFlex="40">
                 <h4>P/S</h4>
               </div>
               <div fxFlex="60">
-                <p>{{ row.SDTL_SALES_PRICE_SHIFT }}</p>
+                <p>{{ row?.SDTL_SALES_PRICE_SHIFT }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div fxFlex="40">
                 <h4>Status</h4>
               </div>
               <div fxFlex="60">
-                <p>{{ row.SDTL_STATUS }}</p>
+                <p>{{ row?.SDTL_STATUS }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div fxFlex="40">
                 <h4>Qty</h4>
               </div>
               <div fxFlex="60">
-                <p>{{ row.SDTL_QTY }}</p>
+                <p>{{ row?.SDTL_QTY }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div>
                 <h4>Gross</h4>
               </div>
               <div>
-                <p>RM {{ row.SDTL_GROSS | number : "1.2-2" }}</p>
+                <p>RM {{ row?.SDTL_GROSS | number : "1.2-2" }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div>
                 <h4>Disc</h4>
               </div>
               <div>
-                <p>RM {{ row.SDTL_DISCAMT | number : "1.2-2" }}</p>
+                <p>RM {{ row?.SDTL_DISCAMT | number : "1.2-2" }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div>
                 <h4>Net</h4>
               </div>
               <div>
-                <p>RM {{ row.SDTL_NETT | number : "1.2-2" }}</p>
+                <p>RM {{ row?.SDTL_NETT | number : "1.2-2" }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div>
                 <h4>CHGPRC</h4>
               </div>
               <div>
-                <p>RM {{ row.SDTL_CHANGEPRC | number : "1.2-2" }}</p>
+                <p>RM {{ row?.SDTL_CHANGEPRC | number : "1.2-2" }}</p>
               </div>
             </div>
             <div
@@ -599,28 +849,28 @@
                 <h4>Qty</h4>
               </div>
               <div>
-                <p>RM {{ data.rcpt_quantity }}</p>
+                <p>RM {{ data?.rcpt_quantity }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div>
                 <h4>Gross</h4>
               </div>
               <div>
-                <p>RM {{ data.rcpt_gross_sales | number : "1.2-2" }}</p>
+                <p>RM {{ data?.rcpt_gross_sales | number : "1.2-2" }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div>
                 <h4>Disc</h4>
               </div>
               <div>
-                <p>RM {{ data.rcpt_discount | number : "1.2-2" }}</p>
+                <p>RM {{ data?.rcpt_discount | number : "1.2-2" }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div>
                 <h4>Net</h4>
               </div>
               <div>
-                <p>RM {{ data.rcpt_net_sales | number : "1.2-2" }}</p>
+                <p>RM {{ data?.rcpt_net_sales | number : "1.2-2" }}</p>
               </div>
             </div>
           </div>

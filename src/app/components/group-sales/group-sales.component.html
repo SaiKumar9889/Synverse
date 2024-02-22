@@ -84,7 +84,10 @@
         >
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
-            <mat-select [ngModel]="selectedStoreId">
+            <mat-select
+              [(ngModel)]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -149,7 +152,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [ngModel]="selectedStoreId"
+              [(ngModel)]="selectedStoreId"
               (selectionChange)="onSelectionChange($event)"
             >
               <mat-option *ngFor="let store of stores" [value]="store.value">

@@ -84,7 +84,10 @@
         >
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
-            <mat-select [ngModel]="selectedStoreId">
+            <mat-select
+              [(ngModel)]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -149,7 +152,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [ngModel]="selectedStoreId"
+              [(ngModel)]="selectedStoreId"
               (selectionChange)="onSelectionChange($event)"
             >
               <mat-option *ngFor="let store of stores" [value]="store.value">
@@ -240,24 +243,24 @@
           <tbody>
             <tr *ngFor="let data of filteredData">
               <td>
-                {{ data.stock_code }}
+                {{ data?.stock_code }}
               </td>
-              <td>{{ data.barcode }}</td>
-              <td>{{ data.shortdesc }}</td>
-              <td>{{ data.uom }}</td>
-              <td>{{ data.stk_group }}</td>
-              <td>{{ data.stk_department }}</td>
+              <td>{{ data?.barcode }}</td>
+              <td>{{ data?.shortdesc }}</td>
+              <td>{{ data?.uom }}</td>
+              <td>{{ data?.stk_group }}</td>
+              <td>{{ data?.stk_department }}</td>
               <td>
-                {{ data.stk_category }}
+                {{ data?.stk_category }}
               </td>
               <td class="alignRight">
-                {{ data.qty }}
+                {{ data?.qty }}
               </td>
               <td class="alignRight">
-                RM {{ data.netprice | number : "1.2-2" }}
+                RM {{ data?.netprice | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.discbymny | number : "1.2-2" }}
+                RM {{ data?.discbymny | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
@@ -308,7 +311,7 @@
               <h4>Stock Code</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data.stock_code }}</p>
+              <p>{{ data?.stock_code }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
 
@@ -316,61 +319,61 @@
               <h4>Barcode</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data.barcode }}</p>
+              <p>{{ data?.barcode }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40"><h4>Short Desc</h4></div>
             <div fxFlex="60">
-              <p>{{ data.shortdesc }}</p>
+              <p>{{ data?.shortdesc }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40">
               <h4>UOM</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data.uom }}</p>
+              <p>{{ data?.uom }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40">
               <h4>Stk Group</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data.stk_group }}</p>
+              <p>{{ data?.stk_group }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40">
               <h4>Department</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data.stk_department }}</p>
+              <p>{{ data?.stk_department }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40">
               <h4>Category</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data.stk_category }}</p>
+              <p>{{ data?.stk_category }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Qty</h4>
             </div>
             <div>
-              <p>{{ data.qty }}</p>
+              <p>{{ data?.qty }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Net Sales</h4>
             </div>
             <div>
-              <p>RM {{ data.netprice | number : "1.2-2" }}</p>
+              <p>RM {{ data?.netprice | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Disc by mny</h4>
             </div>
             <div>
-              <p>RM {{ data.discbymny | number : "1.2-2" }}</p>
+              <p>RM {{ data?.discbymny | number : "1.2-2" }}</p>
             </div>
           </div>
         </div>

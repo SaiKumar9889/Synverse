@@ -92,6 +92,9 @@ tfoot .subTotalPL {
   z-index: 9;
   background: #fff;
 }
+.checkboxBottom {
+  margin-bottom: 22px;
+}
 .alignRight {
   text-align: right !important;
 }

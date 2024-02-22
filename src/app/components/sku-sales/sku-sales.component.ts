@@ -118,8 +118,8 @@ export class SkuSalesComponent {
   storeIdValue: string = "SC01";
   selectedStoreId: any;
   stores: any[] = [
-    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
-    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+    { value: "SC01", viewValue: "Project Store" },
+    { value: "SC02", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
     this.storeIdValue = event.value;
@@ -135,12 +135,13 @@ export class SkuSalesComponent {
         // this.store_code = result.data[0].store_code;
         // this.store_name = result.data[0].store_name;
         if (result) {
-          this.filteredData = result.data;
+          this.filteredData = result?.data;
           console.log(result);
-          this.storesFilterData = result.data;
+          this.storesFilterData = result?.data;
           // this.subTotalPriceLevelData = result.data[0].item_price.P1;
           // this.subTotalData = result.data;
           this.grandTotalData = result;
+          console.log(this.grandTotalData);
           this.filteredData = this.storesFilterData;
           this.loadingSpinner = false;
         }

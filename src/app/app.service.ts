@@ -45,27 +45,41 @@ export class AppService {
     start: string,
     end: string,
     storeId: string,
-    terminalId: string
+    terminalId: string,
+    groupId: string,
+    departmentId: string,
+    categoryId: string,
+    stockId: string,
+    checkbox: string,
+    checkboxShift: string,
+    checkboxChanged: string,
+    checkboxDiscount: string,
+    checkboxTransaction: string,
+    checkboxCombine: string,
+    checkboxNormal: string
   ) {
-    const url = `${this.apiUrl}/bereport/solditemanalysis?file_type=json&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=lyear&price=F&item=F&foc=F&discount=F&transaction_void=T&combine_void=T&normal_sales=F&terminal_id=${terminalId}&stock_code=&group&department&category`;
+    const url = `${this.apiUrl}/bereport/solditemanalysis?file_type=json&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=lyear&price=${checkbox}&item=${checkboxShift}&foc=${checkboxChanged}&discount=${checkboxDiscount}&transaction_void=${checkboxTransaction}&combine_void=${checkboxCombine}&normal_sales=${checkboxNormal}&terminal_id=${terminalId}&stock_code=${stockId}&group=${groupId}&department=${departmentId}&category=${categoryId}`;
     return this.http.get<any>(url);
   }
   operatorCollection(
     fileType: string,
     start: string,
     end: string,
-    storeId: string
+    storeId: string,
+    operatorId: string
   ) {
-    const url = `${this.apiUrl}/bereport/operatorcollection?file_type=${fileType}&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=lyear&operator_id`;
+    const url = `${this.apiUrl}/bereport/operatorcollection?file_type=${fileType}&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=lyear&operator_id=${operatorId}`;
     return this.http.get<any>(url);
   }
   averageSalesSummary(
     fileType: string,
     start: string,
     end: string,
-    storeIdValue: any
+    storeIdValue: any,
+    salesId: any,
+    checked: string
   ) {
-    const url = `${this.apiUrl}/bereport/averagesalessummary?file_type=${fileType}&store_id=${storeIdValue}&start_date=${start}&end_date=${end}&datetype=lyear&is_tax_included=F&sales_value=total`;
+    const url = `${this.apiUrl}/bereport/averagesalessummary?file_type=${fileType}&store_id=${storeIdValue}&start_date=${start}&end_date=${end}&datetype=lyear&is_tax_included=${checked}&sales_value=${salesId}`;
     return this.http.get<any>(url);
   }
   transactionDetail(
@@ -96,9 +110,16 @@ export class AppService {
     fileType: string,
     start: string,
     end: string,
-    terminalId: string
+    storeId: string,
+    terminalId: string,
+    groupId: string,
+    departmentId: string,
+    shiftId: string,
+    operatorId: string,
+    categoryId: string,
+    stockId: string
   ) {
-    const url = `${this.apiUrl}/bereport/vendorvoucher?file_type=${fileType}&store_id=%5B%22SC01%22%5D&start_date=${start}&end_date=${end}&datetype=lyear&operator_id&sort_key=SDTL_CLOSEDATE&terminal_id=${terminalId}&stock_id&group_id&department_id&category_id&shift_id`;
+    const url = `${this.apiUrl}/bereport/vendorvoucher?file_type=${fileType}&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=lyear&operator_id=${operatorId}&sort_key=SDTL_CLOSEDATE&terminal_id=${terminalId}&stock_id=${stockId}&group_id=${groupId}&department_id=${departmentId}&category_id=${categoryId}&shift_id=${shiftId}`;
     return this.http.get(url, { responseType: "blob" });
   }
   receiptAnalysis(
@@ -106,9 +127,13 @@ export class AppService {
     start: string,
     end: string,
     storeId: string,
-    terminalId: string
+    terminalId: string,
+    checkbox: string,
+    combine: string,
+    normal: string,
+    remark: string
   ) {
-    const url = `${this.apiUrl}/bereport/receiptanalysis?file_type=${fileType}&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=lyear&sort_key=SALES_CLOSEDATE&terminal_id=${terminalId}&void=F&combine_void=F&normal_sales=F&remark_not_null=F`;
+    const url = `${this.apiUrl}/bereport/receiptanalysis?file_type=${fileType}&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=lyear&sort_key=SALES_CLOSEDATE&terminal_id=${terminalId}&void=${checkbox}&combine_void=${combine}&normal_sales=${normal}&remark_not_null=${remark}`;
     return this.http.get<any>(url);
   }
   skuSales(fileType: string, start: string, end: string, storeId: string) {
@@ -151,11 +176,11 @@ export class AppService {
     fileType: string,
     start: string,
     end: string,
-    store_id: string,
+    storeId: string,
     terminalId: string,
     checkbox: string
   ) {
-    const url = `${this.apiUrl}/bereport/taxtransactionreport?start_date=${start}&end_date=${end}&void=${checkbox}&sort_key=SALES_CTRNO&store_id=${store_id}&terminal_id=${terminalId}&datetype=lyear&file_type=${fileType}`;
+    const url = `${this.apiUrl}/bereport/taxtransactionreport?start_date=${start}&end_date=${end}&void=${checkbox}&sort_key=SALES_CTRNO&store_id=${storeId}&terminal_id=${terminalId}&datetype=lyear&file_type=${fileType}`;
     return this.http.get<any>(url);
   }
 }

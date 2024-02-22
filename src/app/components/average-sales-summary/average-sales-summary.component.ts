@@ -56,7 +56,6 @@ export class AverageSalesSummaryComponent {
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
   loadingSpinner: boolean = true;
-  storeIdValue: string = "";
 
   constructor(
     private authService: AuthService,
@@ -71,6 +70,7 @@ export class AverageSalesSummaryComponent {
       }
     });
   }
+  storeIdValue: string = "";
   selectedStoreId: any;
   stores: any[] = [
     { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
@@ -80,6 +80,19 @@ export class AverageSalesSummaryComponent {
     this.storeIdValue = event.value;
     console.log("Selection change event:", event.value);
   }
+
+  salesValue: string = "total";
+  selectedSales: any;
+  sales: any[] = [
+    { value: "gross", viewValue: "Gross Sales" },
+    { value: "net", viewValue: "Net Sales" },
+    { value: "total", viewValue: "Total Sales" },
+  ];
+  onSalesChange(event: any): void {
+    this.salesValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
   formFieldsAdded() {
     this.priceLevelFormFields = true;
   }
@@ -129,6 +142,39 @@ export class AverageSalesSummaryComponent {
     );
     console.log(this.filteredData);
   }
+  isChecked: boolean;
+
+  ngOnInit(): void {
+    // Retrieve the stored checkbox state from localStorage
+    const storedState = localStorage.getItem("checkboxState");
+
+    // If a state is stored, use it; otherwise, default to false
+    this.isChecked = storedState ? JSON.parse(storedState) : false;
+    this.logCheckboxState();
+  }
+
+  isCheckbox: string = "F";
+
+  onCheckboxChange(event: any): void {
+    this.isChecked = event.checked;
+
+    // Store the checkbox state in localStorage
+    localStorage.setItem("checkboxState", JSON.stringify(this.isChecked));
+
+    // Print "true" or "false" based on the checkbox state
+    this.logCheckboxState();
+  }
+
+  logCheckboxState(): void {
+    // Print "true" or "false" based on the current checkbox state
+    if (this.isChecked) {
+      console.log("true");
+      this.isCheckbox = "T";
+    } else {
+      console.log("false");
+      this.isCheckbox = "F";
+    }
+  }
 
   averageSalesSummary() {
     console.log(this.storeIdValue);
@@ -137,7 +183,9 @@ export class AverageSalesSummaryComponent {
         "json",
         this.searchFrom,
         this.searchTo,
-        this.storeIdValue
+        this.storeIdValue,
+        this.salesValue,
+        this.isCheckbox
       )
       .subscribe((result) => {
         this.store_code = result.data[0].store_code;

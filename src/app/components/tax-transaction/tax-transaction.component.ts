@@ -147,7 +147,7 @@ export class TaxTransactionComponent implements OnInit {
     this.logCheckboxState();
   }
 
-  isCheckbox: string;
+  isCheckbox: string = "T";
 
   onCheckboxChange(event: any): void {
     this.isChecked = event.checked;
@@ -163,10 +163,10 @@ export class TaxTransactionComponent implements OnInit {
     // Print "true" or "false" based on the current checkbox state
     if (this.isChecked) {
       console.log("true");
-      this.isCheckbox = "true";
+      this.isCheckbox = "T";
     } else {
       console.log("false");
-      this.isCheckbox = "false";
+      this.isCheckbox = "F";
     }
   }
 
@@ -176,6 +176,8 @@ export class TaxTransactionComponent implements OnInit {
 
     // this.storeId = JSON.stringify(this.store_id);
     // this.storeId = this.store_id;
+
+    console.log(this.storeId);
     this.appService
       .taxTransaction(
         "json",

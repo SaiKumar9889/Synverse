@@ -86,6 +86,9 @@ tfoot .emptyRow {
   border: 1px solid #6d6a6ab3;
   height: 28px;
 }
+.checkboxBottom {
+  margin-bottom: 22px;
+}
 @media screen and (min-width: 1595px) {
   tfoot .emptyRow {
     bottom: 32px !important;

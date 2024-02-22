@@ -78,7 +78,10 @@
         >
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
-            <mat-select [ngModel]="selectedStoreId">
+            <mat-select
+              [(ngModel)]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -98,7 +101,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Price Level</mat-label>
             <mat-select
-              [ngModel]="selectedPaymentId"
+              [(ngModel)]="selectedPaymentId"
               (selectionChange)="onPaymentChange($event)"
             >
               <mat-option
@@ -123,7 +126,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Stock Code</mat-label>
             <mat-select
-              [ngModel]="selectedStockId"
+              [(ngModel)]="selectedStockId"
               (selectionChange)="onStockChange($event)"
             >
               <mat-option *ngFor="let stock of stockId" [value]="stock.value">
@@ -145,7 +148,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Shift Code</mat-label>
             <mat-select
-              [ngModel]="selectedShiftId"
+              [(ngModel)]="selectedShiftId"
               (selectionChange)="onShiftChange($event)"
             >
               <mat-option *ngFor="let shift of shiftId" [value]="shift.value">
@@ -208,7 +211,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [ngModel]="selectedStoreId"
+              [(ngModel)]="selectedStoreId"
               (selectionChange)="onSelectionChange($event)"
             >
               <mat-option *ngFor="let store of stores" [value]="store.value">
@@ -221,7 +224,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Price Level</mat-label>
             <mat-select
-              [ngModel]="selectedPaymentId"
+              [(ngModel)]="selectedPaymentId"
               (selectionChange)="onPaymentChange($event)"
             >
               <mat-option
@@ -237,7 +240,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Stock Code</mat-label>
             <mat-select
-              [ngModel]="selectedStockId"
+              [(ngModel)]="selectedStockId"
               (selectionChange)="onStockChange($event)"
             >
               <mat-option *ngFor="let stock of stockId" [value]="stock.value">
@@ -250,7 +253,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Shift Code</mat-label>
             <mat-select
-              [ngModel]="selectedShiftId"
+              [(ngModel)]="selectedShiftId"
               (selectionChange)="onShiftChange($event)"
             >
               <mat-option *ngFor="let shift of shiftId" [value]="shift.value">

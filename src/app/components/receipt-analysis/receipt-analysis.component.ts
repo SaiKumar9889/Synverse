@@ -149,6 +149,128 @@ export class ReceiptAnalysisComponent {
   term1: any;
   terminal: any;
   subTotalTerminal: any;
+
+  isChecked: boolean;
+  isCheckedCombine: boolean;
+  isCheckedNormal: boolean;
+  isCheckedRemark: boolean;
+
+  ngOnInit(): void {
+    // Retrieve the stored checkbox state from localStorage
+    const storedState = localStorage.getItem("checkboxState");
+
+    // If a state is stored, use it; otherwise, default to false
+    this.isChecked = storedState ? JSON.parse(storedState) : false;
+    this.logCheckboxState();
+    const combinedState = localStorage.getItem("combineState");
+
+    // If a state is stored, use it; otherwise, default to false
+    this.isCheckedCombine = combinedState ? JSON.parse(combinedState) : false;
+    this.logCombineState();
+    const normalState = localStorage.getItem("normalState");
+
+    // If a state is stored, use it; otherwise, default to false
+    this.isCheckedNormal = normalState ? JSON.parse(normalState) : false;
+    this.logNormalState();
+
+    const remarkState = localStorage.getItem("remarkState");
+
+    // If a state is stored, use it; otherwise, default to false
+    this.isCheckedRemark = remarkState ? JSON.parse(remarkState) : false;
+    this.logRemarkState();
+  }
+
+  isCheckbox: string = "F";
+
+  onCheckboxChange(event: any): void {
+    this.isChecked = event.checked;
+
+    // Store the checkbox state in localStorage
+    localStorage.setItem("checkboxState", JSON.stringify(this.isChecked));
+
+    // Print "true" or "false" based on the checkbox state
+    this.logCheckboxState();
+  }
+
+  logCheckboxState(): void {
+    // Print "true" or "false" based on the current checkbox state
+    if (this.isChecked) {
+      console.log("true");
+      this.isCheckbox = "T";
+    } else {
+      console.log("false");
+      this.isCheckbox = "F";
+    }
+  }
+  isCombine: string = "F";
+
+  onCombineChange(event: any): void {
+    this.isCheckedCombine = event.checked;
+
+    // Store the checkbox state in localStorage
+    localStorage.setItem("combineState", JSON.stringify(this.isCheckedCombine));
+
+    // Print "true" or "false" based on the checkbox state
+    this.logCombineState();
+  }
+
+  logCombineState(): void {
+    // Print "true" or "false" based on the current checkbox state
+    if (this.isCheckedCombine) {
+      console.log("true");
+      this.isCombine = "T";
+    } else {
+      console.log("false");
+      this.isCombine = "F";
+    }
+  }
+
+  isNormal: string = "F";
+
+  onNormalChange(event: any): void {
+    this.isCheckedNormal = event.checked;
+
+    // Store the checkbox state in localStorage
+    localStorage.setItem("normalState", JSON.stringify(this.isCheckedNormal));
+
+    // Print "true" or "false" based on the checkbox state
+    this.logNormalState();
+  }
+
+  logNormalState(): void {
+    // Print "true" or "false" based on the current checkbox state
+    if (this.isCheckedNormal) {
+      console.log("true");
+      this.isNormal = "T";
+    } else {
+      console.log("false");
+      this.isNormal = "F";
+    }
+  }
+
+  isRemark: string = "F";
+
+  onRemarkChange(event: any): void {
+    this.isCheckedRemark = event.checked;
+
+    // Store the checkbox state in localStorage
+    localStorage.setItem("remarkState", JSON.stringify(this.isCheckedRemark));
+
+    // Print "true" or "false" based on the checkbox state
+    this.logRemarkState();
+  }
+
+  logRemarkState(): void {
+    // Print "true" or "false" based on the current checkbox state
+    if (this.isCheckedRemark) {
+      console.log("true");
+      this.isRemark = "T";
+    } else {
+      console.log("false");
+      this.isRemark = "F";
+    }
+  }
+
   receiptAnalysis() {
     this.appService
       .receiptAnalysis(
@@ -156,7 +278,11 @@ export class ReceiptAnalysisComponent {
         this.searchFrom,
         this.searchTo,
         this.storeIdValue,
-        this.terminalIdValue
+        this.terminalIdValue,
+        this.isCheckbox,
+        this.isCombine,
+        this.isNormal,
+        this.isRemark
       )
       .subscribe((result) => {
         this.store_code = result.data[0].terminal_code;

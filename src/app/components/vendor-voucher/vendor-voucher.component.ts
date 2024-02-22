@@ -128,11 +128,102 @@ export class VendorVoucherComponent {
   //   );
   // };
 
+  storeIdValue: string = "%5B%22SC01%22%5D";
+  selectedStoreId: any;
+  stores: any[] = [
+    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
+    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+  ];
+  onSelectionChange(event: any): void {
+    this.storeIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
   selectedTerminalId: any;
   terminalIdValue: string = "";
   terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
   onTerminalChange(event: any): void {
     this.terminalIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  selectedGroupId: any;
+  groupIdValue: string = "";
+  groupId: any[] = [
+    { value: "%5B%22GC01%22%5D", viewValue: "MAIN FOOD" },
+    { value: "%5B%22GC02%22%5D", viewValue: "FRIED FOOD" },
+    { value: "%5B%22GC03%22%5D", viewValue: "NOODLES" },
+    { value: "%5B%22GC04%22%5D", viewValue: "WESTERN" },
+    { value: "%5B%22GC05%22%5D", viewValue: "DESSERT" },
+    { value: "%5B%22GC06%22%5D", viewValue: "DRINK" },
+  ];
+  onGroupChange(event: any): void {
+    this.groupIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  selectedDepartmentId: any;
+  departmentIdValue: string = "";
+  departmentId: any[] = [
+    { value: "%5B%22DC01%22%5D", viewValue: "MAIN FOOD" },
+    { value: "%5B%22DC02%22%5D", viewValue: "FRIED FOOD" },
+    { value: "%5B%22DC03%22%5D", viewValue: "NOODLES" },
+    { value: "%5B%22DC04%22%5D", viewValue: "WESTERN" },
+    { value: "%5B%22DC05%22%5D", viewValue: "DESSERT" },
+    { value: "%5B%22DC06%22%5D", viewValue: "DRINK" },
+  ];
+
+  onDepartmentChange(event: any): void {
+    this.departmentIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  selectedCategoryId: any;
+  categoryIdValue: string = "";
+  categoryId: any[] = [
+    { value: "%5B%22CC01%22%5D", viewValue: "FOOD" },
+    { value: "%5B%22CC02%22%5D", viewValue: "DRINK" },
+  ];
+
+  onCategoryChange(event: any): void {
+    this.categoryIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  selectedStockId: any;
+  stockIdValue: string = "";
+  stockId: any[] = [
+    { value: "%5B%22SC01%22%5D", viewValue: "NASI AYAM" },
+    { value: "%5B%22SC02%22%5D", viewValue: "NASI GORENG AYAM" },
+    { value: "%5B%22SC03%22%5D", viewValue: "MEE CURRY" },
+    { value: "%5B%22SC04%22%5D", viewValue: "CHICKEN CHOP" },
+    { value: "%5B%22SC05%22%5D", viewValue: "ICE CREAM SCOOP" },
+    { value: "%5B%22SC07%22%5D", viewValue: "CHOCOLATE AIS" },
+    { value: "%5B%22SC10%22%5D", viewValue: "Single Set Menu" },
+    { value: "%5B%22SC11%22%5D", viewValue: "Enter Set Menu" },
+    { value: "%5B%22SC12%22%5D", viewValue: "All Set Menu" },
+  ];
+  onStockChange(event: any): void {
+    this.stockIdValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  selectedShiftId: any;
+  shiftValue: string = "";
+  shiftId: any[] = [
+    { value: "%5B%22SC01%22%5D", viewValue: "Morning Shift" },
+    { value: "%5B%22SC02%22%5D", viewValue: "Evening Shift" },
+  ];
+  onShiftChange(event: any): void {
+    this.shiftValue = event.value;
+    console.log("Selection change event:", event.value);
+  }
+
+  operatorValue: string = "";
+  selectedOperator: any;
+  operators: any[] = [{ value: "%5B%22SYNV%22%5D", viewValue: "SYNV" }];
+  onOperatorChange(event: any): void {
+    this.operatorValue = event.value;
     console.log("Selection change event:", event.value);
   }
 
@@ -142,7 +233,14 @@ export class VendorVoucherComponent {
         "xls",
         this.searchFrom,
         this.searchTo,
-        this.terminalIdValue
+        this.storeIdValue,
+        this.terminalIdValue,
+        this.groupIdValue,
+        this.departmentIdValue,
+        this.shiftValue,
+        this.operatorValue,
+        this.categoryIdValue,
+        this.stockIdValue
       )
       .subscribe(async (result) => {
         const excelData = await this.readFile(result);

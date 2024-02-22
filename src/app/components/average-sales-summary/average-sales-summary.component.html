@@ -84,12 +84,53 @@
         >
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
-            <mat-select [ngModel]="selectedStoreId">
+            <mat-select
+              [(ngModel)]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
             </mat-select>
           </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Sales</mat-label>
+            <mat-select
+              [(ngModel)]="selectedSales"
+              (selectionChange)="onSalesChange($event)"
+            >
+              <mat-option *ngFor="let sale of sales" [value]="sale.value">
+                {{ sale.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="checkboxBottom"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-checkbox
+            [checked]="isChecked"
+            (change)="onCheckboxChange($event)"
+            >Tax Inclusive</mat-checkbox
+          >
         </div>
         <div
           fxFlex="23"
@@ -149,7 +190,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [ngModel]="selectedStoreId"
+              [(ngModel)]="selectedStoreId"
               (selectionChange)="onSelectionChange($event)"
             >
               <mat-option *ngFor="let store of stores" [value]="store.value">
@@ -157,6 +198,26 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Sales</mat-label>
+            <mat-select
+              [(ngModel)]="selectedSales"
+              (selectionChange)="onSalesChange($event)"
+            >
+              <mat-option *ngFor="let sale of sales" [value]="sale.value">
+                {{ sale.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter checkboxBottom">
+          <mat-checkbox
+            [checked]="isChecked"
+            (change)="onCheckboxChange($event)"
+            >Tax Inclusive</mat-checkbox
+          >
         </div>
         <div fxFlex="15" fxHide.xs class="alignCenter">
           <button

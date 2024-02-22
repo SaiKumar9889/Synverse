@@ -95,7 +95,29 @@
         </div> -->
         <div
           fxFlex="23"
-          fxFlex.xs="75"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Stores</mat-label>
+            <mat-select
+              [(ngModel)]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
           class="alignCenter"
           *ngIf="priceLevelFormFields"
           fxHide.sm
@@ -106,7 +128,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [ngModel]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalId"
               (selectionChange)="onTerminalChange($event)"
             >
               <mat-option
@@ -114,6 +136,144 @@
                 [value]="terminal.value"
               >
                 {{ terminal.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Group</mat-label>
+            <mat-select
+              [(ngModel)]="selectedGroupId"
+              (selectionChange)="onGroupChange($event)"
+            >
+              <mat-option *ngFor="let group of groupId" [value]="group.value">
+                {{ group.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select
+              [(ngModel)]="selectedDepartmentId"
+              (selectionChange)="onDepartmentChange($event)"
+            >
+              <mat-option
+                *ngFor="let department of departmentId"
+                [value]="department.value"
+              >
+                {{ department.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Shift</mat-label>
+            <mat-select
+              [(ngModel)]="selectedShiftId"
+              (selectionChange)="onShiftChange($event)"
+            >
+              <mat-option *ngFor="let shift of shiftId" [value]="shift.value">
+                {{ shift.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Operator</mat-label>
+            <mat-select [(ngModel)]="selectedOperator">
+              <mat-option
+                *ngFor="let operator of operators"
+                [value]="operator.value"
+              >
+                {{ operator.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <mat-select
+              [(ngModel)]="selectedCategoryId"
+              (selectionChange)="onCategoryChange($event)"
+            >
+              <mat-option
+                *ngFor="let category of categoryId"
+                [value]="category.value"
+              >
+                {{ category.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="73"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Stock Code</mat-label>
+            <mat-select
+              [(ngModel)]="selectedStockId"
+              (selectionChange)="onStockChange($event)"
+            >
+              <mat-option *ngFor="let stock of stockId" [value]="stock.value">
+                {{ stock.viewValue }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -185,9 +345,22 @@
         </div> -->
         <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
+            <mat-label>Stores</mat-label>
+            <mat-select
+              [(ngModel)]="selectedStoreId"
+              (selectionChange)="onSelectionChange($event)"
+            >
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [ngModel]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalId"
               (selectionChange)="onTerminalChange($event)"
             >
               <mat-option
@@ -195,6 +368,93 @@
                 [value]="terminal.value"
               >
                 {{ terminal.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Group</mat-label>
+            <mat-select
+              [(ngModel)]="selectedGroupId"
+              (selectionChange)="onGroupChange($event)"
+            >
+              <mat-option *ngFor="let group of groupId" [value]="group.value">
+                {{ group.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select
+              [(ngModel)]="selectedDepartmentId"
+              (selectionChange)="onDepartmentChange($event)"
+            >
+              <mat-option
+                *ngFor="let department of departmentId"
+                [value]="department.value"
+              >
+                {{ department.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Shift</mat-label>
+            <mat-select
+              [(ngModel)]="selectedShiftId"
+              (selectionChange)="onShiftChange($event)"
+            >
+              <mat-option *ngFor="let shift of shiftId" [value]="shift.value">
+                {{ shift.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Operator</mat-label>
+            <mat-select
+              [(ngModel)]="selectedOperator"
+              (selectionChange)="onOperatorChange($event)"
+            >
+              <mat-option
+                *ngFor="let operator of operators"
+                [value]="operator.value"
+              >
+                {{ operator.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <mat-select
+              [(ngModel)]="selectedCategoryId"
+              (selectionChange)="onCategoryChange($event)"
+            >
+              <mat-option
+                *ngFor="let category of categoryId"
+                [value]="category.value"
+              >
+                {{ category.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Stock Code</mat-label>
+            <mat-select
+              [(ngModel)]="selectedStockId"
+              (selectionChange)="onStockChange($event)"
+            >
+              <mat-option *ngFor="let stock of stockId" [value]="stock.value">
+                {{ stock.viewValue }}
               </mat-option>
             </mat-select>
           </mat-form-field>
