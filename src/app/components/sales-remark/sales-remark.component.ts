@@ -93,6 +93,9 @@ export class SalesRemarkComponent implements OnInit {
   }
   applyDateFilter() {
     this.salesRemark();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

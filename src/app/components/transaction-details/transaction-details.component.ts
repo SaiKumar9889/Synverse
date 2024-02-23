@@ -95,6 +95,9 @@ export class TransactionDetailsComponent implements OnInit {
   }
   applyDateFilter() {
     this.transactionDetail();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

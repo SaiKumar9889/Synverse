@@ -140,7 +140,7 @@ tbody tr:last-of-type td {
   .addedScroll {
     padding: 5px 10px;
     overflow: scroll !important;
-    height: 90vh !important;
+    height: 90vh;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   }
   .addColor {

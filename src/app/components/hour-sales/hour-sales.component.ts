@@ -93,6 +93,9 @@ export class HourSalesComponent {
   }
   applyDateFilter() {
     this.hourlySales();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

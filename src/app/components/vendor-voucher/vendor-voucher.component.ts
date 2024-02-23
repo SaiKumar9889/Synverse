@@ -94,6 +94,9 @@ export class VendorVoucherComponent {
   }
   applyDateFilter() {
     this.vendorVoucher();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

@@ -92,6 +92,9 @@ export class OperatorCollectionComponent {
   }
   applyDateFilter() {
     this.operatorCollection();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

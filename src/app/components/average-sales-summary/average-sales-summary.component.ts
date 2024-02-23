@@ -115,6 +115,9 @@ export class AverageSalesSummaryComponent {
   }
   applyDateFilter() {
     this.averageSalesSummary();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;
@@ -147,7 +150,7 @@ export class AverageSalesSummaryComponent {
   ngOnInit(): void {
     // Retrieve the stored checkbox state from localStorage
     const storedState = localStorage.getItem("checkboxState");
-
+    this.loadingSpinner = true;
     // If a state is stored, use it; otherwise, default to false
     this.isChecked = storedState ? JSON.parse(storedState) : false;
     this.logCheckboxState();
@@ -177,6 +180,7 @@ export class AverageSalesSummaryComponent {
   }
 
   averageSalesSummary() {
+    this.loadingSpinner = true;
     console.log(this.storeIdValue);
     this.appService
       .averageSalesSummary(
@@ -188,13 +192,13 @@ export class AverageSalesSummaryComponent {
         this.isCheckbox
       )
       .subscribe((result) => {
-        this.store_code = result.data[0].store_code;
-        this.store_name = result.data[0].store_desc;
         if (result) {
-          this.filteredData = result.data[0].average_sales;
-          this.storesFilterData = result.data[0].average_sales;
+          this.store_code = result?.data[0]?.store_code;
+          this.store_name = result?.data[0]?.store_desc;
+          this.filteredData = result?.data[0]?.average_sales;
+          this.storesFilterData = result?.data[0]?.average_sales;
           // this.subTotalPriceLevelData = result.data[0].item_price.P1;
-          this.subTotalData = result.data[0];
+          this.subTotalData = result?.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
           this.loadingSpinner = false;

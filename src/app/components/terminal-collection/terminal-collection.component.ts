@@ -92,6 +92,9 @@ export class TerminalCollectionComponent {
   }
   applyDateFilter() {
     this.terminalCollection();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

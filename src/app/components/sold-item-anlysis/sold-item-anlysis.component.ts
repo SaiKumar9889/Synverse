@@ -96,6 +96,9 @@ export class SoldItemAnlysisComponent {
   }
   applyDateFilter() {
     this.salesRemark();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;
@@ -449,7 +452,7 @@ export class SoldItemAnlysisComponent {
         this.isCheckboxNormal
       )
       .subscribe((result) => {
-        if (result || result == null || result == undefined) {
+        if (result) {
           this.store_code = result?.data[0]?.store_code;
           this.store_name = result?.data[0]?.store_desc;
           this.terminal_code = result?.data[0]?.sold_item[0]?.terminal_code;

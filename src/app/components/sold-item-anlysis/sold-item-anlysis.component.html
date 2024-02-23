@@ -719,15 +719,8 @@
           </tfoot>
         </table>
       </div>
-      <div
-        fxFlex="100"
-        fxHide.xl
-        fxHide.lg
-        fxHide.md
-        fxHide.sm
-        *ngIf="filteredData"
-      >
-        <div class="addedScroll">
+      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
+        <div class="addedScroll" *ngIf="filteredData">
           <div *ngFor="let data of filteredData">
             <div
               fxLayout="row wrap"
@@ -875,7 +868,7 @@
             </div>
           </div>
         </div>
-        <div class="addedBorder">
+        <div class="addedBorder" *ngIf="filteredData">
           <h4>Terminal Total</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -920,7 +913,7 @@
           </div>
         </div>
 
-        <div class="addedBorder">
+        <div class="addedBorder" *ngIf="filteredData">
           <h4 class="blueText">Sub Total</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -966,7 +959,7 @@
             </div>
           </div>
         </div>
-        <div class="addedBorder marginBottomAdded">
+        <div class="addedBorder marginBottomAdded" *ngIf="filteredData">
           <h4 class="greenText">Grand Total</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">

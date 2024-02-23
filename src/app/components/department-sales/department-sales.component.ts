@@ -93,6 +93,9 @@ export class DepartmentSalesComponent {
   }
   applyDateFilter() {
     this.departmentSales();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

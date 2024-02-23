@@ -94,6 +94,9 @@ export class PaymentTypeComponent implements OnInit {
   }
   applyDateFilter() {
     this.paymentType();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

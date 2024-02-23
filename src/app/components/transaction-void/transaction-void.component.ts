@@ -93,6 +93,9 @@ export class TransactionVoidComponent {
   }
   applyDateFilter() {
     this.transactionVoid();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

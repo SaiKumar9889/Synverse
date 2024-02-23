@@ -93,6 +93,9 @@ export class SkuSalesComponent {
   }
   applyDateFilter() {
     this.skuSales();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

@@ -92,6 +92,9 @@ export class GroupSalesComponent {
   }
   applyDateFilter() {
     this.groupSales();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

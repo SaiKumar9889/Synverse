@@ -92,6 +92,9 @@ export class PriceLevelShiftComponent {
   }
   applyDateFilter() {
     this.itemreportbypricelevelshift();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

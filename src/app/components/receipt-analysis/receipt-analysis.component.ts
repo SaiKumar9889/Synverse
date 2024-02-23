@@ -93,6 +93,9 @@ export class ReceiptAnalysisComponent {
   }
   applyDateFilter() {
     this.receiptAnalysis();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;

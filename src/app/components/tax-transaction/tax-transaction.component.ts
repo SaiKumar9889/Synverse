@@ -94,6 +94,9 @@ export class TaxTransactionComponent implements OnInit {
   }
   applyDateFilter() {
     this.taxTransaction();
+    setTimeout(() => {
+      this.loadingSpinner = true;
+    }, 1000);
   }
 
   filteredData: any;
