@@ -92,9 +92,6 @@ export class GroupSalesComponent {
   }
   applyDateFilter() {
     this.groupSales();
-    setTimeout(() => {
-      this.loadingSpinner = true;
-    }, 1000);
   }
 
   filteredData: any;
@@ -121,13 +118,21 @@ export class GroupSalesComponent {
     this.storeIdValue = event.value;
     console.log("Selection change event:", event.value);
   }
-
+  errorMessage = null;
   groupSales() {
+    this.errorMessage = null;
     console.log(this.searchFrom);
     console.log(this.searchTo);
     this.appService
       .groupSales("json", this.searchFrom, this.searchTo, this.storeIdValue)
       .subscribe((result) => {
+        if (result && result.status == "failed") {
+          console.log(result.message);
+          // if (result.data && result.data.group_key) {
+          this.errorMessage = result.message;
+          console.log(this.errorMessage);
+          // }
+        }
         // this.store_code = result.data[0].store_code;
         // this.store_name = result.data[0].store_name;
         if (result) {

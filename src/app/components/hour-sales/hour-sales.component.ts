@@ -92,10 +92,8 @@ export class HourSalesComponent {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
   applyDateFilter() {
+    this.loadingSpinner = true;
     this.hourlySales();
-    setTimeout(() => {
-      this.loadingSpinner = true;
-    }, 1000);
   }
 
   filteredData: any;
@@ -119,19 +117,28 @@ export class HourSalesComponent {
   groupingIdValue: string = "store";
   groupingId: any[] = [
     { value: "store", viewValue: "Store" },
-    { value: "store terminal", viewValue: "Store Terminal" },
+    { value: "store_terminal", viewValue: "Store Terminal" },
   ];
   onGroupingChange(event: any): void {
     this.groupingIdValue = event.value;
     console.log("Selection change event:", event.value);
   }
-
+  errorMessage = null;
   hourlySales() {
+    this.errorMessage = null;
     console.log(this.searchFrom);
     console.log(this.searchTo);
     this.appService
       .hourlySales("json", this.searchFrom, this.searchTo, this.groupingIdValue)
       .subscribe((result) => {
+        if (result && result.success == false) {
+          console.log(result.message);
+          // if (result.data && result.data.group_key) {
+          this.errorMessage = result.message;
+          console.log(this.errorMessage);
+          // }
+        }
+
         if (result) {
           this.store_code = result?.data[0]?.store_code;
           this.store_name = result?.data[0]?.store_name;
@@ -141,8 +148,8 @@ export class HourSalesComponent {
           this.subTotalData = result?.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
-          this.loadingSpinner = false;
         }
+        this.loadingSpinner = false;
       });
   }
 

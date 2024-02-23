@@ -92,9 +92,6 @@ export class PriceLevelShiftComponent {
   }
   applyDateFilter() {
     this.itemreportbypricelevelshift();
-    setTimeout(() => {
-      this.loadingSpinner = true;
-    }, 1000);
   }
 
   filteredData: any;
@@ -112,82 +109,172 @@ export class PriceLevelShiftComponent {
     );
   }
 
-  storeIdValue: string = "";
+  storeIdValue: string[] = [];
   selectedStoreId: any;
   stores: any[] = [
-    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
-    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+    { value: "SC01", viewValue: "Project Store" },
+    { value: "SC02", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
-    this.storeIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedItems.includes("all")) {
+        this.storeIdValue = this.stores.map((item) => item.value);
+        // this.storeIdValue = "SC01%22,%22SC02";
+      } else {
+        this.storeIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedItems: string[] = [];
+
+  selectAll() {
+    if (this.selectedItems.includes("all")) {
+      this.selectedItems = this.stores.map((item) => item.value);
+      this.selectedItems.push("all");
+    } else {
+      this.selectedItems.length = 0;
+      this.selectedItems = [];
+    }
   }
 
   selectedPaymentId: any;
-  paymentIdValue: string = "";
+  paymentIdValue: string[] = [];
   paymentId: any[] = [
-    { value: "%5B%22P1%22%5D", viewValue: "WEST MSIA" },
-    { value: "%5B%22P2%22%5D", viewValue: "EAST MSIA" },
-    { value: "%5B%22P3%22%5D", viewValue: "Price Lvl 3" },
-    { value: "%5B%22P4%22%5D", viewValue: "Price Lvl 4" },
-    { value: "%5B%22P5%22%5D", viewValue: "Price Lvl 5" },
-    { value: "%5B%22P6%22%5D", viewValue: "Price Lvl 6" },
-    { value: "%5B%22P7%22%5D", viewValue: "Price Lvl 7" },
-    { value: "%5B%22P8%22%5D", viewValue: "Price Lvl 8" },
-    { value: "%5B%22P9%22%5D", viewValue: "Price Lvl 9" },
+    { value: "P1", viewValue: "WEST MSIA" },
+    { value: "P2", viewValue: "EAST MSIA" },
+    { value: "P3", viewValue: "Price Lvl 3" },
+    { value: "P4", viewValue: "Price Lvl 4" },
+    { value: "P5", viewValue: "Price Lvl 5" },
+    { value: "P6", viewValue: "Price Lvl 6" },
+    { value: "P7", viewValue: "Price Lvl 7" },
+    { value: "P8", viewValue: "Price Lvl 8" },
+    { value: "P9", viewValue: "Price Lvl 9" },
   ];
   onPaymentChange(event: any): void {
-    this.paymentIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedPaymentItems.includes("all")) {
+        this.paymentIdValue = this.paymentId.map((item) => item.value);
+        // this.paymentIdValue =
+        //   "P1%22,%22P2%22,%22P3%22,%22P4%22,%22P5%22,%22P6%22,%22P7%22,%22P8%22,%22P9";
+      } else {
+        this.paymentIdValue = event.value;
+      }
+    }, 500);
   }
+  selectedPaymentItems: string[] = [];
+
+  selectPaymentAll() {
+    if (this.selectedPaymentItems.includes("all")) {
+      this.selectedPaymentItems = this.paymentId.map((item) => item.value);
+      this.selectedPaymentItems.push("all");
+    } else {
+      this.selectedPaymentItems.length = 0;
+      this.selectedPaymentItems = [];
+    }
+  }
+
   selectedStockId: any;
-  stockIdValue: string = "";
+  stockIdValue: string[] = [];
   stockId: any[] = [
-    { value: "%5B%22SC01%22%5D", viewValue: "NASI AYAM" },
-    { value: "%5B%22SC02%22%5D", viewValue: "NASI GORENG AYAM" },
-    { value: "%5B%22SC03%22%5D", viewValue: "MEE CURRY" },
-    { value: "%5B%22SC04%22%5D", viewValue: "CHICKEN CHOP" },
-    { value: "%5B%22SC05%22%5D", viewValue: "ICE CREAM SCOOP" },
-    { value: "%5B%22SC07%22%5D", viewValue: "CHOCOLATE AIS" },
-    { value: "%5B%22SC10%22%5D", viewValue: "Single Set Menu" },
-    { value: "%5B%22SC11%22%5D", viewValue: "Enter Set Menu" },
-    { value: "%5B%22SC12%22%5D", viewValue: "All Set Menu" },
+    { value: "SC01", viewValue: "NASI AYAM" },
+    { value: "SC02", viewValue: "NASI GORENG AYAM" },
+    { value: "SC03", viewValue: "MEE CURRY" },
+    { value: "SC04", viewValue: "CHICKEN CHOP" },
+    { value: "SC05", viewValue: "ICE CREAM SCOOP" },
+    { value: "SC07", viewValue: "CHOCOLATE AIS" },
+    { value: "SC10", viewValue: "Single Set Menu" },
+    { value: "SC11", viewValue: "Enter Set Menu" },
+    { value: "SC12", viewValue: "All Set Menu" },
   ];
   onStockChange(event: any): void {
-    this.stockIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedStockItems.includes("all")) {
+        this.stockIdValue = this.stockId.map((item) => item.value);
+        // this.stockIdValue =
+        //   "SC01%22,%22SC02%22,%22SC03%22,%22SC04%22,%22SC05%22,%22SC07%22,%22SC10%22,%22SC11%22,%22SC12";
+      } else {
+        this.stockIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedStockItems: string[] = [];
+
+  selectStockAll() {
+    if (this.selectedStockItems.includes("all")) {
+      this.selectedStockItems = this.stockId.map((item) => item.value);
+      this.selectedStockItems.push("all");
+    } else {
+      this.selectedStockItems.length = 0;
+      this.selectedStockItems = [];
+    }
   }
 
   selectedShiftId: any;
-  shiftIdValue: string = "%5B%22S1%22%5D";
+  shiftIdValue: string[] = [];
   shiftId: any[] = [
-    { value: "%5B%22S1%22%5D", viewValue: "NORMAL" },
-    { value: "%5B%22S2%22%5D", viewValue: "MEMBER" },
-    { value: "%5B%22S3%22%5D", viewValue: "DEALER" },
-    { value: "%5B%22S4%22%5D", viewValue: "Price shift 4" },
-    { value: "%5B%22S5%22%5D", viewValue: "Price shift 5" },
-    { value: "%5B%22S6%22%5D", viewValue: "Price shift 6" },
-    { value: "%5B%22S7%22%5D", viewValue: "Price shift 7" },
-    { value: "%5B%22S8%22%5D", viewValue: "Price shift 8" },
-    { value: "%5B%22S9%22%5D", viewValue: "Price shift 9" },
+    { value: "S1", viewValue: "NORMAL" },
+    { value: "S2", viewValue: "MEMBER" },
+    { value: "S3", viewValue: "DEALER" },
+    { value: "S4", viewValue: "Price shift 4" },
+    { value: "S5", viewValue: "Price shift 5" },
+    { value: "S6", viewValue: "Price shift 6" },
+    { value: "S7", viewValue: "Price shift 7" },
+    { value: "S8", viewValue: "Price shift 8" },
+    { value: "S9", viewValue: "Price shift 9" },
   ];
-  onShiftChange(event: any): void {
-    this.shiftIdValue = event.value;
-    console.log("Selection change event:", event.value);
-  }
 
+  onShiftChange(event: any): void {
+    setTimeout(() => {
+      // this.shiftId.forEach((element: any) => {
+      //   this.shiftIdValue.push()
+      // });
+      if (this.selectedShiftItems.includes("all")) {
+        // this.storeIdValue = this.stores.map((item) => item.value).join();
+        this.shiftIdValue = this.shiftId.map((item) => item.value);
+      } else {
+        this.shiftIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedShiftItems: string[] = [];
+
+  selectShiftAll() {
+    if (this.selectedShiftItems.includes("all")) {
+      this.selectedShiftItems = this.shiftId.map((item) => item.value);
+      this.selectedShiftItems.push("all");
+    } else {
+      this.selectedShiftItems.length = 0;
+      this.selectedShiftItems = [];
+    }
+  }
+  errorMessage: any;
   itemreportbypricelevelshift() {
     this.appService
       .itemreportbypricelevelshift(
         "json",
         this.searchFrom,
         this.searchTo,
-        this.storeIdValue,
-        this.paymentIdValue,
-        this.stockIdValue,
-        this.shiftIdValue
+        this.storeIdValue && this.storeIdValue.length
+          ? JSON.stringify(this.storeIdValue)
+          : "",
+        this.paymentIdValue && this.paymentIdValue.length
+          ? JSON.stringify(this.paymentIdValue)
+          : "",
+        this.stockIdValue && this.stockIdValue.length
+          ? JSON.stringify(this.stockIdValue)
+          : "",
+        this.shiftIdValue && this.shiftIdValue.length
+          ? JSON.stringify(this.shiftIdValue)
+          : ""
       )
-      .subscribe((result) => {
+      .subscribe((result: any) => {
+        if (result && result.data == "") {
+          console.log(result.message);
+          // if (result.data && result.data.group_key) {
+          this.errorMessage = "No Data Found";
+          console.log(this.errorMessage);
+          // }
+        }
         if (result) {
           this.store_code = result?.data[0]?.store_code;
           this.store_name = result?.data[0]?.store_name;

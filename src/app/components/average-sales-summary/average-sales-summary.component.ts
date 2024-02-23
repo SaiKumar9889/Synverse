@@ -77,8 +77,25 @@ export class AverageSalesSummaryComponent {
     { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
-    this.storeIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedItems.includes("all")) {
+        // this.storeIdValue = this.stores.map((item) => item.value).join();
+        this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
+      } else {
+        this.storeIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedItems: string[] = [];
+
+  selectAll() {
+    if (this.selectedItems.includes("all")) {
+      this.selectedItems = this.stores.map((item) => item.value);
+      this.selectedItems.push("all");
+    } else {
+      this.selectedItems.length = 0;
+      this.selectedItems = [];
+    }
   }
 
   salesValue: string = "total";
@@ -115,9 +132,6 @@ export class AverageSalesSummaryComponent {
   }
   applyDateFilter() {
     this.averageSalesSummary();
-    setTimeout(() => {
-      this.loadingSpinner = true;
-    }, 1000);
   }
 
   filteredData: any;
@@ -178,7 +192,7 @@ export class AverageSalesSummaryComponent {
       this.isCheckbox = "F";
     }
   }
-
+  errorMessage: any;
   averageSalesSummary() {
     this.loadingSpinner = true;
     console.log(this.storeIdValue);
@@ -192,6 +206,13 @@ export class AverageSalesSummaryComponent {
         this.isCheckbox
       )
       .subscribe((result) => {
+        if (result && result.data == "") {
+          console.log(result.message);
+          // if (result.data && result.data.group_key) {
+          this.errorMessage = "No Data Found";
+          console.log(this.errorMessage);
+          // }
+        }
         if (result) {
           this.store_code = result?.data[0]?.store_code;
           this.store_name = result?.data[0]?.store_desc;

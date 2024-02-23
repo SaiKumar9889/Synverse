@@ -86,9 +86,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [(ngModel)]="selectedStoreId"
+              [(ngModel)]="selectedItems"
               (selectionChange)="onSelectionChange($event)"
+              multiple
             >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -108,9 +110,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [(ngModel)]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalItems"
               (selectionChange)="onTerminalChange($event)"
+              multiple
             >
+              <mat-option (click)="selectTerminalAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let terminal of terminalId"
                 [value]="terminal.value"
@@ -194,9 +200,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [(ngModel)]="selectedStoreId"
+              [(ngModel)]="selectedItems"
               (selectionChange)="onSelectionChange($event)"
+              multiple
             >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -207,9 +215,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [(ngModel)]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalItems"
               (selectionChange)="onTerminalChange($event)"
+              multiple
             >
+              <mat-option (click)="selectTerminalAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let terminal of terminalId"
                 [value]="terminal.value"

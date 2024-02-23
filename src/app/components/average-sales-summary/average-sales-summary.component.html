@@ -85,9 +85,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [(ngModel)]="selectedStoreId"
+              [(ngModel)]="selectedItems"
               (selectionChange)="onSelectionChange($event)"
+              multiple
             >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -190,9 +192,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [(ngModel)]="selectedStoreId"
+              [(ngModel)]="selectedItems"
               (selectionChange)="onSelectionChange($event)"
+              multiple
             >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -233,7 +237,7 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
-        <table *ngIf="filteredData">
+        <table>
           <thead>
             <tr>
               <th (click)="sortTable('CI_CLOSEDATE')">
@@ -334,7 +338,7 @@
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="filteredData">
             <tr>
               <td>{{ store_code }}</td>
               <td>{{ store_name }}</td>
@@ -399,7 +403,23 @@
               </td>
             </tr>
           </tbody>
-          <tfoot class="footer-fixed">
+          <tbody>
+            <tr>
+              <td
+                colspan="16"
+                *ngIf="errorMessage != null"
+                style="
+                  position: static;
+                  color: red;
+                  width: 100%;
+                  text-align: center;
+                "
+              >
+                {{ errorMessage }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot class="footer-fixed" *ngIf="filteredData">
             <tr class="emptyRow">
               <td></td>
               <td></td>

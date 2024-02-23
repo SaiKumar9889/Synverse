@@ -175,7 +175,7 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
-        <table *ngIf="filteredData">
+        <table>
           <thead>
             <tr>
               <th (click)="sortTable('stock_code')">
@@ -240,7 +240,7 @@
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="filteredData">
             <tr *ngFor="let data of filteredData">
               <td>
                 {{ data.stock_code }}
@@ -264,7 +264,23 @@
               </td>
             </tr>
           </tbody>
-          <tfoot class="footer-fixed">
+          <tbody>
+            <tr>
+              <td
+                colspan="13"
+                *ngIf="errorMessage != null"
+                style="
+                  position: static;
+                  color: red;
+                  width: 100%;
+                  text-align: center;
+                "
+              >
+                {{ errorMessage }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot class="footer-fixed" *ngIf="filteredData">
             <tr class="emptyRow">
               <td></td>
               <td></td>

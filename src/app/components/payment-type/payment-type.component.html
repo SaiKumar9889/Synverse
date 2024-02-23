@@ -87,9 +87,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [(ngModel)]="selectedStoreId"
+              [(ngModel)]="selectedItems"
               (selectionChange)="onSelectionChange($event)"
+              multiple
             >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -109,9 +111,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [(ngModel)]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalItems"
               (selectionChange)="onTerminalChange($event)"
+              multiple
             >
+              <mat-option (click)="selectTerminalAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let terminal of terminalId"
                 [value]="terminal.value"
@@ -134,9 +140,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Payment</mat-label>
             <mat-select
-              [(ngModel)]="selectedPaymentId"
+              [(ngModel)]="selectedPaymentItems"
               (selectionChange)="onPaymentChange($event)"
+              multiple
             >
+              <mat-option (click)="selectPaymentAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let payment of paymentId"
                 [value]="payment.value"
@@ -225,9 +235,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [(ngModel)]="selectedStoreId"
+              [(ngModel)]="selectedItems"
               (selectionChange)="onSelectionChange($event)"
+              multiple
             >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -238,9 +250,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [(ngModel)]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalItems"
               (selectionChange)="onTerminalChange($event)"
+              multiple
             >
+              <mat-option (click)="selectTerminalAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let terminal of terminalId"
                 [value]="terminal.value"
@@ -254,9 +270,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Payment</mat-label>
             <mat-select
-              [(ngModel)]="selectedPaymentId"
+              [(ngModel)]="selectedPaymentItems"
               (selectionChange)="onPaymentChange($event)"
+              multiple
             >
+              <mat-option (click)="selectPaymentAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let payment of paymentId"
                 [value]="payment.value"
@@ -294,7 +314,7 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
-        <table *ngIf="displayTable && rows">
+        <!-- <table *ngIf="displayTable && rows">
           <thead>
             <tr>
               <th>STORE</th>
@@ -311,13 +331,7 @@
               <td>{{ row.terminal }}</td>
               <td>{{ row.payment }}</td>
               <td>
-                <span
-                  *ngIf="row.DATE == 'Sub Total of Payment 1'"
-                  style="font-weight: bold"
-                  >{{ row.DATE }}</span
-                ><span *ngIf="row.DATE != 'Sub Total of Payment 1'">{{
-                  row.DATE
-                }}</span>
+                {{ row.DATE }}
               </td>
               <td>{{ row["PRICE LEVEL"] }}</td>
               <td>{{ row.SHIFT }}</td>
@@ -331,10 +345,734 @@
               </td>
             </tr>
           </tbody>
+        </table> -->
+        <table>
+          <thead>
+            <tr>
+              <th (click)="sortTable('date')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Store</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('terminal')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Terminal Code</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_DATETIME')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Terminal</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_SALES_RCPTNO')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Payment</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_STOCK_CODE')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Date</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_SHORTDESC')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Price Level</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_SALES_PRICELVL')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Shift</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_SALES_PRICE_SHIFT')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Amount</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('SDTL_STATUS')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Rounding Adjust</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody *ngIf="filteredData">
+            <tr
+              *ngIf="
+                grandTotalData?.grand_total_quantity !== 0 &&
+                grandTotalData?.grand_total_gross_sales != 0 &&
+                grandTotalData?.grand_total_disc != 0 &&
+                grandTotalData?.grand_total_net_sales != 0
+              "
+            >
+              <td>{{ store_code }}</td>
+              <td>{{ store_name }}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>T1</td>
+              <td>{{ terminal_name }}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr *ngFor="let data of filteredData">
+              <td></td>
+              <td></td>
+              <td>{{ data.PYMT_MASTCODE }}</td>
+              <td>{{ data.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data.PYMT_STATUS }}</td>
+              <td>{{ data.PYMT_PAYAMT }}</td>
+              <td>{{ data.PYMT_ROUND_ADJ }}</td>
+            </tr>
+
+            <!-- <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText">SubTotal</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText">{{ data?.rcpt_quantity }}</td>
+                <td class="boldText alignRight">
+                  RM {{ data?.rcpt_gross_sales | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ data?.rcpt_discount | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ data?.rcpt_net_sales | number : "1.2-2" }}
+                </td>
+                <td></td>
+              </tr> -->
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of Payment 1</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">{{ paidAmount | number : "1.2-2" }}</td>
+              <td class="boldText">{{ roundAdj | number : "1.2-2" }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>{{ visaData.PYMT_MASTCODE }}</td>
+              <td>{{ visaData.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ visaData.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ visaData.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ visaData.PYMT_STATUS }}</td>
+              <td>{{ visaData.PYMT_PAYAMT }}</td>
+              <td>{{ visaData.PYMT_ROUND_ADJ }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of VISA</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">{{ visaDataSubtotal.paid_amt }}</td>
+              <td class="boldText">{{ visaDataSubtotal.round_adj }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>{{ masterData.PYMT_MASTCODE }}</td>
+              <td>{{ masterData.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ masterData.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ masterData.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ masterData.PYMT_STATUS }}</td>
+              <td>{{ masterData.PYMT_PAYAMT }}</td>
+              <td>{{ masterData.PYMT_ROUND_ADJ }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of MASTER</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ masterDataSubtotal.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ masterDataSubtotal.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalDataT1.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalDataT1.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of T1</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalT1.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalT1.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>T2</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr *ngFor="let data of filteredDataT2">
+              <td></td>
+              <td></td>
+              <td>{{ data.PYMT_MASTCODE }}</td>
+              <td>{{ data.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data.PYMT_STATUS }}</td>
+              <td>{{ data.PYMT_PAYAMT }}</td>
+              <td>{{ data.PYMT_ROUND_ADJ }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of Payment 1</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ paidAmountT2.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ paidAmountT2.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalDataT2.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalDataT2.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of T2</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalT2.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalT2.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>T3</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr *ngFor="let data of filteredDataT3">
+              <td></td>
+              <td></td>
+              <td>{{ data.PYMT_MASTCODE }}</td>
+              <td>{{ data.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data.PYMT_STATUS }}</td>
+              <td>{{ data.PYMT_PAYAMT }}</td>
+              <td>{{ data.PYMT_ROUND_ADJ }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of Payment 1</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ paidAmountT3.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ paidAmountT3.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalDataT3.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalDataT3.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of T3</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalT3.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalT3.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td>T4</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr *ngFor="let data of filteredDataT4">
+              <td></td>
+              <td></td>
+              <td>{{ data.PYMT_MASTCODE }}</td>
+              <td>{{ data.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data.PYMT_STATUS }}</td>
+              <td>{{ data.PYMT_PAYAMT }}</td>
+              <td>{{ data.PYMT_ROUND_ADJ }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of Payment 1</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ paidAmountT4.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ paidAmountT4.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalDataT4.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalDataT4.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of T4</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalT3.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalT3.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td>T5</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr *ngFor="let data of filteredDataT5">
+              <td></td>
+              <td></td>
+              <td>{{ data.PYMT_MASTCODE }}</td>
+              <td>{{ data.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data.PYMT_STATUS }}</td>
+              <td>{{ data.PYMT_PAYAMT }}</td>
+              <td>{{ data.PYMT_ROUND_ADJ }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of Payment 1</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ paidAmountT5.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ paidAmountT5.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalDataT5.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalDataT5.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of T5</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalT5.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalT5.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td>T6</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr *ngFor="let data of filteredDataT6">
+              <td></td>
+              <td></td>
+              <td>{{ data.PYMT_MASTCODE }}</td>
+              <td>{{ data.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data.PYMT_STATUS }}</td>
+              <td>{{ data.PYMT_PAYAMT }}</td>
+              <td>{{ data.PYMT_ROUND_ADJ }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of Payment 1</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ paidAmountT6.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ paidAmountT6.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalDataT6.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalDataT6.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of T6</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalT6.paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalT6.round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Sub Total of SC01</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalT6.sub_total_paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ subTotalT6.sub_total_round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Grand Total</td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ grandTotalData.grand_paid_amt | number : "1.2-2" }}
+              </td>
+              <td class="boldText">
+                {{ grandTotalData.grand_round_adj | number : "1.2-2" }}
+              </td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <td
+                colspan="13"
+                *ngIf="errorMessage != null"
+                style="
+                  position: static;
+                  color: red;
+                  width: 100%;
+                  text-align: center;
+                "
+              >
+                {{ errorMessage }}
+              </td>
+            </tr>
+          </tbody>
+          <!-- <tfoot class="footer-fixed" *ngIf="filteredData">
+            <tr
+              class="emptyRow"
+              *ngIf="
+                grandTotalData?.grand_total_quantity !== 0 &&
+                grandTotalData?.grand_total_gross_sales != 0 &&
+                grandTotalData?.grand_total_disc != 0 &&
+                grandTotalData?.grand_total_net_sales != 0
+              "
+            >
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr
+              class="subTotalPL"
+              *ngIf="
+                grandTotalData?.grand_total_quantity !== 0 &&
+                grandTotalData?.grand_total_gross_sales != 0 &&
+                grandTotalData?.grand_total_disc != 0 &&
+                grandTotalData?.grand_total_net_sales != 0
+              "
+            >
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">Terminal Total</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText">
+                {{ subTotalTerminal?.terminal_quantity }}
+              </td>
+              <td class="boldText alignRight">
+                RM
+                {{ subTotalTerminal?.terminal_gross_sales | number : "1.2-2" }}
+              </td>
+              <td class="boldText alignRight">
+                RM {{ subTotalTerminal?.terminal_disc | number : "1.2-2" }}
+              </td>
+              <td class="boldText alignRight">
+                RM {{ subTotalTerminal?.terminal_net_sales | number : "1.2-2" }}
+              </td>
+              <td></td>
+            </tr>
+            <tr
+              class="subTotalSC01"
+              *ngIf="
+                grandTotalData?.grand_total_quantity !== 0 &&
+                grandTotalData?.grand_total_gross_sales != 0 &&
+                grandTotalData?.grand_total_disc != 0 &&
+                grandTotalData?.grand_total_net_sales != 0
+              "
+            >
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText blueText">Sub Total</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText blueText">
+                {{ subTotalData?.sub_total_net_quantity }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_total_net_gross | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_total_net_discount | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_total_net_sales | number : "1.2-2" }}
+              </td>
+              <td></td>
+            </tr>
+            <tr
+              *ngIf="
+                grandTotalData?.grand_total_quantity !== 0 &&
+                grandTotalData?.grand_total_gross_sales != 0 &&
+                grandTotalData?.grand_total_disc != 0 &&
+                grandTotalData?.grand_total_net_sales != 0
+              "
+            >
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText greenText">Grand Total</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="boldText greenText">
+                {{ grandTotalData?.grand_total_quantity }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM
+                {{ grandTotalData?.grand_total_gross_sales | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_total_disc | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM
+                {{ grandTotalData?.grand_total_net_sales | number : "1.2-2" }}
+              </td>
+              <td></td>
+            </tr>
+          </tfoot> -->
         </table>
       </div>
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm *ngIf="rows">
-        <div class="addedScroll">
+        <!-- <div class="addedScroll">
           <div
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
@@ -405,12 +1143,12 @@
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 </div>
 
-<div *ngIf="loadingSpinner">
+<!-- <div *ngIf="loadingSpinner">
   <app-loader></app-loader>
-</div>
+</div> -->

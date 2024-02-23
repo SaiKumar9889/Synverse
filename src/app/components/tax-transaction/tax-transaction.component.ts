@@ -94,9 +94,6 @@ export class TaxTransactionComponent implements OnInit {
   }
   applyDateFilter() {
     this.taxTransaction();
-    setTimeout(() => {
-      this.loadingSpinner = true;
-    }, 1000);
   }
 
   filteredData: any;
@@ -129,17 +126,52 @@ export class TaxTransactionComponent implements OnInit {
     { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
-    this.storeId = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedItems.includes("all")) {
+        // this.storeIdValue = this.stores.map((item) => item.value).join();
+        this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
+        console.log(this.storeIdValue);
+      } else {
+        this.storeIdValue = event.value;
+      }
+    }, 500);
   }
-  selectedTerminalId: any;
-  terminalIdValue: string = "";
-  terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
-  onTerminalChange(event: any): void {
-    this.terminalIdValue = event.value;
-    console.log("Selection change event:", event.value);
+  selectedItems: string[] = [];
+
+  selectAll() {
+    if (this.selectedItems.includes("all")) {
+      this.selectedItems = this.stores.map((item) => item.value);
+      this.selectedItems.push("all");
+    } else {
+      this.selectedItems.length = 0;
+      this.selectedItems = [];
+    }
   }
 
+  // selectedTerminalId: any;
+  terminalIdValue: string = "";
+  selectedTerminalItems: string[] = [];
+  terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
+
+  onTerminalChange(event: any): void {
+    setTimeout(() => {
+      if (this.selectedTerminalItems.includes("all")) {
+        this.terminalIdValue = this.terminalId.map((item) => item.value).join();
+      } else {
+        this.terminalIdValue = event.value;
+      }
+    }, 500);
+  }
+
+  selectTerminalAll() {
+    if (this.selectedTerminalItems.includes("all")) {
+      this.selectedTerminalItems = this.terminalId.map((item) => item.value);
+      this.selectedTerminalItems.push("all");
+    } else {
+      this.selectedTerminalItems.length = 0;
+      this.selectedTerminalItems = [];
+    }
+  }
   isChecked: boolean;
   ngOnInit(): void {
     // Retrieve the stored checkbox state from localStorage
@@ -172,8 +204,9 @@ export class TaxTransactionComponent implements OnInit {
       this.isCheckbox = "F";
     }
   }
-
+  errorMessage = null;
   taxTransaction() {
+    this.errorMessage = null;
     // this.store_id = ;
     // this.storeId = "";
 
@@ -186,11 +219,18 @@ export class TaxTransactionComponent implements OnInit {
         "json",
         this.searchFrom,
         this.searchTo,
-        this.storeId,
+        this.storeIdValue,
         this.terminalIdValue,
         this.isCheckbox
       )
       .subscribe((result) => {
+        if (result && result.success == false) {
+          console.log(result.message);
+          // if (result.data && result.data.group_key) {
+          this.errorMessage = result.message;
+          console.log(this.errorMessage);
+          // }
+        }
         if (result) {
           this.store_code = result?.data[0]?.store_code;
           this.store_name = result?.data[0]?.store_name;

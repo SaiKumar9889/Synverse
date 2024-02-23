@@ -92,9 +92,6 @@ export class OperatorCollectionComponent {
   }
   applyDateFilter() {
     this.operatorCollection();
-    setTimeout(() => {
-      this.loadingSpinner = true;
-    }, 1000);
   }
 
   filteredData: any;
@@ -121,18 +118,52 @@ export class OperatorCollectionComponent {
     { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
-    this.storeIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedItems.includes("all")) {
+        // this.storeIdValue = this.stores.map((item) => item.value).join();
+        this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
+      } else {
+        this.storeIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedItems: string[] = [];
+
+  selectAll() {
+    if (this.selectedItems.includes("all")) {
+      this.selectedItems = this.stores.map((item) => item.value);
+      this.selectedItems.push("all");
+    } else {
+      this.selectedItems.length = 0;
+      this.selectedItems = [];
+    }
   }
 
   operatorValue: string = "";
   selectedOperator: any;
   operators: any[] = [{ value: "%5B%22SYNV%22%5D", viewValue: "SYNV" }];
   onOperatorChange(event: any): void {
-    this.operatorValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedOperatorItems.includes("all")) {
+        this.operatorValue = this.operators.map((item) => item.value).join();
+        // this.operatorValue = '"%5B%22SYNV%22%5D';
+      } else {
+        this.operatorValue = event.value;
+      }
+    }, 500);
   }
+  selectedOperatorItems: string[] = [];
 
+  selectOperatorAll() {
+    if (this.selectedOperatorItems.includes("all")) {
+      this.selectedOperatorItems = this.operators.map((item) => item.value);
+      this.selectedOperatorItems.push("all");
+    } else {
+      this.selectedOperatorItems.length = 0;
+      this.selectedOperatorItems = [];
+    }
+  }
+  errorMessage: any;
   operatorCollection() {
     this.appService
       .operatorCollection(
@@ -143,6 +174,13 @@ export class OperatorCollectionComponent {
         this.operatorValue
       )
       .subscribe((result) => {
+        if (result && result.data == "") {
+          console.log(result.message);
+          // if (result.data && result.data.group_key) {
+          this.errorMessage = "No Data Found";
+          console.log(this.errorMessage);
+          // }
+        }
         this.store_code = result.data.store_code;
         // this.store_name = result.data[0].store_name;
         if (result) {

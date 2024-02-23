@@ -93,9 +93,6 @@ export class SkuSalesComponent {
   }
   applyDateFilter() {
     this.skuSales();
-    setTimeout(() => {
-      this.loadingSpinner = true;
-    }, 1000);
   }
 
   filteredData: any;
@@ -128,13 +125,21 @@ export class SkuSalesComponent {
     this.storeIdValue = event.value;
     console.log("Selection change event:", event.value);
   }
-
+  errorMessage = null;
   skuSales() {
+    this.errorMessage = null;
     console.log(this.searchFrom);
     console.log(this.searchTo);
     this.appService
       .skuSales("json", this.searchFrom, this.searchTo, this.storeIdValue)
       .subscribe((result) => {
+        if (result && result.status == "failed") {
+          console.log(result.message);
+          // if (result.data && result.data.group_key) {
+          this.errorMessage = result.message;
+          console.log(this.errorMessage);
+          // }
+        }
         // this.store_code = result.data[0].store_code;
         // this.store_name = result.data[0].store_name;
         if (result) {

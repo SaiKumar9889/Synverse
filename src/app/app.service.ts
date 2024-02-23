@@ -104,7 +104,7 @@ export class AppService {
     checkboxShift: string
   ) {
     const url = `${this.apiUrl}/bereport/paymentanalysisreport?start_date=${start}&end_date=${end}&store_id=${storeId}&terminal_id=${terminalId}&payment_type=${paymentId}&void=${checkbox}&shift=${checkboxShift}&datetype=lyear&file_type=${fileType}`;
-    return this.http.get(url, { responseType: "blob" });
+    return this.http.get<any>(url);
   }
   vendorVoucher(
     fileType: string,

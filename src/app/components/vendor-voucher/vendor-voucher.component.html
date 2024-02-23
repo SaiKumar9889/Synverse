@@ -106,9 +106,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [(ngModel)]="selectedStoreId"
+              [(ngModel)]="selectedItems"
               (selectionChange)="onSelectionChange($event)"
+              multiple
             >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -128,9 +130,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [(ngModel)]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalItems"
               (selectionChange)="onTerminalChange($event)"
+              multiple
             >
+              <mat-option (click)="selectTerminalAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let terminal of terminalId"
                 [value]="terminal.value"
@@ -153,9 +159,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Group</mat-label>
             <mat-select
-              [(ngModel)]="selectedGroupId"
+              [(ngModel)]="selectedGroupItems"
               (selectionChange)="onGroupChange($event)"
+              multiple
             >
+              <mat-option (click)="selectGroupAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option *ngFor="let group of groupId" [value]="group.value">
                 {{ group.viewValue }}
               </mat-option>
@@ -175,9 +185,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Department</mat-label>
             <mat-select
-              [(ngModel)]="selectedDepartmentId"
+              [(ngModel)]="selectedDepartmentItems"
               (selectionChange)="onDepartmentChange($event)"
+              multiple
             >
+              <mat-option (click)="selectDepartmentAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let department of departmentId"
                 [value]="department.value"
@@ -200,9 +214,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Shift</mat-label>
             <mat-select
-              [(ngModel)]="selectedShiftId"
+              [(ngModel)]="selectedShiftItems"
               (selectionChange)="onShiftChange($event)"
+              multiple
             >
+              <mat-option (click)="selectShiftAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option *ngFor="let shift of shiftId" [value]="shift.value">
                 {{ shift.viewValue }}
               </mat-option>
@@ -221,7 +239,14 @@
         >
           <mat-form-field appearance="outline">
             <mat-label>Operator</mat-label>
-            <mat-select [(ngModel)]="selectedOperator">
+            <mat-select
+              [(ngModel)]="selectedOperatorItems"
+              (selectionChange)="onOperatorChange($event)"
+              multiple
+            >
+              <mat-option (click)="selectOperatorAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let operator of operators"
                 [value]="operator.value"
@@ -244,9 +269,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Category</mat-label>
             <mat-select
-              [(ngModel)]="selectedCategoryId"
+              [(ngModel)]="selectedCategoryItems"
               (selectionChange)="onCategoryChange($event)"
+              multiple
             >
+              <mat-option (click)="selectCategoryAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let category of categoryId"
                 [value]="category.value"
@@ -269,9 +298,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Stock Code</mat-label>
             <mat-select
-              [(ngModel)]="selectedStockId"
+              [(ngModel)]="selectedStockItems"
               (selectionChange)="onStockChange($event)"
+              multiple
             >
+              <mat-option (click)="selectStockAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option *ngFor="let stock of stockId" [value]="stock.value">
                 {{ stock.viewValue }}
               </mat-option>
@@ -347,9 +380,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [(ngModel)]="selectedStoreId"
+              [(ngModel)]="selectedItems"
               (selectionChange)="onSelectionChange($event)"
+              multiple
             >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -360,9 +395,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [(ngModel)]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalItems"
               (selectionChange)="onTerminalChange($event)"
+              multiple
             >
+              <mat-option (click)="selectTerminalAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let terminal of terminalId"
                 [value]="terminal.value"
@@ -376,9 +415,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Group</mat-label>
             <mat-select
-              [(ngModel)]="selectedGroupId"
+              [(ngModel)]="selectedGroupItems"
               (selectionChange)="onGroupChange($event)"
+              multiple
             >
+              <mat-option (click)="selectGroupAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option *ngFor="let group of groupId" [value]="group.value">
                 {{ group.viewValue }}
               </mat-option>
@@ -389,9 +432,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Department</mat-label>
             <mat-select
-              [(ngModel)]="selectedDepartmentId"
+              [(ngModel)]="selectedDepartmentItems"
               (selectionChange)="onDepartmentChange($event)"
+              multiple
             >
+              <mat-option (click)="selectDepartmentAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let department of departmentId"
                 [value]="department.value"
@@ -405,9 +452,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Shift</mat-label>
             <mat-select
-              [(ngModel)]="selectedShiftId"
+              [(ngModel)]="selectedShiftItems"
               (selectionChange)="onShiftChange($event)"
+              multiple
             >
+              <mat-option (click)="selectShiftAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option *ngFor="let shift of shiftId" [value]="shift.value">
                 {{ shift.viewValue }}
               </mat-option>
@@ -418,9 +469,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Operator</mat-label>
             <mat-select
-              [(ngModel)]="selectedOperator"
+              [(ngModel)]="selectedOperatorItems"
               (selectionChange)="onOperatorChange($event)"
+              multiple
             >
+              <mat-option (click)="selectOperatorAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let operator of operators"
                 [value]="operator.value"
@@ -434,9 +489,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Category</mat-label>
             <mat-select
-              [(ngModel)]="selectedCategoryId"
+              [(ngModel)]="selectedCategoryItems"
               (selectionChange)="onCategoryChange($event)"
+              multiple
             >
+              <mat-option (click)="selectCategoryAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let category of categoryId"
                 [value]="category.value"
@@ -450,9 +509,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Stock Code</mat-label>
             <mat-select
-              [(ngModel)]="selectedStockId"
+              [(ngModel)]="selectedStockItems"
               (selectionChange)="onStockChange($event)"
+              multiple
             >
+              <mat-option (click)="selectStockAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option *ngFor="let stock of stockId" [value]="stock.value">
                 {{ stock.viewValue }}
               </mat-option>

@@ -85,9 +85,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [(ngModel)]="selectedStoreId"
+              [(ngModel)]="selectedItems"
               (selectionChange)="onSelectionChange($event)"
+              multiple
             >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -107,9 +109,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [(ngModel)]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalItems"
               (selectionChange)="onTerminalChange($event)"
+              multiple
             >
+              <mat-option (click)="selectTerminalAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let terminal of terminalId"
                 [value]="terminal.value"
@@ -132,9 +138,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Group</mat-label>
             <mat-select
-              [(ngModel)]="selectedGroupId"
+              [(ngModel)]="selectedGroupItems"
               (selectionChange)="onGroupChange($event)"
+              multiple
             >
+              <mat-option (click)="selectGroupAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option *ngFor="let group of groupId" [value]="group.value">
                 {{ group.viewValue }}
               </mat-option>
@@ -154,9 +164,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Department</mat-label>
             <mat-select
-              [(ngModel)]="selectedDepartmentId"
+              [(ngModel)]="selectedDepartmentItems"
               (selectionChange)="onDepartmentChange($event)"
+              multiple
             >
+              <mat-option (click)="selectDepartmentAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let department of departmentId"
                 [value]="department.value"
@@ -179,9 +193,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Category</mat-label>
             <mat-select
-              [(ngModel)]="selectedCategoryId"
+              [(ngModel)]="selectedCategoryItems"
               (selectionChange)="onCategoryChange($event)"
+              multiple
             >
+              <mat-option (click)="selectCategoryAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let category of categoryId"
                 [value]="category.value"
@@ -204,9 +222,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Stock Code</mat-label>
             <mat-select
-              [(ngModel)]="selectedStockId"
+              [(ngModel)]="selectedStockItems"
               (selectionChange)="onStockChange($event)"
+              multiple
             >
+              <mat-option (click)="selectStockAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option *ngFor="let stock of stockId" [value]="stock.value">
                 {{ stock.viewValue }}
               </mat-option>
@@ -317,9 +339,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
-              [(ngModel)]="selectedStoreId"
+              [(ngModel)]="selectedItems"
               (selectionChange)="onSelectionChange($event)"
+              multiple
             >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
               <mat-option *ngFor="let store of stores" [value]="store.value">
                 {{ store.viewValue }}
               </mat-option>
@@ -330,9 +354,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
-              [(ngModel)]="selectedTerminalId"
+              [(ngModel)]="selectedTerminalItems"
               (selectionChange)="onTerminalChange($event)"
+              multiple
             >
+              <mat-option (click)="selectTerminalAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let terminal of terminalId"
                 [value]="terminal.value"
@@ -346,9 +374,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Group</mat-label>
             <mat-select
-              [(ngModel)]="selectedGroupId"
+              [(ngModel)]="selectedGroupItems"
               (selectionChange)="onGroupChange($event)"
+              multiple
             >
+              <mat-option (click)="selectGroupAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option *ngFor="let group of groupId" [value]="group.value">
                 {{ group.viewValue }}
               </mat-option>
@@ -359,9 +391,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Department</mat-label>
             <mat-select
-              [(ngModel)]="selectedDepartmentId"
+              [(ngModel)]="selectedDepartmentItems"
               (selectionChange)="onDepartmentChange($event)"
+              multiple
             >
+              <mat-option (click)="selectDepartmentAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let department of departmentId"
                 [value]="department.value"
@@ -375,9 +411,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Category</mat-label>
             <mat-select
-              [(ngModel)]="selectedCategoryId"
+              [(ngModel)]="selectedCategoryItems"
               (selectionChange)="onCategoryChange($event)"
+              multiple
             >
+              <mat-option (click)="selectCategoryAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option
                 *ngFor="let category of categoryId"
                 [value]="category.value"
@@ -391,9 +431,13 @@
           <mat-form-field appearance="outline">
             <mat-label>Stock Code</mat-label>
             <mat-select
-              [(ngModel)]="selectedStockId"
+              [(ngModel)]="selectedStockItems"
               (selectionChange)="onStockChange($event)"
+              multiple
             >
+              <mat-option (click)="selectStockAll()" [value]="'all'"
+                >All</mat-option
+              >
               <mat-option *ngFor="let stock of stockId" [value]="stock.value">
                 {{ stock.viewValue }}
               </mat-option>
@@ -463,7 +507,7 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
-        <table *ngIf="filteredData">
+        <table>
           <thead>
             <tr>
               <th (click)="sortTable('date')">
@@ -552,8 +596,15 @@
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
+          <tbody *ngIf="filteredData">
+            <tr
+              *ngIf="
+                grandTotalData?.grand_total_quantity !== 0 &&
+                grandTotalData?.grand_total_gross_sales != 0 &&
+                grandTotalData?.grand_total_disc != 0 &&
+                grandTotalData?.grand_total_net_sales != 0
+              "
+            >
               <td></td>
               <td>{{ terminal_code }}</td>
               <td>{{ terminal_name }}</td>
@@ -624,8 +675,32 @@
               </tr>
             </ng-container>
           </tbody>
-          <tfoot class="footer-fixed">
-            <tr class="emptyRow">
+          <tbody>
+            <tr>
+              <td
+                colspan="13"
+                *ngIf="errorMessage != null"
+                style="
+                  position: static;
+                  color: red;
+                  width: 100%;
+                  text-align: center;
+                "
+              >
+                {{ errorMessage }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot class="footer-fixed" *ngIf="filteredData">
+            <tr
+              class="emptyRow"
+              *ngIf="
+                grandTotalData?.grand_total_quantity !== 0 &&
+                grandTotalData?.grand_total_gross_sales != 0 &&
+                grandTotalData?.grand_total_disc != 0 &&
+                grandTotalData?.grand_total_net_sales != 0
+              "
+            >
               <td></td>
               <td></td>
               <td></td>
@@ -641,7 +716,15 @@
               <td></td>
               <td></td>
             </tr>
-            <tr class="subTotalPL">
+            <tr
+              class="subTotalPL"
+              *ngIf="
+                grandTotalData?.grand_total_quantity !== 0 &&
+                grandTotalData?.grand_total_gross_sales != 0 &&
+                grandTotalData?.grand_total_disc != 0 &&
+                grandTotalData?.grand_total_net_sales != 0
+              "
+            >
               <td></td>
               <td></td>
               <td></td>
@@ -666,7 +749,15 @@
               </td>
               <td></td>
             </tr>
-            <tr class="subTotalSC01">
+            <tr
+              class="subTotalSC01"
+              *ngIf="
+                grandTotalData?.grand_total_quantity !== 0 &&
+                grandTotalData?.grand_total_gross_sales != 0 &&
+                grandTotalData?.grand_total_disc != 0 &&
+                grandTotalData?.grand_total_net_sales != 0
+              "
+            >
               <td></td>
               <td></td>
               <td></td>
@@ -690,7 +781,14 @@
               </td>
               <td></td>
             </tr>
-            <tr>
+            <tr
+              *ngIf="
+                grandTotalData?.grand_total_quantity !== 0 &&
+                grandTotalData?.grand_total_gross_sales != 0 &&
+                grandTotalData?.grand_total_disc != 0 &&
+                grandTotalData?.grand_total_net_sales != 0
+              "
+            >
               <td></td>
               <td></td>
               <td></td>

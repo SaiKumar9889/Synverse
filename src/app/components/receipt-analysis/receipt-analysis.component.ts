@@ -93,9 +93,6 @@ export class ReceiptAnalysisComponent {
   }
   applyDateFilter() {
     this.receiptAnalysis();
-    setTimeout(() => {
-      this.loadingSpinner = true;
-    }, 1000);
   }
 
   filteredData: any;
@@ -137,16 +134,49 @@ export class ReceiptAnalysisComponent {
     { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
-    this.storeIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedItems.includes("all")) {
+        // this.storeIdValue = this.stores.map((item) => item.value).join();
+        this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
+      } else {
+        this.storeIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedItems: string[] = [];
+
+  selectAll() {
+    if (this.selectedItems.includes("all")) {
+      this.selectedItems = this.stores.map((item) => item.value);
+      this.selectedItems.push("all");
+    } else {
+      this.selectedItems.length = 0;
+      this.selectedItems = [];
+    }
   }
 
-  selectedTerminalId: any;
   terminalIdValue: string = "";
+  selectedTerminalItems: string[] = [];
   terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
+
   onTerminalChange(event: any): void {
-    this.terminalIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedTerminalItems.includes("all")) {
+        this.terminalIdValue = this.terminalId.map((item) => item.value).join();
+      } else {
+        this.terminalIdValue = event.value;
+      }
+    }, 500);
+  }
+
+  selectTerminalAll() {
+    if (this.selectedTerminalItems.includes("all")) {
+      this.selectedTerminalItems = this.terminalId.map((item) => item.value);
+      this.selectedTerminalItems.push("all");
+    } else {
+      this.selectedTerminalItems.length = 0;
+      this.selectedTerminalItems = [];
+    }
   }
 
   term1: any;
@@ -273,7 +303,7 @@ export class ReceiptAnalysisComponent {
       this.isRemark = "F";
     }
   }
-
+  errorMessage: any;
   receiptAnalysis() {
     this.appService
       .receiptAnalysis(
@@ -288,6 +318,13 @@ export class ReceiptAnalysisComponent {
         this.isRemark
       )
       .subscribe((result) => {
+        if (result && result.data == "") {
+          console.log(result.message);
+          // if (result.data && result.data.group_key) {
+          this.errorMessage = "No Data Found";
+          console.log(this.errorMessage);
+          // }
+        }
         this.store_code = result.data[0].terminal_code;
         this.store_name = result.data[0].terminal_desc;
         if (result) {

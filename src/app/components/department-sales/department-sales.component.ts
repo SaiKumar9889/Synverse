@@ -93,9 +93,6 @@ export class DepartmentSalesComponent {
   }
   applyDateFilter() {
     this.departmentSales();
-    setTimeout(() => {
-      this.loadingSpinner = true;
-    }, 1000);
   }
 
   filteredData: any;
@@ -122,8 +119,9 @@ export class DepartmentSalesComponent {
     this.storeIdValue = event.value;
     console.log("Selection change event:", event.value);
   }
-
+  errorMessage = null;
   departmentSales() {
+    this.errorMessage = null;
     console.log(this.searchFrom);
     console.log(this.searchTo);
     this.appService
@@ -136,6 +134,15 @@ export class DepartmentSalesComponent {
       .subscribe((result) => {
         // this.store_code = result.data[0].store_code;
         // this.store_name = result.data[0].store_name;
+
+        if (result && result.status == "failed") {
+          console.log(result.message);
+          // if (result.data && result.data.group_key) {
+          this.errorMessage = result.message;
+          console.log(this.errorMessage);
+          // }
+        }
+
         if (result) {
           this.filteredData = result.data;
           console.log(result);

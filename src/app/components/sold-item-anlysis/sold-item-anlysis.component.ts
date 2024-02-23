@@ -96,9 +96,6 @@ export class SoldItemAnlysisComponent {
   }
   applyDateFilter() {
     this.salesRemark();
-    setTimeout(() => {
-      this.loadingSpinner = true;
-    }, 1000);
   }
 
   filteredData: any;
@@ -133,16 +130,51 @@ export class SoldItemAnlysisComponent {
     { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
-    this.storeIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedItems.includes("all")) {
+        // this.storeIdValue = this.stores.map((item) => item.value).join();
+        this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
+        console.log(this.storeIdValue);
+      } else {
+        this.storeIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedItems: string[] = [];
+
+  selectAll() {
+    if (this.selectedItems.includes("all")) {
+      this.selectedItems = this.stores.map((item) => item.value);
+      this.selectedItems.push("all");
+    } else {
+      this.selectedItems.length = 0;
+      this.selectedItems = [];
+    }
   }
 
-  selectedTerminalId: any;
+  // selectedTerminalId: any;
   terminalIdValue: string = "";
+  selectedTerminalItems: string[] = [];
   terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
+
   onTerminalChange(event: any): void {
-    this.terminalIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedTerminalItems.includes("all")) {
+        this.terminalIdValue = this.terminalId.map((item) => item.value).join();
+      } else {
+        this.terminalIdValue = event.value;
+      }
+    }, 500);
+  }
+
+  selectTerminalAll() {
+    if (this.selectedTerminalItems.includes("all")) {
+      this.selectedTerminalItems = this.terminalId.map((item) => item.value);
+      this.selectedTerminalItems.push("all");
+    } else {
+      this.selectedTerminalItems.length = 0;
+      this.selectedTerminalItems = [];
+    }
   }
 
   selectedGroupId: any;
@@ -156,8 +188,26 @@ export class SoldItemAnlysisComponent {
     { value: "%5B%22GC06%22%5D", viewValue: "DRINK" },
   ];
   onGroupChange(event: any): void {
-    this.groupIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedGroupItems.includes("all")) {
+        // this.storeIdValue = this.stores.map((item) => item.value).join();
+        this.groupIdValue =
+          "%5B%22GC01%22,%22GC02%22,%22GC03%22,%22GC04%22,%22GC05%22,%22GC06%22%5D";
+      } else {
+        this.groupIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedGroupItems: string[] = [];
+
+  selectGroupAll() {
+    if (this.selectedGroupItems.includes("all")) {
+      this.selectedGroupItems = this.groupId.map((item) => item.value);
+      this.selectedGroupItems.push("all");
+    } else {
+      this.selectedGroupItems.length = 0;
+      this.selectedGroupItems = [];
+    }
   }
 
   selectedDepartmentId: any;
@@ -170,10 +220,29 @@ export class SoldItemAnlysisComponent {
     { value: "%5B%22DC05%22%5D", viewValue: "DESSERT" },
     { value: "%5B%22DC06%22%5D", viewValue: "DRINK" },
   ];
-
   onDepartmentChange(event: any): void {
-    this.departmentIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedDepartmentItems.includes("all")) {
+        // this.storeIdValue = this.stores.map((item) => item.value).join();
+        this.departmentIdValue =
+          "%5B%22DC01%22,%22DC02%22,%22DC03%22,%22DC04%22,%22DC05%22,%22DC06%22%5D";
+      } else {
+        this.departmentIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedDepartmentItems: string[] = [];
+
+  selectDepartmentAll() {
+    if (this.selectedDepartmentItems.includes("all")) {
+      this.selectedDepartmentItems = this.departmentId.map(
+        (item) => item.value
+      );
+      this.selectedDepartmentItems.push("all");
+    } else {
+      this.selectedDepartmentItems.length = 0;
+      this.selectedDepartmentItems = [];
+    }
   }
 
   selectedCategoryId: any;
@@ -182,10 +251,26 @@ export class SoldItemAnlysisComponent {
     { value: "%5B%22CC01%22%5D", viewValue: "FOOD" },
     { value: "%5B%22CC02%22%5D", viewValue: "DRINK" },
   ];
-
   onCategoryChange(event: any): void {
-    this.categoryIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedCategoryItems.includes("all")) {
+        // this.storeIdValue = this.stores.map((item) => item.value).join();
+        this.categoryIdValue = "%5B%22CC01%22,%22CC02%22%5D";
+      } else {
+        this.categoryIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedCategoryItems: string[] = [];
+
+  selectCategoryAll() {
+    if (this.selectedCategoryItems.includes("all")) {
+      this.selectedCategoryItems = this.categoryId.map((item) => item.value);
+      this.selectedCategoryItems.push("all");
+    } else {
+      this.selectedCategoryItems.length = 0;
+      this.selectedCategoryItems = [];
+    }
   }
 
   selectedStockId: any;
@@ -202,8 +287,26 @@ export class SoldItemAnlysisComponent {
     { value: "%5B%22SC12%22%5D", viewValue: "All Set Menu" },
   ];
   onStockChange(event: any): void {
-    this.stockIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedStockItems.includes("all")) {
+        // this.storeIdValue = this.stores.map((item) => item.value).join();
+        this.stockIdValue =
+          "%5B%22SC01%22,%22SC02%22,%22SC03%22,%22SC04%22,%22SC05%22,%22SC07%22,%22SC10%22,%22SC11%22,%22SC12%22%5D";
+      } else {
+        this.stockIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedStockItems: string[] = [];
+
+  selectStockAll() {
+    if (this.selectedStockItems.includes("all")) {
+      this.selectedStockItems = this.stockId.map((item) => item.value);
+      this.selectedStockItems.push("all");
+    } else {
+      this.selectedStockItems.length = 0;
+      this.selectedStockItems = [];
+    }
   }
 
   isChecked: boolean;
@@ -429,7 +532,7 @@ export class SoldItemAnlysisComponent {
       this.isCheckboxNormal = "F";
     }
   }
-
+  errorMessage: any;
   salesRemark() {
     console.log(this.searchFrom);
     console.log(this.searchTo);
@@ -452,6 +555,13 @@ export class SoldItemAnlysisComponent {
         this.isCheckboxNormal
       )
       .subscribe((result) => {
+        if (result && result.data == "") {
+          console.log(result.message);
+          // if (result.data && result.data.group_key) {
+          this.errorMessage = "No Data Found";
+          console.log(this.errorMessage);
+          // }
+        }
         if (result) {
           this.store_code = result?.data[0]?.store_code;
           this.store_name = result?.data[0]?.store_desc;
