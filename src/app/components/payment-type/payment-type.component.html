@@ -447,30 +447,6 @@
               <td>{{ data.PYMT_PAYAMT }}</td>
               <td>{{ data.PYMT_ROUND_ADJ }}</td>
             </tr>
-
-            <!-- <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText">SubTotal</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText">{{ data?.rcpt_quantity }}</td>
-                <td class="boldText alignRight">
-                  RM {{ data?.rcpt_gross_sales | number : "1.2-2" }}
-                </td>
-                <td class="boldText alignRight">
-                  RM {{ data?.rcpt_discount | number : "1.2-2" }}
-                </td>
-                <td class="boldText alignRight">
-                  RM {{ data?.rcpt_net_sales | number : "1.2-2" }}
-                </td>
-                <td></td>
-              </tr> -->
-
             <tr>
               <td></td>
               <td></td>
@@ -898,36 +874,6 @@
                 {{ subTotalT6.round_adj | number : "1.2-2" }}
               </td>
             </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of SC01</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalT6.sub_total_paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalT6.sub_total_round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Grand Total</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ grandTotalData.grand_paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ grandTotalData.grand_round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
           </tbody>
           <tbody>
             <tr>
@@ -945,21 +891,8 @@
               </td>
             </tr>
           </tbody>
-          <!-- <tfoot class="footer-fixed" *ngIf="filteredData">
-            <tr
-              class="emptyRow"
-              *ngIf="
-                grandTotalData?.grand_total_quantity !== 0 &&
-                grandTotalData?.grand_total_gross_sales != 0 &&
-                grandTotalData?.grand_total_disc != 0 &&
-                grandTotalData?.grand_total_net_sales != 0
-              "
-            >
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+          <tfoot class="footer-fixed" *ngIf="filteredData">
+            <tr class="emptyRow">
               <td></td>
               <td></td>
               <td></td>
@@ -970,185 +903,928 @@
               <td></td>
               <td></td>
             </tr>
-            <tr
-              class="subTotalPL"
-              *ngIf="
-                grandTotalData?.grand_total_quantity !== 0 &&
-                grandTotalData?.grand_total_gross_sales != 0 &&
-                grandTotalData?.grand_total_disc != 0 &&
-                grandTotalData?.grand_total_net_sales != 0
-              "
-            >
+            <tr class="subTotalPL">
               <td></td>
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
-              <td class="boldText">Terminal Total</td>
-              <td></td>
+              <td class="blueText boldText">Sub Total of SC01</td>
               <td></td>
               <td></td>
-              <td class="boldText">
-                {{ subTotalTerminal?.terminal_quantity }}
+              <td class="blueText boldText">
+                {{ subTotalSC01.sub_total_paid_amt | number : "1.2-2" }}
               </td>
-              <td class="boldText alignRight">
-                RM
-                {{ subTotalTerminal?.terminal_gross_sales | number : "1.2-2" }}
+              <td class="blueText boldText">
+                {{ subTotalSC01.sub_total_round_adj | number : "1.2-2" }}
               </td>
-              <td class="boldText alignRight">
-                RM {{ subTotalTerminal?.terminal_disc | number : "1.2-2" }}
-              </td>
-              <td class="boldText alignRight">
-                RM {{ subTotalTerminal?.terminal_net_sales | number : "1.2-2" }}
-              </td>
-              <td></td>
             </tr>
-            <tr
-              class="subTotalSC01"
-              *ngIf="
-                grandTotalData?.grand_total_quantity !== 0 &&
-                grandTotalData?.grand_total_gross_sales != 0 &&
-                grandTotalData?.grand_total_disc != 0 &&
-                grandTotalData?.grand_total_net_sales != 0
-              "
-            >
+            <tr>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
-              <td class="boldText blueText">Sub Total</td>
-              <td></td>
+              <td class="greenText boldText">Grand Total</td>
               <td></td>
               <td></td>
-              <td class="boldText blueText">
-                {{ subTotalData?.sub_total_net_quantity }}
+              <td class="greenText boldText">
+                {{ grandTotalData.grand_paid_amt | number : "1.2-2" }}
               </td>
-              <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_net_gross | number : "1.2-2" }}
+              <td class="greenText boldText">
+                {{ grandTotalData.grand_round_adj | number : "1.2-2" }}
               </td>
-              <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_net_discount | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_net_sales | number : "1.2-2" }}
-              </td>
-              <td></td>
             </tr>
-            <tr
-              *ngIf="
-                grandTotalData?.grand_total_quantity !== 0 &&
-                grandTotalData?.grand_total_gross_sales != 0 &&
-                grandTotalData?.grand_total_disc != 0 &&
-                grandTotalData?.grand_total_net_sales != 0
-              "
-            >
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText greenText">Grand Total</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText greenText">
-                {{ grandTotalData?.grand_total_quantity }}
-              </td>
-              <td class="boldText greenText alignRight">
-                RM
-                {{ grandTotalData?.grand_total_gross_sales | number : "1.2-2" }}
-              </td>
-              <td class="boldText greenText alignRight">
-                RM {{ grandTotalData?.grand_total_disc | number : "1.2-2" }}
-              </td>
-              <td class="boldText greenText alignRight">
-                RM
-                {{ grandTotalData?.grand_total_net_sales | number : "1.2-2" }}
-              </td>
-              <td></td>
-            </tr>
-          </tfoot> -->
+          </tfoot>
         </table>
       </div>
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm *ngIf="rows">
-        <!-- <div class="addedScroll">
+        <div class="addedScroll" *ngIf="filteredData">
           <div
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
-            *ngFor="let data of rows"
-            class="addedBorder addColor"
+            class="addedBorder"
           >
             <div fxFlex="40">
-              <h4>STORE</h4>
+              <h4>Store</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data.store_code }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-
-            <div fxFlex="40">
-              <h4>TERMINAL CODE</h4>
-            </div>
-            <div fxFlex="60">
-              <p>{{ data.terminal_code }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div fxFlex="40"><h4>TERMINAL</h4></div>
-            <div fxFlex="60">
-              <p>{{ data.terminal }}</p>
+              <p>{{ store_code }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40">
-              <h4>PAYMENT</h4>
+              <h4>Store Name</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data.payment }}</p>
+              <p>{{ store_name }}</p>
             </div>
-            <div fxFlex="100"><hr /></div>
-            <div fxFlex="40">
-              <h4>DATE</h4>
-            </div>
-            <div fxFlex="60">
-              <p>{{ data.DATE }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div fxFlex="40">
-              <h4>PRICE LEVEL</h4>
-            </div>
-            <div fxFlex="60">
-              <p>{{ data["PRICE LEVEL"] }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div fxFlex="40">
-              <h4>SHIFT</h4>
-            </div>
-            <div fxFlex="60">
-              <p>{{ data.SHIFT }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div>
-              <h4>AMOUNT</h4>
-            </div>
-            <div>
-              <p *ngIf="data.AMOUNT != undefined">RM {{ data.AMOUNT }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div>
-              <h4>ROUNDING ADJUST</h4>
-            </div>
-            <div>
-              <p *ngIf="data['ROUNDING ADJUST'] != undefined">
-                RM {{ data["ROUNDING ADJUST"] }}
-              </p>
+            <div fxFlex="100">
+              <div
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between start"
+                class="addedBorder"
+              >
+                <div fxFlex="40">
+                  <h4>Terminal</h4>
+                </div>
+                <div fxFlex="60">
+                  <p>T1</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="40">
+                  <h4>Terminal Code</h4>
+                </div>
+                <div fxFlex="60">
+                  <p>{{ terminal_name }}</p>
+                </div>
+                <div fxFlex="100">
+                  <div
+                    fxLayout="row wrap"
+                    fxLayoutAlign="space-between start"
+                    class="addedBorder addColor"
+                    *ngFor="let data of filteredData"
+                  >
+                    <div fxFlex="40">
+                      <h4>Terminal</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_MASTCODE }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Payment</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_PAYBYCODEDESC }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Date</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_CLOSEDATE | date }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Price Level</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_SALES_PRICELVL }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Shift</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_STATUS }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div>
+                      <h4>Amount</h4>
+                    </div>
+                    <div>
+                      <p>RM {{ data.PYMT_PAYAMT }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div>
+                      <h4>Rounding Adj</h4>
+                    </div>
+                    <div>
+                      <p>RM {{ data.PYMT_ROUND_ADJ }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="100">
+                  <h4>Sub Total of Payment 1</h4>
+                </div>
+                <div>
+                  <h4>Amount</h4>
+                </div>
+                <div>
+                  <p>RM {{ paidAmount | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div>
+                  <h4>Rounding Adj</h4>
+                </div>
+                <div>
+                  <p>RM {{ roundAdj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <div
+                    fxLayout="row wrap"
+                    fxLayoutAlign="space-between start"
+                    class="addedBorder addColor"
+                  >
+                    <div fxFlex="40"><h4>Terminal</h4></div>
+                    <div fxFlex="60">
+                      <p>{{ visaData.PYMT_MASTCODE }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40"><h4>Payment</h4></div>
+                    <div fxFlex="60">
+                      <p>{{ visaData.PYMT_PAYBYCODEDESC }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40"><h4>Date</h4></div>
+                    <div fxFlex="60">
+                      <p>{{ visaData.PYMT_CLOSEDATE | date }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40"><h4>Price Level</h4></div>
+                    <div fxFlex="60">
+                      <p>{{ visaData.PYMT_SALES_PRICELVL }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40"><h4>Shift</h4></div>
+                    <div fxFlex="60">
+                      <p>{{ visaData.PYMT_STATUS }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div><h4>Shift</h4></div>
+                    <div>
+                      <p>RM {{ visaData.PYMT_PAYAMT | number : "1.2-2" }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div><h4>Rounding Adj</h4></div>
+                    <div>
+                      <p>RM {{ visaData.PYMT_ROUND_ADJ | number : "1.2-2" }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                  </div>
+                </div>
+                <div fxFlex="100">
+                  <h4>Sub Total of VISA</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ visaDataSubtotal.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ visaDataSubtotal.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100">
+                  <div
+                    fxLayout="row wrap"
+                    fxLayoutAlign="space-between start"
+                    class="addedBorder addColor"
+                  >
+                    <div fxFlex="40"><h4>Terminal</h4></div>
+                    <div fxFlex="60">
+                      <p>{{ masterData.PYMT_MASTCODE }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40"><h4>Payment</h4></div>
+                    <div fxFlex="60">
+                      <p>{{ masterData.PYMT_PAYBYCODEDESC }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40"><h4>Date</h4></div>
+                    <div fxFlex="60">
+                      <p>{{ masterData.PYMT_CLOSEDATE | date }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40"><h4>Price Level</h4></div>
+                    <div fxFlex="60">
+                      <p>{{ masterData.PYMT_SALES_PRICELVL }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40"><h4>Shift</h4></div>
+                    <div fxFlex="60">
+                      <p>{{ masterData.PYMT_STATUS }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div><h4>Shift</h4></div>
+                    <div>
+                      <p>RM {{ masterData.PYMT_PAYAMT | number : "1.2-2" }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div><h4>Rounding Adj</h4></div>
+                    <div>
+                      <p>
+                        RM {{ masterData.PYMT_ROUND_ADJ | number : "1.2-2" }}
+                      </p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                  </div>
+                </div>
+                <div fxFlex="100">
+                  <h4>Sub Total of MASTER</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ masterDataSubtotal.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>
+                    RM {{ masterDataSubtotal.round_adj | number : "1.2-2" }}
+                  </p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ subTotalDataT1.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ subTotalDataT1.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of T1</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ subTotalT1.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ subTotalT1.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="40">
+                  <h4>Terminal</h4>
+                </div>
+                <div fxFlex="60">
+                  <p>T2</p>
+                </div>
+                <div fxFlex="100">
+                  <div
+                    fxLayout="row wrap"
+                    fxLayoutAlign="space-between start"
+                    class="addedBorder addColor"
+                    *ngFor="let data of filteredDataT2"
+                  >
+                    <div fxFlex="40">
+                      <h4>Terminal</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_MASTCODE }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Payment</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_PAYBYCODEDESC }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Date</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_CLOSEDATE | date }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Price Level</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_SALES_PRICELVL }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Shift</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_STATUS }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div>
+                      <h4>Amount</h4>
+                    </div>
+                    <div>
+                      <p>RM {{ data.PYMT_PAYAMT }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div>
+                      <h4>Rounding Adj</h4>
+                    </div>
+                    <div>
+                      <p>RM {{ data.PYMT_ROUND_ADJ }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of Payment 1</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ paidAmountT2.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ paidAmountT2.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ subTotalDataT2.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ subTotalDataT2.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of T2</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ subTotalT2.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ subTotalT2.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="40">
+                  <h4>Terminal</h4>
+                </div>
+                <div fxFlex="60">
+                  <p>T3</p>
+                </div>
+                <div fxFlex="100">
+                  <div
+                    fxLayout="row wrap"
+                    fxLayoutAlign="space-between start"
+                    class="addedBorder addColor"
+                    *ngFor="let data of filteredDataT3"
+                  >
+                    <div fxFlex="40">
+                      <h4>Terminal</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_MASTCODE }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Payment</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_PAYBYCODEDESC }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Date</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_CLOSEDATE | date }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Price Level</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_SALES_PRICELVL }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Shift</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_STATUS }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div>
+                      <h4>Amount</h4>
+                    </div>
+                    <div>
+                      <p>RM {{ data.PYMT_PAYAMT }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div>
+                      <h4>Rounding Adj</h4>
+                    </div>
+                    <div>
+                      <p>RM {{ data.PYMT_ROUND_ADJ }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of Payment 1</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ paidAmountT3.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ paidAmountT3.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ subTotalDataT3.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ subTotalDataT3.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of T3</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ subTotalT3.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ subTotalT3.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="40">
+                  <h4>Terminal</h4>
+                </div>
+                <div fxFlex="60">
+                  <p>T4</p>
+                </div>
+                <div fxFlex="100">
+                  <div
+                    fxLayout="row wrap"
+                    fxLayoutAlign="space-between start"
+                    class="addedBorder addColor"
+                    *ngFor="let data of filteredDataT4"
+                  >
+                    <div fxFlex="40">
+                      <h4>Terminal</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_MASTCODE }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Payment</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_PAYBYCODEDESC }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Date</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_CLOSEDATE | date }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Price Level</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_SALES_PRICELVL }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Shift</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_STATUS }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div>
+                      <h4>Amount</h4>
+                    </div>
+                    <div>
+                      <p>RM {{ data.PYMT_PAYAMT }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div>
+                      <h4>Rounding Adj</h4>
+                    </div>
+                    <div>
+                      <p>RM {{ data.PYMT_ROUND_ADJ }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of Payment 1</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ paidAmountT4.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ paidAmountT4.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ subTotalDataT4.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ subTotalDataT4.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of T4</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ subTotalT4.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ subTotalT4.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="40">
+                  <h4>Terminal</h4>
+                </div>
+                <div fxFlex="60">
+                  <p>T5</p>
+                </div>
+                <div fxFlex="100">
+                  <div
+                    fxLayout="row wrap"
+                    fxLayoutAlign="space-between start"
+                    class="addedBorder addColor"
+                    *ngFor="let data of filteredDataT5"
+                  >
+                    <div fxFlex="40">
+                      <h4>Terminal</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_MASTCODE }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Payment</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_PAYBYCODEDESC }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Date</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_CLOSEDATE | date }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Price Level</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_SALES_PRICELVL }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Shift</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_STATUS }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div>
+                      <h4>Amount</h4>
+                    </div>
+                    <div>
+                      <p>RM {{ data.PYMT_PAYAMT }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div>
+                      <h4>Rounding Adj</h4>
+                    </div>
+                    <div>
+                      <p>RM {{ data.PYMT_ROUND_ADJ }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of Payment 1</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ paidAmountT5.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ paidAmountT5.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ subTotalDataT5.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ subTotalDataT5.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of T5</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ subTotalT5.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ subTotalT5.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="40">
+                  <h4>Terminal</h4>
+                </div>
+                <div fxFlex="60">
+                  <p>T6</p>
+                </div>
+                <div fxFlex="100">
+                  <div
+                    fxLayout="row wrap"
+                    fxLayoutAlign="space-between start"
+                    class="addedBorder addColor"
+                    *ngFor="let data of filteredDataT6"
+                  >
+                    <div fxFlex="40">
+                      <h4>Terminal</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_MASTCODE }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Payment</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_PAYBYCODEDESC }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Date</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_CLOSEDATE | date }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Price Level</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_SALES_PRICELVL }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div fxFlex="40">
+                      <h4>Shift</h4>
+                    </div>
+                    <div fxFlex="60">
+                      <p>{{ data.PYMT_STATUS }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div>
+                      <h4>Amount</h4>
+                    </div>
+                    <div>
+                      <p>RM {{ data.PYMT_PAYAMT }}</p>
+                    </div>
+                    <div fxFlex="100"><hr /></div>
+                    <div>
+                      <h4>Rounding Adj</h4>
+                    </div>
+                    <div>
+                      <p>RM {{ data.PYMT_ROUND_ADJ }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of Payment 1</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ paidAmountT6.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ paidAmountT6.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ subTotalDataT6.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ subTotalDataT6.round_adj | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div fxFlex="100">
+                  <h4>Sub Total of T6</h4>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Amount</h4></div>
+                <div>
+                  <p>RM {{ subTotalT6.paid_amt | number : "1.2-2" }}</p>
+                </div>
+                <div fxFlex="100"><hr /></div>
+                <div><h4>Rounding Adj</h4></div>
+                <div>
+                  <p>RM {{ subTotalT6.round_adj | number : "1.2-2" }}</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div> -->
+
+          <!-- <div class="addedBorder" *ngIf="filteredData">
+          <h4>Terminal Total</h4>
+          <hr />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4>Qty :</h4>
+            </div>
+            <div>
+              <h4>{{ subTotalTerminal?.terminal_quantity }}</h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4>Gross :</h4>
+            </div>
+            <div>
+              <h4>
+                RM
+                {{ subTotalTerminal?.terminal_gross_sales | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4>Disc :</h4>
+            </div>
+            <div>
+              <h4>
+                RM {{ subTotalTerminal?.terminal_disc | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4>Net :</h4>
+            </div>
+            <div>
+              <h4>
+                RM
+                {{ subTotalTerminal?.terminal_net_sales | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+        </div>
+
+        --></div>
+        <div class="addedBorder" *ngIf="filteredData">
+          <h4 class="blueText">Sub Total</h4>
+          <hr />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Amount :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalSC01?.sub_total_paid_amt }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Rounding Adjust :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM
+                {{ subTotalSC01?.sub_total_round_adj | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="addedBorder marginBottomAdded" *ngIf="filteredData">
+          <h4 class="greenText">Grand Total</h4>
+          <hr />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Amount :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">RM {{ grandTotalData?.grand_paid_amt }}</h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Rounding Adjust :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM
+                {{ grandTotalData?.grand_round_adj | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-<!-- <div *ngIf="loadingSpinner">
+<div *ngIf="loadingSpinner">
   <app-loader></app-loader>
-</div> -->
+</div>

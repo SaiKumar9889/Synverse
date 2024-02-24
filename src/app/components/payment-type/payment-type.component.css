@@ -85,15 +85,27 @@ tfoot tr {
   border: 1px solid #6d6a6ab3;
 }
 tfoot .emptyRow {
-  bottom: 56px !important;
+  bottom: 64px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
   border: 1px solid #6d6a6ab3;
   height: 28px;
 }
+/* tfoot .subTotal {
+  bottom: 96px !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 9;
+  background: #fff;
+}
+tfoot .subTotalT6 {
+  bottom: 64px !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 9;
+  background: #fff;
+} */
 tfoot .subTotalPL {
-  bottom: 28px !important;
+  bottom: 32px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
@@ -140,7 +152,7 @@ tbody tr:last-of-type td {
   .addedScroll {
     padding: 5px 10px;
     overflow: scroll !important;
-    height: 90vh !important;
+    height: 580px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   }
   .addColor {

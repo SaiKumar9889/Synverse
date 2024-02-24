@@ -127,17 +127,17 @@ export class ReceiptAnalysisComponent {
   //   );
   // };
 
-  storeIdValue: string = "";
+  storeIdValue: string[] = [];
   selectedStoreId: any;
   stores: any[] = [
-    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
-    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+    { value: "SC01", viewValue: "Project Store" },
+    { value: "SC02", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
-        // this.storeIdValue = this.stores.map((item) => item.value).join();
-        this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
+        this.storeIdValue = this.stores.map((item) => item.value);
+        // this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
       } else {
         this.storeIdValue = event.value;
       }
@@ -155,14 +155,14 @@ export class ReceiptAnalysisComponent {
     }
   }
 
-  terminalIdValue: string = "";
+  terminalIdValue: string[] = [];
   selectedTerminalItems: string[] = [];
-  terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
+  terminalId: any[] = [{ value: "T1", viewValue: "Terminal 1" }];
 
   onTerminalChange(event: any): void {
     setTimeout(() => {
       if (this.selectedTerminalItems.includes("all")) {
-        this.terminalIdValue = this.terminalId.map((item) => item.value).join();
+        this.terminalIdValue = this.terminalId.map((item) => item.value);
       } else {
         this.terminalIdValue = event.value;
       }
@@ -310,8 +310,12 @@ export class ReceiptAnalysisComponent {
         "json",
         this.searchFrom,
         this.searchTo,
-        this.storeIdValue,
-        this.terminalIdValue,
+        this.storeIdValue && this.storeIdValue.length
+          ? JSON.stringify(this.storeIdValue)
+          : "",
+        this.terminalIdValue && this.terminalIdValue.length
+          ? JSON.stringify(this.terminalIdValue)
+          : "",
         this.isCheckbox,
         this.isCombine,
         this.isNormal,

@@ -57,7 +57,7 @@ export class PaymentTypeComponent implements OnInit {
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
-  // loadingSpinner: boolean = true;
+  loadingSpinner: boolean = true;
   terminal_code: any;
   terminal_name: any;
   subTotalTerminal: any;
@@ -131,17 +131,17 @@ export class PaymentTypeComponent implements OnInit {
   //   );
   // };
 
-  storeIdValue: string = "";
+  storeIdValue: string[] = [];
   selectedStoreId: any;
   stores: any[] = [
-    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
-    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+    { value: "SC01", viewValue: "Project Store" },
+    { value: "SC02", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
-        // this.storeIdValue = this.stores.map((item) => item.value).join();
-        this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
+        this.storeIdValue = this.stores.map((item) => item.value);
+        // this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
       } else {
         this.storeIdValue = event.value;
       }
@@ -159,14 +159,14 @@ export class PaymentTypeComponent implements OnInit {
     }
   }
 
-  terminalIdValue: string = "";
+  terminalIdValue: string[] = [];
   selectedTerminalItems: string[] = [];
-  terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
+  terminalId: any[] = [{ value: "T1", viewValue: "Terminal 1" }];
 
   onTerminalChange(event: any): void {
     setTimeout(() => {
       if (this.selectedTerminalItems.includes("all")) {
-        this.terminalIdValue = this.terminalId.map((item) => item.value).join();
+        this.terminalIdValue = this.terminalId.map((item) => item.value);
       } else {
         this.terminalIdValue = event.value;
       }
@@ -184,17 +184,17 @@ export class PaymentTypeComponent implements OnInit {
   }
 
   selectedPaymentId: any;
-  paymentIdValue: string = "";
+  paymentIdValue: string[] = [];
   paymentId: any[] = [
-    { value: "%5B%22MASTER%22%5D", viewValue: "MASTER" },
-    { value: "%5B%22PC01%22%5D", viewValue: "Payment 1" },
-    { value: "%5B%22VISA%22%5D", viewValue: "VISA" },
+    { value: "MASTER", viewValue: "MASTER" },
+    { value: "PC01", viewValue: "Payment 1" },
+    { value: "VISA", viewValue: "VISA" },
   ];
   onPaymentChange(event: any): void {
     setTimeout(() => {
       if (this.selectedPaymentItems.includes("all")) {
-        // this.storeIdValue = this.stores.map((item) => item.value).join();
-        this.paymentIdValue = "%5B%22MASTER%22,%22PC01%22,%22VISA%22%5D";
+        this.paymentIdValue = this.paymentId.map((item) => item.value);
+        // this.paymentIdValue = "%5B%22MASTER%22,%22PC01%22,%22VISA%22%5D";
       } else {
         this.paymentIdValue = event.value;
       }
@@ -311,9 +311,15 @@ export class PaymentTypeComponent implements OnInit {
         "json",
         this.searchFrom,
         this.searchTo,
-        this.storeIdValue,
-        this.terminalIdValue,
-        this.paymentIdValue,
+        this.storeIdValue && this.storeIdValue.length
+          ? JSON.stringify(this.storeIdValue)
+          : "",
+        this.terminalIdValue && this.terminalIdValue.length
+          ? JSON.stringify(this.terminalIdValue)
+          : "",
+        this.paymentIdValue && this.paymentIdValue.length
+          ? JSON.stringify(this.paymentIdValue)
+          : "",
         this.isCheckbox,
         this.isCheckboxShift
       )
@@ -392,7 +398,7 @@ export class PaymentTypeComponent implements OnInit {
           // this.subTotalData = result?.data[0];
           // this.grandTotalData = result;
           // this.filteredData = this.storesFilterData;
-          // this.loadingSpinner = false;
+          this.loadingSpinner = false;
         }
       });
   }

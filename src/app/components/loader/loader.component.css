@@ -1,6 +1,6 @@
 /* HTML: <div class="loader"></div> */
 .bg-color {
-  width: 100%;
+  width: 100% !important;
   height: 75vh;
   background-color: rgb(244, 238, 238);
   opacity: 0.6;

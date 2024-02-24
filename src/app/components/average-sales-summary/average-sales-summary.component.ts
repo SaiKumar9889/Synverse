@@ -70,17 +70,17 @@ export class AverageSalesSummaryComponent {
       }
     });
   }
-  storeIdValue: string = "";
+  storeIdValue: string[] = [];
   selectedStoreId: any;
   stores: any[] = [
-    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
-    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+    { value: "SC01", viewValue: "Project Store" },
+    { value: "SC02", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
-        // this.storeIdValue = this.stores.map((item) => item.value).join();
-        this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
+        this.storeIdValue = this.stores.map((item) => item.value);
+        // this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
       } else {
         this.storeIdValue = event.value;
       }
@@ -195,13 +195,14 @@ export class AverageSalesSummaryComponent {
   errorMessage: any;
   averageSalesSummary() {
     this.loadingSpinner = true;
-    console.log(this.storeIdValue);
     this.appService
       .averageSalesSummary(
         "json",
         this.searchFrom,
         this.searchTo,
-        this.storeIdValue,
+        this.storeIdValue && this.storeIdValue.length
+          ? JSON.stringify(this.storeIdValue)
+          : "",
         this.salesValue,
         this.isCheckbox
       )

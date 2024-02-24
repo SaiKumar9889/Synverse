@@ -123,17 +123,17 @@ export class SoldItemAnlysisComponent {
     console.log(this.filteredData);
   }
 
-  storeIdValue: string = "";
+  storeIdValue: string[] = [];
   selectedStoreId: any;
   stores: any[] = [
-    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
-    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+    { value: "SC01", viewValue: "Project Store" },
+    { value: "SC02", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
-        // this.storeIdValue = this.stores.map((item) => item.value).join();
-        this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
+        this.storeIdValue = this.stores.map((item) => item.value);
+        // this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
         console.log(this.storeIdValue);
       } else {
         this.storeIdValue = event.value;
@@ -153,14 +153,14 @@ export class SoldItemAnlysisComponent {
   }
 
   // selectedTerminalId: any;
-  terminalIdValue: string = "";
+  terminalIdValue: string[] = [];
   selectedTerminalItems: string[] = [];
-  terminalId: any[] = [{ value: "%5B%22T1%22%5D", viewValue: "Terminal 1" }];
+  terminalId: any[] = [{ value: "T1", viewValue: "Terminal 1" }];
 
   onTerminalChange(event: any): void {
     setTimeout(() => {
       if (this.selectedTerminalItems.includes("all")) {
-        this.terminalIdValue = this.terminalId.map((item) => item.value).join();
+        this.terminalIdValue = this.terminalId.map((item) => item.value);
       } else {
         this.terminalIdValue = event.value;
       }
@@ -178,21 +178,21 @@ export class SoldItemAnlysisComponent {
   }
 
   selectedGroupId: any;
-  groupIdValue: string = "";
+  groupIdValue: string[] = [];
   groupId: any[] = [
-    { value: "%5B%22GC01%22%5D", viewValue: "MAIN FOOD" },
-    { value: "%5B%22GC02%22%5D", viewValue: "FRIED FOOD" },
-    { value: "%5B%22GC03%22%5D", viewValue: "NOODLES" },
-    { value: "%5B%22GC04%22%5D", viewValue: "WESTERN" },
-    { value: "%5B%22GC05%22%5D", viewValue: "DESSERT" },
-    { value: "%5B%22GC06%22%5D", viewValue: "DRINK" },
+    { value: "GC01", viewValue: "MAIN FOOD" },
+    { value: "GC02", viewValue: "FRIED FOOD" },
+    { value: "GC03", viewValue: "NOODLES" },
+    { value: "GC04", viewValue: "WESTERN" },
+    { value: "GC05", viewValue: "DESSERT" },
+    { value: "GC06", viewValue: "DRINK" },
   ];
   onGroupChange(event: any): void {
     setTimeout(() => {
       if (this.selectedGroupItems.includes("all")) {
-        // this.storeIdValue = this.stores.map((item) => item.value).join();
-        this.groupIdValue =
-          "%5B%22GC01%22,%22GC02%22,%22GC03%22,%22GC04%22,%22GC05%22,%22GC06%22%5D";
+        this.groupIdValue = this.groupId.map((item) => item.value);
+        // this.groupIdValue =
+        //   "%5B%22GC01%22,%22GC02%22,%22GC03%22,%22GC04%22,%22GC05%22,%22GC06%22%5D";
       } else {
         this.groupIdValue = event.value;
       }
@@ -211,21 +211,21 @@ export class SoldItemAnlysisComponent {
   }
 
   selectedDepartmentId: any;
-  departmentIdValue: string = "";
+  departmentIdValue: string[] = [];
   departmentId: any[] = [
-    { value: "%5B%22DC01%22%5D", viewValue: "MAIN FOOD" },
-    { value: "%5B%22DC02%22%5D", viewValue: "FRIED FOOD" },
-    { value: "%5B%22DC03%22%5D", viewValue: "NOODLES" },
-    { value: "%5B%22DC04%22%5D", viewValue: "WESTERN" },
-    { value: "%5B%22DC05%22%5D", viewValue: "DESSERT" },
-    { value: "%5B%22DC06%22%5D", viewValue: "DRINK" },
+    { value: "DC01", viewValue: "MAIN FOOD" },
+    { value: "DC02", viewValue: "FRIED FOOD" },
+    { value: "DC03", viewValue: "NOODLES" },
+    { value: "DC04", viewValue: "WESTERN" },
+    { value: "DC05", viewValue: "DESSERT" },
+    { value: "DC06", viewValue: "DRINK" },
   ];
   onDepartmentChange(event: any): void {
     setTimeout(() => {
       if (this.selectedDepartmentItems.includes("all")) {
-        // this.storeIdValue = this.stores.map((item) => item.value).join();
-        this.departmentIdValue =
-          "%5B%22DC01%22,%22DC02%22,%22DC03%22,%22DC04%22,%22DC05%22,%22DC06%22%5D";
+        this.departmentIdValue = this.departmentId.map((item) => item.value);
+        // this.departmentIdValue =
+        //   "%5B%22DC01%22,%22DC02%22,%22DC03%22,%22DC04%22,%22DC05%22,%22DC06%22%5D";
       } else {
         this.departmentIdValue = event.value;
       }
@@ -246,16 +246,16 @@ export class SoldItemAnlysisComponent {
   }
 
   selectedCategoryId: any;
-  categoryIdValue: string = "";
+  categoryIdValue: string[] = [];
   categoryId: any[] = [
-    { value: "%5B%22CC01%22%5D", viewValue: "FOOD" },
-    { value: "%5B%22CC02%22%5D", viewValue: "DRINK" },
+    { value: "CC01", viewValue: "FOOD" },
+    { value: "CC02", viewValue: "DRINK" },
   ];
   onCategoryChange(event: any): void {
     setTimeout(() => {
       if (this.selectedCategoryItems.includes("all")) {
-        // this.storeIdValue = this.stores.map((item) => item.value).join();
-        this.categoryIdValue = "%5B%22CC01%22,%22CC02%22%5D";
+        this.categoryIdValue = this.categoryId.map((item) => item.value);
+        // this.categoryIdValue = "%5B%22CC01%22,%22CC02%22%5D";
       } else {
         this.categoryIdValue = event.value;
       }
@@ -274,24 +274,24 @@ export class SoldItemAnlysisComponent {
   }
 
   selectedStockId: any;
-  stockIdValue: string = "";
+  stockIdValue: string[] = [];
   stockId: any[] = [
-    { value: "%5B%22SC01%22%5D", viewValue: "NASI AYAM" },
-    { value: "%5B%22SC02%22%5D", viewValue: "NASI GORENG AYAM" },
-    { value: "%5B%22SC03%22%5D", viewValue: "MEE CURRY" },
-    { value: "%5B%22SC04%22%5D", viewValue: "CHICKEN CHOP" },
-    { value: "%5B%22SC05%22%5D", viewValue: "ICE CREAM SCOOP" },
-    { value: "%5B%22SC07%22%5D", viewValue: "CHOCOLATE AIS" },
-    { value: "%5B%22SC10%22%5D", viewValue: "Single Set Menu" },
-    { value: "%5B%22SC11%22%5D", viewValue: "Enter Set Menu" },
-    { value: "%5B%22SC12%22%5D", viewValue: "All Set Menu" },
+    { value: "SC01", viewValue: "NASI AYAM" },
+    { value: "SC02", viewValue: "NASI GORENG AYAM" },
+    { value: "SC03", viewValue: "MEE CURRY" },
+    { value: "SC04", viewValue: "CHICKEN CHOP" },
+    { value: "SC05", viewValue: "ICE CREAM SCOOP" },
+    { value: "SC07", viewValue: "CHOCOLATE AIS" },
+    { value: "SC10", viewValue: "Single Set Menu" },
+    { value: "SC11", viewValue: "Enter Set Menu" },
+    { value: "SC12", viewValue: "All Set Menu" },
   ];
   onStockChange(event: any): void {
     setTimeout(() => {
       if (this.selectedStockItems.includes("all")) {
-        // this.storeIdValue = this.stores.map((item) => item.value).join();
-        this.stockIdValue =
-          "%5B%22SC01%22,%22SC02%22,%22SC03%22,%22SC04%22,%22SC05%22,%22SC07%22,%22SC10%22,%22SC11%22,%22SC12%22%5D";
+        this.stockIdValue = this.stockId.map((item) => item.value);
+        // this.stockIdValue =
+        //   "%5B%22SC01%22,%22SC02%22,%22SC03%22,%22SC04%22,%22SC05%22,%22SC07%22,%22SC10%22,%22SC11%22,%22SC12%22%5D";
       } else {
         this.stockIdValue = event.value;
       }
@@ -540,12 +540,24 @@ export class SoldItemAnlysisComponent {
       .soldItemAnalysis(
         this.searchFrom,
         this.searchTo,
-        this.storeIdValue,
-        this.terminalIdValue,
-        this.groupIdValue,
-        this.departmentIdValue,
-        this.categoryIdValue,
-        this.stockIdValue,
+        this.storeIdValue && this.storeIdValue.length
+          ? JSON.stringify(this.storeIdValue)
+          : "",
+        this.terminalIdValue && this.terminalIdValue.length
+          ? JSON.stringify(this.terminalIdValue)
+          : "",
+        this.groupIdValue && this.groupIdValue.length
+          ? JSON.stringify(this.groupIdValue)
+          : "",
+        this.departmentIdValue && this.departmentIdValue.length
+          ? JSON.stringify(this.departmentIdValue)
+          : "",
+        this.categoryIdValue && this.categoryIdValue.length
+          ? JSON.stringify(this.categoryIdValue)
+          : "",
+        this.stockIdValue && this.stockIdValue.length
+          ? JSON.stringify(this.stockIdValue)
+          : "",
         this.isCheckbox,
         this.isCheckboxShift,
         this.isCheckboxChanged,

@@ -111,17 +111,17 @@ export class OperatorCollectionComponent {
     );
   }
 
-  storeIdValue: string = "";
+  storeIdValue: string[] = [];
   selectedStoreId: any;
   stores: any[] = [
-    { value: "%5B%22SC01%22%5D", viewValue: "Project Store" },
-    { value: "%5B%22SC02%22%5D", viewValue: "Project Store 2" },
+    { value: "SC01", viewValue: "Project Store" },
+    { value: "SC02", viewValue: "Project Store 2" },
   ];
   onSelectionChange(event: any): void {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
-        // this.storeIdValue = this.stores.map((item) => item.value).join();
-        this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
+        this.storeIdValue = this.stores.map((item) => item.value);
+        // this.storeIdValue = "SC01%22,%22SC02%22%5D";
       } else {
         this.storeIdValue = event.value;
       }
@@ -139,13 +139,13 @@ export class OperatorCollectionComponent {
     }
   }
 
-  operatorValue: string = "";
+  operatorValue: string[] = [];
   selectedOperator: any;
-  operators: any[] = [{ value: "%5B%22SYNV%22%5D", viewValue: "SYNV" }];
+  operators: any[] = [{ value: "SYNV", viewValue: "SYNV" }];
   onOperatorChange(event: any): void {
     setTimeout(() => {
       if (this.selectedOperatorItems.includes("all")) {
-        this.operatorValue = this.operators.map((item) => item.value).join();
+        this.operatorValue = this.operators.map((item) => item.value);
         // this.operatorValue = '"%5B%22SYNV%22%5D';
       } else {
         this.operatorValue = event.value;
@@ -170,8 +170,12 @@ export class OperatorCollectionComponent {
         "json",
         this.searchFrom,
         this.searchTo,
-        this.storeIdValue,
-        this.operatorValue
+        this.storeIdValue && this.storeIdValue.length
+          ? JSON.stringify(this.storeIdValue)
+          : "",
+        this.operatorValue && this.operatorValue.length
+          ? JSON.stringify(this.operatorValue)
+          : ""
       )
       .subscribe((result) => {
         if (result && result.data == "") {
