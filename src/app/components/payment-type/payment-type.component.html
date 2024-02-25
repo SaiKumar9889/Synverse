@@ -406,14 +406,7 @@
             </tr>
           </thead>
           <tbody *ngIf="filteredData">
-            <tr
-              *ngIf="
-                grandTotalData?.grand_total_quantity !== 0 &&
-                grandTotalData?.grand_total_gross_sales != 0 &&
-                grandTotalData?.grand_total_disc != 0 &&
-                grandTotalData?.grand_total_net_sales != 0
-              "
-            >
+            <tr>
               <td>{{ store_code }}</td>
               <td>{{ store_name }}</td>
               <td></td>
@@ -439,13 +432,13 @@
             <tr *ngFor="let data of filteredData">
               <td></td>
               <td></td>
-              <td>{{ data.PYMT_MASTCODE }}</td>
-              <td>{{ data.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ data.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ data.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ data.PYMT_STATUS }}</td>
-              <td>{{ data.PYMT_PAYAMT }}</td>
-              <td>{{ data.PYMT_ROUND_ADJ }}</td>
+              <td>{{ data?.PYMT_MASTCODE }}</td>
+              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data?.PYMT_STATUS }}</td>
+              <td>{{ data?.PYMT_PAYAMT }}</td>
+              <td>{{ data?.PYMT_ROUND_ADJ }}</td>
             </tr>
             <tr>
               <td></td>
@@ -461,13 +454,13 @@
             <tr>
               <td></td>
               <td></td>
-              <td>{{ visaData.PYMT_MASTCODE }}</td>
-              <td>{{ visaData.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ visaData.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ visaData.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ visaData.PYMT_STATUS }}</td>
-              <td>{{ visaData.PYMT_PAYAMT }}</td>
-              <td>{{ visaData.PYMT_ROUND_ADJ }}</td>
+              <td>{{ visaData?.PYMT_MASTCODE }}</td>
+              <td>{{ visaData?.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ visaData?.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ visaData?.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ visaData?.PYMT_STATUS }}</td>
+              <td>{{ visaData?.PYMT_PAYAMT }}</td>
+              <td>{{ visaData?.PYMT_ROUND_ADJ }}</td>
             </tr>
             <tr>
               <td></td>
@@ -477,19 +470,19 @@
               <td class="boldText">Sub Total of VISA</td>
               <td></td>
               <td></td>
-              <td class="boldText">{{ visaDataSubtotal.paid_amt }}</td>
-              <td class="boldText">{{ visaDataSubtotal.round_adj }}</td>
+              <td class="boldText">{{ visaDataSubtotal?.paid_amt }}</td>
+              <td class="boldText">{{ visaDataSubtotal?.round_adj }}</td>
             </tr>
             <tr>
               <td></td>
               <td></td>
-              <td>{{ masterData.PYMT_MASTCODE }}</td>
-              <td>{{ masterData.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ masterData.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ masterData.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ masterData.PYMT_STATUS }}</td>
-              <td>{{ masterData.PYMT_PAYAMT }}</td>
-              <td>{{ masterData.PYMT_ROUND_ADJ }}</td>
+              <td>{{ masterData?.PYMT_MASTCODE }}</td>
+              <td>{{ masterData?.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ masterData?.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ masterData?.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ masterData?.PYMT_STATUS }}</td>
+              <td>{{ masterData?.PYMT_PAYAMT }}</td>
+              <td>{{ masterData?.PYMT_ROUND_ADJ }}</td>
             </tr>
             <tr>
               <td></td>
@@ -500,10 +493,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ masterDataSubtotal.paid_amt | number : "1.2-2" }}
+                {{ masterDataSubtotal?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ masterDataSubtotal.round_adj | number : "1.2-2" }}
+                {{ masterDataSubtotal?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -515,10 +508,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ subTotalDataT1.paid_amt | number : "1.2-2" }}
+                {{ subTotalDataT1?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ subTotalDataT1.round_adj | number : "1.2-2" }}
+                {{ subTotalDataT1?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -530,10 +523,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ subTotalT1.paid_amt | number : "1.2-2" }}
+                {{ subTotalT1?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ subTotalT1.round_adj | number : "1.2-2" }}
+                {{ subTotalT1?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -550,13 +543,13 @@
             <tr *ngFor="let data of filteredDataT2">
               <td></td>
               <td></td>
-              <td>{{ data.PYMT_MASTCODE }}</td>
-              <td>{{ data.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ data.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ data.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ data.PYMT_STATUS }}</td>
-              <td>{{ data.PYMT_PAYAMT }}</td>
-              <td>{{ data.PYMT_ROUND_ADJ }}</td>
+              <td>{{ data?.PYMT_MASTCODE }}</td>
+              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data?.PYMT_STATUS }}</td>
+              <td>{{ data?.PYMT_PAYAMT }}</td>
+              <td>{{ data?.PYMT_ROUND_ADJ }}</td>
             </tr>
             <tr>
               <td></td>
@@ -567,10 +560,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ paidAmountT2.paid_amt | number : "1.2-2" }}
+                {{ paidAmountT2?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ paidAmountT2.round_adj | number : "1.2-2" }}
+                {{ paidAmountT2?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -582,10 +575,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ subTotalDataT2.paid_amt | number : "1.2-2" }}
+                {{ subTotalDataT2?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ subTotalDataT2.round_adj | number : "1.2-2" }}
+                {{ subTotalDataT2?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -597,10 +590,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ subTotalT2.paid_amt | number : "1.2-2" }}
+                {{ subTotalT2?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ subTotalT2.round_adj | number : "1.2-2" }}
+                {{ subTotalT2?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -617,13 +610,13 @@
             <tr *ngFor="let data of filteredDataT3">
               <td></td>
               <td></td>
-              <td>{{ data.PYMT_MASTCODE }}</td>
-              <td>{{ data.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ data.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ data.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ data.PYMT_STATUS }}</td>
-              <td>{{ data.PYMT_PAYAMT }}</td>
-              <td>{{ data.PYMT_ROUND_ADJ }}</td>
+              <td>{{ data?.PYMT_MASTCODE }}</td>
+              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data?.PYMT_STATUS }}</td>
+              <td>{{ data?.PYMT_PAYAMT }}</td>
+              <td>{{ data?.PYMT_ROUND_ADJ }}</td>
             </tr>
             <tr>
               <td></td>
@@ -634,10 +627,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ paidAmountT3.paid_amt | number : "1.2-2" }}
+                {{ paidAmountT3?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ paidAmountT3.round_adj | number : "1.2-2" }}
+                {{ paidAmountT3?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -649,10 +642,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ subTotalDataT3.paid_amt | number : "1.2-2" }}
+                {{ subTotalDataT3?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ subTotalDataT3.round_adj | number : "1.2-2" }}
+                {{ subTotalDataT3?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -664,10 +657,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ subTotalT3.paid_amt | number : "1.2-2" }}
+                {{ subTotalT3?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ subTotalT3.round_adj | number : "1.2-2" }}
+                {{ subTotalT3?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
 
@@ -685,13 +678,13 @@
             <tr *ngFor="let data of filteredDataT4">
               <td></td>
               <td></td>
-              <td>{{ data.PYMT_MASTCODE }}</td>
-              <td>{{ data.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ data.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ data.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ data.PYMT_STATUS }}</td>
-              <td>{{ data.PYMT_PAYAMT }}</td>
-              <td>{{ data.PYMT_ROUND_ADJ }}</td>
+              <td>{{ data?.PYMT_MASTCODE }}</td>
+              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data?.PYMT_STATUS }}</td>
+              <td>{{ data?.PYMT_PAYAMT }}</td>
+              <td>{{ data?.PYMT_ROUND_ADJ }}</td>
             </tr>
             <tr>
               <td></td>
@@ -702,10 +695,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ paidAmountT4.paid_amt | number : "1.2-2" }}
+                {{ paidAmountT4?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ paidAmountT4.round_adj | number : "1.2-2" }}
+                {{ paidAmountT4?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -717,10 +710,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ subTotalDataT4.paid_amt | number : "1.2-2" }}
+                {{ subTotalDataT4?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ subTotalDataT4.round_adj | number : "1.2-2" }}
+                {{ subTotalDataT4?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -732,10 +725,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ subTotalT3.paid_amt | number : "1.2-2" }}
+                {{ subTotalT4?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ subTotalT3.round_adj | number : "1.2-2" }}
+                {{ subTotalT4?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
 
@@ -753,13 +746,13 @@
             <tr *ngFor="let data of filteredDataT5">
               <td></td>
               <td></td>
-              <td>{{ data.PYMT_MASTCODE }}</td>
-              <td>{{ data.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ data.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ data.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ data.PYMT_STATUS }}</td>
-              <td>{{ data.PYMT_PAYAMT }}</td>
-              <td>{{ data.PYMT_ROUND_ADJ }}</td>
+              <td>{{ data?.PYMT_MASTCODE }}</td>
+              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data?.PYMT_STATUS }}</td>
+              <td>{{ data?.PYMT_PAYAMT }}</td>
+              <td>{{ data?.PYMT_ROUND_ADJ }}</td>
             </tr>
             <tr>
               <td></td>
@@ -770,10 +763,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ paidAmountT5.paid_amt | number : "1.2-2" }}
+                {{ paidAmountT5?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ paidAmountT5.round_adj | number : "1.2-2" }}
+                {{ paidAmountT5?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -785,10 +778,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ subTotalDataT5.paid_amt | number : "1.2-2" }}
+                {{ subTotalDataT5?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ subTotalDataT5.round_adj | number : "1.2-2" }}
+                {{ subTotalDataT5?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -800,10 +793,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ subTotalT5.paid_amt | number : "1.2-2" }}
+                {{ subTotalT5?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ subTotalT5.round_adj | number : "1.2-2" }}
+                {{ subTotalT5?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
 
@@ -821,13 +814,13 @@
             <tr *ngFor="let data of filteredDataT6">
               <td></td>
               <td></td>
-              <td>{{ data.PYMT_MASTCODE }}</td>
-              <td>{{ data.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ data.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ data.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ data.PYMT_STATUS }}</td>
-              <td>{{ data.PYMT_PAYAMT }}</td>
-              <td>{{ data.PYMT_ROUND_ADJ }}</td>
+              <td>{{ data?.PYMT_MASTCODE }}</td>
+              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data?.PYMT_STATUS }}</td>
+              <td>{{ data?.PYMT_PAYAMT }}</td>
+              <td>{{ data?.PYMT_ROUND_ADJ }}</td>
             </tr>
             <tr>
               <td></td>
@@ -838,10 +831,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ paidAmountT6.paid_amt | number : "1.2-2" }}
+                {{ paidAmountT6?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ paidAmountT6.round_adj | number : "1.2-2" }}
+                {{ paidAmountT6?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -853,10 +846,10 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ subTotalDataT6.paid_amt | number : "1.2-2" }}
+                {{ subTotalDataT6?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ subTotalDataT6.round_adj | number : "1.2-2" }}
+                {{ subTotalDataT6?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -868,14 +861,14 @@
               <td></td>
               <td></td>
               <td class="boldText">
-                {{ subTotalT6.paid_amt | number : "1.2-2" }}
+                {{ subTotalT6?.paid_amt | number : "1.2-2" }}
               </td>
               <td class="boldText">
-                {{ subTotalT6.round_adj | number : "1.2-2" }}
+                {{ subTotalT6?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
-          <tbody>
+          <!-- <tbody>
             <tr>
               <td
                 colspan="13"
@@ -890,7 +883,7 @@
                 {{ errorMessage }}
               </td>
             </tr>
-          </tbody>
+          </tbody> -->
           <tfoot class="footer-fixed" *ngIf="filteredData">
             <tr class="emptyRow">
               <td></td>
@@ -912,10 +905,10 @@
               <td></td>
               <td></td>
               <td class="blueText boldText">
-                {{ subTotalSC01.sub_total_paid_amt | number : "1.2-2" }}
+                {{ subTotalSC01?.sub_total_paid_amt | number : "1.2-2" }}
               </td>
               <td class="blueText boldText">
-                {{ subTotalSC01.sub_total_round_adj | number : "1.2-2" }}
+                {{ subTotalSC01?.sub_total_round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -927,10 +920,10 @@
               <td></td>
               <td></td>
               <td class="greenText boldText">
-                {{ grandTotalData.grand_paid_amt | number : "1.2-2" }}
+                {{ grandTotalData?.grand_paid_amt | number : "1.2-2" }}
               </td>
               <td class="greenText boldText">
-                {{ grandTotalData.grand_round_adj | number : "1.2-2" }}
+                {{ grandTotalData?.grand_round_adj | number : "1.2-2" }}
               </td>
             </tr>
           </tfoot>
@@ -986,49 +979,49 @@
                       <h4>Terminal</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_MASTCODE }}</p>
+                      <p>{{ data?.PYMT_MASTCODE }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Payment</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_PAYBYCODEDESC }}</p>
+                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Date</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_CLOSEDATE | date }}</p>
+                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Price Level</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_SALES_PRICELVL }}</p>
+                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Shift</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_STATUS }}</p>
+                      <p>{{ data?.PYMT_STATUS }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Amount</h4>
                     </div>
                     <div>
-                      <p>RM {{ data.PYMT_PAYAMT }}</p>
+                      <p>RM {{ data?.PYMT_PAYAMT }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Rounding Adj</h4>
                     </div>
                     <div>
-                      <p>RM {{ data.PYMT_ROUND_ADJ }}</p>
+                      <p>RM {{ data?.PYMT_ROUND_ADJ }}</p>
                     </div>
                   </div>
                 </div>
@@ -1057,37 +1050,39 @@
                   >
                     <div fxFlex="40"><h4>Terminal</h4></div>
                     <div fxFlex="60">
-                      <p>{{ visaData.PYMT_MASTCODE }}</p>
+                      <p>{{ visaData?.PYMT_MASTCODE }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Payment</h4></div>
                     <div fxFlex="60">
-                      <p>{{ visaData.PYMT_PAYBYCODEDESC }}</p>
+                      <p>{{ visaData?.PYMT_PAYBYCODEDESC }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Date</h4></div>
                     <div fxFlex="60">
-                      <p>{{ visaData.PYMT_CLOSEDATE | date }}</p>
+                      <p>{{ visaData?.PYMT_CLOSEDATE | date }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Price Level</h4></div>
                     <div fxFlex="60">
-                      <p>{{ visaData.PYMT_SALES_PRICELVL }}</p>
+                      <p>{{ visaData?.PYMT_SALES_PRICELVL }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Shift</h4></div>
                     <div fxFlex="60">
-                      <p>{{ visaData.PYMT_STATUS }}</p>
+                      <p>{{ visaData?.PYMT_STATUS }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div><h4>Shift</h4></div>
                     <div>
-                      <p>RM {{ visaData.PYMT_PAYAMT | number : "1.2-2" }}</p>
+                      <p>RM {{ visaData?.PYMT_PAYAMT | number : "1.2-2" }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div><h4>Rounding Adj</h4></div>
                     <div>
-                      <p>RM {{ visaData.PYMT_ROUND_ADJ | number : "1.2-2" }}</p>
+                      <p>
+                        RM {{ visaData?.PYMT_ROUND_ADJ | number : "1.2-2" }}
+                      </p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                   </div>
@@ -1098,12 +1093,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ visaDataSubtotal.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ visaDataSubtotal?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ visaDataSubtotal.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ visaDataSubtotal?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100">
                   <div
@@ -1113,38 +1108,38 @@
                   >
                     <div fxFlex="40"><h4>Terminal</h4></div>
                     <div fxFlex="60">
-                      <p>{{ masterData.PYMT_MASTCODE }}</p>
+                      <p>{{ masterData?.PYMT_MASTCODE }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Payment</h4></div>
                     <div fxFlex="60">
-                      <p>{{ masterData.PYMT_PAYBYCODEDESC }}</p>
+                      <p>{{ masterData?.PYMT_PAYBYCODEDESC }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Date</h4></div>
                     <div fxFlex="60">
-                      <p>{{ masterData.PYMT_CLOSEDATE | date }}</p>
+                      <p>{{ masterData?.PYMT_CLOSEDATE | date }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Price Level</h4></div>
                     <div fxFlex="60">
-                      <p>{{ masterData.PYMT_SALES_PRICELVL }}</p>
+                      <p>{{ masterData?.PYMT_SALES_PRICELVL }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Shift</h4></div>
                     <div fxFlex="60">
-                      <p>{{ masterData.PYMT_STATUS }}</p>
+                      <p>{{ masterData?.PYMT_STATUS }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div><h4>Shift</h4></div>
                     <div>
-                      <p>RM {{ masterData.PYMT_PAYAMT | number : "1.2-2" }}</p>
+                      <p>RM {{ masterData?.PYMT_PAYAMT | number : "1.2-2" }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div><h4>Rounding Adj</h4></div>
                     <div>
                       <p>
-                        RM {{ masterData.PYMT_ROUND_ADJ | number : "1.2-2" }}
+                        RM {{ masterData?.PYMT_ROUND_ADJ | number : "1.2-2" }}
                       </p>
                     </div>
                     <div fxFlex="100"><hr /></div>
@@ -1156,13 +1151,15 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ masterDataSubtotal.paid_amt | number : "1.2-2" }}</p>
+                  <p>
+                    RM {{ masterDataSubtotal?.paid_amt | number : "1.2-2" }}
+                  </p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
                   <p>
-                    RM {{ masterDataSubtotal.round_adj | number : "1.2-2" }}
+                    RM {{ masterDataSubtotal?.round_adj | number : "1.2-2" }}
                   </p>
                 </div>
                 <div fxFlex="100"><hr /></div>
@@ -1172,12 +1169,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ subTotalDataT1.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalDataT1?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ subTotalDataT1.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalDataT1?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="100">
@@ -1186,12 +1183,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ subTotalT1.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalT1?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ subTotalT1.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalT1?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="40">
@@ -1211,49 +1208,49 @@
                       <h4>Terminal</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_MASTCODE }}</p>
+                      <p>{{ data?.PYMT_MASTCODE }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Payment</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_PAYBYCODEDESC }}</p>
+                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Date</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_CLOSEDATE | date }}</p>
+                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Price Level</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_SALES_PRICELVL }}</p>
+                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Shift</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_STATUS }}</p>
+                      <p>{{ data?.PYMT_STATUS }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Amount</h4>
                     </div>
                     <div>
-                      <p>RM {{ data.PYMT_PAYAMT }}</p>
+                      <p>RM {{ data?.PYMT_PAYAMT }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Rounding Adj</h4>
                     </div>
                     <div>
-                      <p>RM {{ data.PYMT_ROUND_ADJ }}</p>
+                      <p>RM {{ data?.PYMT_ROUND_ADJ }}</p>
                     </div>
                   </div>
                 </div>
@@ -1264,12 +1261,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ paidAmountT2.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ paidAmountT2?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ paidAmountT2.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ paidAmountT2?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="100">
@@ -1278,12 +1275,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ subTotalDataT2.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalDataT2?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ subTotalDataT2.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalDataT2?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="100">
@@ -1292,12 +1289,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ subTotalT2.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalT2?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ subTotalT2.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalT2?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="40">
@@ -1317,49 +1314,49 @@
                       <h4>Terminal</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_MASTCODE }}</p>
+                      <p>{{ data?.PYMT_MASTCODE }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Payment</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_PAYBYCODEDESC }}</p>
+                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Date</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_CLOSEDATE | date }}</p>
+                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Price Level</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_SALES_PRICELVL }}</p>
+                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Shift</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_STATUS }}</p>
+                      <p>{{ data?.PYMT_STATUS }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Amount</h4>
                     </div>
                     <div>
-                      <p>RM {{ data.PYMT_PAYAMT }}</p>
+                      <p>RM {{ data?.PYMT_PAYAMT }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Rounding Adj</h4>
                     </div>
                     <div>
-                      <p>RM {{ data.PYMT_ROUND_ADJ }}</p>
+                      <p>RM {{ data?.PYMT_ROUND_ADJ }}</p>
                     </div>
                   </div>
                 </div>
@@ -1370,12 +1367,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ paidAmountT3.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ paidAmountT3?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ paidAmountT3.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ paidAmountT3?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="100">
@@ -1384,12 +1381,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ subTotalDataT3.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalDataT3?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ subTotalDataT3.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalDataT3?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="100">
@@ -1398,12 +1395,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ subTotalT3.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalT3?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ subTotalT3.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalT3?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="40">
@@ -1423,49 +1420,49 @@
                       <h4>Terminal</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_MASTCODE }}</p>
+                      <p>{{ data?.PYMT_MASTCODE }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Payment</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_PAYBYCODEDESC }}</p>
+                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Date</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_CLOSEDATE | date }}</p>
+                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Price Level</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_SALES_PRICELVL }}</p>
+                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Shift</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_STATUS }}</p>
+                      <p>{{ data?.PYMT_STATUS }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Amount</h4>
                     </div>
                     <div>
-                      <p>RM {{ data.PYMT_PAYAMT }}</p>
+                      <p>RM {{ data?.PYMT_PAYAMT }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Rounding Adj</h4>
                     </div>
                     <div>
-                      <p>RM {{ data.PYMT_ROUND_ADJ }}</p>
+                      <p>RM {{ data?.PYMT_ROUND_ADJ }}</p>
                     </div>
                   </div>
                 </div>
@@ -1476,12 +1473,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ paidAmountT4.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ paidAmountT4?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ paidAmountT4.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ paidAmountT4?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="100">
@@ -1490,12 +1487,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ subTotalDataT4.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalDataT4?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ subTotalDataT4.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalDataT4?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="100">
@@ -1504,12 +1501,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ subTotalT4.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalT4?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ subTotalT4.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalT4?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="40">
@@ -1529,49 +1526,49 @@
                       <h4>Terminal</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_MASTCODE }}</p>
+                      <p>{{ data?.PYMT_MASTCODE }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Payment</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_PAYBYCODEDESC }}</p>
+                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Date</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_CLOSEDATE | date }}</p>
+                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Price Level</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_SALES_PRICELVL }}</p>
+                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Shift</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_STATUS }}</p>
+                      <p>{{ data?.PYMT_STATUS }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Amount</h4>
                     </div>
                     <div>
-                      <p>RM {{ data.PYMT_PAYAMT }}</p>
+                      <p>RM {{ data?.PYMT_PAYAMT }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Rounding Adj</h4>
                     </div>
                     <div>
-                      <p>RM {{ data.PYMT_ROUND_ADJ }}</p>
+                      <p>RM {{ data?.PYMT_ROUND_ADJ }}</p>
                     </div>
                   </div>
                 </div>
@@ -1582,12 +1579,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ paidAmountT5.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ paidAmountT5?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ paidAmountT5.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ paidAmountT5?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="100">
@@ -1596,12 +1593,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ subTotalDataT5.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalDataT5?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ subTotalDataT5.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalDataT5?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="100">
@@ -1610,12 +1607,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ subTotalT5.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalT5?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ subTotalT5.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalT5?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="40">
@@ -1635,49 +1632,49 @@
                       <h4>Terminal</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_MASTCODE }}</p>
+                      <p>{{ data?.PYMT_MASTCODE }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Payment</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_PAYBYCODEDESC }}</p>
+                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Date</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_CLOSEDATE | date }}</p>
+                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Price Level</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_SALES_PRICELVL }}</p>
+                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">
                       <h4>Shift</h4>
                     </div>
                     <div fxFlex="60">
-                      <p>{{ data.PYMT_STATUS }}</p>
+                      <p>{{ data?.PYMT_STATUS }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Amount</h4>
                     </div>
                     <div>
-                      <p>RM {{ data.PYMT_PAYAMT }}</p>
+                      <p>RM {{ data?.PYMT_PAYAMT }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div>
                       <h4>Rounding Adj</h4>
                     </div>
                     <div>
-                      <p>RM {{ data.PYMT_ROUND_ADJ }}</p>
+                      <p>RM {{ data?.PYMT_ROUND_ADJ }}</p>
                     </div>
                   </div>
                 </div>
@@ -1688,12 +1685,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ paidAmountT6.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ paidAmountT6?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ paidAmountT6.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ paidAmountT6?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="100">
@@ -1702,12 +1699,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ subTotalDataT6.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalDataT6?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ subTotalDataT6.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalDataT6?.round_adj | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div fxFlex="100">
@@ -1716,12 +1713,12 @@
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Amount</h4></div>
                 <div>
-                  <p>RM {{ subTotalT6.paid_amt | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalT6?.paid_amt | number : "1.2-2" }}</p>
                 </div>
                 <div fxFlex="100"><hr /></div>
                 <div><h4>Rounding Adj</h4></div>
                 <div>
-                  <p>RM {{ subTotalT6.round_adj | number : "1.2-2" }}</p>
+                  <p>RM {{ subTotalT6?.round_adj | number : "1.2-2" }}</p>
                 </div>
               </div>
             </div>

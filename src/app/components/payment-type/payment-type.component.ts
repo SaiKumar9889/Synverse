@@ -334,60 +334,60 @@ export class PaymentTypeComponent implements OnInit {
         if (result) {
           this.store_code = result?.data[0]?.store_code;
           this.store_name = result?.data[0]?.store_name;
-          this.terminal_name = result?.data[0]?.payment?.T1.terminal_desc;
+          this.terminal_name = result?.data[0]?.payment?.T1?.terminal_desc;
           this.filteredData = Object.values(
             result?.data[0]?.payment.T1[""]["Payment 1"] || {}
           );
           this.filteredData.splice(-3);
           console.log();
           this.paidAmount =
-            result?.data[0]?.payment.T1[""]["Payment 1"].paid_amt;
+            result?.data[0]?.payment?.T1[""]["Payment 1"].paid_amt;
           this.roundAdj =
-            result?.data[0]?.payment.T1[""]["Payment 1"].round_adj;
-          this.visaData = result?.data[0]?.payment.T1[""]["VISA"][0];
-          this.visaDataSubtotal = result?.data[0]?.payment.T1[""]["VISA"];
-          this.masterData = result?.data[0]?.payment.T1[""]["MASTER"][0];
-          this.masterDataSubtotal = result?.data[0]?.payment.T1[""]["MASTER"];
-          this.subTotalDataT1 = result?.data[0]?.payment.T1[""];
-          this.subTotalT1 = result?.data[0]?.payment.T1;
+            result?.data[0]?.payment?.T1[""]["Payment 1"].round_adj;
+          this.visaData = result?.data[0]?.payment?.T1[""]["VISA"][0];
+          this.visaDataSubtotal = result?.data[0]?.payment?.T1[""]["VISA"];
+          this.masterData = result?.data[0]?.payment?.T1[""]["MASTER"][0];
+          this.masterDataSubtotal = result?.data[0]?.payment?.T1[""]["MASTER"];
+          this.subTotalDataT1 = result?.data[0]?.payment?.T1[""];
+          this.subTotalT1 = result?.data[0]?.payment?.T1;
           this.filteredDataT2 = Object.values(
-            result?.data[0]?.payment.T2[""]["Payment 1"] || {}
+            result?.data[0]?.payment?.T2[""]["Payment 1"] || {}
           );
           this.filteredDataT2.splice(-3);
-          this.paidAmountT2 = result?.data[0]?.payment.T2[""]["Payment 1"];
-          this.subTotalDataT2 = result?.data[0]?.payment.T2[""];
-          this.subTotalT2 = result?.data[0]?.payment.T2;
+          this.paidAmountT2 = result?.data[0]?.payment?.T2[""]["Payment 1"];
+          this.subTotalDataT2 = result?.data[0]?.payment?.T2[""];
+          this.subTotalT2 = result?.data[0]?.payment?.T2;
           this.filteredDataT3 = Object.values(
-            result?.data[0]?.payment.T3[""]["Payment 1"] || {}
+            result?.data[0]?.payment?.T3[""]["Payment 1"] || {}
           );
           this.filteredDataT3.splice(-3);
-          this.paidAmountT3 = result?.data[0]?.payment.T3[""]["Payment 1"];
-          this.subTotalDataT3 = result?.data[0]?.payment.T3[""];
-          this.subTotalT3 = result?.data[0]?.payment.T3;
+          this.paidAmountT3 = result?.data[0]?.payment?.T3[""]["Payment 1"];
+          this.subTotalDataT3 = result?.data[0]?.payment?.T3[""];
+          this.subTotalT3 = result?.data[0]?.payment?.T3;
 
           this.filteredDataT4 = Object.values(
-            result?.data[0]?.payment.T4[""]["Payment 1"] || {}
+            result?.data[0]?.payment?.T4[""]["Payment 1"] || {}
           );
           this.filteredDataT4.splice(-3);
-          this.paidAmountT4 = result?.data[0]?.payment.T4[""]["Payment 1"];
-          this.subTotalDataT4 = result?.data[0]?.payment.T4[""];
-          this.subTotalT4 = result?.data[0]?.payment.T4;
+          this.paidAmountT4 = result?.data[0]?.payment?.T4[""]["Payment 1"];
+          this.subTotalDataT4 = result?.data[0]?.payment?.T4[""];
+          this.subTotalT4 = result?.data[0]?.payment?.T4;
 
           this.filteredDataT5 = Object.values(
-            result?.data[0]?.payment.T5[""]["Payment 1"] || {}
+            result?.data[0]?.payment?.T5[""]["Payment 1"] || {}
           );
           this.filteredDataT5.splice(-3);
-          this.paidAmountT5 = result?.data[0]?.payment.T5[""]["Payment 1"];
-          this.subTotalDataT5 = result?.data[0]?.payment.T5[""];
-          this.subTotalT5 = result?.data[0]?.payment.T5;
+          this.paidAmountT5 = result?.data[0]?.payment?.T5[""]["Payment 1"];
+          this.subTotalDataT5 = result?.data[0]?.payment?.T5[""];
+          this.subTotalT5 = result?.data[0]?.payment?.T5;
 
           this.filteredDataT6 = Object.values(
-            result?.data[0]?.payment.T6[""]["Payment 1"] || {}
+            result?.data[0]?.payment?.T6[""]["Payment 1"] || {}
           );
           this.filteredDataT6.splice(-3);
-          this.paidAmountT6 = result?.data[0]?.payment.T6[""]["Payment 1"];
-          this.subTotalDataT6 = result?.data[0]?.payment.T6[""];
-          this.subTotalT6 = result?.data[0]?.payment.T6;
+          this.paidAmountT6 = result?.data[0]?.payment?.T6[""]["Payment 1"];
+          this.subTotalDataT6 = result?.data[0]?.payment?.T6[""];
+          this.subTotalT6 = result?.data[0]?.payment?.T6;
           this.subTotalSC01 = result?.data[0];
           this.grandTotalData = result;
           // this.storesFilterData = Object.values(
