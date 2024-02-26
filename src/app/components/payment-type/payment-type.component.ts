@@ -339,7 +339,7 @@ export class PaymentTypeComponent implements OnInit {
             result?.data[0]?.payment.T1[""]["Payment 1"] || {}
           );
           this.filteredData.splice(-3);
-          console.log();
+          console.log(this.filteredData);
           this.paidAmount =
             result?.data[0]?.payment?.T1[""]["Payment 1"].paid_amt;
           this.roundAdj =

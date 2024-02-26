@@ -56,6 +56,11 @@ export class AverageSalesSummaryComponent {
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
   loadingSpinner: boolean = true;
+  itemsPerPage = 5;
+  currentPage = 1;
+  totalPages: number;
+  pagesToShow = 5;
+  Math: any;
 
   constructor(
     private authService: AuthService,
@@ -67,6 +72,7 @@ export class AverageSalesSummaryComponent {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
         this.averageSalesSummary();
+        // this.calculateTotalPages();
       }
     });
   }
@@ -134,7 +140,7 @@ export class AverageSalesSummaryComponent {
     this.averageSalesSummary();
   }
 
-  filteredData: any;
+  filteredData: any[] = [];
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     const filteredDataValue = filterValue.trim().toLowerCase();
@@ -224,8 +230,60 @@ export class AverageSalesSummaryComponent {
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
           this.loadingSpinner = false;
+          console.log(this.filteredData);
+          this.calculateTotalPages();
         }
       });
+  }
+
+  calculateTotalPages() {
+    setTimeout(() => {
+      if (this.filteredData && this.itemsPerPage) {
+        this.totalPages = Math.ceil(
+          this.filteredData.length / this.itemsPerPage
+        );
+      }
+    }, 1000);
+
+    console.log(this.totalPages);
+  }
+
+  getCurrentPageItems(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredData.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  getPageRange(): number[] {
+    const startPage = Math.max(
+      1,
+      this.currentPage - Math.floor(this.pagesToShow / 2)
+    );
+    const endPage = Math.min(this.totalPages, startPage + this.pagesToShow - 1);
+
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, index) => startPage + index
+    );
+  }
+
+  goToPage(page: number) {
+    // Implement your logic to navigate to the selected page
+    this.currentPage = page;
+  }
+
+  nextPage() {
+    console.log("Next Page Clicked");
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+    console.log("Current Page:", this.currentPage);
+    console.log("Total Page:", this.totalPages);
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
   }
 
   columnToSort = "";

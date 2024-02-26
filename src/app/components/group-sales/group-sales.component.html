@@ -175,6 +175,56 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+
+            <!-- Displaying numbered pages with ellipsis (...) if needed -->
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
         <table>
           <thead>
             <tr>
@@ -211,7 +261,7 @@
             </tr>
           </thead>
           <tbody *ngIf="filteredData">
-            <tr *ngFor="let data of filteredData">
+            <tr *ngFor="let data of getCurrentPageItems()">
               <td>
                 {{ data.stk_group }}
               </td>
@@ -267,13 +317,63 @@
             </tr>
           </tfoot>
         </table>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+
+            <!-- Displaying numbered pages with ellipsis (...) if needed -->
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
       </div>
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
         <div class="addedScroll" *ngIf="filteredData">
           <div
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
-            *ngFor="let data of filteredData"
+            *ngFor="let data of getCurrentPageItems()"
             class="addedBorder addColor"
           >
             <div fxFlex="40">
@@ -311,6 +411,56 @@
             <div>
               <p>RM {{ data.discbymny | number : "1.2-2" }}</p>
             </div>
+          </div>
+        </div>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+
+            <!-- Displaying numbered pages with ellipsis (...) if needed -->
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>
         <!-- </mat-expansion-panel>

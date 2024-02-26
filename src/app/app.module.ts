@@ -32,11 +32,12 @@ import { VendorVoucherComponent } from "./components/vendor-voucher/vendor-vouch
 import { ReceiptAnalysisComponent } from "./components/receipt-analysis/receipt-analysis.component";
 import { LoaderComponent } from "./components/loader/loader.component";
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from "ngx-loading";
-import { SkuSalesComponent } from './components/sku-sales/sku-sales.component';
-import { GroupSalesComponent } from './components/group-sales/group-sales.component';
-import { DepartmentSalesComponent } from './components/department-sales/department-sales.component';
-import { TransactionSalesComponent } from './components/transaction-sales/transaction-sales.component';
-import { TransactionVoidComponent } from './components/transaction-void/transaction-void.component';
+import { SkuSalesComponent } from "./components/sku-sales/sku-sales.component";
+import { GroupSalesComponent } from "./components/group-sales/group-sales.component";
+import { DepartmentSalesComponent } from "./components/department-sales/department-sales.component";
+import { TransactionSalesComponent } from "./components/transaction-sales/transaction-sales.component";
+import { TransactionVoidComponent } from "./components/transaction-void/transaction-void.component";
+import { NgxPaginationModule } from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { TransactionVoidComponent } from './components/transaction-void/transact
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     MatMomentDateModule,
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.cubeGrid,

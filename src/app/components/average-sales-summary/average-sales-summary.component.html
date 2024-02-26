@@ -358,7 +358,7 @@
               <td></td>
             </tr>
 
-            <tr *ngFor="let data of filteredData">
+            <tr *ngFor="let data of getCurrentPageItems()">
               <td>
                 {{ data.CI_CLOSEDATE }}
               </td>
@@ -570,6 +570,33 @@
             </tr>
           </tfoot>
         </table>
+        <div class="pagination">
+          <button (click)="previousPage()" [disabled]="currentPage === 1">
+            Previous
+          </button>
+
+          <!-- Displaying numbered pages with ellipsis (...) if needed -->
+          <ng-container *ngFor="let page of getPageRange()">
+            <button
+              (click)="goToPage(page)"
+              [class.active]="currentPage === page"
+            >
+              {{ page }}
+            </button>
+          </ng-container>
+
+          <span
+            *ngIf="
+              totalPages > pagesToShow &&
+              currentPage + Math.floor(pagesToShow / 2) < totalPages
+            "
+            >...</span
+          >
+
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+            Next
+          </button>
+        </div>
       </div>
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
         <!-- <mat-accordion class="example-headers-align" multi>

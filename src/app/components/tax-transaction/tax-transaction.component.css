@@ -79,7 +79,7 @@ tfoot tr {
   border: 1px solid #6d6a6ab3;
 }
 tfoot .emptyRow {
-  bottom: 66px !important;
+  bottom: 104px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
@@ -90,13 +90,44 @@ tfoot .emptyRow {
   margin-bottom: 22px;
 }
 tfoot .subTotalPL {
-  bottom: 33px !important;
+  bottom: 52px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
 }
 .alignRight {
   text-align: right !important;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.pagination button,
+.pagination span {
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+}
+
+.pagination span {
+  color: #007bff;
+}
+@media screen and (min-width: 1455px) {
+  tfoot .emptyRow {
+    bottom: 66px !important;
+  }
+  tfoot .subTotalPL {
+    bottom: 33px !important;
+  }
 }
 /*give some space between thead and tfoot*/
 
@@ -124,6 +155,10 @@ tbody tr:last-of-type td {
   h4,
   p {
     margin: 0px;
+  }
+  .pagination button,
+  .pagination span {
+    padding: 5px;
   }
   h4 {
     margin-bottom: 4px;

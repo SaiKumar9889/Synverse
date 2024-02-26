@@ -113,6 +113,29 @@ tbody tr:last-of-type td {
 .blueText {
   color: rgb(61, 61, 234);
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.pagination button,
+.pagination span {
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+}
+
+.pagination span {
+  color: #007bff;
+}
 @media screen and (max-width: 599px) {
   mat-form-field {
     width: 95%;
@@ -120,6 +143,10 @@ tbody tr:last-of-type td {
   .alignCenter {
     display: flex;
     justify-content: center;
+  }
+  .pagination button,
+  .pagination span {
+    padding: 5px;
   }
   h4,
   p {

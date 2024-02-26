@@ -89,6 +89,29 @@ tfoot .emptyRow {
 .checkboxBottom {
   margin-bottom: 22px;
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.pagination button,
+.pagination span {
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+}
+
+.pagination span {
+  color: #007bff;
+}
 @media screen and (min-width: 1595px) {
   tfoot .emptyRow {
     bottom: 32px !important;
@@ -123,6 +146,10 @@ tbody tr:last-of-type td {
   h4,
   p {
     margin: 0px;
+  }
+  .pagination button,
+  .pagination span {
+    padding: 5px;
   }
   h4 {
     margin-bottom: 4px;

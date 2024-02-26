@@ -384,7 +384,7 @@
             </tr>
           </thead>
           <tbody *ngIf="filteredData">
-            <ng-container *ngFor="let data of filteredData">
+            <ng-container *ngFor="let data of getCurrentPageItems()">
               <tr>
                 <td>{{ data.store_code }}</td>
                 <td>{{ data.store_desc }}</td>
@@ -576,7 +576,7 @@
       >
         <div class="addedScroll">
           <div
-            *ngFor="let data of filteredData"
+            *ngFor="let data of getCurrentPageItems()"
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
             class="addedBorder"
