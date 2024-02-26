@@ -379,7 +379,7 @@
               </td>
               <td>{{ data.SALES_STORE }}</td>
               <td>{{ data.SALES_CTRNO }}</td>
-              <td>{{ data.SALES_DATETIME }}</td>
+              <td>{{ data.SALES_DATETIME | date }}</td>
               <td>{{ data.SALES_RCPTNO }}</td>
               <td>{{ data.SALES_SHIFT }}</td>
               <td>
@@ -566,7 +566,7 @@
               <h4>DATE</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data.SALES_DATETIME }}</p>
+              <p>{{ data.SALES_DATETIME | date }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40">

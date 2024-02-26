@@ -237,6 +237,33 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
+        <div class="pagination" *ngIf="filteredData">
+          <button (click)="previousPage()" [disabled]="currentPage === 1">
+            Previous
+          </button>
+
+          <!-- Displaying numbered pages with ellipsis (...) if needed -->
+          <ng-container *ngFor="let page of getPageRange()">
+            <button
+              (click)="goToPage(page)"
+              [class.active]="currentPage === page"
+            >
+              {{ page }}
+            </button>
+          </ng-container>
+
+          <span
+            *ngIf="
+              totalPages > pagesToShow &&
+              currentPage + Math.floor(pagesToShow / 2) < totalPages
+            "
+            >...</span
+          >
+
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+            Next
+          </button>
+        </div>
         <table>
           <thead>
             <tr>
@@ -360,7 +387,7 @@
 
             <tr *ngFor="let data of getCurrentPageItems()">
               <td>
-                {{ data.CI_CLOSEDATE }}
+                {{ data.CI_CLOSEDATE | date }}
               </td>
               <td>{{ data.CI_DAY }}</td>
               <td class="alignRight">
@@ -570,7 +597,7 @@
             </tr>
           </tfoot>
         </table>
-        <div class="pagination">
+        <div class="pagination" *ngIf="filteredData">
           <button (click)="previousPage()" [disabled]="currentPage === 1">
             Previous
           </button>
@@ -618,7 +645,7 @@
             </div>
             <div fxFlex="60">
               <p>{{ store_code }}</p>
-              <p>{{ data.CI_CLOSEDATE }}</p>
+              <p>{{ data.CI_CLOSEDATE | date }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
 
@@ -724,6 +751,33 @@
               <p>RM {{ data.AVG_DELIVERY | number : "1.2-2" }}</p>
             </div>
           </div>
+        </div>
+        <div class="pagination" *ngIf="filteredData">
+          <button (click)="previousPage()" [disabled]="currentPage === 1">
+            Previous
+          </button>
+
+          <!-- Displaying numbered pages with ellipsis (...) if needed -->
+          <ng-container *ngFor="let page of getPageRange()">
+            <button
+              (click)="goToPage(page)"
+              [class.active]="currentPage === page"
+            >
+              {{ page }}
+            </button>
+          </ng-container>
+
+          <span
+            *ngIf="
+              totalPages > pagesToShow &&
+              currentPage + Math.floor(pagesToShow / 2) < totalPages
+            "
+            >...</span
+          >
+
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+            Next
+          </button>
         </div>
         <!-- </mat-expansion-panel>
             </mat-accordion> -->

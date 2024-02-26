@@ -293,9 +293,9 @@
               <td>{{ data.Ctrno }}</td>
 
               <td>{{ data.OperId }}</td>
-              <td>{{ data["Date time"] }}</td>
+              <td>{{ data["Date time"] | date }}</td>
               <td>
-                {{ data["Close date"] }}
+                {{ data["Close date"] | date }}
               </td>
               <td>{{ data["Trans No"] }}</td>
               <td class="alignRight">
@@ -439,14 +439,14 @@
               <h4>Date Time</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data["Date time"] }}</p>
+              <p>{{ data["Date time"] | date }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40">
               <h4>Close Date</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data["Close date"] }}</p>
+              <p>{{ data["Close date"] | date }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40">

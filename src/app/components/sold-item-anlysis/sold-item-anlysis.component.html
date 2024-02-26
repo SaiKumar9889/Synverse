@@ -675,7 +675,7 @@
                 <td></td>
                 <td></td>
                 <td>
-                  {{ row.SDTL_DATETIME }}
+                  {{ row.SDTL_DATETIME | date }}
                 </td>
                 <td>{{ row?.SDTL_SALES_RCPTNO }}</td>
                 <td>
@@ -944,7 +944,7 @@
               <div><h4 fxFlex="40">Date</h4></div>
               <div fxFlex="60">
                 <p>{{ terminal_name }}</p>
-                <p>{{ row?.SDTL_DATETIME }}</p>
+                <p>{{ row?.SDTL_DATETIME | date }}</p>
               </div>
               <div fxFlex="100"><hr /></div>
               <div fxFlex="40">

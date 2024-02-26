@@ -423,7 +423,7 @@
                 <tr *ngFor="let item of row.detail">
                   <td></td>
                   <td></td>
-                  <td>{{ item.SALES_CLOSEDATE }}</td>
+                  <td>{{ item.SALES_CLOSEDATE | date }}</td>
                   <td>{{ item.SALES_TRANSNO }}</td>
                   <td>{{ item.SALES_SHIFT }}</td>
                   <td>{{ item.SALES_OPERID }}</td>
@@ -623,7 +623,7 @@
                   >
                     <div><h4 fxFlex="40">Date</h4></div>
                     <div fxFlex="60">
-                      <p>{{ item.SALES_CLOSEDATE }}</p>
+                      <p>{{ item.SALES_CLOSEDATE | date }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40">

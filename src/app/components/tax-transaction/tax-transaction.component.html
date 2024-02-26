@@ -392,7 +392,7 @@
               </td>
               <td>{{ data.terminal }}</td>
 
-              <td>{{ data.date }}</td>
+              <td>{{ data.date | date }}</td>
               <td>{{ data.rcpt }}</td>
               <td>{{ data.operator }}</td>
               <td>{{ data.shift }}</td>
@@ -591,7 +591,7 @@
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40"><h4>Date</h4></div>
             <div fxFlex="60">
-              <p>{{ data.date }}</p>
+              <p>{{ data.date | date }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40">
@@ -724,7 +724,9 @@
               <h4 class="blueText">Gross :</h4>
             </div>
             <div>
-              <h4 class="blueText">RM {{ subTotalData?.sub_total_gross }}</h4>
+              <h4 class="blueText">
+                RM {{ subTotalData?.sub_total_gross | number : "1.2-2" }}
+              </h4>
             </div>
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -791,7 +793,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_gross }}
+                RM {{ grandTotalData?.grand_total_gross | number : "1.2-2" }}
               </h4>
             </div>
           </div>

@@ -280,7 +280,7 @@
 
             <tr *ngFor="let data of getCurrentPageItems()">
               <td>
-                {{ data.date }}
+                {{ data.date | date }}
               </td>
               <td>{{ data.terminal }}</td>
               <td class="alignRight">
@@ -425,7 +425,7 @@
             </div>
             <div fxFlex="60">
               <p>{{ store_code }}</p>
-              <p>{{ data.date }}</p>
+              <p>{{ data.date | date }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
 
