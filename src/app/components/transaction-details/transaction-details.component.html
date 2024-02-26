@@ -261,7 +261,7 @@
           <tbody>
             <tr *ngFor="let row of rows">
               <td>{{ row.TERM }}</td>
-              <td>{{ row.DATE | date }}</td>
+              <td>{{ row.DATE }}</td>
               <td class="alignRight">
                 <span *ngIf="row.GROSS_SALES != undefined">RM</span>
                 {{ row.GROSS_SALES }}
@@ -330,7 +330,7 @@
               <h4>DATE</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data.DATE | date }}</p>
+              <p>{{ data.DATE }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div><h4>GROSS_SALES</h4></div>
