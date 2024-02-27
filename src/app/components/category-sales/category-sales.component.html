@@ -1,0 +1,237 @@
+<!--  -->
+<div fxLayout="row wrap" fxLayoutAlign="start center" class="addPadding">
+  <div fxFlex="100">
+    <div class="backgroundWhite">
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between center"
+        class="marginTopAdded"
+        fxHide.sm
+        fxHide.md
+        fxHide.lg
+        fxHide.xl
+      >
+        <div>
+          <h2>Category Sales Report</h2>
+        </div>
+        <div>
+          <h2 (click)="formFieldsAdded()" *ngIf="!priceLevelFormFields">+</h2>
+          <h2 (click)="formFieldsRemoved()" *ngIf="priceLevelFormFields">-</h2>
+        </div>
+      </div>
+      <h2 class="marginBottomAdded" fxHide.xs>Category Sales Report</h2>
+      <div fxLayout="row wrap" fxLayoutAlign="start center">
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="75"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Stores</mat-label>
+            <mat-select
+              [(ngModel)]="selectedItems"
+              (selectionChange)="onSelectionChange($event)"
+              multiple
+            >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="25"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              placeholder="From Date"
+              [formControl]="dateFrom"
+              (dateChange)="selectedFormDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              placeholder="To Date"
+              [formControl]="dateTo"
+              (dateChange)="selectedToDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Stores</mat-label>
+            <mat-select
+              [(ngModel)]="selectedItems"
+              (selectionChange)="onSelectionChange($event)"
+              multiple
+            >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
+              <mat-option *ngFor="let store of stores" [value]="store.value">
+                {{ store.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <button
+            mat-flat-button
+            class="btn"
+            color="primary"
+            (click)="applyDateFilter()"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <div fxFlex="100">
+        <table>
+          <thead>
+            <tr>
+              <th (click)="sortTable('Store')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>NO</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('Store')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Stock Code</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('Store')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Description</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('Store')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Create Date</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('Store')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Change Date</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                colspan="5"
+                *ngIf="errorMessage != null"
+                style="
+                  position: static;
+                  color: red;
+                  width: 100%;
+                  text-align: center;
+                "
+              >
+                {{ errorMessage }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

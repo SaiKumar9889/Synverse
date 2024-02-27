@@ -12,14 +12,14 @@
         fxHide.xl
       >
         <div>
-          <h2>Vendor Voucher Report</h2>
+          <h2>Store Voucher Report</h2>
         </div>
         <div>
           <h2 (click)="formFieldsAdded()" *ngIf="!priceLevelFormFields">+</h2>
           <h2 (click)="formFieldsRemoved()" *ngIf="priceLevelFormFields">-</h2>
         </div>
       </div>
-      <h2 class="marginBottomAdded" fxHide.xs>Vendor Voucher Report</h2>
+      <h2 class="marginBottomAdded" fxHide.xs>Store Voucher Report</h2>
       <div fxLayout="row wrap" fxLayoutAlign="start center">
         <div
           fxFlex="23"
@@ -73,29 +73,9 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <!-- <div
-          fxFlex="23"
-          fxFlex.xs="75"
-          class="alignCenter"
-          *ngIf="priceLevelFormFields"
-          fxHide.sm
-          fxHide.md
-          fxHide.lg
-          fxHide.xl
-        >
-          <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
-          </mat-form-field>
-        </div> -->
         <div
           fxFlex="23"
-          fxFlex.xs="100"
+          fxFlex.xs="75"
           class="alignCenter"
           *ngIf="priceLevelFormFields"
           fxHide.sm
@@ -157,61 +137,6 @@
           fxHide.xl
         >
           <mat-form-field appearance="outline">
-            <mat-label>Group</mat-label>
-            <mat-select
-              [(ngModel)]="selectedGroupItems"
-              (selectionChange)="onGroupChange($event)"
-              multiple
-            >
-              <mat-option (click)="selectGroupAll()" [value]="'all'"
-                >All</mat-option
-              >
-              <mat-option *ngFor="let group of groupId" [value]="group.value">
-                {{ group.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div
-          fxFlex="23"
-          fxFlex.xs="100"
-          class="alignCenter"
-          *ngIf="priceLevelFormFields"
-          fxHide.sm
-          fxHide.md
-          fxHide.lg
-          fxHide.xl
-        >
-          <mat-form-field appearance="outline">
-            <mat-label>Department</mat-label>
-            <mat-select
-              [(ngModel)]="selectedDepartmentItems"
-              (selectionChange)="onDepartmentChange($event)"
-              multiple
-            >
-              <mat-option (click)="selectDepartmentAll()" [value]="'all'"
-                >All</mat-option
-              >
-              <mat-option
-                *ngFor="let department of departmentId"
-                [value]="department.value"
-              >
-                {{ department.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div
-          fxFlex="23"
-          fxFlex.xs="100"
-          class="alignCenter"
-          *ngIf="priceLevelFormFields"
-          fxHide.sm
-          fxHide.md
-          fxHide.lg
-          fxHide.xl
-        >
-          <mat-form-field appearance="outline">
             <mat-label>Shift</mat-label>
             <mat-select
               [(ngModel)]="selectedShiftItems"
@@ -252,61 +177,6 @@
                 [value]="operator.value"
               >
                 {{ operator.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div
-          fxFlex="23"
-          fxFlex.xs="100"
-          class="alignCenter"
-          *ngIf="priceLevelFormFields"
-          fxHide.sm
-          fxHide.md
-          fxHide.lg
-          fxHide.xl
-        >
-          <mat-form-field appearance="outline">
-            <mat-label>Category</mat-label>
-            <mat-select
-              [(ngModel)]="selectedCategoryItems"
-              (selectionChange)="onCategoryChange($event)"
-              multiple
-            >
-              <mat-option (click)="selectCategoryAll()" [value]="'all'"
-                >All</mat-option
-              >
-              <mat-option
-                *ngFor="let category of categoryId"
-                [value]="category.value"
-              >
-                {{ category.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div
-          fxFlex="23"
-          fxFlex.xs="73"
-          class="alignCenter"
-          *ngIf="priceLevelFormFields"
-          fxHide.sm
-          fxHide.md
-          fxHide.lg
-          fxHide.xl
-        >
-          <mat-form-field appearance="outline">
-            <mat-label>Stock Code</mat-label>
-            <mat-select
-              [(ngModel)]="selectedStockItems"
-              (selectionChange)="onStockChange($event)"
-              multiple
-            >
-              <mat-option (click)="selectStockAll()" [value]="'all'"
-                >All</mat-option
-              >
-              <mat-option *ngFor="let stock of stockId" [value]="stock.value">
-                {{ stock.viewValue }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -330,8 +200,7 @@
             Apply
           </button>
         </div>
-
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
@@ -348,7 +217,7 @@
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
             <input
@@ -365,18 +234,7 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <!-- <div fxFlex="23" fxHide.xs class="alignCenter">
-          <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
-          </mat-form-field>
-        </div> -->
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
@@ -391,7 +249,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
@@ -411,44 +269,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
-          <mat-form-field appearance="outline">
-            <mat-label>Group</mat-label>
-            <mat-select
-              [(ngModel)]="selectedGroupItems"
-              (selectionChange)="onGroupChange($event)"
-              multiple
-            >
-              <mat-option (click)="selectGroupAll()" [value]="'all'"
-                >All</mat-option
-              >
-              <mat-option *ngFor="let group of groupId" [value]="group.value">
-                {{ group.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
-          <mat-form-field appearance="outline">
-            <mat-label>Department</mat-label>
-            <mat-select
-              [(ngModel)]="selectedDepartmentItems"
-              (selectionChange)="onDepartmentChange($event)"
-              multiple
-            >
-              <mat-option (click)="selectDepartmentAll()" [value]="'all'"
-                >All</mat-option
-              >
-              <mat-option
-                *ngFor="let department of departmentId"
-                [value]="department.value"
-              >
-                {{ department.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Shift</mat-label>
             <mat-select
@@ -465,7 +286,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Operator</mat-label>
             <mat-select
@@ -485,44 +306,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
-          <mat-form-field appearance="outline">
-            <mat-label>Category</mat-label>
-            <mat-select
-              [(ngModel)]="selectedCategoryItems"
-              (selectionChange)="onCategoryChange($event)"
-              multiple
-            >
-              <mat-option (click)="selectCategoryAll()" [value]="'all'"
-                >All</mat-option
-              >
-              <mat-option
-                *ngFor="let category of categoryId"
-                [value]="category.value"
-              >
-                {{ category.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
-          <mat-form-field appearance="outline">
-            <mat-label>Stock Code</mat-label>
-            <mat-select
-              [(ngModel)]="selectedStockItems"
-              (selectionChange)="onStockChange($event)"
-              multiple
-            >
-              <mat-option (click)="selectStockAll()" [value]="'all'"
-                >All</mat-option
-              >
-              <mat-option *ngFor="let stock of stockId" [value]="stock.value">
-                {{ stock.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <button
             mat-flat-button
             class="btn"
@@ -535,7 +319,7 @@
       </div>
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
-      <div fxFlex="100" fxHide.xs>
+      <div fxFlex="100">
         <table>
           <thead>
             <tr>
@@ -559,19 +343,19 @@
               </th>
               <th (click)="sortTable('Store')">
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
-                  <div>Rcpt</div>
+                  <div>RCPT</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
               <th (click)="sortTable('Store')">
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
-                  <div>Stock Code</div>
+                  <div>Shift</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
               <th (click)="sortTable('Store')">
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
-                  <div>Description</div>
+                  <div>OPER</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
@@ -589,7 +373,13 @@
               </th>
               <th (click)="sortTable('Store')">
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
-                  <div>Qty</div>
+                  <div>Status</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('Store')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Voucher</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
@@ -608,11 +398,6 @@
             </tr>
           </thead>
           <tbody>
-            <!-- <tr *ngFor="let row of rows">
-              <td *ngFor="let column of columns">{{ row[column] }}</td>
-            </tr> -->
-          </tbody>
-          <tbody>
             <tr>
               <td
                 colspan="13"
@@ -630,160 +415,6 @@
           </tbody>
         </table>
       </div>
-      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
-        <!-- <div class="addedScroll">
-          <div
-            fxLayout="row wrap"
-            fxLayoutAlign="space-between start"
-            class="addedBorder addColor"
-          >
-            <div fxFlex="40">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <h4>{{ column }}</h4>
-                </div>
-              </div>
-            </div>
-
-            <div fxFlex="60">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <p class="marginAdded">{{ rows[0][column] }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            fxLayout="row wrap"
-            fxLayoutAlign="space-between start"
-            class="addedBorder addColor"
-          >
-            <div fxFlex="40">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <h4>{{ column }}</h4>
-                </div>
-              </div>
-            </div>
-
-            <div fxFlex="60">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <p class="marginAdded">{{ rows[1][column] }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            fxLayout="row wrap"
-            fxLayoutAlign="space-between start"
-            class="addedBorder addColor"
-          >
-            <div fxFlex="40">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <h4>{{ column }}</h4>
-                </div>
-              </div>
-            </div>
-
-            <div fxFlex="60">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <p class="marginAdded">{{ rows[2][column] }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            fxLayout="row wrap"
-            fxLayoutAlign="space-between start"
-            class="addedBorder addColor"
-          >
-            <div fxFlex="40">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <h4>{{ column }}</h4>
-                </div>
-              </div>
-            </div>
-
-            <div fxFlex="60">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <p class="marginAdded">{{ rows[3][column] }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            fxLayout="row wrap"
-            fxLayoutAlign="space-between start"
-            class="addedBorder addColor"
-          >
-            <div fxFlex="40">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <h4>{{ column }}</h4>
-                </div>
-              </div>
-            </div>
-
-            <div fxFlex="60">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <p class="marginAdded">{{ rows[4][column] }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="addedBorder">
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div fxFlex="40">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <h4 class="blueText">{{ column }}</h4>
-                </div>
-              </div>
-            </div>
-
-            <div fxFlex="60">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <p class="marginAdded blueText textRight">
-                    {{ rows[5][column] }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="addedBorder">
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div fxFlex="40">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <h4 class="greenText">{{ column }}</h4>
-                </div>
-              </div>
-            </div>
-
-            <div fxFlex="60">
-              <div fxLayout="row wrap">
-                <div fxFlex="100" *ngFor="let column of columns">
-                  <p class="marginAdded greenText textRight">
-                    {{ rows[6][column] }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-      </div>
     </div>
   </div>
 </div>
-<!-- <div *ngIf="loadingSpinner">
-  <app-loader></app-loader>
-</div> -->

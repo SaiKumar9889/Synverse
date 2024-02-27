@@ -38,6 +38,9 @@ import { DepartmentSalesComponent } from "./components/department-sales/departme
 import { TransactionSalesComponent } from "./components/transaction-sales/transaction-sales.component";
 import { TransactionVoidComponent } from "./components/transaction-void/transaction-void.component";
 import { NgxPaginationModule } from "ngx-pagination";
+import { InactiveStockComponent } from './components/inactive-stock/inactive-stock.component';
+import { CategorySalesComponent } from './components/category-sales/category-sales.component';
+import { StoreVoucherComponent } from './components/store-voucher/store-voucher.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +65,9 @@ import { NgxPaginationModule } from "ngx-pagination";
     DepartmentSalesComponent,
     TransactionSalesComponent,
     TransactionVoidComponent,
+    InactiveStockComponent,
+    CategorySalesComponent,
+    StoreVoucherComponent,
   ],
   imports: [
     BrowserModule,

@@ -106,6 +106,26 @@ export class AppService {
     const url = `${this.apiUrl}/bereport/paymentanalysisreport?start_date=${start}&end_date=${end}&store_id=${storeId}&terminal_id=${terminalId}&payment_type=${paymentId}&void=${checkbox}&shift=${checkboxShift}&datetype=lyear&file_type=${fileType}`;
     return this.http.get<any>(url);
   }
+  inactiveStock(fileType: string) {
+    const url = `${this.apiUrl}/bereport/inactivestocklisting?sort_key=M_STOCK_CODE&file_type=${fileType}`;
+    return this.http.get<any>(url);
+  }
+  categorySales(fileType: string, start: string, end: string, storeId: any) {
+    const url = `${this.apiUrl}/bereport/categorysalesresport?file_type=${fileType}&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=custom`;
+    return this.http.get<any>(url);
+  }
+  storeVoucher(
+    fileType: string,
+    start: string,
+    end: string,
+    storeId: any,
+    terminal: any,
+    shift: any,
+    operator: any
+  ) {
+    const url = `${this.apiUrl}/bereport/storevoucher?file_type=${fileType}&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=lyear&operator_id=${operator}&sort_key=SALES_CLOSEDATE&terminal_id=${terminal}&shift_id=${shift}`;
+    return this.http.get<any>(url);
+  }
   vendorVoucher(
     fileType: string,
     start: string,
@@ -120,7 +140,7 @@ export class AppService {
     stockId: string
   ) {
     const url = `${this.apiUrl}/bereport/vendorvoucher?file_type=${fileType}&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=lyear&operator_id=${operatorId}&sort_key=SDTL_CLOSEDATE&terminal_id=${terminalId}&stock_id=${stockId}&group_id=${groupId}&department_id=${departmentId}&category_id=${categoryId}&shift_id=${shiftId}`;
-    return this.http.get(url, { responseType: "blob" });
+    return this.http.get<any>(url);
   }
   receiptAnalysis(
     fileType: string,

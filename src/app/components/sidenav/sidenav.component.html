@@ -122,6 +122,19 @@
         <a
           mat-list-item
           class="parent"
+          [ngClass]="{ selected: selectedNavItem === 'categorySales' }"
+          (click)="onNavItemClicked('categorySales')"
+          *ngIf="operationReports"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div>
+              <span class="full-width">Category Sales</span>
+            </div>
+          </div>
+        </a>
+        <a
+          mat-list-item
+          class="parent"
           [ngClass]="{ selected: selectedNavItem === 'departmentSales' }"
           (click)="onNavItemClicked('departmentSales')"
           *ngIf="operationReports"
@@ -254,6 +267,19 @@
         <a
           mat-list-item
           class="parent"
+          [ngClass]="{ selected: selectedNavItem === 'storeVoucher' }"
+          (click)="onNavItemClicked('storeVoucher')"
+          *ngIf="operationReports"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div>
+              <span class="full-width">Store Voucher</span>
+            </div>
+          </div>
+        </a>
+        <a
+          mat-list-item
+          class="parent"
           [ngClass]="{ selected: selectedNavItem === 'receiptAnalysis' }"
           (click)="onNavItemClicked('receiptAnalysis')"
           *ngIf="operationReports"
@@ -261,6 +287,19 @@
           <div fxLayout="row wrap" fxLayoutAlign="start center">
             <div>
               <span class="full-width">Receipt Analysis</span>
+            </div>
+          </div>
+        </a>
+        <a
+          mat-list-item
+          class="parent"
+          [ngClass]="{ selected: selectedNavItem === 'inactiveStock' }"
+          (click)="onNavItemClicked('inactiveStock')"
+          *ngIf="operationReports"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div>
+              <span class="full-width">Inactive Stock</span>
             </div>
           </div>
         </a>

@@ -29,9 +29,9 @@ export const MY_FORMATS = {
 };
 
 @Component({
-  selector: "app-vendor-voucher",
-  templateUrl: "./vendor-voucher.component.html",
-  styleUrls: ["./vendor-voucher.component.css"],
+  selector: "app-store-voucher",
+  templateUrl: "./store-voucher.component.html",
+  styleUrls: ["./store-voucher.component.css"],
   providers: [
     {
       provide: DateAdapter,
@@ -42,7 +42,7 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
-export class VendorVoucherComponent {
+export class StoreVoucherComponent {
   [x: string]: any;
   store_code: any;
   store_name: any;
@@ -50,8 +50,8 @@ export class VendorVoucherComponent {
   storesFilterData: any = [];
   subTotalPriceLevelData: any;
   subTotalData: any;
-  searchFrom: any = "";
-  searchTo: any = "";
+  searchFrom: any = "2019-03-01";
+  searchTo: any = "2023-05-31";
   dateFrom: FormControl = new FormControl();
   dateTo: FormControl = new FormControl();
   grandTotalData: any;
@@ -68,7 +68,7 @@ export class VendorVoucherComponent {
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.vendorVoucher();
+        this.storeVoucher();
       }
     });
   }
@@ -92,43 +92,8 @@ export class VendorVoucherComponent {
   selectedToDate(date: any) {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
-  applyDateFilter() {
-    this.vendorVoucher();
-  }
 
-  filteredData: any;
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    const filteredDataValue = filterValue.trim().toLowerCase();
-    this.filteredData = this.storesFilterData.filter(
-      (item: any) =>
-        item.date.toLowerCase().includes(filteredDataValue) ||
-        item.terminal.toLowerCase().includes(filteredDataValue) ||
-        item.netsales.toString().includes(filteredDataValue) ||
-        item.tax1.toString().includes(filteredDataValue) ||
-        item.tax2.toString().includes(filteredDataValue) ||
-        item.round.toString().includes(filteredDataValue) ||
-        item.ttl_sales.toString().includes(filteredDataValue)
-    );
-    console.log(this.filteredData);
-  }
-
-  rows: any = [];
-  columns: string[] = [];
-  displayTable = false;
-
-  // public blobToFile = (theBlob: Blob, fileName: string): File => {
-  //   return new File(
-  //     [theBlob as any], // cast as any
-  //     fileName,
-  //     {
-  //       lastModified: new Date().getTime(),
-  //       type: theBlob.type,
-  //     }
-  //   );
-  // };
-
-  storeIdValue: string[] = [];
+  storeIdValue: string[] = ["SC01"];
   selectedStoreId: any;
   stores: any[] = [
     { value: "SC01", viewValue: "Project Store" },
@@ -177,138 +142,6 @@ export class VendorVoucherComponent {
     } else {
       this.selectedTerminalItems.length = 0;
       this.selectedTerminalItems = [];
-    }
-  }
-
-  selectedGroupId: any;
-  groupIdValue: string[] = [];
-  groupId: any[] = [
-    { value: "GC01", viewValue: "MAIN FOOD" },
-    { value: "GC02", viewValue: "FRIED FOOD" },
-    { value: "GC03", viewValue: "NOODLES" },
-    { value: "GC04", viewValue: "WESTERN" },
-    { value: "GC05", viewValue: "DESSERT" },
-    { value: "GC06", viewValue: "DRINK" },
-  ];
-  onGroupChange(event: any): void {
-    setTimeout(() => {
-      if (this.selectedGroupItems.includes("all")) {
-        this.groupIdValue = this.groupId.map((item) => item.value);
-        // this.groupIdValue =
-        //   "%5B%22GC01%22,%22GC02%22,%22GC03%22,%22GC04%22,%22GC05%22,%22GC06%22%5D";
-      } else {
-        this.groupIdValue = event.value;
-      }
-    }, 500);
-  }
-  selectedGroupItems: string[] = [];
-
-  selectGroupAll() {
-    if (this.selectedGroupItems.includes("all")) {
-      this.selectedGroupItems = this.groupId.map((item) => item.value);
-      this.selectedGroupItems.push("all");
-    } else {
-      this.selectedGroupItems.length = 0;
-      this.selectedGroupItems = [];
-    }
-  }
-
-  selectedDepartmentId: any;
-  departmentIdValue: string[] = [];
-  departmentId: any[] = [
-    { value: "DC01", viewValue: "MAIN FOOD" },
-    { value: "DC02", viewValue: "FRIED FOOD" },
-    { value: "DC03", viewValue: "NOODLES" },
-    { value: "DC04", viewValue: "WESTERN" },
-    { value: "DC05", viewValue: "DESSERT" },
-    { value: "DC06", viewValue: "DRINK" },
-  ];
-  onDepartmentChange(event: any): void {
-    setTimeout(() => {
-      if (this.selectedDepartmentItems.includes("all")) {
-        this.departmentIdValue = this.departmentId.map((item) => item.value);
-        // this.departmentIdValue =
-        //   "%5B%22DC01%22,%22DC02%22,%22DC03%22,%22DC04%22,%22DC05%22,%22DC06%22%5D";
-      } else {
-        this.departmentIdValue = event.value;
-      }
-    }, 500);
-  }
-  selectedDepartmentItems: string[] = [];
-
-  selectDepartmentAll() {
-    if (this.selectedDepartmentItems.includes("all")) {
-      this.selectedDepartmentItems = this.departmentId.map(
-        (item) => item.value
-      );
-      this.selectedDepartmentItems.push("all");
-    } else {
-      this.selectedDepartmentItems.length = 0;
-      this.selectedDepartmentItems = [];
-    }
-  }
-
-  selectedCategoryId: any;
-  categoryIdValue: string[] = [];
-  categoryId: any[] = [
-    { value: "CC01", viewValue: "FOOD" },
-    { value: "CC02", viewValue: "DRINK" },
-  ];
-  onCategoryChange(event: any): void {
-    setTimeout(() => {
-      if (this.selectedCategoryItems.includes("all")) {
-        this.categoryIdValue = this.categoryId.map((item) => item.value);
-        // this.categoryIdValue = "%5B%22CC01%22,%22CC02%22%5D";
-      } else {
-        this.categoryIdValue = event.value;
-      }
-    }, 500);
-  }
-  selectedCategoryItems: string[] = [];
-
-  selectCategoryAll() {
-    if (this.selectedCategoryItems.includes("all")) {
-      this.selectedCategoryItems = this.categoryId.map((item) => item.value);
-      this.selectedCategoryItems.push("all");
-    } else {
-      this.selectedCategoryItems.length = 0;
-      this.selectedCategoryItems = [];
-    }
-  }
-
-  selectedStockId: any;
-  stockIdValue: string[] = [];
-  stockId: any[] = [
-    { value: "SC01", viewValue: "NASI AYAM" },
-    { value: "SC02", viewValue: "NASI GORENG AYAM" },
-    { value: "SC03", viewValue: "MEE CURRY" },
-    { value: "SC04", viewValue: "CHICKEN CHOP" },
-    { value: "SC05", viewValue: "ICE CREAM SCOOP" },
-    { value: "SC07", viewValue: "CHOCOLATE AIS" },
-    { value: "SC10", viewValue: "Single Set Menu" },
-    { value: "SC11", viewValue: "Enter Set Menu" },
-    { value: "SC12", viewValue: "All Set Menu" },
-  ];
-  onStockChange(event: any): void {
-    setTimeout(() => {
-      if (this.selectedStockItems.includes("all")) {
-        this.stockIdValue = this.stockId.map((item) => item.value);
-        // this.stockIdValue =
-        //   "%5B%22SC01%22,%22SC02%22,%22SC03%22,%22SC04%22,%22SC05%22,%22SC07%22,%22SC10%22,%22SC11%22,%22SC12%22%5D";
-      } else {
-        this.stockIdValue = event.value;
-      }
-    }, 500);
-  }
-  selectedStockItems: string[] = [];
-
-  selectStockAll() {
-    if (this.selectedStockItems.includes("all")) {
-      this.selectedStockItems = this.stockId.map((item) => item.value);
-      this.selectedStockItems.push("all");
-    } else {
-      this.selectedStockItems.length = 0;
-      this.selectedStockItems = [];
     }
   }
 
@@ -364,10 +197,16 @@ export class VendorVoucherComponent {
       this.selectedOperatorItems = [];
     }
   }
+
+  applyDateFilter() {
+    this.storeVoucher();
+  }
+
   errorMessage: any;
-  vendorVoucher() {
+  storeVoucher() {
+    console.log(this.searchFrom);
     this.appService
-      .vendorVoucher(
+      .storeVoucher(
         "json",
         this.searchFrom,
         this.searchTo,
@@ -377,26 +216,14 @@ export class VendorVoucherComponent {
         this.terminalIdValue && this.terminalIdValue.length
           ? JSON.stringify(this.terminalIdValue)
           : "",
-        this.groupIdValue && this.groupIdValue.length
-          ? JSON.stringify(this.groupIdValue)
-          : "",
-        this.departmentIdValue && this.departmentIdValue.length
-          ? JSON.stringify(this.departmentIdValue)
-          : "",
         this.shiftValue && this.shiftValue.length
           ? JSON.stringify(this.shiftValue)
           : "",
         this.operatorValue && this.operatorValue.length
           ? JSON.stringify(this.operatorValue)
-          : "",
-        this.categoryIdValue && this.categoryIdValue.length
-          ? JSON.stringify(this.categoryIdValue)
-          : "",
-        this.stockIdValue && this.stockIdValue.length
-          ? JSON.stringify(this.stockIdValue)
           : ""
       )
-      .subscribe(async (result) => {
+      .subscribe((result) => {
         console.log(result);
         if (result && result.data == "") {
           console.log(result.message);

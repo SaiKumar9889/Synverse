@@ -18,6 +18,9 @@ import { GroupSalesComponent } from "./components/group-sales/group-sales.compon
 import { DepartmentSalesComponent } from "./components/department-sales/department-sales.component";
 import { TransactionSalesComponent } from "./components/transaction-sales/transaction-sales.component";
 import { TransactionVoidComponent } from "./components/transaction-void/transaction-void.component";
+import { InactiveStockComponent } from "./components/inactive-stock/inactive-stock.component";
+import { CategorySalesComponent } from "./components/category-sales/category-sales.component";
+import { StoreVoucherComponent } from "./components/store-voucher/store-voucher.component";
 
 const routes: Routes = [
   { path: "", component: TransactionDetailsComponent },
@@ -38,6 +41,9 @@ const routes: Routes = [
   { path: "departmentSales", component: DepartmentSalesComponent },
   { path: "transactionSales", component: TransactionSalesComponent },
   { path: "transactionVoid", component: TransactionVoidComponent },
+  { path: "inactiveStock", component: InactiveStockComponent },
+  { path: "categorySales", component: CategorySalesComponent },
+  { path: "storeVoucher", component: StoreVoucherComponent },
 ];
 
 @NgModule({
