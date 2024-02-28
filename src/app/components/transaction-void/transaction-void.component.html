@@ -201,8 +201,6 @@
             <button (click)="previousPage()" [disabled]="currentPage === 1">
               Previous
             </button>
-
-            <!-- Displaying numbered pages with ellipsis (...) if needed -->
             <ng-container *ngFor="let page of getPageRange()">
               <button
                 (click)="goToPage(page)"
@@ -383,8 +381,6 @@
             <button (click)="previousPage()" [disabled]="currentPage === 1">
               Previous
             </button>
-
-            <!-- Displaying numbered pages with ellipsis (...) if needed -->
             <ng-container *ngFor="let page of getPageRange()">
               <button
                 (click)="goToPage(page)"
@@ -504,8 +500,6 @@
             <button (click)="previousPage()" [disabled]="currentPage === 1">
               Previous
             </button>
-
-            <!-- Displaying numbered pages with ellipsis (...) if needed -->
             <ng-container *ngFor="let page of getPageRange()">
               <button
                 (click)="goToPage(page)"
@@ -528,8 +522,6 @@
             <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>
-        <!-- </mat-expansion-panel>
-                  </mat-accordion> -->
         <div class="addedBorder marginBottomAdded" *ngIf="filteredData">
           <h4 class="greenText">Total</h4>
           <hr />

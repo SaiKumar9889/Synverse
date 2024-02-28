@@ -437,65 +437,7 @@
                   <td>RM {{ item.SALES_ROUND_ADJ | number : "1.2-2" }}</td>
                   <td>RM {{ item.SALES_NETSALES | number : "1.2-2" }}</td>
                 </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td class="boldText">Terminal Total</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td class="boldText">
-                    {{ row.terminal_quantity }}
-                  </td>
-                  <td class="boldText alignRight">
-                    RM {{ row.terminal_sales | number : "1.2-2" }}
-                  </td>
-                  <td class="boldText alignRight">
-                    RM {{ row.terminal_discount | number : "1.2-2" }}
-                  </td>
-                  <td class="boldText alignRight">
-                    RM {{ row.terminal_tax_amt | number : "1.2-2" }}
-                  </td>
-                  <td class="boldText alignRight">
-                    RM {{ row.terminal_round_adj | number : "1.2-2" }}
-                  </td>
-                  <td class="boldText alignRight">
-                    RM {{ row.terminal_amount | number : "1.2-2" }}
-                  </td>
-                </tr>
               </ng-container>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText blueText">Sub Total</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText blueText">
-                  {{ data.sub_total_quantity }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_sales | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_discount | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_tax_amt | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_round_adj | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_amount | number : "1.2-2" }}
-                </td>
-              </tr>
             </ng-container>
           </tbody>
           <tbody>
@@ -532,7 +474,66 @@
               <td></td>
               <td></td>
             </tr>
-
+            <ng-container *ngFor="let data of getCurrentPageItems()">
+              <tr *ngFor="let row of data.terminal" class="terminal">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText">Terminal Total</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText">
+                  {{ row.terminal_quantity }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ row.terminal_sales | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ row.terminal_discount | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ row.terminal_tax_amt | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ row.terminal_round_adj | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ row.terminal_amount | number : "1.2-2" }}
+                </td>
+              </tr>
+              <tr class="child-element">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText blueText">Sub Total</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText blueText">
+                  {{ data.sub_total_quantity }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ data.sub_total_sales | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ data.sub_total_discount | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ data.sub_total_tax_amt | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ data.sub_total_round_adj | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ data.sub_total_amount | number : "1.2-2" }}
+                </td>
+              </tr>
+            </ng-container>
             <tr>
               <td></td>
               <td></td>
@@ -712,52 +713,67 @@
                   </div>
                 </div>
                 <div fxFlex="100"><hr /></div>
-                <h4>Terminal Total</h4>
-                <div fxFlex="100"><hr /></div>
-                <div>
-                  <h4>Qty</h4>
-                </div>
-                <div>
-                  <p>{{ row.terminal_quantity }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div>
-                  <h4>Gross</h4>
-                </div>
-                <div>
-                  <p>RM {{ row.terminal_sales | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div>
-                  <h4>Disc Amt</h4>
-                </div>
-                <div>
-                  <p>RM {{ row.terminal_discount | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div>
-                  <h4>Tax Amt</h4>
-                </div>
-                <div>
-                  <p>RM {{ row.terminal_tax_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div>
-                  <h4>Round Adj</h4>
-                </div>
-                <div>
-                  <p>RM {{ row.terminal_round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div>
-                  <h4>Total Sales</h4>
-                </div>
-                <div>
-                  <p>RM {{ row.terminal_amount | number : "1.2-2" }}</p>
-                </div>
               </div>
             </div>
             <div fxFlex="100"><hr /></div>
+          </div>
+        </div>
+        <div *ngFor="let data of getCurrentPageItems()">
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            *ngFor="let row of data.terminal"
+            class="addedBorder"
+          >
+            <h4>Terminal Total</h4>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Qty</h4>
+            </div>
+            <div>
+              <p>{{ row.terminal_quantity }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Gross</h4>
+            </div>
+            <div>
+              <p>RM {{ row.terminal_sales | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Disc Amt</h4>
+            </div>
+            <div>
+              <p>RM {{ row.terminal_discount | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Tax Amt</h4>
+            </div>
+            <div>
+              <p>RM {{ row.terminal_tax_amt | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Round Adj</h4>
+            </div>
+            <div>
+              <p>RM {{ row.terminal_round_adj | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Total Sales</h4>
+            </div>
+            <div>
+              <p>RM {{ row.terminal_amount | number : "1.2-2" }}</p>
+            </div>
+          </div>
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            class="addedBorder"
+          >
             <h4 class="blueText">Sub Total</h4>
             <div fxFlex="100"><hr /></div>
             <div>
@@ -878,139 +894,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="addedBorder">
-          <h4>Terminal Total</h4>
-          <hr />
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Qty :</h4>
-            </div>
-            <div>
-              <h4>{{ subTotalTerminal.terminal_quantity }}</h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Gross :</h4>
-            </div>
-            <div>
-              <h4>
-                RM
-                {{ subTotalTerminal.terminal_gross_sales | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Disc :</h4>
-            </div>
-            <div>
-              <h4>RM {{ subTotalTerminal.terminal_disc | number : "1.2-2" }}</h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Net :</h4>
-            </div>
-            <div>
-              <h4>
-                RM
-                {{ subTotalTerminal.terminal_net_sales | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-        </div>
-
-        <div class="addedBorder">
-          <h4 class="blueText">Sub Total</h4>
-          <hr />
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">Qty :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                {{ subTotalData.sub_total_net_quantity }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">Gross :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData.sub_total_net_gross | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">Discount :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM {{ subTotalData.sub_total_net_discount | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">Net :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData.sub_total_net_sales | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-        </div>
-        <div class="addedBorder marginBottomAdded">
-          <h4 class="greenText">Grand Total</h4>
-          <hr />
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="greenText">Qty :</h4>
-            </div>
-            <div>
-              <h4 class="greenText">
-                {{ grandTotalData?.grand_total_quantity }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="greenText">Gross :</h4>
-            </div>
-            <div>
-              <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_gross_sales | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="greenText">Disc :</h4>
-            </div>
-            <div>
-              <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_disc | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="greenText">Net :</h4>
-            </div>
-            <div>
-              <h4 class="greenText">
-                RM {{ grandTotalData?.grand_total_net_sales | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>

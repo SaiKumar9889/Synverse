@@ -1,9 +1,6 @@
 import { Component } from "@angular/core";
-import { ColDef } from "ag-grid-community";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
-import { CurrencyRenderer } from "../../utils/app.util";
-import { MatTableDataSource } from "@angular/material/table";
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
@@ -127,7 +124,6 @@ export class OperatorCollectionComponent {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
         this.storeIdValue = this.stores.map((item) => item.value);
-        // this.storeIdValue = "SC01%22,%22SC02%22%5D";
       } else {
         this.storeIdValue = event.value;
       }
@@ -152,7 +148,6 @@ export class OperatorCollectionComponent {
     setTimeout(() => {
       if (this.selectedOperatorItems.includes("all")) {
         this.operatorValue = this.operators.map((item) => item.value);
-        // this.operatorValue = '"%5B%22SYNV%22%5D';
       } else {
         this.operatorValue = event.value;
       }
@@ -186,13 +181,10 @@ export class OperatorCollectionComponent {
       .subscribe((result) => {
         if (result && result.data == "") {
           console.log(result.message);
-          // if (result.data && result.data.group_key) {
           this.errorMessage = "No Data Found";
           console.log(this.errorMessage);
-          // }
         }
         this.store_code = result.data.store_code;
-        // this.store_name = result.data[0].store_name;
         if (result) {
           this.storeData = result?.data[0]?.collection["5162"]?.details;
           this.storesFilterData = result?.data[0]?.collection["5162"]?.details;
@@ -237,7 +229,6 @@ export class OperatorCollectionComponent {
   }
 
   goToPage(page: number) {
-    // Implement your logic to navigate to the selected page
     this.currentPage = page;
   }
 
@@ -255,7 +246,6 @@ export class OperatorCollectionComponent {
 
   onItemsPerPageChange() {
     this.calculateTotalPages();
-    // You may also want to reset currentPage or navigate to the first page when changing items per page.
     this.currentPage = 1;
   }
 

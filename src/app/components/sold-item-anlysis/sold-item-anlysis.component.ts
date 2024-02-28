@@ -1,9 +1,6 @@
 import { Component } from "@angular/core";
-import { ColDef } from "ag-grid-community";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
-import { CurrencyRenderer } from "../../utils/app.util";
-import { MatTableDataSource } from "@angular/material/table";
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
@@ -139,7 +136,6 @@ export class SoldItemAnlysisComponent {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
         this.storeIdValue = this.stores.map((item) => item.value);
-        // this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
         console.log(this.storeIdValue);
       } else {
         this.storeIdValue = event.value;
@@ -158,7 +154,6 @@ export class SoldItemAnlysisComponent {
     }
   }
 
-  // selectedTerminalId: any;
   terminalIdValue: string[] = [];
   selectedTerminalItems: string[] = [];
   terminalId: any[] = [{ value: "T1", viewValue: "Terminal 1" }];
@@ -197,8 +192,6 @@ export class SoldItemAnlysisComponent {
     setTimeout(() => {
       if (this.selectedGroupItems.includes("all")) {
         this.groupIdValue = this.groupId.map((item) => item.value);
-        // this.groupIdValue =
-        //   "%5B%22GC01%22,%22GC02%22,%22GC03%22,%22GC04%22,%22GC05%22,%22GC06%22%5D";
       } else {
         this.groupIdValue = event.value;
       }
@@ -230,8 +223,6 @@ export class SoldItemAnlysisComponent {
     setTimeout(() => {
       if (this.selectedDepartmentItems.includes("all")) {
         this.departmentIdValue = this.departmentId.map((item) => item.value);
-        // this.departmentIdValue =
-        //   "%5B%22DC01%22,%22DC02%22,%22DC03%22,%22DC04%22,%22DC05%22,%22DC06%22%5D";
       } else {
         this.departmentIdValue = event.value;
       }
@@ -261,7 +252,6 @@ export class SoldItemAnlysisComponent {
     setTimeout(() => {
       if (this.selectedCategoryItems.includes("all")) {
         this.categoryIdValue = this.categoryId.map((item) => item.value);
-        // this.categoryIdValue = "%5B%22CC01%22,%22CC02%22%5D";
       } else {
         this.categoryIdValue = event.value;
       }
@@ -296,8 +286,6 @@ export class SoldItemAnlysisComponent {
     setTimeout(() => {
       if (this.selectedStockItems.includes("all")) {
         this.stockIdValue = this.stockId.map((item) => item.value);
-        // this.stockIdValue =
-        //   "%5B%22SC01%22,%22SC02%22,%22SC03%22,%22SC04%22,%22SC05%22,%22SC07%22,%22SC10%22,%22SC11%22,%22SC12%22%5D";
       } else {
         this.stockIdValue = event.value;
       }
@@ -327,72 +315,46 @@ export class SoldItemAnlysisComponent {
   isCheckedNormal: boolean;
   isCheckboxNormal: string;
   ngOnInit(): void {
-    // Retrieve the stored checkbox state from localStorage
     const storedState = localStorage.getItem("checkboxChange");
-
-    // If a state is stored, use it; otherwise, default to false
     this.isChecked = storedState ? JSON.parse(storedState) : false;
 
     const shiftState = localStorage.getItem("checkboxState");
-
-    // If a state is stored, use it; otherwise, default to false
     this.isCheckedShift = shiftState ? JSON.parse(shiftState) : false;
 
     const changedState = localStorage.getItem("checkboxShift");
-
-    // If a state is stored, use it; otherwise, default to false
     this.isCheckedChange = changedState ? JSON.parse(changedState) : false;
     this.logCheckboxState();
     this.shiftCheckboxState();
     this.logCheckboxChanged();
 
     const discountState = localStorage.getItem("checkedDiscountState");
-
-    // If a state is stored, use it; otherwise, default to false
     this.isCheckedDiscount = discountState ? JSON.parse(discountState) : false;
-
-    // Print the initial checkbox state
     this.logCheckboxDiscount();
     const transactionState = localStorage.getItem("checkedDiscountState");
-
-    // If a state is stored, use it; otherwise, default to false
     this.isCheckedTransaction = transactionState
       ? JSON.parse(transactionState)
       : false;
 
-    // Print the initial checkbox state
     this.logCheckboxTransaction();
     const combineState = localStorage.getItem("checkedCombineState");
-
-    // If a state is stored, use it; otherwise, default to false
     this.isCheckedCombine = combineState ? JSON.parse(combineState) : false;
 
-    // Print the initial checkbox state
     this.logCheckboxCombine();
     const normalState = localStorage.getItem("checkedNormalState");
-
-    // If a state is stored, use it; otherwise, default to false
     this.isCheckedNormal = normalState ? JSON.parse(normalState) : false;
-
-    // Print the initial checkbox state
     this.logCheckboxNormal();
   }
 
   onDiscountChange(event: any): void {
     this.isCheckedDiscount = event.checked;
-
-    // Store the checkbox state in localStorage
     localStorage.setItem(
       "checkedDiscountState",
       JSON.stringify(this.isCheckedDiscount)
     );
-
-    // Print "true" or "false" based on the checkbox state
     this.logCheckboxDiscount();
   }
 
   logCheckboxDiscount(): void {
-    // Print "true" or "false" based on the current checkbox state
     if (this.isCheckedDiscount) {
       console.log("true");
       this.isCheckboxDiscount = "T";
@@ -407,10 +369,7 @@ export class SoldItemAnlysisComponent {
   onCheckboxChange(event: any): void {
     this.isChecked = event.checked;
 
-    // Store the checkbox state in localStorage
     localStorage.setItem("checkboxChange", JSON.stringify(this.isChecked));
-
-    // Print "true" or "false" based on the checkbox state
     this.logCheckboxState();
   }
 
@@ -418,26 +377,18 @@ export class SoldItemAnlysisComponent {
   isCheckboxChanged: string = "F";
   onCheckboxChanged(event: any): void {
     this.isCheckedChange = event.checked;
-
-    // Store the checkbox state in localStorage
     localStorage.setItem("checkboxState", JSON.stringify(this.isCheckedChange));
-
-    // Print "true" or "false" based on the checkbox state
     this.logCheckboxChanged();
   }
 
   onShiftChange(event: any): void {
     this.isCheckedShift = event.checked;
 
-    // Store the checkbox state in localStorage
     localStorage.setItem("checkboxShift", JSON.stringify(this.isCheckedShift));
-
-    // Print "true" or "false" based on the checkbox state
     this.shiftCheckboxState();
   }
 
   logCheckboxState(): void {
-    // Print "true" or "false" based on the current checkbox state
     if (this.isChecked) {
       console.log("true");
       this.isCheckbox = "T";
@@ -447,7 +398,6 @@ export class SoldItemAnlysisComponent {
     }
   }
   logCheckboxChanged(): void {
-    // Print "true" or "false" based on the current checkbox state
     if (this.isCheckedChange) {
       console.log("true");
       this.isCheckboxChanged = "T";
@@ -457,7 +407,6 @@ export class SoldItemAnlysisComponent {
     }
   }
   shiftCheckboxState(): void {
-    // Print "true" or "false" based on the current checkbox state
     if (this.isCheckedShift) {
       console.log("true");
       this.isCheckboxShift = "T";
@@ -470,18 +419,14 @@ export class SoldItemAnlysisComponent {
   onTransactionChange(event: any): void {
     this.isCheckedTransaction = event.checked;
 
-    // Store the checkbox state in localStorage
     localStorage.setItem(
       "checkedTransactionState",
       JSON.stringify(this.isCheckedTransaction)
     );
-
-    // Print "true" or "false" based on the checkbox state
     this.logCheckboxTransaction();
   }
 
   logCheckboxTransaction(): void {
-    // Print "true" or "false" based on the current checkbox state
     if (this.isCheckedTransaction) {
       console.log("true");
       this.isCheckboxTransaction = "T";
@@ -493,19 +438,14 @@ export class SoldItemAnlysisComponent {
 
   onCombineChange(event: any): void {
     this.isCheckedCombine = event.checked;
-
-    // Store the checkbox state in localStorage
     localStorage.setItem(
       "checkedCombineState",
       JSON.stringify(this.isCheckedCombine)
     );
-
-    // Print "true" or "false" based on the checkbox state
     this.logCheckboxCombine();
   }
 
   logCheckboxCombine(): void {
-    // Print "true" or "false" based on the current checkbox state
     if (this.isCheckedCombine) {
       console.log("true");
       this.isCheckboxCombine = "T";
@@ -517,19 +457,14 @@ export class SoldItemAnlysisComponent {
 
   onNormalChange(event: any): void {
     this.isCheckedNormal = event.checked;
-
-    // Store the checkbox state in localStorage
     localStorage.setItem(
       "checkedNormalState",
       JSON.stringify(this.isCheckedNormal)
     );
-
-    // Print "true" or "false" based on the checkbox state
     this.logCheckboxNormal();
   }
 
   logCheckboxNormal(): void {
-    // Print "true" or "false" based on the current checkbox state
     if (this.isCheckedNormal) {
       console.log("true");
       this.isCheckboxNormal = "T";
@@ -575,10 +510,8 @@ export class SoldItemAnlysisComponent {
       .subscribe((result) => {
         if (result && result.data == "") {
           console.log(result.message);
-          // if (result.data && result.data.group_key) {
           this.errorMessage = "No Data Found";
           console.log(this.errorMessage);
-          // }
         }
         if (result) {
           this.store_code = result?.data[0]?.store_code;
@@ -633,7 +566,6 @@ export class SoldItemAnlysisComponent {
   }
 
   goToPage(page: number) {
-    // Implement your logic to navigate to the selected page
     this.currentPage = page;
   }
 
@@ -651,7 +583,6 @@ export class SoldItemAnlysisComponent {
 
   onItemsPerPageChange() {
     this.calculateTotalPages();
-    // You may also want to reset currentPage or navigate to the first page when changing items per page.
     this.currentPage = 1;
   }
 

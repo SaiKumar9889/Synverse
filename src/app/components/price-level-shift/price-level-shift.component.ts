@@ -1,9 +1,6 @@
 import { Component } from "@angular/core";
-import { ColDef } from "ag-grid-community";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
-import { CurrencyRenderer } from "../../utils/app.util";
-import { MatTableDataSource } from "@angular/material/table";
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
@@ -125,7 +122,6 @@ export class PriceLevelShiftComponent {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
         this.storeIdValue = this.stores.map((item) => item.value);
-        // this.storeIdValue = "SC01%22,%22SC02";
       } else {
         this.storeIdValue = event.value;
       }
@@ -196,8 +192,6 @@ export class PriceLevelShiftComponent {
     setTimeout(() => {
       if (this.selectedStockItems.includes("all")) {
         this.stockIdValue = this.stockId.map((item) => item.value);
-        // this.stockIdValue =
-        //   "SC01%22,%22SC02%22,%22SC03%22,%22SC04%22,%22SC05%22,%22SC07%22,%22SC10%22,%22SC11%22,%22SC12";
       } else {
         this.stockIdValue = event.value;
       }
@@ -231,11 +225,7 @@ export class PriceLevelShiftComponent {
 
   onShiftChange(event: any): void {
     setTimeout(() => {
-      // this.shiftId.forEach((element: any) => {
-      //   this.shiftIdValue.push()
-      // });
       if (this.selectedShiftItems.includes("all")) {
-        // this.storeIdValue = this.stores.map((item) => item.value).join();
         this.shiftIdValue = this.shiftId.map((item) => item.value);
       } else {
         this.shiftIdValue = event.value;
@@ -276,10 +266,8 @@ export class PriceLevelShiftComponent {
       .subscribe((result: any) => {
         if (result && result.data == "") {
           console.log(result.message);
-          // if (result.data && result.data.group_key) {
           this.errorMessage = "No Data Found";
           console.log(this.errorMessage);
-          // }
         }
         if (result) {
           this.store_code = result?.data[0]?.store_code;
@@ -328,7 +316,6 @@ export class PriceLevelShiftComponent {
   }
 
   goToPage(page: number) {
-    // Implement your logic to navigate to the selected page
     this.currentPage = page;
   }
 
@@ -346,7 +333,6 @@ export class PriceLevelShiftComponent {
 
   onItemsPerPageChange() {
     this.calculateTotalPages();
-    // You may also want to reset currentPage or navigate to the first page when changing items per page.
     this.currentPage = 1;
   }
 

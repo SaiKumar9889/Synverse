@@ -1,5 +1,3 @@
-<!--  -->
-<!-- <button (click)="downloadExcel()">1234</button> -->
 <div fxLayout="row wrap" fxLayoutAlign="start center" class="addPadding">
   <div fxFlex="100">
     <div class="backgroundWhite">
@@ -314,38 +312,6 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
-        <!-- <table *ngIf="displayTable && rows">
-          <thead>
-            <tr>
-              <th>STORE</th>
-              <th>TERMINAL CODE</th>
-              <th>TERMINAL</th>
-              <th>PAYMENT</th>
-              <th *ngFor="let column of columns">{{ column }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let row of rows">
-              <td>{{ row.store_code }}</td>
-              <td>{{ row.terminal_code }}</td>
-              <td>{{ row.terminal }}</td>
-              <td>{{ row.payment }}</td>
-              <td>
-                {{ row.DATE }}
-              </td>
-              <td>{{ row["PRICE LEVEL"] }}</td>
-              <td>{{ row.SHIFT }}</td>
-              <td class="alignRight">
-                <span *ngIf="row.AMOUNT != undefined">RM {{ row.AMOUNT }}</span>
-              </td>
-              <td class="alignRight">
-                <span *ngIf="row['ROUNDING ADJUST'] != undefined"
-                  >RM {{ row["ROUNDING ADJUST"] }}</span
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table> -->
         <table>
           <thead>
             <tr>
@@ -868,22 +834,6 @@
               </td>
             </tr>
           </tbody>
-          <!-- <tbody>
-            <tr>
-              <td
-                colspan="13"
-                *ngIf="errorMessage != null"
-                style="
-                  position: static;
-                  color: red;
-                  width: 100%;
-                  text-align: center;
-                "
-              >
-                {{ errorMessage }}
-              </td>
-            </tr>
-          </tbody> -->
           <tfoot class="footer-fixed" *ngIf="filteredData">
             <tr class="emptyRow">
               <td></td>
@@ -1723,53 +1673,7 @@
               </div>
             </div>
           </div>
-
-          <!-- <div class="addedBorder" *ngIf="filteredData">
-          <h4>Terminal Total</h4>
-          <hr />
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Qty :</h4>
-            </div>
-            <div>
-              <h4>{{ subTotalTerminal?.terminal_quantity }}</h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Gross :</h4>
-            </div>
-            <div>
-              <h4>
-                RM
-                {{ subTotalTerminal?.terminal_gross_sales | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Disc :</h4>
-            </div>
-            <div>
-              <h4>
-                RM {{ subTotalTerminal?.terminal_disc | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Net :</h4>
-            </div>
-            <div>
-              <h4>
-                RM
-                {{ subTotalTerminal?.terminal_net_sales | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
         </div>
-
-        --></div>
         <div class="addedBorder" *ngIf="filteredData">
           <h4 class="blueText">Sub Total</h4>
           <hr />

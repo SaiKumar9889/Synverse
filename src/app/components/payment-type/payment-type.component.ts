@@ -1,10 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ColDef } from "ag-grid-community";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
-import { CurrencyRenderer } from "../../utils/app.util";
-import { MatTableDataSource } from "@angular/material/table";
-import * as XLSX from "xlsx";
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
@@ -119,18 +115,6 @@ export class PaymentTypeComponent implements OnInit {
   rows: any = [];
   columns: string[] = [];
   displayTable = false;
-
-  // public blobToFile = (theBlob: Blob, fileName: string): File => {
-  //   return new File(
-  //     [theBlob as any], // cast as any
-  //     fileName,
-  //     {
-  //       lastModified: new Date().getTime(),
-  //       type: theBlob.type,
-  //     }
-  //   );
-  // };
-
   storeIdValue: string[] = [];
   selectedStoreId: any;
   stores: any[] = [
@@ -141,7 +125,6 @@ export class PaymentTypeComponent implements OnInit {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
         this.storeIdValue = this.stores.map((item) => item.value);
-        // this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
       } else {
         this.storeIdValue = event.value;
       }
@@ -194,7 +177,6 @@ export class PaymentTypeComponent implements OnInit {
     setTimeout(() => {
       if (this.selectedPaymentItems.includes("all")) {
         this.paymentIdValue = this.paymentId.map((item) => item.value);
-        // this.paymentIdValue = "%5B%22MASTER%22,%22PC01%22,%22VISA%22%5D";
       } else {
         this.paymentIdValue = event.value;
       }
@@ -215,15 +197,10 @@ export class PaymentTypeComponent implements OnInit {
   isChecked: boolean;
   isCheckedShift: boolean;
   ngOnInit(): void {
-    // Retrieve the stored checkbox state from localStorage
     const storedState = localStorage.getItem("checkboxState");
-
-    // If a state is stored, use it; otherwise, default to false
     this.isChecked = storedState ? JSON.parse(storedState) : false;
 
     const shiftState = localStorage.getItem("checkboxState");
-
-    // If a state is stored, use it; otherwise, default to false
     this.isCheckedShift = shiftState ? JSON.parse(shiftState) : false;
     this.logCheckboxState();
     this.shiftCheckboxState();
@@ -233,26 +210,17 @@ export class PaymentTypeComponent implements OnInit {
   isCheckboxShift: string;
   onCheckboxChange(event: any): void {
     this.isChecked = event.checked;
-
-    // Store the checkbox state in localStorage
     localStorage.setItem("checkboxState", JSON.stringify(this.isChecked));
-
-    // Print "true" or "false" based on the checkbox state
     this.logCheckboxState();
   }
 
   onShiftChange(event: any): void {
     this.isCheckedShift = event.checked;
-
-    // Store the checkbox state in localStorage
     localStorage.setItem("checkboxState", JSON.stringify(this.isCheckedShift));
-
-    // Print "true" or "false" based on the checkbox state
     this.shiftCheckboxState();
   }
 
   logCheckboxState(): void {
-    // Print "true" or "false" based on the current checkbox state
     if (this.isChecked) {
       console.log("true");
       this.isCheckbox = "true";
@@ -262,7 +230,6 @@ export class PaymentTypeComponent implements OnInit {
     }
   }
   shiftCheckboxState(): void {
-    // Print "true" or "false" based on the current checkbox state
     if (this.isCheckedShift) {
       console.log("true");
       this.isCheckboxShift = "true";
@@ -390,76 +357,10 @@ export class PaymentTypeComponent implements OnInit {
           this.subTotalT6 = result?.data[0]?.payment?.T6;
           this.subTotalSC01 = result?.data[0];
           this.grandTotalData = result;
-          // this.storesFilterData = Object.values(
-
-          //   result?.data[0]?.payment[0][""]["Payment 1"] || {}
-          // );
-          // this.subTotalTerminal = result?.data[0]?.sold_item[0];
-          // this.subTotalData = result?.data[0];
-          // this.grandTotalData = result;
-          // this.filteredData = this.storesFilterData;
           this.loadingSpinner = false;
         }
       });
   }
-
-  // async readFile(file: any): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     const reader: FileReader = new FileReader();
-
-  //     reader.onload = (e: any) => {
-  //       const binaryString: string = e.target.result;
-  //       const workbook: XLSX.WorkBook = XLSX.read(binaryString, {
-  //         type: "binary",
-  //       });
-  //       const sheetName: string = workbook.SheetNames[0];
-  //       const worksheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
-
-  //       const jsonArray: any[] = XLSX.utils.sheet_to_json(worksheet, {
-  //         raw: false,
-  //       });
-  //       // console.log(jsonArray);
-  //       resolve(jsonArray);
-  //     };
-
-  //     reader.onerror = (error) => {
-  //       reject(error);
-  //     };
-
-  //     reader.readAsBinaryString(file);
-  //   });
-  // }
-
-  // downloadExcel(): void {
-  //   // Make the API call to get the Blob data
-  //   this.appService
-  //     .paymentType(
-  //       "xls",
-  //       this.searchFrom,
-  //       this.searchTo,
-  //       this.storeIdValue,
-  //       this.terminalIdValue,
-  //       this.paymentIdValue,
-  //       this.isCheckbox,
-  //       this.isCheckboxShift
-  //     )
-  //     .subscribe((blobData) => {
-  //       // Create a download link
-  //       const downloadLink = document.createElement("a");
-  //       downloadLink.href = window.URL.createObjectURL(blobData);
-
-  //       // Set the file name
-  //       downloadLink.download = "example.xlsx";
-
-  //       // Trigger a click event to start the download
-  //       document.body.appendChild(downloadLink);
-  //       downloadLink.click();
-
-  //       // Cleanup
-  //       document.body.removeChild(downloadLink);
-  //     });
-  // }
-
   columnToSort = "";
   sortDirection = "asc";
 

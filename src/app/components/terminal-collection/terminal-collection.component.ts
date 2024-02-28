@@ -1,9 +1,6 @@
 import { Component } from "@angular/core";
-import { ColDef } from "ag-grid-community";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
-import { CurrencyRenderer } from "../../utils/app.util";
-import { MatTableDataSource } from "@angular/material/table";
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
@@ -98,9 +95,6 @@ export class TerminalCollectionComponent {
   }
   applyDateFilter() {
     this.terminalCollection();
-    // setTimeout(() => {
-    //   this.loadingSpinner = true;
-    // }, 1000);
   }
 
   filteredData: any;
@@ -129,7 +123,6 @@ export class TerminalCollectionComponent {
         if (result) {
           this.filteredData = result.data[0].tax_trx;
           this.storesFilterData = result.data[0].tax_trx;
-          // this.subTotalPriceLevelData = result.data[0].item_price.P1;
           this.subTotalData = result.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
@@ -170,7 +163,6 @@ export class TerminalCollectionComponent {
   }
 
   goToPage(page: number) {
-    // Implement your logic to navigate to the selected page
     this.currentPage = page;
   }
 
@@ -188,7 +180,6 @@ export class TerminalCollectionComponent {
 
   onItemsPerPageChange() {
     this.calculateTotalPages();
-    // You may also want to reset currentPage or navigate to the first page when changing items per page.
     this.currentPage = 1;
   }
 

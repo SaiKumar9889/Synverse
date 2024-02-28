@@ -135,7 +135,6 @@ export class TaxTransactionComponent implements OnInit {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
         this.storeIdValue = this.stores.map((item) => item.value);
-        // this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
         console.log(this.storeIdValue);
       } else {
         this.storeIdValue = event.value;
@@ -153,8 +152,6 @@ export class TaxTransactionComponent implements OnInit {
       this.selectedItems = [];
     }
   }
-
-  // selectedTerminalId: any;
   terminalIdValue: string[] = [];
   selectedTerminalItems: string[] = [];
   terminalId: any[] = [{ value: "T1", viewValue: "Terminal 1" }];
@@ -180,10 +177,7 @@ export class TaxTransactionComponent implements OnInit {
   }
   isChecked: boolean;
   ngOnInit(): void {
-    // Retrieve the stored checkbox state from localStorage
     const storedState = localStorage.getItem("checkboxState");
-
-    // If a state is stored, use it; otherwise, default to false
     this.isChecked = storedState ? JSON.parse(storedState) : false;
     this.logCheckboxState();
   }
@@ -192,16 +186,11 @@ export class TaxTransactionComponent implements OnInit {
 
   onCheckboxChange(event: any): void {
     this.isChecked = event.checked;
-
-    // Store the checkbox state in localStorage
     localStorage.setItem("checkboxState", JSON.stringify(this.isChecked));
-
-    // Print "true" or "false" based on the checkbox state
     this.logCheckboxState();
   }
 
   logCheckboxState(): void {
-    // Print "true" or "false" based on the current checkbox state
     if (this.isChecked) {
       this.isCheckbox = "T";
     } else {
@@ -211,11 +200,6 @@ export class TaxTransactionComponent implements OnInit {
   errorMessage = null;
   taxTransaction() {
     this.errorMessage = null;
-    // this.store_id = ;
-    // this.storeId = "";
-
-    // this.storeId = JSON.stringify(this.store_id);
-    // this.storeId = this.store_id;
     this.appService
       .taxTransaction(
         "json",
@@ -232,17 +216,14 @@ export class TaxTransactionComponent implements OnInit {
       .subscribe((result) => {
         if (result && result.success == false) {
           console.log(result.message);
-          // if (result.data && result.data.group_key) {
           this.errorMessage = result.message;
           console.log(this.errorMessage);
-          // }
         }
         if (result) {
           this.store_code = result?.data[0]?.store_code;
           this.store_name = result?.data[0]?.store_name;
           this.filteredData = result?.data[0]?.tax_trx;
           this.storesFilterData = result?.data[0]?.tax_trx;
-          // this.subTotalPriceLevelData = result.data[0].item_price.P1;
           this.subTotalData = result?.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
@@ -283,7 +264,6 @@ export class TaxTransactionComponent implements OnInit {
   }
 
   goToPage(page: number) {
-    // Implement your logic to navigate to the selected page
     this.currentPage = page;
   }
 
@@ -301,7 +281,6 @@ export class TaxTransactionComponent implements OnInit {
 
   onItemsPerPageChange() {
     this.calculateTotalPages();
-    // You may also want to reset currentPage or navigate to the first page when changing items per page.
     this.currentPage = 1;
   }
 

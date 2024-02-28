@@ -1,9 +1,6 @@
 import { Component } from "@angular/core";
-import { ColDef } from "ag-grid-community";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
-import { CurrencyRenderer } from "../../utils/app.util";
-import { MatTableDataSource } from "@angular/material/table";
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
@@ -141,19 +138,13 @@ export class SkuSalesComponent {
       .subscribe((result) => {
         if (result && result.status == "failed") {
           console.log(result.message);
-          // if (result.data && result.data.group_key) {
           this.errorMessage = result.message;
           console.log(this.errorMessage);
-          // }
         }
-        // this.store_code = result.data[0].store_code;
-        // this.store_name = result.data[0].store_name;
         if (result) {
           this.filteredData = result?.data;
           console.log(result);
           this.storesFilterData = result?.data;
-          // this.subTotalPriceLevelData = result.data[0].item_price.P1;
-          // this.subTotalData = result.data;
           this.grandTotalData = result;
           console.log(this.grandTotalData);
           this.filteredData = this.storesFilterData;
@@ -194,7 +185,6 @@ export class SkuSalesComponent {
   }
 
   goToPage(page: number) {
-    // Implement your logic to navigate to the selected page
     this.currentPage = page;
   }
 
@@ -212,7 +202,6 @@ export class SkuSalesComponent {
 
   onItemsPerPageChange() {
     this.calculateTotalPages();
-    // You may also want to reset currentPage or navigate to the first page when changing items per page.
     this.currentPage = 1;
   }
 

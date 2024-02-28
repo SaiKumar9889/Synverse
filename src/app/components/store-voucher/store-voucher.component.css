@@ -1,7 +1,5 @@
 table {
   width: 100%;
-  /* max-height: 300px !important;
-                overflow: auto !important; */
 }
 table th {
   background-color: #424141b3;
@@ -65,7 +63,6 @@ tfoot tr {
 }
 
 thead th {
-  /* top: 96px; */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background-color: #be2026;
@@ -95,7 +92,6 @@ tfoot .subTotalPL {
 .alignRight {
   text-align: right !important;
 }
-/*give some space between thead and tfoot*/
 
 tbody tr:first-of-type td {
   padding-top: 10px;

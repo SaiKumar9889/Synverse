@@ -1,9 +1,6 @@
 import { Component } from "@angular/core";
-import { ColDef } from "ag-grid-community";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
-import { CurrencyRenderer } from "../../utils/app.util";
-import { MatTableDataSource } from "@angular/material/table";
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
@@ -139,10 +136,8 @@ export class HourSalesComponent {
       .subscribe((result) => {
         if (result && result.success == false) {
           console.log(result.message);
-          // if (result.data && result.data.group_key) {
           this.errorMessage = result.message;
           console.log(this.errorMessage);
-          // }
         }
 
         if (result) {
@@ -150,7 +145,6 @@ export class HourSalesComponent {
           this.store_name = result?.data[0]?.store_name;
           this.filteredData = result?.data[0]?.hourly_sales;
           this.storesFilterData = result?.data[0]?.hourly_sales;
-          // this.subTotalPriceLevelData = result.data[0].item_price.P1;
           this.subTotalData = result?.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
@@ -191,7 +185,6 @@ export class HourSalesComponent {
   }
 
   goToPage(page: number) {
-    // Implement your logic to navigate to the selected page
     this.currentPage = page;
   }
 
@@ -209,7 +202,6 @@ export class HourSalesComponent {
 
   onItemsPerPageChange() {
     this.calculateTotalPages();
-    // You may also want to reset currentPage or navigate to the first page when changing items per page.
     this.currentPage = 1;
   }
 

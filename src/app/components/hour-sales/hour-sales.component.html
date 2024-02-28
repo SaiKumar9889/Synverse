@@ -97,26 +97,6 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <!-- <div
-          fxFlex="23"
-          fxFlex.xs="75"
-          class="alignCenter"
-          *ngIf="priceLevelFormFields"
-          fxHide.sm
-          fxHide.md
-          fxHide.lg
-          fxHide.xl
-        >
-          <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
-          </mat-form-field>
-        </div> -->
         <div
           fxFlex="23"
           fxFlex.xs="25"
@@ -187,17 +167,6 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <!-- <div fxFlex="15" fxHide.xs class="alignCenter">
-          <mat-form-field appearance="outline">
-            <mat-label>Search Filter</mat-label>
-            <input
-              matInput
-              placeholder="Placeholder"
-              [(ngModel)]="filterValue"
-              (keyup)="applyFilter($event)"
-            />
-          </mat-form-field>
-        </div> -->
         <div fxFlex="15" fxHide.xs class="alignCenter">
           <button
             mat-flat-button
@@ -238,8 +207,6 @@
             <button (click)="previousPage()" [disabled]="currentPage === 1">
               Previous
             </button>
-
-            <!-- Displaying numbered pages with ellipsis (...) if needed -->
             <ng-container *ngFor="let page of getPageRange()">
               <button
                 (click)="goToPage(page)"
@@ -446,8 +413,6 @@
             <button (click)="previousPage()" [disabled]="currentPage === 1">
               Previous
             </button>
-
-            <!-- Displaying numbered pages with ellipsis (...) if needed -->
             <ng-container *ngFor="let page of getPageRange()">
               <button
                 (click)="goToPage(page)"
@@ -478,13 +443,6 @@
         </div>
       </div>
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
-        <!-- <mat-accordion class="example-headers-align" multi>
-              <mat-expansion-panel *ngFor="let data of filteredData">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Item Report By Price Level/Shift
-                  </mat-panel-title>
-                </mat-expansion-panel-header> -->
         <div class="addedScroll" *ngIf="filteredData">
           <div
             fxLayout="row wrap"
@@ -569,8 +527,6 @@
             <button (click)="previousPage()" [disabled]="currentPage === 1">
               Previous
             </button>
-
-            <!-- Displaying numbered pages with ellipsis (...) if needed -->
             <ng-container *ngFor="let page of getPageRange()">
               <button
                 (click)="goToPage(page)"
@@ -599,8 +555,6 @@
             <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>
-        <!-- </mat-expansion-panel>
-            </mat-accordion> -->
         <div class="addedBorder" *ngIf="filteredData">
           <h4 class="blueText">Sub-Total</h4>
           <hr />

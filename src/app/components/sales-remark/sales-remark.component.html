@@ -277,8 +277,6 @@
             <button (click)="previousPage()" [disabled]="currentPage === 1">
               Previous
             </button>
-
-            <!-- Displaying numbered pages with ellipsis (...) if needed -->
             <ng-container *ngFor="let page of getPageRange()">
               <button
                 (click)="goToPage(page)"
@@ -334,12 +332,6 @@
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <!-- <th (click)="sortTable('round')">
-                <div fxLayout="row wrap" fxLayoutAlign="start center">
-                  <div>OPERATOR</div>
-                  <div><img src="../../../assets/sort.png" class="sort" /></div>
-                </div>
-              </th> -->
               <th (click)="sortTable('SALES_SHIFT')">
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>SHIFT</div>
@@ -495,8 +487,6 @@
             <button (click)="previousPage()" [disabled]="currentPage === 1">
               Previous
             </button>
-
-            <!-- Displaying numbered pages with ellipsis (...) if needed -->
             <ng-container *ngFor="let page of getPageRange()">
               <button
                 (click)="goToPage(page)"
@@ -528,13 +518,6 @@
         fxHide.sm
         *ngIf="filteredData"
       >
-        <!-- <mat-accordion class="example-headers-align" multi>
-              <mat-expansion-panel *ngFor="let data of filteredData">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Item Report By Price Level/Shift
-                  </mat-panel-title>
-                </mat-expansion-panel-header> -->
         <div class="addedScroll">
           <div
             fxLayout="row wrap"
@@ -638,8 +621,6 @@
             <button (click)="previousPage()" [disabled]="currentPage === 1">
               Previous
             </button>
-
-            <!-- Displaying numbered pages with ellipsis (...) if needed -->
             <ng-container *ngFor="let page of getPageRange()">
               <button
                 (click)="goToPage(page)"
@@ -662,8 +643,6 @@
             <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>
-        <!-- </mat-expansion-panel>
-            </mat-accordion> -->
         <div class="addedBorder">
           <h4 class="blueText">Sub Total</h4>
           <hr />

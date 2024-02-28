@@ -1,9 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ColDef } from "ag-grid-community";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
-import { CurrencyRenderer } from "../../utils/app.util";
-import { MatTableDataSource } from "@angular/material/table";
 import * as XLSX from "xlsx";
 import {
   DateAdapter,
@@ -128,7 +125,6 @@ export class TransactionDetailsComponent implements OnInit {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
         this.storeIdValue = this.stores.map((item) => item.value);
-        // this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
       } else {
         this.storeIdValue = event.value;
       }
@@ -145,8 +141,6 @@ export class TransactionDetailsComponent implements OnInit {
       this.selectedItems = [];
     }
   }
-
-  // selectedTerminalId: any;
   terminalIdValue: string[] = [];
   selectedTerminalItems: string[] = [];
   terminalId: any[] = [{ value: "T1", viewValue: "Terminal 1" }];
@@ -172,10 +166,7 @@ export class TransactionDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Retrieve the stored checkbox state from localStorage
     const storedState = localStorage.getItem("checkboxState");
-
-    // If a state is stored, use it; otherwise, default to false
     this.isChecked = storedState ? JSON.parse(storedState) : false;
     this.logCheckboxState();
   }
@@ -184,16 +175,11 @@ export class TransactionDetailsComponent implements OnInit {
 
   onCheckboxChange(event: any): void {
     this.isChecked = event.checked;
-
-    // Store the checkbox state in localStorage
     localStorage.setItem("checkboxState", JSON.stringify(this.isChecked));
-
-    // Print "true" or "false" based on the checkbox state
     this.logCheckboxState();
   }
 
   logCheckboxState(): void {
-    // Print "true" or "false" based on the current checkbox state
     if (this.isChecked) {
       console.log("true");
       this.isCheckbox = "true";
@@ -222,18 +208,11 @@ export class TransactionDetailsComponent implements OnInit {
         const excelData = await this.readFile(result);
         this.rows = [];
         this.columns = Object.values(excelData[1]);
-        // this.columns.splice(8, 1);
         let values = null;
         let data = {};
-        // console.log("conlumns : ", this.columns);
         for (let i = 2; i < excelData.length; i++) {
           let data: any = {};
           values = excelData[i];
-          // console.log(values);
-          // if (values.length == this.columns.length) {
-          //   for (let j = 0; j < this.columns.length; j++) {
-          //     data[this.columns[j]] = values[j];
-          //   }
           this.rows.push({
             [this.columns[0]]: values["__EMPTY"],
             [this.columns[1]]: values["__EMPTY_1"],
@@ -250,9 +229,7 @@ export class TransactionDetailsComponent implements OnInit {
             [this.columns[12]]: values["__EMPTY_11"],
             [this.columns[13]]: values["__EMPTY_12"],
           });
-          // }
         }
-        // console.log(this.rows);
         this.loadingSpinner = false;
         this.displayTable = true;
       });
@@ -273,7 +250,6 @@ export class TransactionDetailsComponent implements OnInit {
         const jsonArray: any[] = XLSX.utils.sheet_to_json(worksheet, {
           raw: false,
         });
-        // console.log(jsonArray);
         resolve(jsonArray);
       };
 
@@ -284,27 +260,6 @@ export class TransactionDetailsComponent implements OnInit {
       reader.readAsBinaryString(file);
     });
   }
-
-  // downloadExcel(): void {
-  //   // Make the API call to get the Blob data
-  //   this.appService
-  //     .transactionDetail("xls", this.searchFrom, this.searchTo)
-  //     .subscribe((blobData) => {
-  //       // Create a download link
-  //       const downloadLink = document.createElement("a");
-  //       downloadLink.href = window.URL.createObjectURL(blobData);
-
-  //       // Set the file name
-  //       downloadLink.download = "example.xlsx";
-
-  //       // Trigger a click event to start the download
-  //       document.body.appendChild(downloadLink);
-  //       downloadLink.click();
-
-  //       // Cleanup
-  //       document.body.removeChild(downloadLink);
-  //     });
-  // }
 
   columnToSort = "";
   sortDirection = "asc";

@@ -1,9 +1,6 @@
 import { Component } from "@angular/core";
-import { ColDef } from "ag-grid-community";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
-import { CurrencyRenderer } from "../../utils/app.util";
-import { MatTableDataSource } from "@angular/material/table";
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
@@ -86,7 +83,6 @@ export class AverageSalesSummaryComponent {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
         this.storeIdValue = this.stores.map((item) => item.value);
-        // this.storeIdValue = "%5B%22SC01%22,%22SC02%22%5D";
       } else {
         this.storeIdValue = event.value;
       }
@@ -168,10 +164,8 @@ export class AverageSalesSummaryComponent {
   isChecked: boolean;
 
   ngOnInit(): void {
-    // Retrieve the stored checkbox state from localStorage
     const storedState = localStorage.getItem("checkboxState");
     this.loadingSpinner = true;
-    // If a state is stored, use it; otherwise, default to false
     this.isChecked = storedState ? JSON.parse(storedState) : false;
     this.logCheckboxState();
   }
@@ -180,16 +174,11 @@ export class AverageSalesSummaryComponent {
 
   onCheckboxChange(event: any): void {
     this.isChecked = event.checked;
-
-    // Store the checkbox state in localStorage
     localStorage.setItem("checkboxState", JSON.stringify(this.isChecked));
-
-    // Print "true" or "false" based on the checkbox state
     this.logCheckboxState();
   }
 
   logCheckboxState(): void {
-    // Print "true" or "false" based on the current checkbox state
     if (this.isChecked) {
       console.log("true");
       this.isCheckbox = "T";
@@ -215,7 +204,6 @@ export class AverageSalesSummaryComponent {
       .subscribe((result) => {
         if (result && result.data == "") {
           console.log(result.message);
-          // if (result.data && result.data.group_key) {
           this.errorMessage = "No Data Found";
           console.log(this.errorMessage);
           // }
@@ -225,7 +213,6 @@ export class AverageSalesSummaryComponent {
           this.store_name = result?.data[0]?.store_desc;
           this.filteredData = result?.data[0]?.average_sales;
           this.storesFilterData = result?.data[0]?.average_sales;
-          // this.subTotalPriceLevelData = result.data[0].item_price.P1;
           this.subTotalData = result?.data[0];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
@@ -267,7 +254,6 @@ export class AverageSalesSummaryComponent {
   }
 
   goToPage(page: number) {
-    // Implement your logic to navigate to the selected page
     this.currentPage = page;
   }
 
