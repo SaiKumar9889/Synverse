@@ -288,6 +288,55 @@
 
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+          class="backgroundWhitePage"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
         <table>
           <thead>
             <tr>
@@ -384,7 +433,7 @@
             </tr>
           </thead>
           <tbody *ngIf="filteredData">
-            <ng-container *ngFor="let data of getCurrentPageItems()">
+            <ng-container *ngFor="let data of storesFilterData">
               <tr>
                 <td>{{ data.store_code }}</td>
                 <td>{{ data.store_desc }}</td>
@@ -420,7 +469,7 @@
                   <td></td>
                   <td></td>
                 </tr>
-                <tr *ngFor="let item of row.detail">
+                <tr *ngFor="let item of getCurrentPageItems()">
                   <td></td>
                   <td></td>
                   <td>{{ item.SALES_CLOSEDATE | date }}</td>
@@ -474,7 +523,7 @@
               <td></td>
               <td></td>
             </tr>
-            <ng-container *ngFor="let data of getCurrentPageItems()">
+            <ng-container *ngFor="let data of storesFilterData">
               <tr *ngFor="let row of data.terminal" class="terminal">
                 <td></td>
                 <td></td>
@@ -510,7 +559,24 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="boldText blueText">Sub Total</td>
+                <td
+                  class="boldText blueText"
+                  *ngIf="data.store_desc === 'DODO KOREA'"
+                >
+                  Sub Total 01
+                </td>
+                <td
+                  class="boldText blueText"
+                  *ngIf="data.store_desc === 'Project Store'"
+                >
+                  Sub Total SC01
+                </td>
+                <td
+                  class="boldText blueText"
+                  *ngIf="data.store_desc === 'Project Store 2'"
+                >
+                  Sub Total SC02
+                </td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -566,6 +632,54 @@
             </tr>
           </tfoot>
         </table>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
       </div>
       <div
         fxFlex="100"
@@ -577,7 +691,7 @@
       >
         <div class="addedScroll">
           <div
-            *ngFor="let data of getCurrentPageItems()"
+            *ngFor="let data of storesFilterData"
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
             class="addedBorder"
@@ -619,7 +733,7 @@
                   <div
                     fxLayout="row wrap"
                     fxLayoutAlign="space-between start"
-                    *ngFor="let item of row.detail"
+                    *ngFor="let item of getCurrentPageItems()"
                     class="addedBorder addColor"
                   >
                     <div><h4 fxFlex="40">Date</h4></div>
@@ -712,13 +826,59 @@
                     </div>
                   </div>
                 </div>
-                <div fxFlex="100"><hr /></div>
               </div>
             </div>
-            <div fxFlex="100"><hr /></div>
           </div>
         </div>
-        <div *ngFor="let data of getCurrentPageItems()">
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
+        <div *ngFor="let data of storesFilterData">
           <div
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"

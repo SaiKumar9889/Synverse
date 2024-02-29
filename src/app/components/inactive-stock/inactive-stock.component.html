@@ -21,7 +21,55 @@
       <h2 class="marginBottomAdded" fxHide.xs>Inactive Stock Listing Report</h2>
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
-      <div fxFlex="100">
+      <div fxFlex="100" fxHide.xs>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
         <table>
           <thead>
             <tr>
@@ -57,6 +105,19 @@
               </th>
             </tr>
           </thead>
+          <tbody *ngIf="filteredData">
+            <tr *ngFor="let data of getCurrentPageItems()">
+              <td>
+                {{ data.M_SERIAL_NUMBER }}
+              </td>
+              <td>{{ data.M_STOCK_CODE }}</td>
+              <td>
+                {{ data.M_DESC }}
+              </td>
+              <td>{{ data.M_EXPIRED_DATE | date }}</td>
+              <td>{{ data.M_DATE_INSERT | date }}</td>
+            </tr>
+          </tbody>
           <tbody>
             <tr>
               <td
@@ -74,6 +135,148 @@
             </tr>
           </tbody>
         </table>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
+        <div class="addedScroll" *ngIf="filteredData">
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            *ngFor="let data of getCurrentPageItems()"
+            class="addedBorder addColor"
+          >
+            <div fxFlex="40">
+              <h4>NO</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.M_SERIAL_NUMBER }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+
+            <div fxFlex="40">
+              <h4>Stock Code</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.M_STOCK_CODE }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>Description</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.M_DESC }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>Create Date</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.M_EXPIRED_DATE | date }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div fxFlex="40">
+              <h4>Change Date</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.M_DATE_INSERT | date }}</p>
+            </div>
+          </div>
+        </div>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

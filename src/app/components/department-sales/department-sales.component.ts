@@ -59,6 +59,7 @@ export class DepartmentSalesComponent {
   pagesToShow = 5;
   Math: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
+  filteredData: any;
 
   constructor(
     private authService: AuthService,
@@ -98,7 +99,6 @@ export class DepartmentSalesComponent {
     this.departmentSales();
   }
 
-  filteredData: any;
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     const filteredDataValue = filterValue.trim().toLowerCase();

@@ -26,6 +26,13 @@ export class InactiveStockComponent {
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
   loadingSpinner: boolean = true;
+  itemsPerPage = 5;
+  currentPage = 1;
+  totalPages: number;
+  pagesToShow = 5;
+  Math: any;
+  itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
+  filteredData: any;
 
   constructor(
     private authService: AuthService,
@@ -71,7 +78,82 @@ export class InactiveStockComponent {
         console.log(this.errorMessage);
         this.loadingSpinner = false;
       }
+      if (result) {
+        this.filteredData = result.data;
+        console.log(result);
+        this.storesFilterData = result.data;
+        this.grandTotalData = result;
+        this.filteredData = this.storesFilterData;
+        this.loadingSpinner = false;
+        this.calculateTotalPages();
+      }
     });
+  }
+
+  calculateTotalPages() {
+    setTimeout(() => {
+      console.log(this.filteredData);
+      if (this.filteredData && this.itemsPerPage) {
+        this.totalPages = Math.ceil(
+          this.filteredData.length / this.itemsPerPage
+        );
+      }
+      console.log(this.totalPages);
+    }, 1000);
+  }
+
+  getCurrentPageItems(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredData.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  getPageRange(): number[] {
+    const startPage = Math.max(
+      1,
+      this.currentPage - Math.floor(this.pagesToShow / 2)
+    );
+    const endPage = Math.min(this.totalPages, startPage + this.pagesToShow - 1);
+
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, index) => startPage + index
+    );
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  onItemsPerPageChange() {
+    this.calculateTotalPages();
+    this.currentPage = 1;
+  }
+
+  getDisplayRange(): string {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const endIndex = Math.min(
+      this.currentPage * this.itemsPerPage,
+      this.filteredData.length
+    );
+    return `${startIndex} to ${endIndex}`;
+  }
+  shouldDisplayEllipsis(): boolean {
+    return (
+      this.totalPages > this.pagesToShow &&
+      this.currentPage + Math.floor(this.pagesToShow / 2) < this.totalPages
+    );
   }
 
   columnToSort = "";

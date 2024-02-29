@@ -296,8 +296,8 @@ export class ReceiptAnalysisComponent {
           this.subTotalTerminal = result.data[0].terminal[0];
           this.subTotalData = result.data[0];
           this.grandTotalData = result;
-          this.filteredData = this.storesFilterData;
-          console.log(this.grandTotalData);
+          this.filteredData = result.data[1].terminal[0].detail;
+          console.log(this.filteredData);
           this.loadingSpinner = false;
           this.calculateTotalPages();
         }

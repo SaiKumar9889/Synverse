@@ -1,27 +1,25 @@
 thead th {
-  top: 165px;
+  top: 250px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background-color: #be2026;
 }
-tfoot .emptyRow {
-  /* bottom: 53px !important;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-  z-index: 9;
-  background: #fff;
-  border: 1px solid #6d6a6ab3;
-  height: 28px; */
-}
 tfoot .child-element:nth-child(2) {
-  bottom: 192px !important;
+  bottom: 212px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
   border: 1px solid #6d6a6ab3;
   height: 28px;
 }
+.backgroundWhitePage {
+  background: #fff;
+  position: sticky !important;
+  top: 165px !important;
+  width: 100% !important;
+}
 tfoot .terminal {
-  bottom: 139px !important;
+  bottom: 159px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
@@ -29,7 +27,7 @@ tfoot .terminal {
   height: 28px;
 }
 tfoot .child-element:nth-child(4) {
-  bottom: 86px !important;
+  bottom: 106px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
