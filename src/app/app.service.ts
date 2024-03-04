@@ -91,7 +91,7 @@ export class AppService {
     checkbox: string
   ) {
     const url = `${this.apiUrl}/bereport/transactiondetailanalysisreport?start_date=${start}&end_date=${end}&is_tax_include=${checkbox}&sort_key=PYMT_CTRNO&terminal_id=${terminalId}&store_id=${storeId}&datetype=lyear&file_type=${fileType}`;
-    return this.http.get(url, { responseType: "blob" });
+    return this.http.get<any>(url);
   }
   paymentType(
     fileType: string,

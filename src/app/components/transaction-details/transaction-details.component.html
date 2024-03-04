@@ -251,173 +251,797 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
-        <table *ngIf="displayTable && rows">
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span
+              *ngIf="
+                totalPages > pagesToShow &&
+                currentPage + Math.floor(pagesToShow / 2) < totalPages
+              "
+              >...</span
+            >
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
+        <table>
           <thead>
             <tr>
-              <th *ngFor="let column of columns">{{ column }}</th>
+              <th (click)="sortTable('hourly_range')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Term</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('total_rcptno')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Date</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('total_gross')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Gross_Sales</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('total_disc')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Item_Disc</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('total_netsales')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Sub_Disc</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('total')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Net_Sales</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('contribution')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Tax_1</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('hourly_range')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Tax_2</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('total_rcptno')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Round</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('total_gross')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Total_sales</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('total_disc')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Item_Void</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('total_netsales')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>All_Void</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('total')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Trans_void</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
+              <th (click)="sortTable('contribution')">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div>Refund</div>
+                  <div><img src="../../../assets/sort.png" class="sort" /></div>
+                </div>
+              </th>
             </tr>
           </thead>
-          <tbody>
-            <tr *ngFor="let row of rows">
-              <td>{{ row.TERM }}</td>
-              <td>{{ row.DATE }}</td>
+          <tbody *ngIf="filteredData">
+            <tr>
+              <td>{{ store_code }}</td>
+              <td>{{ store_name }}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr *ngFor="let data of getCurrentPageItems()">
+              <td>
+                {{ data.term }}
+              </td>
+              <td>{{ data.date | date }}</td>
               <td class="alignRight">
-                <span *ngIf="row.GROSS_SALES != undefined">RM</span>
-                {{ row.GROSS_SALES }}
+                RM {{ data.gross_sales | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                <span *ngIf="row.ITEM_DISC != undefined">RM</span>
-                {{ row.ITEM_DISC }}
+                RM {{ data.item_disc | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                <span *ngIf="row.SUB_DISC != undefined">RM</span>
-                {{ row.SUB_DISC }}
+                RM {{ data.sub_disc | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                <span *ngIf="row.NET_SALES != undefined">RM</span>
-                {{ row.NET_SALES }}
+                RM {{ data.net_sales | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">RM {{ data.tax_1 | number : "1.2-2" }}</td>
+              <td class="alignRight">RM {{ data.tax_2 | number : "1.2-2" }}</td>
+              <td class="alignRight" *ngIf="data.round">
+                RM
+                {{ data.round | number : "1.2-2" }}
+              </td>
+              <td class="alignRight" *ngIf="!data.round">RM 0.00</td>
+              <td class="alignRight">
+                RM {{ data.total_sales | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                <span *ngIf="row.TAX_1 != undefined">RM</span> {{ row.TAX_1 }}
+                RM {{ data.item_void | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                <span *ngIf="row.TAX_2 != undefined">RM</span> {{ row.TAX_2 }}
+                RM {{ data.all_void | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                <span *ngIf="row.ROUND != undefined">RM</span> {{ row.ROUND }}
+                RM {{ data.trans_void | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                <span *ngIf="row.TOTAL_SALES != undefined">RM</span>
-                {{ row.TOTAL_SALES }}
-              </td>
-              <td class="alignRight">
-                <span *ngIf="row.ITEM_VOID != undefined">RM</span>
-                {{ row.ITEM_VOID }}
-              </td>
-              <td class="alignRight">
-                <span *ngIf="row.ALL_VOID != undefined">RM</span>
-                {{ row.ALL_VOID }}
-              </td>
-              <td class="alignRight">
-                <span *ngIf="row.TRANS_VOID != undefined">RM</span>
-                {{ row.TRANS_VOID }}
-              </td>
-              <td class="alignRight">
-                <span *ngIf="row.REFUND != undefined">RM</span> {{ row.REFUND }}
+                RM {{ data.refund | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
+          <tbody>
+            <tr>
+              <td
+                colspan="14"
+                *ngIf="errorMessage != null"
+                style="
+                  position: static;
+                  color: red;
+                  width: 100%;
+                  text-align: center;
+                "
+              >
+                {{ errorMessage }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot class="footer-fixed" *ngIf="filteredData">
+            <tr class="emptyRow">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr class="subTotalPL">
+              <td></td>
+              <td class="boldText blueText">Sub-Total</td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_gross_sale | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ subTotalData?.sub_item_disc | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_subtotal_disc | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ subTotalData?.sub_net_sales | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ subTotalData?.sub_tax_1 | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_tax_2 | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_round_adjust | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_total_sale | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_item_void | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_all_void | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_trans_void | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ subTotalData?.sub_refund | number : "1.2-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="boldText greenText">Grand Total</td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_gross_sale | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_item_disc | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_subtotal_disc | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_net_sales | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_tax_1 | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_tax_2 | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_round_adjust | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_total_sale | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_item_void | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_all_void | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_trans_void | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.grand_refund | number : "1.2-2" }}
+              </td>
+            </tr>
+          </tfoot>
         </table>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span
+              *ngIf="
+                totalPages > pagesToShow &&
+                currentPage + Math.floor(pagesToShow / 2) < totalPages
+              "
+              >...</span
+            >
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
       </div>
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm *ngIf="rows">
-        <div class="addedScroll">
+        <div class="addedScroll" *ngIf="filteredData">
           <div
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
-            *ngFor="let data of rows"
+            *ngFor="let data of getCurrentPageItems()"
             class="addedBorder addColor"
           >
             <div fxFlex="40">
-              <h4>TERM</h4>
+              <h4>Term</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data.TERM }}</p>
+              <p>{{ store_code }}</p>
+              <p>{{ data.term }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
 
             <div fxFlex="40">
-              <h4>DATE</h4>
+              <h4>Date</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data.DATE }}</p>
+              <p>{{ store_name }}</p>
+              <p>{{ data.date | date }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
-            <div><h4>GROSS_SALES</h4></div>
+            <div><h4>Gross_Sales</h4></div>
             <div>
-              <p *ngIf="data.GROSS_SALES != undefined">
-                RM {{ data.GROSS_SALES }}
-              </p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div>
-              <h4>ITEM_DISC</h4>
-            </div>
-            <div>
-              <p *ngIf="data.ITEM_DISC != undefined">RM {{ data.ITEM_DISC }}</p>
+              <p>RM {{ data.gross_sales | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
-              <h4>SUB_DISC</h4>
+              <h4>Item_Disc</h4>
             </div>
             <div>
-              <p *ngIf="data.SUB_DISC != undefined">RM {{ data.SUB_DISC }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div>
-              <h4>NET_SALES</h4>
-            </div>
-            <div>
-              <p *ngIf="data.NET_SALES != undefined">RM {{ data.NET_SALES }}</p>
+              <p>RM {{ data.item_disc | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
-              <h4>TAX_1</h4>
+              <h4>Sub_Disc</h4>
             </div>
             <div>
-              <p *ngIf="data.TAX_1 != undefined">RM {{ data.TAX_1 }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div>
-              <h4>TAX_2</h4>
-            </div>
-            <div>
-              <p *ngIf="data.TAX_2 != undefined">RM {{ data.TAX_2 }}</p>
+              <p>RM {{ data.sub_disc | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
-              <h4>ROUND</h4>
+              <h4>Net_Sales</h4>
             </div>
             <div>
-              <p *ngIf="data.ROUND != undefined">RM {{ data.ROUND }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div>
-              <h4>TOTAL_SALES</h4>
-            </div>
-            <div>
-              <p *ngIf="data.TOTAL_SALES != undefined">
-                RM {{ data.TOTAL_SALES }}
-              </p>
+              <p>RM {{ data.net_sales | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
-              <h4>ITEM_VOID</h4>
+              <h4>Tax_1</h4>
             </div>
             <div>
-              <p *ngIf="data.ITEM_VOID != undefined">RM {{ data.ITEM_VOID }}</p>
-            </div>
-            <div fxFlex="100"><hr /></div>
-            <div>
-              <h4>ALL_VOID</h4>
-            </div>
-            <div>
-              <p *ngIf="data.ALL_VOID != undefined">RM {{ data.ALL_VOID }}</p>
+              <p>{{ data.tax_1 | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
-              <h4>TRANS_VOID</h4>
+              <h4>Tax_2</h4>
             </div>
             <div>
-              <p *ngIf="data.TRANS_VOID != undefined">
-                RM {{ data.TRANS_VOID }}
-              </p>
+              <p>RM {{ data.tax_2 | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div *ngIf="data.round">
+              <h4>Round</h4>
+            </div>
+            <div *ngIf="data.round">
+              <p>RM {{ data.round | number : "1.2-2" }}</p>
+            </div>
+            <div *ngIf="!data.round">
+              <h4>Round</h4>
+            </div>
+            <div *ngIf="!data.round">
+              <p>RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
-              <h4>REFUND</h4>
+              <h4>Total_sales</h4>
             </div>
             <div>
-              <p *ngIf="data.REFUND != undefined">RM {{ data.REFUND }}</p>
+              <p>RM {{ data.total_sales | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Item_Void</h4>
+            </div>
+            <div>
+              <p>RM {{ data.item_void | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>All_Void</h4>
+            </div>
+            <div>
+              <p>RM {{ data.all_void | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Trans_Void</h4>
+            </div>
+            <div>
+              <p>RM {{ data.trans_void | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Refund</h4>
+            </div>
+            <div>
+              <p>RM {{ data.refund | number : "1.2-2" }}</p>
+            </div>
+          </div>
+        </div>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+        >
+          <div fxFlex="17" style="margin-top: 26px" class="">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span
+              *ngIf="
+                totalPages > pagesToShow &&
+                currentPage + Math.floor(pagesToShow / 2) < totalPages
+              "
+              >...</span
+            >
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
+        <div class="addedBorder" *ngIf="filteredData">
+          <h4 class="blueText">Sub-Total</h4>
+          <hr />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Gross_Sales :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalData?.sub_gross_sale | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Item_Disc :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM
+                {{ subTotalData?.sub_item_disc | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Sub_Disc :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalData?.sub_subtotal_disc | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Net_Sales :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM
+                {{ subTotalData?.sub_net_sales | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Tax_1 :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM
+                {{ subTotalData?.sub_tax_1 | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Tax_2 :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalData?.sub_tax_2 | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Round :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalData?.sub_round_adjust | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Total_sales :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalData?.sub_total_sale | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Item_Void :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalData?.sub_item_void | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">All_Void :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalData?.sub_all_void | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Trans_void :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalData?.sub_trans_void | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="blueText">Refund :</h4>
+            </div>
+            <div>
+              <h4 class="blueText">
+                RM {{ subTotalData?.sub_refund | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="addedBorder marginBottomAdded" *ngIf="filteredData">
+          <h4 class="greenText">Grand Total</h4>
+          <hr />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Gross_Sales :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_gross_sale | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Item_Disc :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_item_disc | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Sub_Disc :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_subtotal_disc | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Net_Sales :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_net_sales | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Tax_1 :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_tax_1 | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Tax_2 :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_tax_2 | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Round :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_round_adjust | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Total_sales :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_total_sale | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Item_Void :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_item_void | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">All_Void :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_all_void | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Trans_void :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_trans_void | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Refund :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_refund | number : "1.2-2" }}
+              </h4>
             </div>
           </div>
         </div>

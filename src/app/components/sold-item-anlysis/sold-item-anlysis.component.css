@@ -1,5 +1,5 @@
 tfoot .emptyRow {
-  bottom: 156px !important;
+  bottom: 96px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
@@ -7,14 +7,14 @@ tfoot .emptyRow {
   height: 28px;
 }
 tfoot .subTotalPL {
-  bottom: 104px !important;
+  bottom: 64px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
   border: 1px solid #6d6a6ab3;
 }
 tfoot .subTotalSC01 {
-  bottom: 52px !important;
+  bottom: 32px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;

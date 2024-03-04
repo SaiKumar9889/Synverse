@@ -56,6 +56,12 @@ export class TransactionDetailsComponent implements OnInit {
   priceLevelFormFields: boolean = false;
   loadingSpinner: boolean = true;
   isChecked: boolean;
+  itemsPerPage = 5;
+  currentPage = 1;
+  totalPages: number;
+  pagesToShow = 5;
+  Math: any;
+  itemsPerPageOptions = [5, 10, 15, 20];
 
   constructor(
     private authService: AuthService,
@@ -188,12 +194,13 @@ export class TransactionDetailsComponent implements OnInit {
       this.isCheckbox = "false";
     }
   }
-
+  errorMessage = null;
   transactionDetail() {
+    this.errorMessage = null;
     console.log(this.isCheckbox);
     this.appService
       .transactionDetail(
-        "xls",
+        "json",
         this.searchFrom,
         this.searchTo,
         this.storeIdValue && this.storeIdValue.length
@@ -204,62 +211,140 @@ export class TransactionDetailsComponent implements OnInit {
           : "",
         this.isCheckbox
       )
-      .subscribe(async (result) => {
-        const excelData = await this.readFile(result);
-        this.rows = [];
-        this.columns = Object.values(excelData[1]);
-        let values = null;
-        let data = {};
-        for (let i = 2; i < excelData.length; i++) {
-          let data: any = {};
-          values = excelData[i];
-          this.rows.push({
-            [this.columns[0]]: values["__EMPTY"],
-            [this.columns[1]]: values["__EMPTY_1"],
-            [this.columns[2]]: values["TAX TRANSACTION DETAIL REPORT"],
-            [this.columns[3]]: values["__EMPTY_2"],
-            [this.columns[4]]: values["__EMPTY_3"],
-            [this.columns[5]]: values["__EMPTY_4"],
-            [this.columns[6]]: values["__EMPTY_5"],
-            [this.columns[7]]: values["__EMPTY_6"],
-            [this.columns[8]]: values["__EMPTY_7"],
-            [this.columns[9]]: values["__EMPTY_8"],
-            [this.columns[10]]: values["__EMPTY_9"],
-            [this.columns[11]]: values["__EMPTY_10"],
-            [this.columns[12]]: values["__EMPTY_11"],
-            [this.columns[13]]: values["__EMPTY_12"],
-          });
+      .subscribe((result) => {
+        console.log(result);
+
+        if (result && result.data == "failed") {
+          console.log(result.message);
+          this.errorMessage = result.message;
+          console.log(this.errorMessage);
+        }
+
+        if (result) {
+          this.store_code = result?.data[0]?.store_code;
+          this.store_name = result?.data[0]?.store_name;
+          this.filteredData = result?.data[0]?.transdetail;
+          this.storesFilterData = result?.data[0]?.transdetail;
+          this.subTotalData = result?.data[0];
+          this.grandTotalData = result;
+          this.filteredData = this.storesFilterData;
+          this.calculateTotalPages();
         }
         this.loadingSpinner = false;
-        this.displayTable = true;
       });
+    // const excelData = await this.readFile(result);
+    // this.rows = [];
+    // this.columns = Object.values(excelData[1]);
+    // let values = null;
+    // let data = {};
+    // for (let i = 2; i < excelData.length; i++) {
+    //   let data: any = {};
+    //   values = excelData[i];
+    //   this.rows.push({
+    //     [this.columns[0]]: values["__EMPTY"],
+    //     [this.columns[1]]: values["__EMPTY_1"],
+    //     [this.columns[2]]: values["TAX TRANSACTION DETAIL REPORT"],
+    //     [this.columns[3]]: values["__EMPTY_2"],
+    //     [this.columns[4]]: values["__EMPTY_3"],
+    //     [this.columns[5]]: values["__EMPTY_4"],
+    //     [this.columns[6]]: values["__EMPTY_5"],
+    //     [this.columns[7]]: values["__EMPTY_6"],
+    //     [this.columns[8]]: values["__EMPTY_7"],
+    //     [this.columns[9]]: values["__EMPTY_8"],
+    //     [this.columns[10]]: values["__EMPTY_9"],
+    //     [this.columns[11]]: values["__EMPTY_10"],
+    //     [this.columns[12]]: values["__EMPTY_11"],
+    //     [this.columns[13]]: values["__EMPTY_12"],
+    //   });
+    // }
+    // this.loadingSpinner = false;
+    // this.displayTable = true;
+  }
+  calculateTotalPages() {
+    setTimeout(() => {
+      if (this.filteredData && this.itemsPerPage) {
+        this.totalPages = Math.ceil(
+          this.filteredData.length / this.itemsPerPage
+        );
+      }
+    }, 1000);
+
+    console.log(this.totalPages);
   }
 
-  async readFile(file: any): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const reader: FileReader = new FileReader();
-
-      reader.onload = (e: any) => {
-        const binaryString: string = e.target.result;
-        const workbook: XLSX.WorkBook = XLSX.read(binaryString, {
-          type: "binary",
-        });
-        const sheetName: string = workbook.SheetNames[0];
-        const worksheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
-
-        const jsonArray: any[] = XLSX.utils.sheet_to_json(worksheet, {
-          raw: false,
-        });
-        resolve(jsonArray);
-      };
-
-      reader.onerror = (error) => {
-        reject(error);
-      };
-
-      reader.readAsBinaryString(file);
-    });
+  getCurrentPageItems(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredData.slice(startIndex, startIndex + this.itemsPerPage);
   }
+
+  getPageRange(): number[] {
+    const startPage = Math.max(
+      1,
+      this.currentPage - Math.floor(this.pagesToShow / 2)
+    );
+    const endPage = Math.min(this.totalPages, startPage + this.pagesToShow - 1);
+
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, index) => startPage + index
+    );
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  onItemsPerPageChange() {
+    this.calculateTotalPages();
+    this.currentPage = 1;
+  }
+
+  getDisplayRange(): string {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const endIndex = Math.min(
+      this.currentPage * this.itemsPerPage,
+      this.filteredData.length
+    );
+    return `${startIndex} to ${endIndex}`;
+  }
+
+  // async readFile(file: any): Promise<any> {
+  //   return new Promise((resolve, reject) => {
+  //     const reader: FileReader = new FileReader();
+
+  //     reader.onload = (e: any) => {
+  //       const binaryString: string = e.target.result;
+  //       const workbook: XLSX.WorkBook = XLSX.read(binaryString, {
+  //         type: "binary",
+  //       });
+  //       const sheetName: string = workbook.SheetNames[0];
+  //       const worksheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
+
+  //       const jsonArray: any[] = XLSX.utils.sheet_to_json(worksheet, {
+  //         raw: false,
+  //       });
+  //       resolve(jsonArray);
+  //     };
+
+  //     reader.onerror = (error) => {
+  //       reject(error);
+  //     };
+
+  //     reader.readAsBinaryString(file);
+  //   });
+  // }
 
   columnToSort = "";
   sortDirection = "asc";

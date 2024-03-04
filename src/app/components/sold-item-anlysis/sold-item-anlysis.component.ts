@@ -519,14 +519,14 @@ export class SoldItemAnlysisComponent {
           this.terminal_code = result?.data[0]?.sold_item[0]?.terminal_code;
           this.terminal_name = result?.data[0]?.sold_item[0]?.terminal_desc;
           this.filteredData = Object.values(
-            result?.data[0]?.sold_item[0]?.data || {}
+            result?.data[1]?.sold_item[0]?.data || {}
           );
           console.log(this.filteredData);
           this.storesFilterData = Object.values(
-            result?.data[0]?.sold_item[0]?.data || {}
+            result?.data[1]?.sold_item[0]?.data || {}
           );
-          this.subTotalTerminal = result?.data[0]?.sold_item[0];
-          this.subTotalData = result?.data[0];
+          this.subTotalTerminal = result?.data[1]?.sold_item[0];
+          this.subTotalData = result?.data[1];
           this.grandTotalData = result;
           this.filteredData = this.storesFilterData;
           this.loadingSpinner = false;
