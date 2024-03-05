@@ -255,6 +255,7 @@
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
           *ngIf="filteredData"
+          class="backgroundWhitePage"
         >
           <div fxFlex="15" style="margin-top: 26px">
             <mat-form-field appearance="outline">
@@ -286,13 +287,7 @@
               </button>
             </ng-container>
 
-            <span
-              *ngIf="
-                totalPages > pagesToShow &&
-                currentPage + Math.floor(pagesToShow / 2) < totalPages
-              "
-              >...</span
-            >
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
 
             <button
               (click)="nextPage()"
@@ -606,13 +601,7 @@
               </button>
             </ng-container>
 
-            <span
-              *ngIf="
-                totalPages > pagesToShow &&
-                currentPage + Math.floor(pagesToShow / 2) < totalPages
-              "
-              >...</span
-            >
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
 
             <button
               (click)="nextPage()"
@@ -775,13 +764,7 @@
               </button>
             </ng-container>
 
-            <span
-              *ngIf="
-                totalPages > pagesToShow &&
-                currentPage + Math.floor(pagesToShow / 2) < totalPages
-              "
-              >...</span
-            >
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
 
             <button
               (click)="nextPage()"

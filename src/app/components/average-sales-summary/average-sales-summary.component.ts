@@ -58,7 +58,7 @@ export class AverageSalesSummaryComponent {
   totalPages: number;
   pagesToShow = 5;
   Math: any;
-
+  itemsPerPageOptions = [5, 10, 15, 20];
   constructor(
     private authService: AuthService,
     private appService: AppService,
@@ -231,8 +231,6 @@ export class AverageSalesSummaryComponent {
         );
       }
     }, 1000);
-
-    console.log(this.totalPages);
   }
 
   getCurrentPageItems(): any[] {
@@ -258,18 +256,35 @@ export class AverageSalesSummaryComponent {
   }
 
   nextPage() {
-    console.log("Next Page Clicked");
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
     }
-    console.log("Current Page:", this.currentPage);
-    console.log("Total Page:", this.totalPages);
   }
 
   previousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
+  }
+
+  onItemsPerPageChange() {
+    this.calculateTotalPages();
+    this.currentPage = 1;
+  }
+
+  getDisplayRange(): string {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const endIndex = Math.min(
+      this.currentPage * this.itemsPerPage,
+      this.filteredData.length
+    );
+    return `${startIndex} to ${endIndex}`;
+  }
+  shouldDisplayEllipsis(): boolean {
+    return (
+      this.totalPages > this.pagesToShow &&
+      this.currentPage + Math.floor(this.pagesToShow / 2) < this.totalPages
+    );
   }
 
   columnToSort = "";

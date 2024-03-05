@@ -19,6 +19,18 @@ tfoot .subTotalSC01 {
   z-index: 9;
   background: #fff;
 }
+.backgroundWhitePage {
+  background: #fff;
+  position: sticky !important;
+  top: 220px !important;
+  width: 100% !important;
+}
+thead th {
+  top: 295px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 9;
+  background-color: #be2026;
+}
 @media screen and (min-width: 1547px) {
   tfoot .emptyRow {
     bottom: 96px !important;

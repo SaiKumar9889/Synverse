@@ -57,6 +57,13 @@ export class PaymentTypeComponent implements OnInit {
   terminal_code: any;
   terminal_name: any;
   subTotalTerminal: any;
+  isChecked: boolean;
+  itemsPerPage = 5;
+  currentPage = 1;
+  totalPages: number;
+  pagesToShow = 5;
+  Math: any;
+  itemsPerPageOptions = [5, 10, 15, 20];
 
   constructor(
     private authService: AuthService,
@@ -193,8 +200,6 @@ export class PaymentTypeComponent implements OnInit {
       this.selectedPaymentItems = [];
     }
   }
-
-  isChecked: boolean;
   isCheckedShift: boolean;
   ngOnInit(): void {
     const storedState = localStorage.getItem("checkboxState");
@@ -301,65 +306,88 @@ export class PaymentTypeComponent implements OnInit {
         if (result) {
           this.store_code = result?.data[0]?.store_code;
           this.store_name = result?.data[0]?.store_name;
-          this.terminal_name = result?.data[0]?.payment?.T1?.terminal_desc;
           this.filteredData = Object.values(
-            result?.data[0]?.payment.T1[""]["Payment 1"] || {}
+            result?.data[0]?.payment["Payment 1"] || {}
           );
-          this.filteredData.splice(-3);
-          console.log(this.filteredData);
-          this.paidAmount =
-            result?.data[0]?.payment?.T1[""]["Payment 1"].paid_amt;
-          this.roundAdj =
-            result?.data[0]?.payment?.T1[""]["Payment 1"].round_adj;
-          this.visaData = result?.data[0]?.payment?.T1[""]["VISA"][0];
-          this.visaDataSubtotal = result?.data[0]?.payment?.T1[""]["VISA"];
-          this.masterData = result?.data[0]?.payment?.T1[""]["MASTER"][0];
-          this.masterDataSubtotal = result?.data[0]?.payment?.T1[""]["MASTER"];
-          this.subTotalDataT1 = result?.data[0]?.payment?.T1[""];
-          this.subTotalT1 = result?.data[0]?.payment?.T1;
-          this.filteredDataT2 = Object.values(
-            result?.data[0]?.payment?.T2[""]["Payment 1"] || {}
-          );
-          this.filteredDataT2.splice(-3);
-          this.paidAmountT2 = result?.data[0]?.payment?.T2[""]["Payment 1"];
-          this.subTotalDataT2 = result?.data[0]?.payment?.T2[""];
-          this.subTotalT2 = result?.data[0]?.payment?.T2;
-          this.filteredDataT3 = Object.values(
-            result?.data[0]?.payment?.T3[""]["Payment 1"] || {}
-          );
-          this.filteredDataT3.splice(-3);
-          this.paidAmountT3 = result?.data[0]?.payment?.T3[""]["Payment 1"];
-          this.subTotalDataT3 = result?.data[0]?.payment?.T3[""];
-          this.subTotalT3 = result?.data[0]?.payment?.T3;
-
-          this.filteredDataT4 = Object.values(
-            result?.data[0]?.payment?.T4[""]["Payment 1"] || {}
-          );
-          this.filteredDataT4.splice(-3);
-          this.paidAmountT4 = result?.data[0]?.payment?.T4[""]["Payment 1"];
-          this.subTotalDataT4 = result?.data[0]?.payment?.T4[""];
-          this.subTotalT4 = result?.data[0]?.payment?.T4;
-
-          this.filteredDataT5 = Object.values(
-            result?.data[0]?.payment?.T5[""]["Payment 1"] || {}
-          );
-          this.filteredDataT5.splice(-3);
-          this.paidAmountT5 = result?.data[0]?.payment?.T5[""]["Payment 1"];
-          this.subTotalDataT5 = result?.data[0]?.payment?.T5[""];
-          this.subTotalT5 = result?.data[0]?.payment?.T5;
-
-          this.filteredDataT6 = Object.values(
-            result?.data[0]?.payment?.T6[""]["Payment 1"] || {}
-          );
-          this.filteredDataT6.splice(-3);
-          this.paidAmountT6 = result?.data[0]?.payment?.T6[""]["Payment 1"];
-          this.subTotalDataT6 = result?.data[0]?.payment?.T6[""];
-          this.subTotalT6 = result?.data[0]?.payment?.T6;
+          this.calculateTotalPages();
+          this.filteredData.splice(-4);
+          this.paidAmount = result?.data[0]?.payment["Payment 1"].paid_amt;
+          this.roundAdj = result?.data[0]?.payment["Payment 1"].round_adj;
+          this.visaData = Object.values(result?.data[0]?.payment["VISA"]);
+          this.visaData.splice(-4);
+          this.visaDataSubtotal = result?.data[0]?.payment["VISA"];
+          this.masterData = Object.values(result?.data[0]?.payment["MASTER"]);
+          this.masterData.splice(-4);
+          this.masterDataSubtotal = result?.data[0]?.payment["MASTER"];
           this.subTotalSC01 = result?.data[0];
           this.grandTotalData = result;
-          this.loadingSpinner = false;
         }
+        this.loadingSpinner = false;
       });
+  }
+
+  calculateTotalPages() {
+    setTimeout(() => {
+      if (this.filteredData && this.itemsPerPage) {
+        this.totalPages = Math.ceil(
+          this.filteredData.length / this.itemsPerPage
+        );
+      }
+    }, 1000);
+  }
+
+  getCurrentPageItems(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredData.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  getPageRange(): number[] {
+    const startPage = Math.max(
+      1,
+      this.currentPage - Math.floor(this.pagesToShow / 2)
+    );
+    const endPage = Math.min(this.totalPages, startPage + this.pagesToShow - 1);
+
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, index) => startPage + index
+    );
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  onItemsPerPageChange() {
+    this.calculateTotalPages();
+    this.currentPage = 1;
+  }
+
+  getDisplayRange(): string {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const endIndex = Math.min(
+      this.currentPage * this.itemsPerPage,
+      this.filteredData.length
+    );
+    return `${startIndex} to ${endIndex}`;
+  }
+  shouldDisplayEllipsis(): boolean {
+    return (
+      this.totalPages > this.pagesToShow &&
+      this.currentPage + Math.floor(this.pagesToShow / 2) < this.totalPages
+    );
   }
   columnToSort = "";
   sortDirection = "asc";

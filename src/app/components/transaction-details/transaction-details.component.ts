@@ -319,6 +319,12 @@ export class TransactionDetailsComponent implements OnInit {
     );
     return `${startIndex} to ${endIndex}`;
   }
+  shouldDisplayEllipsis(): boolean {
+    return (
+      this.totalPages > this.pagesToShow &&
+      this.currentPage + Math.floor(this.pagesToShow / 2) < this.totalPages
+    );
+  }
 
   // async readFile(file: any): Promise<any> {
   //   return new Promise((resolve, reject) => {

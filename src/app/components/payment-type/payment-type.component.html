@@ -312,6 +312,55 @@
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div fxFlex="100" fxHide.xs>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+          class="backgroundWhitePage"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
         <table>
           <thead>
             <tr>
@@ -383,19 +432,8 @@
               <td></td>
               <td></td>
             </tr>
-            <tr>
-              <td></td>
-              <td>T1</td>
-              <td>{{ terminal_name }}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
 
-            <tr *ngFor="let data of filteredData">
+            <tr *ngFor="let data of getCurrentPageItems()">
               <td></td>
               <td></td>
               <td>{{ data?.PYMT_MASTCODE }}</td>
@@ -403,8 +441,8 @@
               <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
               <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
               <td>{{ data?.PYMT_STATUS }}</td>
-              <td>{{ data?.PYMT_PAYAMT }}</td>
-              <td>{{ data?.PYMT_ROUND_ADJ }}</td>
+              <td class="alignRight">RM {{ data?.PYMT_PAYAMT }}</td>
+              <td class="alignRight">RM {{ data?.PYMT_ROUND_ADJ }}</td>
             </tr>
             <tr>
               <td></td>
@@ -414,19 +452,23 @@
               <td class="boldText">Sub Total of Payment 1</td>
               <td></td>
               <td></td>
-              <td class="boldText">{{ paidAmount | number : "1.2-2" }}</td>
-              <td class="boldText">{{ roundAdj | number : "1.2-2" }}</td>
+              <td class="boldText alignRight">
+                RM {{ paidAmount | number : "1.2-2" }}
+              </td>
+              <td class="boldText alignRight">
+                RM {{ roundAdj | number : "1.2-2" }}
+              </td>
             </tr>
-            <tr>
+            <tr *ngFor="let data of visaData">
               <td></td>
               <td></td>
-              <td>{{ visaData?.PYMT_MASTCODE }}</td>
-              <td>{{ visaData?.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ visaData?.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ visaData?.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ visaData?.PYMT_STATUS }}</td>
-              <td>{{ visaData?.PYMT_PAYAMT }}</td>
-              <td>{{ visaData?.PYMT_ROUND_ADJ }}</td>
+              <td>{{ data?.PYMT_MASTCODE }}</td>
+              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data?.PYMT_STATUS }}</td>
+              <td class="alignRight">RM {{ data?.PYMT_PAYAMT }}</td>
+              <td class="alignRight">RM {{ data?.PYMT_ROUND_ADJ }}</td>
             </tr>
             <tr>
               <td></td>
@@ -436,19 +478,23 @@
               <td class="boldText">Sub Total of VISA</td>
               <td></td>
               <td></td>
-              <td class="boldText">{{ visaDataSubtotal?.paid_amt }}</td>
-              <td class="boldText">{{ visaDataSubtotal?.round_adj }}</td>
+              <td class="boldText alignRight">
+                RM {{ visaDataSubtotal?.paid_amt }}
+              </td>
+              <td class="boldText alignRight">
+                RM {{ visaDataSubtotal?.round_adj }}
+              </td>
             </tr>
-            <tr>
+            <tr *ngFor="let data of masterData">
               <td></td>
               <td></td>
-              <td>{{ masterData?.PYMT_MASTCODE }}</td>
-              <td>{{ masterData?.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ masterData?.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ masterData?.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ masterData?.PYMT_STATUS }}</td>
-              <td>{{ masterData?.PYMT_PAYAMT }}</td>
-              <td>{{ masterData?.PYMT_ROUND_ADJ }}</td>
+              <td>{{ data?.PYMT_MASTCODE }}</td>
+              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
+              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
+              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
+              <td>{{ data?.PYMT_STATUS }}</td>
+              <td class="alignRight">RM {{ data?.PYMT_PAYAMT }}</td>
+              <td class="alignRight">RM {{ data?.PYMT_ROUND_ADJ }}</td>
             </tr>
             <tr>
               <td></td>
@@ -458,379 +504,11 @@
               <td class="boldText">Sub Total of MASTER</td>
               <td></td>
               <td></td>
-              <td class="boldText">
-                {{ masterDataSubtotal?.paid_amt | number : "1.2-2" }}
+              <td class="boldText alignRight">
+                RM {{ masterDataSubtotal?.paid_amt | number : "1.2-2" }}
               </td>
-              <td class="boldText">
-                {{ masterDataSubtotal?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalDataT1?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalDataT1?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of T1</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalT1?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalT1?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>T2</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr *ngFor="let data of filteredDataT2">
-              <td></td>
-              <td></td>
-              <td>{{ data?.PYMT_MASTCODE }}</td>
-              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ data?.PYMT_STATUS }}</td>
-              <td>{{ data?.PYMT_PAYAMT }}</td>
-              <td>{{ data?.PYMT_ROUND_ADJ }}</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of Payment 1</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ paidAmountT2?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ paidAmountT2?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalDataT2?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalDataT2?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of T2</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalT2?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalT2?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>T3</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr *ngFor="let data of filteredDataT3">
-              <td></td>
-              <td></td>
-              <td>{{ data?.PYMT_MASTCODE }}</td>
-              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ data?.PYMT_STATUS }}</td>
-              <td>{{ data?.PYMT_PAYAMT }}</td>
-              <td>{{ data?.PYMT_ROUND_ADJ }}</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of Payment 1</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ paidAmountT3?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ paidAmountT3?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalDataT3?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalDataT3?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of T3</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalT3?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalT3?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-
-            <tr>
-              <td></td>
-              <td>T4</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr *ngFor="let data of filteredDataT4">
-              <td></td>
-              <td></td>
-              <td>{{ data?.PYMT_MASTCODE }}</td>
-              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ data?.PYMT_STATUS }}</td>
-              <td>{{ data?.PYMT_PAYAMT }}</td>
-              <td>{{ data?.PYMT_ROUND_ADJ }}</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of Payment 1</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ paidAmountT4?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ paidAmountT4?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalDataT4?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalDataT4?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of T4</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalT4?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalT4?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-
-            <tr>
-              <td></td>
-              <td>T5</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr *ngFor="let data of filteredDataT5">
-              <td></td>
-              <td></td>
-              <td>{{ data?.PYMT_MASTCODE }}</td>
-              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ data?.PYMT_STATUS }}</td>
-              <td>{{ data?.PYMT_PAYAMT }}</td>
-              <td>{{ data?.PYMT_ROUND_ADJ }}</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of Payment 1</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ paidAmountT5?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ paidAmountT5?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalDataT5?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalDataT5?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of T5</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalT5?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalT5?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-
-            <tr>
-              <td></td>
-              <td>T6</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr *ngFor="let data of filteredDataT6">
-              <td></td>
-              <td></td>
-              <td>{{ data?.PYMT_MASTCODE }}</td>
-              <td>{{ data?.PYMT_PAYBYCODEDESC }}</td>
-              <td>{{ data?.PYMT_CLOSEDATE | date }}</td>
-              <td>{{ data?.PYMT_SALES_PRICELVL }}</td>
-              <td>{{ data?.PYMT_STATUS }}</td>
-              <td>{{ data?.PYMT_PAYAMT }}</td>
-              <td>{{ data?.PYMT_ROUND_ADJ }}</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of Payment 1</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ paidAmountT6?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ paidAmountT6?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalDataT6?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalDataT6?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of T6</td>
-              <td></td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalT6?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText">
-                {{ subTotalT6?.round_adj | number : "1.2-2" }}
+              <td class="boldText alignRight">
+                RM {{ masterDataSubtotal?.round_adj | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
@@ -854,11 +532,11 @@
               <td class="blueText boldText">Sub Total of SC01</td>
               <td></td>
               <td></td>
-              <td class="blueText boldText">
-                {{ subTotalSC01?.sub_total_paid_amt | number : "1.2-2" }}
+              <td class="blueText boldText alignRight">
+                RM {{ subTotalSC01?.sub_total_paid_amt | number : "1.2-2" }}
               </td>
-              <td class="blueText boldText">
-                {{ subTotalSC01?.sub_total_round_adj | number : "1.2-2" }}
+              <td class="blueText boldText alignRight">
+                RM {{ subTotalSC01?.sub_total_round_adj | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -869,15 +547,64 @@
               <td class="greenText boldText">Grand Total</td>
               <td></td>
               <td></td>
-              <td class="greenText boldText">
+              <td class="greenText boldText alignRight">
                 {{ grandTotalData?.grand_paid_amt | number : "1.2-2" }}
               </td>
-              <td class="greenText boldText">
+              <td class="greenText boldText alignRight">
                 {{ grandTotalData?.grand_round_adj | number : "1.2-2" }}
               </td>
             </tr>
           </tfoot>
         </table>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+          class="backgroundWhitePage"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
       </div>
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm *ngIf="rows">
         <div class="addedScroll" *ngIf="filteredData">
@@ -905,25 +632,12 @@
                 fxLayoutAlign="space-between start"
                 class="addedBorder"
               >
-                <div fxFlex="40">
-                  <h4>Terminal</h4>
-                </div>
-                <div fxFlex="60">
-                  <p>T1</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="40">
-                  <h4>Terminal Code</h4>
-                </div>
-                <div fxFlex="60">
-                  <p>{{ terminal_name }}</p>
-                </div>
                 <div fxFlex="100">
                   <div
                     fxLayout="row wrap"
                     fxLayoutAlign="space-between start"
                     class="addedBorder addColor"
-                    *ngFor="let data of filteredData"
+                    *ngFor="let data of getCurrentPageItems()"
                   >
                     <div fxFlex="40">
                       <h4>Terminal</h4>
@@ -997,42 +711,41 @@
                     fxLayout="row wrap"
                     fxLayoutAlign="space-between start"
                     class="addedBorder addColor"
+                    *ngFor="let data of visaData"
                   >
                     <div fxFlex="40"><h4>Terminal</h4></div>
                     <div fxFlex="60">
-                      <p>{{ visaData?.PYMT_MASTCODE }}</p>
+                      <p>{{ data?.PYMT_MASTCODE }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Payment</h4></div>
                     <div fxFlex="60">
-                      <p>{{ visaData?.PYMT_PAYBYCODEDESC }}</p>
+                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Date</h4></div>
                     <div fxFlex="60">
-                      <p>{{ visaData?.PYMT_CLOSEDATE | date }}</p>
+                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Price Level</h4></div>
                     <div fxFlex="60">
-                      <p>{{ visaData?.PYMT_SALES_PRICELVL }}</p>
+                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Shift</h4></div>
                     <div fxFlex="60">
-                      <p>{{ visaData?.PYMT_STATUS }}</p>
+                      <p>{{ data?.PYMT_STATUS }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div><h4>Shift</h4></div>
                     <div>
-                      <p>RM {{ visaData?.PYMT_PAYAMT | number : "1.2-2" }}</p>
+                      <p>RM {{ data?.PYMT_PAYAMT | number : "1.2-2" }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div><h4>Rounding Adj</h4></div>
                     <div>
-                      <p>
-                        RM {{ visaData?.PYMT_ROUND_ADJ | number : "1.2-2" }}
-                      </p>
+                      <p>RM {{ data?.PYMT_ROUND_ADJ | number : "1.2-2" }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                   </div>
@@ -1055,42 +768,41 @@
                     fxLayout="row wrap"
                     fxLayoutAlign="space-between start"
                     class="addedBorder addColor"
+                    *ngFor="let data of masterData"
                   >
                     <div fxFlex="40"><h4>Terminal</h4></div>
                     <div fxFlex="60">
-                      <p>{{ masterData?.PYMT_MASTCODE }}</p>
+                      <p>{{ data?.PYMT_MASTCODE }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Payment</h4></div>
                     <div fxFlex="60">
-                      <p>{{ masterData?.PYMT_PAYBYCODEDESC }}</p>
+                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Date</h4></div>
                     <div fxFlex="60">
-                      <p>{{ masterData?.PYMT_CLOSEDATE | date }}</p>
+                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Price Level</h4></div>
                     <div fxFlex="60">
-                      <p>{{ masterData?.PYMT_SALES_PRICELVL }}</p>
+                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div fxFlex="40"><h4>Shift</h4></div>
                     <div fxFlex="60">
-                      <p>{{ masterData?.PYMT_STATUS }}</p>
+                      <p>{{ data?.PYMT_STATUS }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div><h4>Shift</h4></div>
                     <div>
-                      <p>RM {{ masterData?.PYMT_PAYAMT | number : "1.2-2" }}</p>
+                      <p>RM {{ data?.PYMT_PAYAMT | number : "1.2-2" }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                     <div><h4>Rounding Adj</h4></div>
                     <div>
-                      <p>
-                        RM {{ masterData?.PYMT_ROUND_ADJ | number : "1.2-2" }}
-                      </p>
+                      <p>RM {{ data?.PYMT_ROUND_ADJ | number : "1.2-2" }}</p>
                     </div>
                     <div fxFlex="100"><hr /></div>
                   </div>
@@ -1112,566 +824,57 @@
                     RM {{ masterDataSubtotal?.round_adj | number : "1.2-2" }}
                   </p>
                 </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ subTotalDataT1?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ subTotalDataT1?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of T1</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ subTotalT1?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ subTotalT1?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="40">
-                  <h4>Terminal</h4>
-                </div>
-                <div fxFlex="60">
-                  <p>T2</p>
-                </div>
-                <div fxFlex="100">
-                  <div
-                    fxLayout="row wrap"
-                    fxLayoutAlign="space-between start"
-                    class="addedBorder addColor"
-                    *ngFor="let data of filteredDataT2"
-                  >
-                    <div fxFlex="40">
-                      <h4>Terminal</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_MASTCODE }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Payment</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Date</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Price Level</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Shift</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_STATUS }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Amount</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ data?.PYMT_PAYAMT }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Rounding Adj</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ data?.PYMT_ROUND_ADJ }}</p>
-                    </div>
-                  </div>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of Payment 1</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ paidAmountT2?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ paidAmountT2?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ subTotalDataT2?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ subTotalDataT2?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of T2</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ subTotalT2?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ subTotalT2?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="40">
-                  <h4>Terminal</h4>
-                </div>
-                <div fxFlex="60">
-                  <p>T3</p>
-                </div>
-                <div fxFlex="100">
-                  <div
-                    fxLayout="row wrap"
-                    fxLayoutAlign="space-between start"
-                    class="addedBorder addColor"
-                    *ngFor="let data of filteredDataT3"
-                  >
-                    <div fxFlex="40">
-                      <h4>Terminal</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_MASTCODE }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Payment</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Date</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Price Level</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Shift</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_STATUS }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Amount</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ data?.PYMT_PAYAMT }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Rounding Adj</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ data?.PYMT_ROUND_ADJ }}</p>
-                    </div>
-                  </div>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of Payment 1</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ paidAmountT3?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ paidAmountT3?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ subTotalDataT3?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ subTotalDataT3?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of T3</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ subTotalT3?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ subTotalT3?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="40">
-                  <h4>Terminal</h4>
-                </div>
-                <div fxFlex="60">
-                  <p>T4</p>
-                </div>
-                <div fxFlex="100">
-                  <div
-                    fxLayout="row wrap"
-                    fxLayoutAlign="space-between start"
-                    class="addedBorder addColor"
-                    *ngFor="let data of filteredDataT4"
-                  >
-                    <div fxFlex="40">
-                      <h4>Terminal</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_MASTCODE }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Payment</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Date</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Price Level</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Shift</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_STATUS }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Amount</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ data?.PYMT_PAYAMT }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Rounding Adj</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ data?.PYMT_ROUND_ADJ }}</p>
-                    </div>
-                  </div>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of Payment 1</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ paidAmountT4?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ paidAmountT4?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ subTotalDataT4?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ subTotalDataT4?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of T4</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ subTotalT4?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ subTotalT4?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="40">
-                  <h4>Terminal</h4>
-                </div>
-                <div fxFlex="60">
-                  <p>T5</p>
-                </div>
-                <div fxFlex="100">
-                  <div
-                    fxLayout="row wrap"
-                    fxLayoutAlign="space-between start"
-                    class="addedBorder addColor"
-                    *ngFor="let data of filteredDataT5"
-                  >
-                    <div fxFlex="40">
-                      <h4>Terminal</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_MASTCODE }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Payment</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Date</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Price Level</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Shift</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_STATUS }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Amount</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ data?.PYMT_PAYAMT }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Rounding Adj</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ data?.PYMT_ROUND_ADJ }}</p>
-                    </div>
-                  </div>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of Payment 1</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ paidAmountT5?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ paidAmountT5?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ subTotalDataT5?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ subTotalDataT5?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of T5</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ subTotalT5?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ subTotalT5?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="40">
-                  <h4>Terminal</h4>
-                </div>
-                <div fxFlex="60">
-                  <p>T6</p>
-                </div>
-                <div fxFlex="100">
-                  <div
-                    fxLayout="row wrap"
-                    fxLayoutAlign="space-between start"
-                    class="addedBorder addColor"
-                    *ngFor="let data of filteredDataT6"
-                  >
-                    <div fxFlex="40">
-                      <h4>Terminal</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_MASTCODE }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Payment</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_PAYBYCODEDESC }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Date</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_CLOSEDATE | date }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Price Level</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_SALES_PRICELVL }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Shift</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ data?.PYMT_STATUS }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Amount</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ data?.PYMT_PAYAMT }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Rounding Adj</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ data?.PYMT_ROUND_ADJ }}</p>
-                    </div>
-                  </div>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of Payment 1</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ paidAmountT6?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ paidAmountT6?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ subTotalDataT6?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ subTotalDataT6?.round_adj | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="100">
-                  <h4>Sub Total of T6</h4>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Amount</h4></div>
-                <div>
-                  <p>RM {{ subTotalT6?.paid_amt | number : "1.2-2" }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div><h4>Rounding Adj</h4></div>
-                <div>
-                  <p>RM {{ subTotalT6?.round_adj | number : "1.2-2" }}</p>
-                </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData"
+          class="backgroundWhitePage"
+        >
+          <div fxFlex="15" style="margin-top: 26px">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>
         <div class="addedBorder" *ngIf="filteredData">
@@ -1683,7 +886,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalSC01?.sub_total_paid_amt }}
+                RM {{ subTotalSC01?.sub_total_paid_amt | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -1707,7 +910,9 @@
               <h4 class="greenText">Amount :</h4>
             </div>
             <div>
-              <h4 class="greenText">RM {{ grandTotalData?.grand_paid_amt }}</h4>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.grand_paid_amt | number : "1.2-2" }}
+              </h4>
             </div>
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">

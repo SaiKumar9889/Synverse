@@ -12,6 +12,18 @@ tfoot .subTotalPL {
   z-index: 9;
   background: #fff;
 }
+.backgroundWhitePage {
+  background: #fff;
+  position: sticky !important;
+  top: 105px !important;
+  width: 100% !important;
+}
+thead th {
+  top: 190px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 9;
+  background-color: #be2026;
+}
 @media screen and (max-width: 599px) {
   .addedScroll {
     padding: 5px 10px;
