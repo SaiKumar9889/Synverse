@@ -245,35 +245,36 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="13" fxHide.xs class="alignCenter checkboxBottom">
+        <div fxFlex="13" fxHide.xs class="alignCenter">
           <mat-checkbox
             [checked]="isChecked"
             (change)="onCheckboxChange($event)"
             >Transaction Void</mat-checkbox
           >
         </div>
-        <div fxFlex="12" fxHide.xs class="alignCenter checkboxBottom">
+        <div fxFlex="12" fxHide.xs class="alignCenter">
           <mat-checkbox
             [checked]="isCheckedCombine"
             (change)="onCombineChange($event)"
             >Combine Void</mat-checkbox
           >
         </div>
-        <div fxFlex="12" fxHide.xs class="alignCenter checkboxBottom">
+        <div fxFlex="12" fxHide.xs class="alignCenter">
           <mat-checkbox
             [checked]="isCheckedNormal"
             (change)="onNormalChange($event)"
             >Normal Sales</mat-checkbox
           >
         </div>
-        <div fxFlex="20" fxHide.xs class="alignCenter checkboxBottom">
+        <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-checkbox
             [checked]="isCheckedRemark"
             (change)="onRemarkChange($event)"
+            class="checkboxTop"
             >Remark 1 NOT NULL</mat-checkbox
           >
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="15" fxHide.xs class="alignCenter applyButton">
           <button
             mat-flat-button
             class="btn"
@@ -294,7 +295,7 @@
           *ngIf="filteredData"
           class="backgroundWhitePage"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="12">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -333,7 +334,7 @@
               Next
             </button>
           </div>
-          <div style="margin-top: 5px">
+          <div>
             <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>
@@ -506,23 +507,6 @@
             </tr>
           </tbody>
           <tfoot class="footer-fixed" *ngIf="filteredData">
-            <tr class="emptyRow">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
             <ng-container *ngFor="let data of storesFilterData">
               <tr *ngFor="let row of data.terminal" class="terminal">
                 <td></td>
@@ -637,7 +621,7 @@
           fxLayoutAlign="space-between center"
           *ngIf="filteredData"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="12">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -676,7 +660,7 @@
               Next
             </button>
           </div>
-          <div style="margin-top: 5px">
+          <div>
             <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>

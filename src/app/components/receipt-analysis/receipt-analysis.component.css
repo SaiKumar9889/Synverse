@@ -1,11 +1,11 @@
 thead th {
-  top: 250px;
+  top: 195px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background-color: #be2026;
 }
-tfoot .child-element:nth-child(2) {
-  bottom: 212px !important;
+tfoot .child-element:nth-child(1) {
+  bottom: 120px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
@@ -15,11 +15,24 @@ tfoot .child-element:nth-child(2) {
 .backgroundWhitePage {
   background: #fff;
   position: sticky !important;
-  top: 165px !important;
+  top: 145px !important;
   width: 100% !important;
+  height: 50px !important;
+  margin-bottom: 10px !important;
+}
+.backgroundWhite {
+  height: 145px;
 }
 tfoot .terminal {
-  bottom: 159px !important;
+  bottom: 90px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 9;
+  background: #fff;
+  border: 1px solid #6d6a6ab3;
+  height: 28px;
+}
+tfoot .child-element:nth-child(3) {
+  bottom: 60px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
@@ -27,20 +40,18 @@ tfoot .terminal {
   height: 28px;
 }
 tfoot .child-element:nth-child(4) {
-  bottom: 106px !important;
+  bottom: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
   border: 1px solid #6d6a6ab3;
   height: 28px;
 }
-tfoot .child-element:nth-child(5) {
-  bottom: 53px !important;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-  z-index: 9;
-  background: #fff;
-  border: 1px solid #6d6a6ab3;
-  height: 28px;
+.checkboxTop {
+  margin-top: 15px;
+}
+.applyButton {
+  margin-top: 13px;
 }
 @media screen and (max-width: 599px) {
   .addedScroll {

@@ -120,6 +120,7 @@ export class ReceiptAnalysisComponent {
   storeIdValue: string[] = [];
   selectedStoreId: any;
   stores: any[] = [
+    { value: "01", viewValue: "DODO KOREA" },
     { value: "SC01", viewValue: "Project Store" },
     { value: "SC02", viewValue: "Project Store 2" },
   ];
@@ -265,6 +266,7 @@ export class ReceiptAnalysisComponent {
   }
   errorMessage: any;
   receiptAnalysis() {
+    console.log(this.storeIdValue);
     this.appService
       .receiptAnalysis(
         "json",

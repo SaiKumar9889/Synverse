@@ -115,6 +115,7 @@ export class DepartmentSalesComponent {
   storeIdValue: string = "SC01";
   selectedStoreId: any;
   stores: any[] = [
+    { value: "01", viewValue: "DODO KOREA" },
     { value: "SC01", viewValue: "Project Store" },
     { value: "SC02", viewValue: "Project Store 2" },
   ];

@@ -14,7 +14,7 @@
   z-index: 2;
 }
 .full-width {
-  font-size: 14px !important;
+  font-size: 11px !important;
 }
 h1.example-app-name {
   margin-left: 8px;
@@ -26,7 +26,7 @@ h1.example-app-name {
   flex: 1;
 }
 mat-nav-list {
-  width: 230px;
+  width: 170px;
 }
 .example-is-mobile .example-sidenav-container {
   /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the

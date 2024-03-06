@@ -9,7 +9,7 @@
 @import url("https://cdn.jsdelivr.net/npm/placeholder-loading/dist/css/placeholder-loading.min.css");
 body {
   font-family: "Poppins", sans-serif;
-  font-size: 13px;
+  font-size: 11px;
 }
 h1,
 h2,
@@ -33,8 +33,8 @@ a {
   transform: var(--mat-mdc-form-field-label-transform);
 }
 .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
-  padding-top: 9px;
-  padding-bottom: 9px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 .mat-mdc-form-field-infix {
   min-height: 38px;
@@ -42,7 +42,9 @@ a {
 .mat-mdc-form-field {
   height: 60px;
 }
-
+.mat-mdc-icon-button svg {
+  margin-bottom: 4px;
+}
 [mat-menu-item].is-active,
 [mat-list-item].is-active {
   background: hsla(0, 0%, 100%, 0.1) !important;
@@ -57,13 +59,39 @@ a {
 .mat-mdc-icon-button.mat-mdc-button-base {
   padding: 8px;
 }
+.mat-mdc-form-field,
+.mat-mdc-floating-label {
+  font-family: "Poppins", sans-serif !important;
+  font-size: 11px !important;
+  line-height: 18px !important;
+}
+.mat-mdc-icon-button svg,
+.mat-mdc-icon-button img {
+  width: var(--mdc-icon-button-icon-size, 16px) !important;
+  height: var(--mdc-icon-button-icon-size, 16px) !important;
+}
+.mdc-form-field {
+  font-family: "Poppins", sans-serif !important;
+  font-size: 11px !important;
+  line-height: 18px !important;
+}
+.mat-mdc-select {
+  font-family: "Poppins", sans-serif !important;
+  font-size: 11px !important;
+  line-height: 18px !important;
+}
+.mdc-button {
+  font-family: "Poppins", sans-serif !important;
+  font-size: 11px !important;
+  line-height: 18px !important;
+}
 .btn {
   background: #be2026 !important;
   border-radius: 50px !important;
-  width: 135px !important;
-  height: 39px !important;
+  width: 107px !important;
+  height: 35px !important;
   border: 0px solid !important;
-  margin-bottom: 24px !important;
+  /* margin-bottom: 24px !important; */
 }
 h2 {
   color: #be2026;
@@ -86,13 +114,21 @@ h2 {
   --mdc-checkbox-selected-icon-color: #ff4081;
   --mdc-checkbox-selected-pressed-icon-color: #ff4081;
 }
+.mat-mdc-option .mdc-list-item__primary-text {
+  font-size: 11px !important;
+  font-family: "Poppins", sans-serif !important;
+}
+.mat-mdc-option {
+  min-height: 35px !important;
+}
 table {
   width: 100%;
+  margin: 10px 0px !important;
 }
 table th {
   background-color: #424141b3;
   color: #fff;
-  font-size: 14px;
+  font-size: 11px;
   font-family: Poppins, sans-serif !important;
   font-weight: 600;
   text-align: left !important;
@@ -118,9 +154,9 @@ td {
 .boldText {
   font-weight: 600;
 }
-.btn {
+/* .btn {
   margin-bottom: 20px;
-}
+} */
 .sort {
   height: 18px;
   filter: brightness(0) invert(1);
@@ -135,7 +171,7 @@ td {
 }
 mat-form-field {
   width: 90%;
-
+  height: 30px !important;
   z-index: 9;
 }
 .addPadding {
@@ -151,12 +187,14 @@ tfoot tr {
 }
 
 thead th {
-  top: 96px;
+  top: 0px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background-color: #be2026;
 }
-
+.mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input {
+  margin-top: 4px !important;
+}
 tfoot tr {
   bottom: 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
@@ -164,9 +202,9 @@ tfoot tr {
   background: #fff;
   border: 1px solid #6d6a6ab3;
 }
-.checkboxBottom {
+/* .checkboxBottom {
   margin-bottom: 22px;
-}
+} */
 .alignRight {
   text-align: right !important;
 }
@@ -187,7 +225,6 @@ tbody tr:last-of-type td {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
 }
 
 .pagination button,
@@ -195,6 +232,8 @@ tbody tr:last-of-type td {
   padding: 5px 10px;
   margin: 0 5px;
   cursor: pointer;
+  font-size: 11px;
+  font-family: "Poppins", sans-serif !important;
 }
 
 .pagination button.active {
@@ -206,9 +245,9 @@ tbody tr:last-of-type td {
 .pagination span {
   color: #007bff;
 }
-.checkboxBottom {
+/* .checkboxBottom {
   margin-bottom: 22px;
-}
+} */
 @media screen and (max-width: 599px) {
   mat-form-field {
     width: 95%;
