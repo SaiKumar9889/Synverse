@@ -49,18 +49,32 @@ export class TransactionDetailsComponent implements OnInit {
   subTotalData: any;
   searchFrom: any = "";
   searchTo: any = "";
-  dateFrom: FormControl = new FormControl();
-  dateTo: FormControl = new FormControl();
+  dateFrom: FormControl = new FormControl(
+    new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() - 1,
+      new Date().getDate()
+    )
+  );
+  dateTo: FormControl = new FormControl(new Date());
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
-  loadingSpinner: boolean = true;
+  loadingSpinner: boolean;
   isChecked: boolean;
   itemsPerPage = 5;
   currentPage = 1;
   totalPages: number;
   pagesToShow = 5;
   Math: any;
+  firstDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() - 1,
+    new Date().getDate()
+  );
+  secondDate = new Date();
+  fromDate: any;
+  toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20];
 
   constructor(
@@ -68,11 +82,23 @@ export class TransactionDetailsComponent implements OnInit {
     private appService: AppService,
     private datePipe: DatePipe
   ) {
+    this.fromDate =
+      this.firstDate.getFullYear() +
+      "-" +
+      (this.firstDate.getMonth() + 1) +
+      "-" +
+      this.firstDate.getDate();
+    this.toDate =
+      this.secondDate.getFullYear() +
+      "-" +
+      (this.secondDate.getMonth() + 1) +
+      "-" +
+      this.secondDate.getDate();
     this.authService.login().subscribe((result) => {
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.transactionDetail();
+        this.transactionDetail(this.fromDate, this.toDate);
       }
     });
   }
@@ -97,7 +123,7 @@ export class TransactionDetailsComponent implements OnInit {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
   applyDateFilter() {
-    this.transactionDetail();
+    this.transactionDetail(this.searchFrom, this.searchTo);
   }
 
   filteredData: any;
@@ -124,6 +150,7 @@ export class TransactionDetailsComponent implements OnInit {
   storeIdValue: string[] = [];
   selectedStoreId: any;
   stores: any[] = [
+    { value: "01", viewValue: "DODO KOREA" },
     { value: "SC01", viewValue: "Project Store" },
     { value: "SC02", viewValue: "Project Store 2" },
   ];
@@ -194,15 +221,14 @@ export class TransactionDetailsComponent implements OnInit {
       this.isCheckbox = "false";
     }
   }
-  errorMessage = null;
-  transactionDetail() {
-    this.errorMessage = null;
-    console.log(this.isCheckbox);
+  errorMessage: any = null;
+  transactionDetail(fromDate: any, toDate: any) {
+    this.loadingSpinner = true;
     this.appService
       .transactionDetail(
         "json",
-        this.searchFrom,
-        this.searchTo,
+        fromDate,
+        toDate,
         this.storeIdValue && this.storeIdValue.length
           ? JSON.stringify(this.storeIdValue)
           : "",
@@ -218,47 +244,23 @@ export class TransactionDetailsComponent implements OnInit {
           console.log(result.message);
           this.errorMessage = result.message;
           console.log(this.errorMessage);
+        } else {
+          this.errorMessage = null;
         }
-
-        if (result) {
-          this.store_code = result?.data[0]?.store_code;
-          this.store_name = result?.data[0]?.store_name;
-          this.filteredData = result?.data[0]?.transdetail;
-          this.storesFilterData = result?.data[0]?.transdetail;
-          this.subTotalData = result?.data[0];
-          this.grandTotalData = result;
-          this.filteredData = this.storesFilterData;
-          this.calculateTotalPages();
-        }
-        this.loadingSpinner = false;
+        setTimeout(() => {
+          if (result) {
+            this.store_code = result?.data[0]?.store_code;
+            this.store_name = result?.data[0]?.store_name;
+            this.filteredData = result?.data[0]?.transdetail;
+            this.storesFilterData = result?.data[0]?.transdetail;
+            this.subTotalData = result?.data[0];
+            this.grandTotalData = result;
+            this.filteredData = this.storesFilterData;
+            this.calculateTotalPages();
+          }
+          this.loadingSpinner = false;
+        }, 1000);
       });
-    // const excelData = await this.readFile(result);
-    // this.rows = [];
-    // this.columns = Object.values(excelData[1]);
-    // let values = null;
-    // let data = {};
-    // for (let i = 2; i < excelData.length; i++) {
-    //   let data: any = {};
-    //   values = excelData[i];
-    //   this.rows.push({
-    //     [this.columns[0]]: values["__EMPTY"],
-    //     [this.columns[1]]: values["__EMPTY_1"],
-    //     [this.columns[2]]: values["TAX TRANSACTION DETAIL REPORT"],
-    //     [this.columns[3]]: values["__EMPTY_2"],
-    //     [this.columns[4]]: values["__EMPTY_3"],
-    //     [this.columns[5]]: values["__EMPTY_4"],
-    //     [this.columns[6]]: values["__EMPTY_5"],
-    //     [this.columns[7]]: values["__EMPTY_6"],
-    //     [this.columns[8]]: values["__EMPTY_7"],
-    //     [this.columns[9]]: values["__EMPTY_8"],
-    //     [this.columns[10]]: values["__EMPTY_9"],
-    //     [this.columns[11]]: values["__EMPTY_10"],
-    //     [this.columns[12]]: values["__EMPTY_11"],
-    //     [this.columns[13]]: values["__EMPTY_12"],
-    //   });
-    // }
-    // this.loadingSpinner = false;
-    // this.displayTable = true;
   }
   calculateTotalPages() {
     setTimeout(() => {

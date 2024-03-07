@@ -47,17 +47,31 @@ export class SalesRemarkComponent implements OnInit {
   subTotalData: any;
   searchFrom: any = "";
   searchTo: any = "";
-  dateFrom: FormControl = new FormControl();
-  dateTo: FormControl = new FormControl();
+  dateFrom: FormControl = new FormControl(
+    new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() - 1,
+      new Date().getDate()
+    )
+  );
+  dateTo: FormControl = new FormControl(new Date());
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
-  loadingSpinner: boolean = true;
+  loadingSpinner: boolean;
   itemsPerPage = 5;
   currentPage = 1;
   totalPages: number;
   pagesToShow = 5;
   Math: any;
+  firstDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() - 1,
+    new Date().getDate()
+  );
+  secondDate = new Date();
+  fromDate: any;
+  toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
 
   constructor(
@@ -65,12 +79,24 @@ export class SalesRemarkComponent implements OnInit {
     private appService: AppService,
     private datePipe: DatePipe
   ) {
+    this.fromDate =
+      this.firstDate.getFullYear() +
+      "-" +
+      (this.firstDate.getMonth() + 1) +
+      "-" +
+      this.firstDate.getDate();
+    this.toDate =
+      this.secondDate.getFullYear() +
+      "-" +
+      (this.secondDate.getMonth() + 1) +
+      "-" +
+      this.secondDate.getDate();
     this.authService.login().subscribe((result) => {
       console.log(result);
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.salesRemark();
+        this.salesRemark(this.fromDate, this.toDate);
       }
     });
   }
@@ -87,15 +113,15 @@ export class SalesRemarkComponent implements OnInit {
   selectedFormDate(date: any) {
     this.searchFrom = this.datePipe.transform(
       this.dateFrom.value,
-      "yyyy/MM/dd"
+      "yyyy-MM-dd"
     );
     console.log(this.searchFrom);
   }
   selectedToDate(date: any) {
-    this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy/MM/dd");
+    this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
   applyDateFilter() {
-    this.salesRemark();
+    this.salesRemark(this.searchFrom, this.searchTo);
   }
 
   filteredData: any;
@@ -121,6 +147,7 @@ export class SalesRemarkComponent implements OnInit {
   storeIdValue: string[] = [];
   selectedStoreId: any;
   stores: any[] = [
+    { value: "01", viewValue: "DODO KOREA" },
     { value: "SC01", viewValue: "Project Store" },
     { value: "SC02", viewValue: "Project Store 2" },
   ];
@@ -194,16 +221,14 @@ export class SalesRemarkComponent implements OnInit {
       this.isCheckbox = "false";
     }
   }
-  errorMessage = null;
-  salesRemark() {
-    this.errorMessage = null;
-    console.log(this.searchFrom);
-    console.log(this.searchTo);
+  errorMessage: any = null;
+  salesRemark(fromDate: any, toDate: any) {
+    this.loadingSpinner = true;
     this.appService
       .salesRemark(
         "json",
-        this.searchFrom,
-        this.searchTo,
+        fromDate,
+        toDate,
         this.storeIdValue && this.storeIdValue.length
           ? JSON.stringify(this.storeIdValue)
           : "",
@@ -217,17 +242,20 @@ export class SalesRemarkComponent implements OnInit {
           console.log(result.message);
           this.errorMessage = result.message;
           console.log(this.errorMessage);
+        } else {
+          this.errorMessage = null;
         }
-        if (result) {
-          this.filteredData = result.data.remark;
-          console.log(this.filteredData[40].SALES_GROSS);
-          this.storesFilterData = result.data.remark;
-          this.subTotalData = result.data;
-          this.grandTotalData = result;
-          this.filteredData = this.storesFilterData;
+        setTimeout(() => {
+          if (result) {
+            this.filteredData = result.data.remark;
+            this.storesFilterData = result.data.remark;
+            this.subTotalData = result.data;
+            this.grandTotalData = result;
+            this.filteredData = this.storesFilterData;
+            this.calculateTotalPages();
+          }
           this.loadingSpinner = false;
-          this.calculateTotalPages();
-        }
+        }, 1000);
       });
   }
 

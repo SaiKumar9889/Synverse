@@ -47,8 +47,14 @@ export class AverageSalesSummaryComponent {
   subTotalData: any;
   searchFrom: any = "";
   searchTo: any = "";
-  dateFrom: FormControl = new FormControl();
-  dateTo: FormControl = new FormControl();
+  dateFrom: FormControl = new FormControl(
+    new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() - 1,
+      new Date().getDate()
+    )
+  );
+  dateTo: FormControl = new FormControl(new Date());
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
@@ -58,6 +64,14 @@ export class AverageSalesSummaryComponent {
   totalPages: number;
   pagesToShow = 5;
   Math: any;
+  firstDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() - 1,
+    new Date().getDate()
+  );
+  secondDate = new Date();
+  fromDate: any;
+  toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20];
   constructor(
     private authService: AuthService,
@@ -66,24 +80,43 @@ export class AverageSalesSummaryComponent {
   ) {
     this.authService.login().subscribe((result) => {
       if (result && result.access_token) {
+        this.fromDate =
+          this.firstDate.getFullYear() +
+          "-" +
+          (this.firstDate.getMonth() + 1) +
+          "-" +
+          this.firstDate.getDate();
+        this.toDate =
+          this.secondDate.getFullYear() +
+          "-" +
+          (this.secondDate.getMonth() + 1) +
+          "-" +
+          this.secondDate.getDate();
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.averageSalesSummary();
+        this.averageSalesSummary(this.fromDate, this.toDate);
+        this.getStore();
         // this.calculateTotalPages();
       }
     });
   }
   storeIdValue: string[] = [];
   selectedStoreId: any;
-  stores: any[] = [
-    { value: "01", viewValue: "DODO KOREA" },
-    { value: "SC01", viewValue: "Project Store" },
-    { value: "SC02", viewValue: "Project Store 2" },
+  stores: any = [
+    // { value: "01", viewValue: "DODO KOREA" },
+    // { value: "SC01", viewValue: "Project Store" },
+    // { value: "SC02", viewValue: "Project Store 2" },
   ];
+  getStore() {
+    this.appService.getStores().subscribe((result) => {
+      this.stores = result;
+      console.log(this.stores);
+    });
+  }
   onSelectionChange(event: any): void {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
-        this.storeIdValue = this.stores.map((item) => item.value);
+        this.storeIdValue = this.stores.map((item: any) => item.M_CODE);
       } else {
         this.storeIdValue = event.value;
       }
@@ -93,7 +126,7 @@ export class AverageSalesSummaryComponent {
 
   selectAll() {
     if (this.selectedItems.includes("all")) {
-      this.selectedItems = this.stores.map((item) => item.value);
+      this.selectedItems = this.stores.map((item: any) => item.M_CODE);
       this.selectedItems.push("all");
     } else {
       this.selectedItems.length = 0;
@@ -134,7 +167,11 @@ export class AverageSalesSummaryComponent {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
   applyDateFilter() {
-    this.averageSalesSummary();
+    // this.loadingSpinner = true;
+    // setTimeout(() => {
+    this.averageSalesSummary(this.searchFrom, this.searchTo);
+    //   this.loadingSpinner = false;
+    // }, 1000);
   }
 
   filteredData: any[] = [];
@@ -188,14 +225,14 @@ export class AverageSalesSummaryComponent {
       this.isCheckbox = "F";
     }
   }
-  errorMessage: any;
-  averageSalesSummary() {
+  errorMessage: any = null;
+  averageSalesSummary(fromDate: any, toDate: any) {
     this.loadingSpinner = true;
     this.appService
       .averageSalesSummary(
         "json",
-        this.searchFrom,
-        this.searchTo,
+        fromDate,
+        toDate,
         this.storeIdValue && this.storeIdValue.length
           ? JSON.stringify(this.storeIdValue)
           : "",
@@ -208,19 +245,24 @@ export class AverageSalesSummaryComponent {
           this.errorMessage = "No Data Found";
           console.log(this.errorMessage);
           // }
+        } else {
+          this.errorMessage = null;
         }
-        if (result) {
-          this.store_code = result?.data[0]?.store_code;
-          this.store_name = result?.data[0]?.store_desc;
-          this.filteredData = result?.data[0]?.average_sales;
-          this.storesFilterData = result?.data[0]?.average_sales;
-          this.subTotalData = result?.data[0];
-          this.grandTotalData = result;
-          this.filteredData = this.storesFilterData;
+        setTimeout(() => {
+          if (result) {
+            this.store_code = result?.data[0]?.store_code;
+            this.store_name = result?.data[0]?.store_desc;
+            this.filteredData = result?.data[0]?.average_sales;
+            this.storesFilterData = result?.data[0]?.average_sales;
+            this.subTotalData = result?.data[0];
+            this.grandTotalData = result;
+            this.filteredData = this.storesFilterData;
+            this.loadingSpinner = false;
+            console.log(this.filteredData);
+            this.calculateTotalPages();
+          }
           this.loadingSpinner = false;
-          console.log(this.filteredData);
-          this.calculateTotalPages();
-        }
+        }, 1000);
       });
   }
 

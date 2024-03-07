@@ -1,10 +1,29 @@
 tfoot .emptyRow {
-  bottom: 33px !important;
+  bottom: 30px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
   border: 1px solid #6d6a6ab3;
   height: 28px;
+}
+.backgroundWhite {
+  height: 84px;
+}
+.backgroundWhitePage {
+  background: #fff;
+  position: sticky !important;
+  top: 80px !important;
+  width: 100% !important;
+  height: 60px;
+}
+.headingTop {
+  top: 0px !important;
+}
+thead th {
+  top: 140px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 9;
+  background-color: #be2026;
 }
 @media screen and (max-width: 599px) {
   .addedScroll {

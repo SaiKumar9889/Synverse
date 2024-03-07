@@ -1,5 +1,5 @@
 tfoot .emptyRow {
-  bottom: 96px !important;
+  bottom: 90px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
@@ -7,26 +7,30 @@ tfoot .emptyRow {
   height: 28px;
 }
 tfoot .subTotalPL {
-  bottom: 64px !important;
+  bottom: 60px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
   border: 1px solid #6d6a6ab3;
 }
 tfoot .subTotalSC01 {
-  bottom: 32px !important;
+  bottom: 30px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
 }
+.backgroundWhite {
+  height: 170px;
+}
 .backgroundWhitePage {
   background: #fff;
   position: sticky !important;
-  top: 220px !important;
+  top: 170px !important;
   width: 100% !important;
+  height: 60px;
 }
 thead th {
-  top: 295px;
+  top: 220px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background-color: #be2026;
@@ -48,5 +52,11 @@ thead th {
     overflow: scroll;
     height: 420px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  }
+  .marginAdded {
+    margin: 25px 0px 15px;
+  }
+  .subTotalBorder {
+    margin-top: 35px;
   }
 }

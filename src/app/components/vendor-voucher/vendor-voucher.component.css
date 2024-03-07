@@ -1,5 +1,5 @@
 tfoot .emptyRow {
-  bottom: 56px !important;
+  bottom: 60px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
@@ -7,11 +7,30 @@ tfoot .emptyRow {
   height: 28px;
 }
 tfoot .subTotalPL {
-  bottom: 28px !important;
+  bottom: 30px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
 }
+.backgroundWhite {
+  height: 84px;
+}
+.backgroundWhitePage {
+  background: #fff;
+  position: sticky !important;
+  top: 80px !important;
+  width: 100% !important;
+  height: 60px;
+}
+table {
+  margin-top: 60px !important;
+}
+/* thead th {
+  top: 140px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 9;
+  background-color: #be2026;
+} */
 @media screen and (max-width: 599px) {
   .addedScroll {
     padding: 5px 10px;

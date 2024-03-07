@@ -396,11 +396,10 @@
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="errorMessage && !loadingSpinner">
             <tr>
               <td
                 colspan="13"
-                *ngIf="errorMessage != null"
                 style="
                   position: static;
                   color: red;
@@ -416,4 +415,7 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="loadingSpinner">
+  <app-loader></app-loader>
 </div>

@@ -1,5 +1,5 @@
 tfoot .emptyRow {
-  bottom: 64px !important;
+  bottom: 60px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
@@ -7,7 +7,7 @@ tfoot .emptyRow {
   height: 28px;
 }
 tfoot .subTotalPL {
-  bottom: 32px !important;
+  bottom: 30px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
@@ -17,9 +17,13 @@ tfoot .subTotalPL {
   position: sticky !important;
   top: 105px !important;
   width: 100% !important;
+  height: 54px;
+}
+.backgroundWhite {
+  height: 105px;
 }
 thead th {
-  top: 190px;
+  top: 158px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background-color: #be2026;
@@ -30,5 +34,11 @@ thead th {
     overflow: scroll !important;
     height: 580px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  }
+  .marginAdded {
+    margin: 25px 0px 15px;
+  }
+  .subTotalBorder {
+    margin-top: 35px;
   }
 }

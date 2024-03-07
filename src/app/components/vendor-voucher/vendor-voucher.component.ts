@@ -48,23 +48,49 @@ export class VendorVoucherComponent {
   subTotalData: any;
   searchFrom: any = "";
   searchTo: any = "";
-  dateFrom: FormControl = new FormControl();
-  dateTo: FormControl = new FormControl();
+  dateFrom: FormControl = new FormControl(
+    new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() - 1,
+      new Date().getDate()
+    )
+  );
+  dateTo: FormControl = new FormControl(new Date());
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
-  loadingSpinner: boolean = true;
+  firstDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() - 1,
+    new Date().getDate()
+  );
+  secondDate = new Date();
+  fromDate: any;
+  toDate: any;
+  loadingSpinner: boolean;
 
   constructor(
     private authService: AuthService,
     private appService: AppService,
     private datePipe: DatePipe
   ) {
+    this.fromDate =
+      this.firstDate.getFullYear() +
+      "-" +
+      (this.firstDate.getMonth() + 1) +
+      "-" +
+      this.firstDate.getDate();
+    this.toDate =
+      this.secondDate.getFullYear() +
+      "-" +
+      (this.secondDate.getMonth() + 1) +
+      "-" +
+      this.secondDate.getDate();
     this.authService.login().subscribe((result) => {
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.vendorVoucher();
+        this.vendorVoucher(this.fromDate, this.toDate);
       }
     });
   }
@@ -89,7 +115,7 @@ export class VendorVoucherComponent {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
   applyDateFilter() {
-    this.vendorVoucher();
+    this.vendorVoucher(this.searchFrom, this.searchTo);
   }
 
   filteredData: any;
@@ -115,6 +141,7 @@ export class VendorVoucherComponent {
   storeIdValue: string[] = [];
   selectedStoreId: any;
   stores: any[] = [
+    { value: "01", viewValue: "DODO KOREA" },
     { value: "SC01", viewValue: "Project Store" },
     { value: "SC02", viewValue: "Project Store 2" },
   ];
@@ -338,13 +365,14 @@ export class VendorVoucherComponent {
       this.selectedOperatorItems = [];
     }
   }
-  errorMessage: any;
-  vendorVoucher() {
+  errorMessage: any = null;
+  vendorVoucher(fromDate: any, toDate: any) {
+    this.loadingSpinner = true;
     this.appService
       .vendorVoucher(
         "json",
-        this.searchFrom,
-        this.searchTo,
+        fromDate,
+        toDate,
         this.storeIdValue && this.storeIdValue.length
           ? JSON.stringify(this.storeIdValue)
           : "",
@@ -372,12 +400,17 @@ export class VendorVoucherComponent {
       )
       .subscribe(async (result) => {
         console.log(result);
-        if (result && result.data == "") {
-          console.log(result.message);
-          this.errorMessage = "Data not found";
-          console.log(this.errorMessage);
+
+        setTimeout(() => {
+          if (result && result.data == "") {
+            console.log(result.message);
+            this.errorMessage = "Data not found";
+            console.log(this.errorMessage);
+          } else {
+            this.errorMessage = null;
+          }
           this.loadingSpinner = false;
-        }
+        }, 1000);
       });
   }
   columnToSort = "";

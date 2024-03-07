@@ -143,9 +143,10 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
+          class="backgroundWhitePage"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -235,7 +236,7 @@
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="!loadingSpinner">
             <tr>
               <td>{{ store_code }}</td>
               <td>{{ store_name }}</td>
@@ -261,7 +262,7 @@
               </td>
             </tr>
           </tbody>
-          <tfoot class="footer-fixed">
+          <tfoot class="footer-fixed" *ngIf="!loadingSpinner">
             <tr class="emptyRow">
               <td></td>
               <td></td>
@@ -317,9 +318,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -369,7 +370,7 @@
         fxHide.lg
         fxHide.md
         fxHide.sm
-        *ngIf="filteredData"
+        *ngIf="filteredData && !loadingSpinner"
       >
         <div class="addedScroll">
           <div
@@ -433,8 +434,9 @@
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
           *ngIf="filteredData"
+          class="marginBottomAdd"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select

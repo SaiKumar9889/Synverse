@@ -48,28 +48,54 @@ export class ReceiptAnalysisComponent {
   subTotalData: any;
   searchFrom: any = "";
   searchTo: any = "";
-  dateFrom: FormControl = new FormControl();
-  dateTo: FormControl = new FormControl();
+  dateFrom: FormControl = new FormControl(
+    new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() - 1,
+      new Date().getDate()
+    )
+  );
+  dateTo: FormControl = new FormControl(new Date());
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
-  loadingSpinner: boolean = true;
+  loadingSpinner: boolean;
   itemsPerPage = 5;
   currentPage = 1;
   totalPages: number;
   pagesToShow = 5;
   Math: any;
+  firstDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() - 1,
+    new Date().getDate()
+  );
+  secondDate = new Date();
+  fromDate: any;
+  toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
   constructor(
     private authService: AuthService,
     private appService: AppService,
     private datePipe: DatePipe
   ) {
+    this.fromDate =
+      this.firstDate.getFullYear() +
+      "-" +
+      (this.firstDate.getMonth() + 1) +
+      "-" +
+      this.firstDate.getDate();
+    this.toDate =
+      this.secondDate.getFullYear() +
+      "-" +
+      (this.secondDate.getMonth() + 1) +
+      "-" +
+      this.secondDate.getDate();
     this.authService.login().subscribe((result) => {
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.receiptAnalysis();
+        this.receiptAnalysis(this.fromDate, this.toDate);
       }
     });
   }
@@ -94,7 +120,7 @@ export class ReceiptAnalysisComponent {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
   applyDateFilter() {
-    this.receiptAnalysis();
+    this.receiptAnalysis(this.searchFrom, this.searchTo);
   }
 
   filteredData: any;
@@ -264,14 +290,15 @@ export class ReceiptAnalysisComponent {
       this.isRemark = "F";
     }
   }
-  errorMessage: any;
-  receiptAnalysis() {
+  errorMessage: any = null;
+  receiptAnalysis(fromDate: any, toDate: any) {
+    this.loadingSpinner = true;
     console.log(this.storeIdValue);
     this.appService
       .receiptAnalysis(
         "json",
-        this.searchFrom,
-        this.searchTo,
+        fromDate,
+        toDate,
         this.storeIdValue && this.storeIdValue.length
           ? JSON.stringify(this.storeIdValue)
           : "",
@@ -288,21 +315,30 @@ export class ReceiptAnalysisComponent {
           console.log(result.message);
           this.errorMessage = "No Data Found";
           console.log(this.errorMessage);
+        } else {
+          this.errorMessage = null;
         }
-        this.store_code = result.data[0].terminal_code;
-        this.store_name = result.data[0].terminal_desc;
-        if (result) {
-          this.storeData = result.data;
+        this.store_code = result?.data[0]?.terminal_code;
+        this.store_name = result?.data[0]?.terminal_desc;
+        setTimeout(() => {
+          if (result) {
+            this.storeData = result?.data;
 
-          this.storesFilterData = result.data;
-          this.subTotalTerminal = result.data[0].terminal[0];
-          this.subTotalData = result.data[0];
-          this.grandTotalData = result;
-          this.filteredData = result.data[1].terminal[0].detail;
-          console.log(this.filteredData);
+            this.storesFilterData = result?.data;
+            this.subTotalTerminal = result?.data[0]?.terminal[0];
+            this.subTotalData = result?.data[0];
+            this.grandTotalData = result;
+            if (this.storeIdValue[0] === "SC01") {
+              this.filteredData = result?.data[0]?.terminal[0]?.detail;
+            } else {
+              this.filteredData = result?.data[1]?.terminal[0]?.detail;
+            }
+
+            console.log(this.filteredData);
+            this.calculateTotalPages();
+          }
           this.loadingSpinner = false;
-          this.calculateTotalPages();
-        }
+        }, 1000);
       });
   }
 

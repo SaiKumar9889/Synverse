@@ -254,9 +254,10 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
+          class="backgroundWhitePage"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -302,61 +303,91 @@
         <table>
           <thead>
             <tr>
-              <th (click)="sortTable('SALES_STATUS')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_STATUS')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>STATUS</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_STORE')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_STORE')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>STORE</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_CTRNO')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_CTRNO')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>TERM</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_DATETIME')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_DATETIME')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>DATE</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_RCPTNO')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_RCPTNO')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>RCPT</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_SHIFT')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_SHIFT')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>SHIFT</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_QTY')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_QTY')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>QUANTITY</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_GROSS')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_GROSS')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>GROSS</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_NETSALES')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_NETSALES')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>NET</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_TOT_COST')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_TOT_COST')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>SALES</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
@@ -364,7 +395,7 @@
               </th>
             </tr>
           </thead>
-          <tbody *ngIf="filteredData">
+          <tbody *ngIf="filteredData && !loadingSpinner">
             <tr *ngFor="let data of getCurrentPageItems()">
               <td>
                 {{ data.SALES_STATUS }}
@@ -389,10 +420,9 @@
             </tr>
           </tbody>
           <tbody>
-            <tr>
+            <tr *ngIf="errorMessage && !loadingSpinner">
               <td
                 colspan="13"
-                *ngIf="errorMessage != null"
                 style="
                   position: static;
                   color: red;
@@ -404,7 +434,7 @@
               </td>
             </tr>
           </tbody>
-          <tfoot class="footer-fixed" *ngIf="filteredData">
+          <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
             <tr class="emptyRow">
               <td></td>
               <td></td>
@@ -464,9 +494,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -516,7 +546,7 @@
         fxHide.lg
         fxHide.md
         fxHide.sm
-        *ngIf="filteredData"
+        *ngIf="filteredData && !loadingSpinner"
       >
         <div class="addedScroll">
           <div
@@ -599,9 +629,10 @@
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
           *ngIf="filteredData"
+          class="backgroundWhitePage"
         >
-          <div fxFlex="15" style="margin-top: 26px">
-            <mat-form-field appearance="outline">
+          <div fxFlex="15">
+            <mat-form-field appearance="outline" class="marginAdded">
               <mat-label>Items per page:</mat-label>
               <mat-select
                 id="itemsPerPage"
@@ -616,6 +647,9 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
+          </div>
+          <div style="margin-top: 20px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
           <div class="pagination">
             <button (click)="previousPage()" [disabled]="currentPage === 1">
@@ -639,11 +673,8 @@
               Next
             </button>
           </div>
-          <div style="margin-top: 5px">
-            <p>Displaying: {{ getDisplayRange() }}</p>
-          </div>
         </div>
-        <div class="addedBorder">
+        <div class="addedBorder subTotalBorder">
           <h4 class="blueText">Sub Total</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">

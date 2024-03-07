@@ -154,9 +154,9 @@ td {
 .boldText {
   font-weight: 600;
 }
-/* .btn {
-  margin-bottom: 20px;
-} */
+.btn {
+  margin-top: 10px;
+}
 .sort {
   height: 18px;
   filter: brightness(0) invert(1);
@@ -229,7 +229,7 @@ tbody tr:last-of-type td {
 
 .pagination button,
 .pagination span {
-  padding: 5px 10px;
+  padding: 5px 9px;
   margin: 0 5px;
   cursor: pointer;
   font-size: 11px;
@@ -287,5 +287,17 @@ tbody tr:last-of-type td {
   }
   .marginTopAdded {
     margin-bottom: 8px;
+  }
+  .alignCenter {
+    margin-bottom: 15px;
+  }
+  .backgroundWhite {
+    height: auto !important;
+  }
+  .addedScroll {
+    margin-bottom: 10px;
+  }
+  .marginBottomAdd {
+    margin-bottom: 20px;
   }
 }

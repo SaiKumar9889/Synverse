@@ -48,23 +48,49 @@ export class StoreVoucherComponent {
   subTotalData: any;
   searchFrom: any = "2019-03-01";
   searchTo: any = "2023-05-31";
-  dateFrom: FormControl = new FormControl();
-  dateTo: FormControl = new FormControl();
+  dateFrom: FormControl = new FormControl(
+    new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() - 1,
+      new Date().getDate()
+    )
+  );
+  dateTo: FormControl = new FormControl(new Date());
   grandTotalData: any;
   filterValue: string = "";
+  firstDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() - 1,
+    new Date().getDate()
+  );
+  secondDate = new Date();
+  fromDate: any;
+  toDate: any;
   priceLevelFormFields: boolean = false;
-  loadingSpinner: boolean = true;
+  loadingSpinner: boolean;
 
   constructor(
     private authService: AuthService,
     private appService: AppService,
     private datePipe: DatePipe
   ) {
+    this.fromDate =
+      this.firstDate.getFullYear() +
+      "-" +
+      (this.firstDate.getMonth() + 1) +
+      "-" +
+      this.firstDate.getDate();
+    this.toDate =
+      this.secondDate.getFullYear() +
+      "-" +
+      (this.secondDate.getMonth() + 1) +
+      "-" +
+      this.secondDate.getDate();
     this.authService.login().subscribe((result) => {
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.storeVoucher();
+        this.storeVoucher(this.fromDate, this.toDate);
       }
     });
   }
@@ -92,6 +118,7 @@ export class StoreVoucherComponent {
   storeIdValue: string[] = ["SC01"];
   selectedStoreId: any;
   stores: any[] = [
+    { value: "01", viewValue: "DODO KOREA" },
     { value: "SC01", viewValue: "Project Store" },
     { value: "SC02", viewValue: "Project Store 2" },
   ];
@@ -192,17 +219,18 @@ export class StoreVoucherComponent {
   }
 
   applyDateFilter() {
-    this.storeVoucher();
+    this.storeVoucher(this.searchFrom, this.searchTo);
   }
 
-  errorMessage: any;
-  storeVoucher() {
+  errorMessage: any = null;
+  storeVoucher(fromDate: any, toDate: any) {
+    this.loadingSpinner = true;
     console.log(this.searchFrom);
     this.appService
       .storeVoucher(
         "json",
-        this.searchFrom,
-        this.searchTo,
+        fromDate,
+        toDate,
         this.storeIdValue && this.storeIdValue.length
           ? JSON.stringify(this.storeIdValue)
           : "",
@@ -218,12 +246,17 @@ export class StoreVoucherComponent {
       )
       .subscribe((result) => {
         console.log(result);
-        if (result && result.data == "") {
-          console.log(result.message);
-          this.errorMessage = "Data not found";
-          console.log(this.errorMessage);
+
+        setTimeout(() => {
+          if (result && result.data == "") {
+            console.log(result.message);
+            this.errorMessage = "Data not found";
+            console.log(this.errorMessage);
+          } else {
+            this.errorMessage = null;
+          }
           this.loadingSpinner = false;
-        }
+        }, 1000);
       });
   }
   columnToSort = "";

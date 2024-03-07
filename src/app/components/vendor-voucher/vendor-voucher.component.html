@@ -416,6 +416,7 @@
             </mat-select>
           </mat-form-field>
         </div>
+        <div fxFlex="100" style="margin: 10px"></div>
         <div fxFlex="15" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Shift</mat-label>
@@ -576,11 +577,10 @@
             </tr>
           </thead>
           <tbody></tbody>
-          <tbody>
+          <tbody *ngIf="errorMessage && !loadingSpinner">
             <tr>
               <td
                 colspan="13"
-                *ngIf="errorMessage != null"
                 style="
                   position: static;
                   color: red;
@@ -598,6 +598,6 @@
     </div>
   </div>
 </div>
-<!-- <div *ngIf="loadingSpinner">
+<div *ngIf="loadingSpinner">
   <app-loader></app-loader>
-</div> -->
+</div>

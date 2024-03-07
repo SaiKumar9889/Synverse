@@ -1,5 +1,6 @@
 table {
   width: 100%;
+  margin-top: 18px !important;
 }
 table th {
   background-color: #424141b3;
@@ -31,7 +32,7 @@ td {
   font-weight: 600;
 }
 .btn {
-  margin-bottom: 20px;
+  margin-top: 4px;
 }
 .sort {
   height: 18px;

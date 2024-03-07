@@ -41,7 +41,7 @@ export class SidenavComponent implements OnInit {
     localStorage.setItem("selectedNavItem", item);
   }
   ngOnInit(): void {
-    localStorage.setItem("selectedNavItem", this.selectedNavItem);
+    // localStorage.setItem("selectedNavItem", this.selectedNavItem);
     const savedNavItem = localStorage.getItem("selectedNavItem");
     if (savedNavItem) {
       this.selectedNavItem = savedNavItem;

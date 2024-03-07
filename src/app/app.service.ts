@@ -126,6 +126,10 @@ export class AppService {
     const url = `${this.apiUrl}/bereport/storevoucher?file_type=${fileType}&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=lyear&operator_id=${operator}&sort_key=SALES_CLOSEDATE&terminal_id=${terminal}&shift_id=${shift}`;
     return this.http.get<any>(url);
   }
+  getStores() {
+    const url = `${this.apiUrl}/bereport/getstore`;
+    return this.http.get<any>(url);
+  }
   vendorVoucher(
     fileType: string,
     start: string,

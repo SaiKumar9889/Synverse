@@ -1,5 +1,5 @@
 tfoot .emptyRow {
-  bottom: 104px !important;
+  bottom: 60px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
@@ -7,10 +7,29 @@ tfoot .emptyRow {
   height: 28px;
 }
 tfoot .subTotalPL {
-  bottom: 52px !important;
+  bottom: 30px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
+}
+.backgroundWhite {
+  height: 92px;
+}
+.backgroundWhitePage {
+  background: #fff;
+  position: sticky !important;
+  top: 84px !important;
+  width: 100% !important;
+  height: 60px;
+}
+thead th {
+  top: 144px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 9;
+  background-color: #be2026;
+}
+.headingTop {
+  top: 0px !important;
 }
 @media screen and (min-width: 1455px) {
   tfoot .emptyRow {
@@ -26,5 +45,11 @@ tfoot .subTotalPL {
     overflow: scroll !important;
     height: 460px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  }
+  .marginAdded {
+    margin: 25px 0px 15px;
+  }
+  .subTotalBorder {
+    margin-top: 35px;
   }
 }

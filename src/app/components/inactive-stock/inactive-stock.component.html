@@ -25,9 +25,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -105,7 +105,7 @@
               </th>
             </tr>
           </thead>
-          <tbody *ngIf="filteredData">
+          <tbody *ngIf="filteredData && !loadingSpinner">
             <tr *ngFor="let data of getCurrentPageItems()">
               <td>
                 {{ data.M_SERIAL_NUMBER }}
@@ -118,7 +118,7 @@
               <td>{{ data.M_DATE_INSERT | date }}</td>
             </tr>
           </tbody>
-          <tbody>
+          <tbody *ngIf="!loadingSpinner">
             <tr>
               <td
                 colspan="5"
@@ -138,9 +138,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -185,7 +185,7 @@
         </div>
       </div>
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
-        <div class="addedScroll" *ngIf="filteredData">
+        <div class="addedScroll" *ngIf="filteredData && !loadingSpinner">
           <div
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
@@ -232,9 +232,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -280,4 +280,7 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="loadingSpinner">
+  <app-loader></app-loader>
 </div>

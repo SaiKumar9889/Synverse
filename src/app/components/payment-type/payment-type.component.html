@@ -315,10 +315,10 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
           class="backgroundWhitePage"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -420,8 +420,8 @@
               </th>
             </tr>
           </thead>
-          <tbody *ngIf="filteredData">
-            <tr>
+          <tbody *ngIf="filteredData && !loadingSpinner">
+            <tr *ngIf="store_name">
               <td>{{ store_code }}</td>
               <td>{{ store_name }}</td>
               <td></td>
@@ -444,7 +444,7 @@
               <td class="alignRight">RM {{ data?.PYMT_PAYAMT }}</td>
               <td class="alignRight">RM {{ data?.PYMT_ROUND_ADJ }}</td>
             </tr>
-            <tr>
+            <tr *ngIf="paidAmount">
               <td></td>
               <td></td>
               <td></td>
@@ -470,7 +470,7 @@
               <td class="alignRight">RM {{ data?.PYMT_PAYAMT }}</td>
               <td class="alignRight">RM {{ data?.PYMT_ROUND_ADJ }}</td>
             </tr>
-            <tr>
+            <tr *ngIf="visaDataSubtotal">
               <td></td>
               <td></td>
               <td></td>
@@ -496,7 +496,7 @@
               <td class="alignRight">RM {{ data?.PYMT_PAYAMT }}</td>
               <td class="alignRight">RM {{ data?.PYMT_ROUND_ADJ }}</td>
             </tr>
-            <tr>
+            <tr *ngIf="masterDataSubtotal">
               <td></td>
               <td></td>
               <td></td>
@@ -512,8 +512,23 @@
               </td>
             </tr>
           </tbody>
-          <tfoot class="footer-fixed" *ngIf="filteredData">
-            <tr class="emptyRow">
+          <tbody *ngIf="errorMessage && !loadingSpinner">
+            <tr>
+              <td
+                colspan="16"
+                style="
+                  position: static;
+                  color: red;
+                  width: 100%;
+                  text-align: center;
+                "
+              >
+                {{ errorMessage }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot class="footer-fixed" *ngIf="!loadingSpinner">
+            <tr class="emptyRow" *ngIf="subTotalSC01 == ''">
               <td></td>
               <td></td>
               <td></td>
@@ -524,7 +539,7 @@
               <td></td>
               <td></td>
             </tr>
-            <tr class="subTotalPL">
+            <tr class="subTotalPL" *ngIf="subTotalSC01 == ''">
               <td></td>
               <td></td>
               <td></td>
@@ -539,7 +554,7 @@
                 RM {{ subTotalSC01?.sub_total_round_adj | number : "1.2-2" }}
               </td>
             </tr>
-            <tr>
+            <tr *ngIf="grandTotalData == ''">
               <td></td>
               <td></td>
               <td></td>
@@ -559,10 +574,10 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
           class="backgroundWhitePage"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -607,7 +622,7 @@
         </div>
       </div>
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm *ngIf="rows">
-        <div class="addedScroll" *ngIf="filteredData">
+        <div class="addedScroll" *ngIf="filteredData && !loadingSpinner">
           <div
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
@@ -831,11 +846,11 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
           class="backgroundWhitePage"
         >
-          <div fxFlex="15" style="margin-top: 26px">
-            <mat-form-field appearance="outline">
+          <div fxFlex="15">
+            <mat-form-field appearance="outline" class="marginAdded">
               <mat-label>Items per page:</mat-label>
               <mat-select
                 id="itemsPerPage"
@@ -850,6 +865,9 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
+          </div>
+          <div style="margin-top: 20px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
           <div class="pagination">
             <button (click)="previousPage()" [disabled]="currentPage === 1">
@@ -873,11 +891,11 @@
               Next
             </button>
           </div>
-          <div style="margin-top: 5px">
-            <p>Displaying: {{ getDisplayRange() }}</p>
-          </div>
         </div>
-        <div class="addedBorder" *ngIf="filteredData">
+        <div
+          class="addedBorder subTotalBorder"
+          *ngIf="filteredData && !loadingSpinner"
+        >
           <h4 class="blueText">Sub Total</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -902,7 +920,10 @@
             </div>
           </div>
         </div>
-        <div class="addedBorder marginBottomAdded" *ngIf="filteredData">
+        <div
+          class="addedBorder marginBottomAdded"
+          *ngIf="filteredData && !loadingSpinner"
+        >
           <h4 class="greenText">Grand Total</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">

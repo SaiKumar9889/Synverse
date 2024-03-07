@@ -70,6 +70,7 @@ export class InactiveStockComponent {
 
   errorMessage: any;
   inactiveStock() {
+    this.loadingSpinner = true;
     this.appService.inactiveStock("json").subscribe((result) => {
       console.log(result);
       if (result && result.data == "failed") {
@@ -78,15 +79,18 @@ export class InactiveStockComponent {
         console.log(this.errorMessage);
         this.loadingSpinner = false;
       }
-      if (result) {
-        this.filteredData = result.data;
-        console.log(result);
-        this.storesFilterData = result.data;
-        this.grandTotalData = result;
-        this.filteredData = this.storesFilterData;
+      setTimeout(() => {
+        if (result) {
+          this.filteredData = result.data;
+          console.log(result);
+          this.storesFilterData = result.data;
+          this.grandTotalData = result;
+          this.filteredData = this.storesFilterData;
+          this.loadingSpinner = false;
+          this.calculateTotalPages();
+        }
         this.loadingSpinner = false;
-        this.calculateTotalPages();
-      }
+      }, 1000);
     });
   }
 

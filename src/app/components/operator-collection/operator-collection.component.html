@@ -219,9 +219,10 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
+          class="backgroundWhitePage"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -267,55 +268,82 @@
         <table>
           <thead>
             <tr>
-              <th (click)="sortTable('SALES_STORE')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_STORE')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>STORE</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_OPERID')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_OPERID')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>OPERID</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('name')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('name')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Name</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_QTY_NS')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_QTY_NS')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>SALES QUANTITY</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_NETSALES_NS')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_NETSALES_NS')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>SALES AMOUNT</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_QTY_TV')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_QTY_TV')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>TR VOID QUANTITY</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SALES_NETSALES_TV')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SALES_NETSALES_TV')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>TR VOID AMOUNT</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('TOTAL_SALES_QTY_NS')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('TOTAL_SALES_QTY_NS')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>TOTAL QUANTITY</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('TOTAL_SALES_NETSALES_NS')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('TOTAL_SALES_NETSALES_NS')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>TOTAL AMOUNT</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
@@ -323,7 +351,7 @@
               </th>
             </tr>
           </thead>
-          <tbody *ngIf="filteredData">
+          <tbody *ngIf="filteredData && !loadingSpinner">
             <tr *ngFor="let data of getCurrentPageItems()">
               <td>
                 {{ data.SALES_STORE }}
@@ -348,11 +376,10 @@
               </td>
             </tr>
           </tbody>
-          <tbody>
+          <tbody *ngIf="errorMessage && !loadingSpinner">
             <tr>
               <td
                 colspan="13"
-                *ngIf="errorMessage != null"
                 style="
                   position: static;
                   color: red;
@@ -364,7 +391,7 @@
               </td>
             </tr>
           </tbody>
-          <tfoot class="footer-fixed" *ngIf="filteredData">
+          <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
             <tr class="emptyRow">
               <td></td>
               <td></td>
@@ -474,9 +501,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -526,7 +553,7 @@
         fxHide.lg
         fxHide.md
         fxHide.sm
-        *ngIf="filteredData"
+        *ngIf="filteredData && !loadingSpinner"
       >
         <div class="addedScroll">
           <div
@@ -596,8 +623,9 @@
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
           *ngIf="filteredData"
+          class="marginBottomAdd"
         >
-          <div fxFlex="15" style="margin-top: 26px">
+          <div fxFlex="15">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select

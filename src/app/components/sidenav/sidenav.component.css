@@ -26,7 +26,7 @@ h1.example-app-name {
   flex: 1;
 }
 mat-nav-list {
-  width: 170px;
+  width: 180px;
 }
 .example-is-mobile .example-sidenav-container {
   /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the

@@ -292,7 +292,7 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
           class="backgroundWhitePage"
         >
           <div fxFlex="12">
@@ -341,91 +341,136 @@
         <table>
           <thead>
             <tr>
-              <th (click)="sortTable('date')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('date')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Store</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('terminal')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('terminal')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Terminal</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_DATETIME')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_DATETIME')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Date</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_SALES_RCPTNO')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_SALES_RCPTNO')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>RCPTNO</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_STOCK_CODE')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_STOCK_CODE')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Shift</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_SHORTDESC')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_SHORTDESC')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>OPERID</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_SALES_PRICELVL')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_SALES_PRICELVL')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>P/L</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_SALES_PRICE_SHIFT')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_SALES_PRICE_SHIFT')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>P/S</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_STATUS')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_STATUS')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Status</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_QTY')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_QTY')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Qty</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_GROSS')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_GROSS')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Gross</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_DISCAMT')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_DISCAMT')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Disc Amt</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_NETT')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_NETT')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Tax Amt</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_CHANGEPRC')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_CHANGEPRC')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Round Adj</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('SDTL_CHANGEPRC')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('SDTL_CHANGEPRC')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Total Sales</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
@@ -433,7 +478,7 @@
               </th>
             </tr>
           </thead>
-          <tbody *ngIf="filteredData">
+          <tbody *ngIf="!loadingSpinner">
             <ng-container *ngFor="let data of storesFilterData">
               <tr>
                 <td>{{ data.store_code }}</td>
@@ -490,11 +535,10 @@
               </ng-container>
             </ng-container>
           </tbody>
-          <tbody>
+          <tbody *ngIf="errorMessage && !loadingSpinner">
             <tr>
               <td
                 colspan="13"
-                *ngIf="errorMessage != null"
                 style="
                   position: static;
                   color: red;
@@ -506,7 +550,7 @@
               </td>
             </tr>
           </tbody>
-          <tfoot class="footer-fixed" *ngIf="filteredData">
+          <tfoot class="footer-fixed" *ngIf="!loadingSpinner">
             <ng-container *ngFor="let data of storesFilterData">
               <tr *ngFor="let row of data.terminal" class="terminal">
                 <td></td>
@@ -619,7 +663,7 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
+          *ngIf="filteredData && !loadingSpinner"
         >
           <div fxFlex="12">
             <mat-form-field appearance="outline">
@@ -671,7 +715,7 @@
         fxHide.lg
         fxHide.md
         fxHide.sm
-        *ngIf="filteredData"
+        *ngIf="filteredData && !loadingSpinner"
       >
         <div class="addedScroll">
           <div
@@ -818,9 +862,10 @@
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
           *ngIf="filteredData"
+          class="backgroundWhitePage"
         >
-          <div fxFlex="15" style="margin-top: 26px">
-            <mat-form-field appearance="outline">
+          <div fxFlex="15">
+            <mat-form-field appearance="outline" class="marginAdded">
               <mat-label>Items per page:</mat-label>
               <mat-select
                 id="itemsPerPage"
@@ -835,6 +880,9 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
+          </div>
+          <div style="margin-top: 20px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
           <div class="pagination">
             <button (click)="previousPage()" [disabled]="currentPage === 1">
@@ -857,9 +905,6 @@
             >
               Next
             </button>
-          </div>
-          <div style="margin-top: 5px">
-            <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>
         <div *ngFor="let data of storesFilterData">
@@ -917,8 +962,17 @@
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
             class="addedBorder"
+            [ngClass]="data.store_desc === 'DODO KOREA' ? 'subTotalBorder' : ''"
           >
-            <h4 class="blueText">Sub Total</h4>
+            <h4 class="blueText" *ngIf="data.store_desc === 'DODO KOREA'">
+              Sub Total 01
+            </h4>
+            <h4 class="blueText" *ngIf="data.store_desc === 'Project Store'">
+              Sub Total SC01
+            </h4>
+            <h4 class="blueText" *ngIf="data.store_desc === 'Project Store 2'">
+              Sub Total SC02
+            </h4>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4 class="blueText">Qty</h4>

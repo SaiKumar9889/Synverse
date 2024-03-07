@@ -47,17 +47,31 @@ export class TransactionSalesComponent {
   subTotalData: any;
   searchFrom: any = "2019-03-01";
   searchTo: any = "2023-05-31";
-  dateFrom: FormControl = new FormControl();
-  dateTo: FormControl = new FormControl();
+  dateFrom: FormControl = new FormControl(
+    new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() - 1,
+      new Date().getDate()
+    )
+  );
+  dateTo: FormControl = new FormControl(new Date());
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
-  loadingSpinner: boolean = true;
+  loadingSpinner: boolean;
   itemsPerPage = 5;
   currentPage = 1;
   totalPages: number;
   pagesToShow = 5;
   Math: any;
+  firstDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() - 1,
+    new Date().getDate()
+  );
+  secondDate = new Date();
+  fromDate: any;
+  toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
 
   constructor(
@@ -65,12 +79,24 @@ export class TransactionSalesComponent {
     private appService: AppService,
     private datePipe: DatePipe
   ) {
+    this.fromDate =
+      this.firstDate.getFullYear() +
+      "-" +
+      (this.firstDate.getMonth() + 1) +
+      "-" +
+      this.firstDate.getDate();
+    this.toDate =
+      this.secondDate.getFullYear() +
+      "-" +
+      (this.secondDate.getMonth() + 1) +
+      "-" +
+      this.secondDate.getDate();
     this.authService.login().subscribe((result) => {
       console.log(result);
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.transactionSales();
+        this.transactionSales(this.fromDate, this.toDate);
       }
     });
   }
@@ -95,7 +121,7 @@ export class TransactionSalesComponent {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
   applyDateFilter() {
-    this.transactionSales();
+    this.transactionSales(this.searchFrom, this.searchTo);
   }
 
   filteredData: any;
@@ -121,6 +147,7 @@ export class TransactionSalesComponent {
   storeIdValue: string = "SC01";
   selectedStoreId: any;
   stores: any[] = [
+    { value: "01", viewValue: "DODO KOREA" },
     { value: "SC01", viewValue: "Project Store" },
     { value: "SC02", viewValue: "Project Store 2" },
   ];
@@ -128,33 +155,30 @@ export class TransactionSalesComponent {
     this.storeIdValue = event.value;
     console.log("Selection change event:", event.value);
   }
-  errorMessage = null;
-  transactionSales() {
-    this.errorMessage = null;
-    console.log(this.searchFrom);
-    console.log(this.searchTo);
+  errorMessage: any = null;
+  transactionSales(fromDate: any, toDate: any) {
+    this.loadingSpinner = true;
     this.appService
-      .transactionSales(
-        "json",
-        this.searchFrom,
-        this.searchTo,
-        this.storeIdValue
-      )
+      .transactionSales("json", fromDate, toDate, this.storeIdValue)
       .subscribe((result) => {
         if (result && result.status == "failed") {
           console.log(result.message);
           this.errorMessage = result.message;
           console.log(this.errorMessage);
+        } else {
+          this.errorMessage = null;
         }
-        if (result) {
-          this.filteredData = result.data;
-          console.log(result);
-          this.storesFilterData = result.data;
-          this.grandTotalData = result;
-          this.filteredData = this.storesFilterData;
+        setTimeout(() => {
+          if (result) {
+            this.filteredData = result.data;
+            console.log(result);
+            this.storesFilterData = result.data;
+            this.grandTotalData = result;
+            this.filteredData = this.storesFilterData;
+            this.calculateTotalPages();
+          }
           this.loadingSpinner = false;
-          this.calculateTotalPages();
-        }
+        }, 1000);
       });
   }
 

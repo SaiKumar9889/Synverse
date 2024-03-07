@@ -47,12 +47,18 @@ export class SoldItemAnlysisComponent {
   subTotalData: any;
   searchFrom: any = "";
   searchTo: any = "";
-  dateFrom: FormControl = new FormControl();
-  dateTo: FormControl = new FormControl();
+  dateFrom: FormControl = new FormControl(
+    new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() - 1,
+      new Date().getDate()
+    )
+  );
+  dateTo: FormControl = new FormControl(new Date());
   grandTotalData: any;
   filterValue: string = "";
   priceLevelFormFields: boolean = false;
-  loadingSpinner: boolean = true;
+  loadingSpinner: boolean;
   terminal_code: any;
   terminal_name: any;
   subTotalTerminal: any;
@@ -61,6 +67,14 @@ export class SoldItemAnlysisComponent {
   totalPages: number;
   pagesToShow = 5;
   Math: any;
+  firstDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() - 1,
+    new Date().getDate()
+  );
+  secondDate = new Date();
+  fromDate: any;
+  toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
 
   constructor(
@@ -68,12 +82,24 @@ export class SoldItemAnlysisComponent {
     private appService: AppService,
     private datePipe: DatePipe
   ) {
+    this.fromDate =
+      this.firstDate.getFullYear() +
+      "-" +
+      (this.firstDate.getMonth() + 1) +
+      "-" +
+      this.firstDate.getDate();
+    this.toDate =
+      this.secondDate.getFullYear() +
+      "-" +
+      (this.secondDate.getMonth() + 1) +
+      "-" +
+      this.secondDate.getDate();
     this.authService.login().subscribe((result) => {
       console.log(result);
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.salesRemark();
+        this.salesRemark(this.fromDate, this.toDate);
       }
     });
   }
@@ -98,7 +124,7 @@ export class SoldItemAnlysisComponent {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
   applyDateFilter() {
-    this.salesRemark();
+    this.salesRemark(this.searchFrom, this.searchTo);
   }
 
   filteredData: any;
@@ -129,6 +155,7 @@ export class SoldItemAnlysisComponent {
   storeIdValue: string[] = [];
   selectedStoreId: any;
   stores: any[] = [
+    { value: "01", viewValue: "DODO KOREA" },
     { value: "SC01", viewValue: "Project Store" },
     { value: "SC02", viewValue: "Project Store 2" },
   ];
@@ -473,14 +500,15 @@ export class SoldItemAnlysisComponent {
       this.isCheckboxNormal = "F";
     }
   }
-  errorMessage: any;
-  salesRemark() {
+  errorMessage: any = null;
+  salesRemark(fromDate: any, toDate: any) {
+    this.loadingSpinner = true;
     console.log(this.searchFrom);
     console.log(this.searchTo);
     this.appService
       .soldItemAnalysis(
-        this.searchFrom,
-        this.searchTo,
+        fromDate,
+        toDate,
         this.storeIdValue && this.storeIdValue.length
           ? JSON.stringify(this.storeIdValue)
           : "",
@@ -512,26 +540,29 @@ export class SoldItemAnlysisComponent {
           console.log(result.message);
           this.errorMessage = "No Data Found";
           console.log(this.errorMessage);
+        } else {
+          this.errorMessage = null;
         }
         if (result) {
-          this.store_code = result?.data[0]?.store_code;
-          this.store_name = result?.data[0]?.store_desc;
-          this.terminal_code = result?.data[0]?.sold_item[0]?.terminal_code;
-          this.terminal_name = result?.data[0]?.sold_item[0]?.terminal_desc;
-          this.filteredData = Object.values(
-            result?.data[1]?.sold_item[0]?.data || {}
-          );
-          console.log(this.filteredData);
-          this.storesFilterData = Object.values(
-            result?.data[1]?.sold_item[0]?.data || {}
-          );
-          this.subTotalTerminal = result?.data[1]?.sold_item[0];
-          this.subTotalData = result?.data[1];
-          this.grandTotalData = result;
-          this.filteredData = this.storesFilterData;
-          this.loadingSpinner = false;
-          this.calculateTotalPages();
         }
+        setTimeout(() => {
+          if (result) {
+            this.store_code = result?.data[0]?.store_code;
+            this.store_name = result?.data[0]?.store_desc;
+            this.terminal_code = result?.data[1]?.sold_item[0];
+            this.filteredData = Object.values(
+              result?.data[1]?.sold_item[0]?.data || {}
+            );
+            console.log(this.terminal_code);
+            this.storesFilterData = Object.values(result?.data || {});
+            this.subTotalTerminal = result?.data[1]?.sold_item[0];
+            this.subTotalData = result?.data[1];
+            this.grandTotalData = result;
+            // this.filteredData = this.storesFilterData;
+            this.calculateTotalPages();
+          }
+          this.loadingSpinner = false;
+        }, 1000);
       });
   }
 

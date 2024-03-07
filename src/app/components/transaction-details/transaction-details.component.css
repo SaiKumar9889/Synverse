@@ -17,12 +17,22 @@ tfoot .subTotalPL {
   position: sticky !important;
   top: 105px !important;
   width: 100% !important;
+  height: 54px;
+}
+.backgroundWhite {
+  height: 105px;
 }
 thead th {
-  top: 190px;
+  top: 158px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background-color: #be2026;
+}
+.marginTopAdded {
+  margin: 10px !important;
+}
+.headingTop {
+  top: 0px !important;
 }
 @media screen and (max-width: 599px) {
   .addedScroll {
