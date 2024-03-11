@@ -37,7 +37,7 @@
               [matDatepicker]="fromDate"
               placeholder="From Date"
               [formControl]="dateFrom"
-              (dateChange)="selectedFormDate($event)"
+              (dateChange)="selectedFormDate()"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -63,7 +63,7 @@
               [matDatepicker]="toDate"
               placeholder="To Date"
               [formControl]="dateTo"
-              (dateChange)="selectedToDate($event)"
+              (dateChange)="selectedToDate()"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -88,8 +88,8 @@
               [(ngModel)]="selectedStoreId"
               (selectionChange)="onSelectionChange($event)"
             >
-              <mat-option *ngFor="let store of stores" [value]="store.value">
-                {{ store.viewValue }}
+              <mat-option *ngFor="let store of stores" [value]="store.M_CODE">
+                {{ store.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -122,7 +122,7 @@
               [matDatepicker]="fromDate"
               placeholder="From Date"
               [formControl]="dateFrom"
-              (dateChange)="selectedFormDate($event)"
+              (dateChange)="selectedFormDate()"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -139,7 +139,7 @@
               [matDatepicker]="toDate"
               placeholder="To Date"
               [formControl]="dateTo"
-              (dateChange)="selectedToDate($event)"
+              (dateChange)="selectedToDate()"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -155,8 +155,8 @@
               [(ngModel)]="selectedStoreId"
               (selectionChange)="onSelectionChange($event)"
             >
-              <mat-option *ngFor="let store of stores" [value]="store.value">
-                {{ store.viewValue }}
+              <mat-option *ngFor="let store of stores" [value]="store.M_CODE">
+                {{ store.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>

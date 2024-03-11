@@ -102,6 +102,8 @@ export class SoldItemAnlysisComponent {
         this.salesRemark(this.fromDate, this.toDate);
       }
     });
+    this.selectedFormDate();
+    this.selectedToDate();
   }
   formFieldsAdded() {
     this.priceLevelFormFields = true;
@@ -113,17 +115,18 @@ export class SoldItemAnlysisComponent {
   title = "synverse";
 
   rowData = [];
-  selectedFormDate(date: any) {
+  selectedFormDate() {
     this.searchFrom = this.datePipe.transform(
       this.dateFrom.value,
       "yyyy-MM-dd"
     );
     console.log(this.searchFrom);
   }
-  selectedToDate(date: any) {
+  selectedToDate() {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
   applyDateFilter() {
+    this.itemsPerPage = 5;
     this.salesRemark(this.searchFrom, this.searchTo);
   }
 

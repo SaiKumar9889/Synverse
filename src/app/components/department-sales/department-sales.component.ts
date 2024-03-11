@@ -99,8 +99,11 @@ export class DepartmentSalesComponent {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
         this.departmentSales(this.fromDate, this.toDate);
+        this.getStore();
       }
     });
+    this.selectedFormDate();
+    this.selectedToDate();
   }
   formFieldsAdded() {
     this.priceLevelFormFields = true;
@@ -112,17 +115,18 @@ export class DepartmentSalesComponent {
   title = "synverse";
 
   rowData = [];
-  selectedFormDate(date: any) {
+  selectedFormDate() {
     this.searchFrom = this.datePipe.transform(
       this.dateFrom.value,
       "yyyy-MM-dd"
     );
     console.log(this.searchFrom);
   }
-  selectedToDate(date: any) {
+  selectedToDate() {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
   applyDateFilter() {
+    this.itemsPerPage = 5;
     this.departmentSales(this.searchFrom, this.searchTo);
   }
 
@@ -141,14 +145,36 @@ export class DepartmentSalesComponent {
 
   storeIdValue: string = "SC01";
   selectedStoreId: any;
-  stores: any[] = [
-    { value: "01", viewValue: "DODO KOREA" },
-    { value: "SC01", viewValue: "Project Store" },
-    { value: "SC02", viewValue: "Project Store 2" },
+  stores: any = [
+    // { value: "01", viewValue: "DODO KOREA" },
+    // { value: "SC01", viewValue: "Project Store" },
+    // { value: "SC02", viewValue: "Project Store 2" },
   ];
+  getStore() {
+    this.appService.getStores().subscribe((result) => {
+      this.stores = result;
+      console.log(this.stores);
+    });
+  }
   onSelectionChange(event: any): void {
-    this.storeIdValue = event.value;
-    console.log("Selection change event:", event.value);
+    setTimeout(() => {
+      if (this.selectedItems.includes("all")) {
+        this.storeIdValue = this.stores.map((item: any) => item.M_CODE);
+      } else {
+        this.storeIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedItems: string[] = [];
+
+  selectAll() {
+    if (this.selectedItems.includes("all")) {
+      this.selectedItems = this.stores.map((item: any) => item.M_CODE);
+      this.selectedItems.push("all");
+    } else {
+      this.selectedItems.length = 0;
+      this.selectedItems = [];
+    }
   }
   errorMessage = null;
   departmentSales(fromDate: any, toDate: any) {

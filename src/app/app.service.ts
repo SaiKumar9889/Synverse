@@ -164,7 +164,7 @@ export class AppService {
     const url = `${this.apiUrl}/bereport/skusalesresport?file_type=${fileType}&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=lyear`;
     return this.http.get<any>(url);
   }
-  groupSales(fileType: string, start: string, end: string, storeId: string) {
+  groupSales(fileType: string, start: string, end: string, storeId: any) {
     const url = `${this.apiUrl}/bereport/groupsalesresport?file_type=${fileType}&store_id=${storeId}&start_date=${start}&end_date=${end}&datetype=lyear`;
     return this.http.get<any>(url);
   }

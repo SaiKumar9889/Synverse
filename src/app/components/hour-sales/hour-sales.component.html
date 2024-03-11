@@ -37,7 +37,7 @@
               [matDatepicker]="fromDate"
               placeholder="From Date"
               [formControl]="dateFrom"
-              (dateChange)="selectedFormDate($event)"
+              (dateChange)="selectedFormDate()"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -63,7 +63,7 @@
               [matDatepicker]="toDate"
               placeholder="To Date"
               [formControl]="dateTo"
-              (dateChange)="selectedToDate($event)"
+              (dateChange)="selectedToDate()"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -125,7 +125,7 @@
               [matDatepicker]="fromDate"
               placeholder="From Date"
               [formControl]="dateFrom"
-              (dateChange)="selectedFormDate($event)"
+              (dateChange)="selectedFormDate()"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -142,7 +142,7 @@
               [matDatepicker]="toDate"
               placeholder="To Date"
               [formControl]="dateTo"
-              (dateChange)="selectedToDate($event)"
+              (dateChange)="selectedToDate()"
             />
             <mat-datepicker-toggle
               matSuffix

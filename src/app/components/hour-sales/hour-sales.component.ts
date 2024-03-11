@@ -72,7 +72,7 @@ export class HourSalesComponent {
   secondDate = new Date();
   fromDate: any;
   toDate: any;
-  itemsPerPageOptions = [5, 10, 15, 20];
+  itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
 
   constructor(
     private authService: AuthService,
@@ -99,6 +99,8 @@ export class HourSalesComponent {
         this.hourlySales(this.fromDate, this.toDate);
       }
     });
+    this.selectedFormDate();
+    this.selectedToDate();
   }
   formFieldsAdded() {
     this.priceLevelFormFields = true;
@@ -110,18 +112,19 @@ export class HourSalesComponent {
   title = "synverse";
 
   rowData = [];
-  selectedFormDate(date: any) {
+  selectedFormDate() {
     this.searchFrom = this.datePipe.transform(
       this.dateFrom.value,
       "yyyy-MM-dd"
     );
     console.log(this.searchFrom);
   }
-  selectedToDate(date: any) {
+  selectedToDate() {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
   applyDateFilter() {
     this.loadingSpinner = true;
+    this.itemsPerPage = 5;
     this.hourlySales(this.searchFrom, this.searchTo);
   }
 
