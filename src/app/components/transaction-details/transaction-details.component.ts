@@ -100,6 +100,7 @@ export class TransactionDetailsComponent implements OnInit {
         authService.setRefreshToken(result.refresh_token);
         this.transactionDetail(this.fromDate, this.toDate);
         this.getStore();
+        this.getTerminal();
       }
     });
     this.selectedFormDate();
@@ -186,12 +187,21 @@ export class TransactionDetailsComponent implements OnInit {
   }
   terminalIdValue: string[] = [];
   selectedTerminalItems: string[] = [];
-  terminalId: any[] = [{ value: "T1", viewValue: "Terminal 1" }];
+  terminalId: any[] = [
+    // { value: "T1", viewValue: "Terminal 1" }
+  ];
+
+  getTerminal() {
+    this.appService.getTerminal().subscribe((result) => {
+      this.terminalId = result;
+      console.log(this.terminalId);
+    });
+  }
 
   onTerminalChange(event: any): void {
     setTimeout(() => {
       if (this.selectedTerminalItems.includes("all")) {
-        this.terminalIdValue = this.terminalId.map((item) => item.value);
+        this.terminalIdValue = this.terminalId.map((item) => item.M_CODE);
       } else {
         this.terminalIdValue = event.value;
       }
@@ -200,7 +210,7 @@ export class TransactionDetailsComponent implements OnInit {
 
   selectTerminalAll() {
     if (this.selectedTerminalItems.includes("all")) {
-      this.selectedTerminalItems = this.terminalId.map((item) => item.value);
+      this.selectedTerminalItems = this.terminalId.map((item) => item.M_CODE);
       this.selectedTerminalItems.push("all");
     } else {
       this.selectedTerminalItems.length = 0;

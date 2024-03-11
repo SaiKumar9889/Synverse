@@ -130,6 +130,10 @@ export class AppService {
     const url = `${this.apiUrl}/bereport/getstore`;
     return this.http.get<any>(url);
   }
+  getTerminal() {
+    const url = `${this.apiUrl}/bereport/getterminal?store_id=SC01,SC02`;
+    return this.http.get<any>(url);
+  }
   vendorVoucher(
     fileType: string,
     start: string,

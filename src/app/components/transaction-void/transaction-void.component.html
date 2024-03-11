@@ -325,7 +325,7 @@
               </td>
               <td>{{ data["Trans No"] }}</td>
               <td class="alignRight">
-                {{ data["Net sales"] | number : "1.2-2" }}
+                RM {{ data["Net sales"] | number : "1.2-2" }}
               </td>
               <td class="alignRight">
                 RM {{ data["Sum disc by MNY"] | number : "1.2-2" }}
@@ -371,7 +371,7 @@
 
               <td class="boldText greenText">Total</td>
               <td class="boldText greenText alignRight">
-                {{ grandTotalData?.net_sales | number : "1.2-2" }}
+                RM {{ grandTotalData?.net_sales | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
                 RM {{ grandTotalData?.sum_discbymny | number : "1.2-2" }}
@@ -483,7 +483,7 @@
               <h4>Net Sales</h4>
             </div>
             <div>
-              <p>{{ data["Net sales"] | number : "1.2-2" }}</p>
+              <p>RM {{ data["Net sales"] | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
@@ -562,7 +562,7 @@
             </div>
             <div>
               <h4 class="greenText">
-                {{ grandTotalData?.net_sales | number : "1.2-2" }}
+                RM {{ grandTotalData?.net_sales | number : "1.2-2" }}
               </h4>
             </div>
           </div>

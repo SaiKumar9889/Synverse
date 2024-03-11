@@ -223,9 +223,9 @@
               >
               <mat-option
                 *ngFor="let terminal of terminalId"
-                [value]="terminal.value"
+                [value]="terminal.M_CODE"
               >
-                {{ terminal.viewValue }}
+                {{ terminal.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>

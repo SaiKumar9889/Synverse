@@ -309,7 +309,7 @@
               </td>
               <td class="alignRight">RM {{ data.total | number : "1.2-2" }}</td>
               <td class="alignRight">
-                {{ data.contribution | number : "1.2-2" }}
+                RM {{ data.contribution | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
@@ -359,7 +359,7 @@
                 {{ subTotalData?.sub_total_total | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
-                {{ subTotalData?.sub_total_contribution | number : "1.2-2" }}
+                RM {{ subTotalData?.sub_total_contribution | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -380,6 +380,7 @@
                 RM {{ grandTotalData?.grand_total_total | number : "1.2-2" }}
               </td>
               <td class="boldText greenText alignRight">
+                RM
                 {{
                   grandTotalData?.grand_total_contribution | number : "1.2-2"
                 }}
@@ -497,7 +498,7 @@
               <h4>Contribution</h4>
             </div>
             <div>
-              <p>{{ data.contribution | number : "1.2-2" }}</p>
+              <p>RM {{ data.contribution | number : "1.2-2" }}</p>
             </div>
           </div>
         </div>
@@ -616,7 +617,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                {{ subTotalData?.sub_total_contribution | number : "1.2-2" }}
+                RM {{ subTotalData?.sub_total_contribution | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -683,6 +684,7 @@
             </div>
             <div>
               <h4 class="greenText">
+                RM
                 {{
                   grandTotalData?.grand_total_contribution | number : "1.2-2"
                 }}
