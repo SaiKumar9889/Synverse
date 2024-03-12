@@ -78,6 +78,7 @@ export class TaxTransactionComponent implements OnInit {
   fromDate: any;
   toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
+  terminalDisabled: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -170,10 +171,13 @@ export class TaxTransactionComponent implements OnInit {
   }
   onSelectionChange(event: any): void {
     setTimeout(() => {
+      this.terminalDisabled = false;
       if (this.selectedItems.includes("all")) {
         this.storeIdValue = this.stores.map((item: any) => item.M_CODE);
+        this.getTerminal();
       } else {
         this.storeIdValue = event.value;
+        this.getTerminal();
       }
     }, 500);
   }
@@ -190,12 +194,21 @@ export class TaxTransactionComponent implements OnInit {
   }
   terminalIdValue: string[] = [];
   selectedTerminalItems: string[] = [];
-  terminalId: any[] = [{ value: "T1", viewValue: "Terminal 1" }];
+  terminalId: any[] = [
+    // { value: "T1", viewValue: "Terminal 1" }
+  ];
+
+  getTerminal() {
+    this.appService.getTerminal(this.storeIdValue).subscribe((result) => {
+      this.terminalId = result;
+      console.log(this.terminalId);
+    });
+  }
 
   onTerminalChange(event: any): void {
     setTimeout(() => {
       if (this.selectedTerminalItems.includes("all")) {
-        this.terminalIdValue = this.terminalId.map((item) => item.value);
+        this.terminalIdValue = this.terminalId.map((item) => item.M_CODE);
       } else {
         this.terminalIdValue = event.value;
       }
@@ -204,7 +217,7 @@ export class TaxTransactionComponent implements OnInit {
 
   selectTerminalAll() {
     if (this.selectedTerminalItems.includes("all")) {
-      this.selectedTerminalItems = this.terminalId.map((item) => item.value);
+      this.selectedTerminalItems = this.terminalId.map((item) => item.M_CODE);
       this.selectedTerminalItems.push("all");
     } else {
       this.selectedTerminalItems.length = 0;

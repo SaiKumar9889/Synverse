@@ -68,6 +68,7 @@ export class VendorVoucherComponent {
   fromDate: any;
   toDate: any;
   loadingSpinner: boolean;
+  terminalDisabled: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -91,6 +92,8 @@ export class VendorVoucherComponent {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
         this.vendorVoucher(this.fromDate, this.toDate);
+        this.getStore();
+        this.getShift();
       }
     });
     this.selectedFormDate();
@@ -142,17 +145,26 @@ export class VendorVoucherComponent {
   displayTable = false;
   storeIdValue: string[] = [];
   selectedStoreId: any;
-  stores: any[] = [
-    { value: "01", viewValue: "DODO KOREA" },
-    { value: "SC01", viewValue: "Project Store" },
-    { value: "SC02", viewValue: "Project Store 2" },
+  stores: any = [
+    // { value: "01", viewValue: "DODO KOREA" },
+    // { value: "SC01", viewValue: "Project Store" },
+    // { value: "SC02", viewValue: "Project Store 2" },
   ];
+  getStore() {
+    this.appService.getStores().subscribe((result) => {
+      this.stores = result;
+      console.log(this.stores);
+    });
+  }
   onSelectionChange(event: any): void {
     setTimeout(() => {
+      this.terminalDisabled = false;
       if (this.selectedItems.includes("all")) {
-        this.storeIdValue = this.stores.map((item) => item.value);
+        this.storeIdValue = this.stores.map((item: any) => item.M_CODE);
+        this.getTerminal();
       } else {
         this.storeIdValue = event.value;
+        this.getTerminal();
       }
     }, 500);
   }
@@ -160,22 +172,30 @@ export class VendorVoucherComponent {
 
   selectAll() {
     if (this.selectedItems.includes("all")) {
-      this.selectedItems = this.stores.map((item) => item.value);
+      this.selectedItems = this.stores.map((item: any) => item.M_CODE);
       this.selectedItems.push("all");
     } else {
       this.selectedItems.length = 0;
       this.selectedItems = [];
     }
   }
-
   terminalIdValue: string[] = [];
   selectedTerminalItems: string[] = [];
-  terminalId: any[] = [{ value: "T1", viewValue: "Terminal 1" }];
+  terminalId: any[] = [
+    // { value: "T1", viewValue: "Terminal 1" }
+  ];
+
+  getTerminal() {
+    this.appService.getTerminal(this.storeIdValue).subscribe((result) => {
+      this.terminalId = result;
+      console.log(this.terminalId);
+    });
+  }
 
   onTerminalChange(event: any): void {
     setTimeout(() => {
       if (this.selectedTerminalItems.includes("all")) {
-        this.terminalIdValue = this.terminalId.map((item) => item.value);
+        this.terminalIdValue = this.terminalId.map((item) => item.M_CODE);
       } else {
         this.terminalIdValue = event.value;
       }
@@ -184,7 +204,7 @@ export class VendorVoucherComponent {
 
   selectTerminalAll() {
     if (this.selectedTerminalItems.includes("all")) {
-      this.selectedTerminalItems = this.terminalId.map((item) => item.value);
+      this.selectedTerminalItems = this.terminalId.map((item) => item.M_CODE);
       this.selectedTerminalItems.push("all");
     } else {
       this.selectedTerminalItems.length = 0;
@@ -320,13 +340,21 @@ export class VendorVoucherComponent {
   selectedShiftId: any;
   shiftValue: string[] = [];
   shiftId: any[] = [
-    { value: "SC01", viewValue: "Morning Shift" },
-    { value: "SC02", viewValue: "Evening Shift" },
+    // { value: "SC01", viewValue: "Morning Shift" },
+    // { value: "SC02", viewValue: "Evening Shift" },
   ];
+
+  getShift() {
+    this.appService.getShift().subscribe((result) => {
+      this.shiftId = result;
+      console.log(this.stores);
+    });
+  }
+
   onShiftChange(event: any): void {
     setTimeout(() => {
       if (this.selectedShiftItems.includes("all")) {
-        this.shiftValue = this.shiftId.map((item) => item.value);
+        this.shiftValue = this.shiftId.map((item) => item.M_CODE);
       } else {
         this.shiftValue = event.value;
       }
@@ -336,7 +364,7 @@ export class VendorVoucherComponent {
 
   selectShiftAll() {
     if (this.selectedShiftItems.includes("all")) {
-      this.selectedShiftItems = this.shiftId.map((item) => item.value);
+      this.selectedShiftItems = this.shiftId.map((item) => item.M_CODE);
       this.selectedShiftItems.push("all");
     } else {
       this.selectedShiftItems.length = 0;

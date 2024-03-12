@@ -96,6 +96,7 @@ export class OperatorCollectionComponent {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
         this.operatorCollection(this.fromDate, this.toDate);
+        this.getStore();
       }
     });
     this.selectedFormDate();
@@ -145,15 +146,21 @@ export class OperatorCollectionComponent {
 
   storeIdValue: string[] = [];
   selectedStoreId: any;
-  stores: any[] = [
-    { value: "01", viewValue: "DODO KOREA" },
-    { value: "SC01", viewValue: "Project Store" },
-    { value: "SC02", viewValue: "Project Store 2" },
+  stores: any = [
+    // { value: "01", viewValue: "DODO KOREA" },
+    // { value: "SC01", viewValue: "Project Store" },
+    // { value: "SC02", viewValue: "Project Store 2" },
   ];
+  getStore() {
+    this.appService.getStores().subscribe((result) => {
+      this.stores = result;
+      console.log(this.stores);
+    });
+  }
   onSelectionChange(event: any): void {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
-        this.storeIdValue = this.stores.map((item) => item.value);
+        this.storeIdValue = this.stores.map((item: any) => item.M_CODE);
       } else {
         this.storeIdValue = event.value;
       }
@@ -163,7 +170,7 @@ export class OperatorCollectionComponent {
 
   selectAll() {
     if (this.selectedItems.includes("all")) {
-      this.selectedItems = this.stores.map((item) => item.value);
+      this.selectedItems = this.stores.map((item: any) => item.M_CODE);
       this.selectedItems.push("all");
     } else {
       this.selectedItems.length = 0;

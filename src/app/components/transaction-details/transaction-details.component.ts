@@ -76,6 +76,7 @@ export class TransactionDetailsComponent implements OnInit {
   fromDate: any;
   toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
+  terminalDisabled: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -100,7 +101,6 @@ export class TransactionDetailsComponent implements OnInit {
         authService.setRefreshToken(result.refresh_token);
         this.transactionDetail(this.fromDate, this.toDate);
         this.getStore();
-        this.getTerminal();
       }
     });
     this.selectedFormDate();
@@ -167,10 +167,13 @@ export class TransactionDetailsComponent implements OnInit {
   }
   onSelectionChange(event: any): void {
     setTimeout(() => {
+      this.terminalDisabled = false;
       if (this.selectedItems.includes("all")) {
         this.storeIdValue = this.stores.map((item: any) => item.M_CODE);
+        this.getTerminal();
       } else {
         this.storeIdValue = event.value;
+        this.getTerminal();
       }
     }, 500);
   }
@@ -192,7 +195,7 @@ export class TransactionDetailsComponent implements OnInit {
   ];
 
   getTerminal() {
-    this.appService.getTerminal().subscribe((result) => {
+    this.appService.getTerminal(this.storeIdValue).subscribe((result) => {
       this.terminalId = result;
       console.log(this.terminalId);
     });

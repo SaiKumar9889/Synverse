@@ -111,6 +111,7 @@
             <mat-select
               [(ngModel)]="selectedTerminalItems"
               (selectionChange)="onTerminalChange($event)"
+              [disabled]="terminalDisabled"
               multiple
             >
               <mat-option (click)="selectTerminalAll()" [value]="'all'"
@@ -118,9 +119,9 @@
               >
               <mat-option
                 *ngFor="let terminal of terminalId"
-                [value]="terminal.value"
+                [value]="terminal.M_CODE"
               >
-                {{ terminal.viewValue }}
+                {{ terminal.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -147,9 +148,9 @@
               >
               <mat-option
                 *ngFor="let payment of paymentId"
-                [value]="payment.value"
+                [value]="payment.M_CODE"
               >
-                {{ payment.viewValue }}
+                {{ payment.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -250,6 +251,7 @@
             <mat-select
               [(ngModel)]="selectedTerminalItems"
               (selectionChange)="onTerminalChange($event)"
+              [disabled]="terminalDisabled"
               multiple
             >
               <mat-option (click)="selectTerminalAll()" [value]="'all'"
@@ -257,9 +259,9 @@
               >
               <mat-option
                 *ngFor="let terminal of terminalId"
-                [value]="terminal.value"
+                [value]="terminal.M_CODE"
               >
-                {{ terminal.viewValue }}
+                {{ terminal.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -277,9 +279,9 @@
               >
               <mat-option
                 *ngFor="let payment of paymentId"
-                [value]="payment.value"
+                [value]="payment.M_CODE"
               >
-                {{ payment.viewValue }}
+                {{ payment.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>

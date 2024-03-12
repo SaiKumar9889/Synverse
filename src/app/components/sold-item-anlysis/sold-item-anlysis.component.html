@@ -90,8 +90,8 @@
               multiple
             >
               <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
-              <mat-option *ngFor="let store of stores" [value]="store.value">
-                {{ store.viewValue }}
+              <mat-option *ngFor="let store of stores" [value]="store.M_CODE">
+                {{ store.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -111,6 +111,7 @@
             <mat-select
               [(ngModel)]="selectedTerminalItems"
               (selectionChange)="onTerminalChange($event)"
+              [disabled]="terminalDisabled"
               multiple
             >
               <mat-option (click)="selectTerminalAll()" [value]="'all'"
@@ -118,9 +119,9 @@
               >
               <mat-option
                 *ngFor="let terminal of terminalId"
-                [value]="terminal.value"
+                [value]="terminal.M_CODE"
               >
-                {{ terminal.viewValue }}
+                {{ terminal.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -344,8 +345,8 @@
               multiple
             >
               <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
-              <mat-option *ngFor="let store of stores" [value]="store.value">
-                {{ store.viewValue }}
+              <mat-option *ngFor="let store of stores" [value]="store.M_CODE">
+                {{ store.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -356,6 +357,7 @@
             <mat-select
               [(ngModel)]="selectedTerminalItems"
               (selectionChange)="onTerminalChange($event)"
+              [disabled]="terminalDisabled"
               multiple
             >
               <mat-option (click)="selectTerminalAll()" [value]="'all'"
@@ -363,9 +365,9 @@
               >
               <mat-option
                 *ngFor="let terminal of terminalId"
-                [value]="terminal.value"
+                [value]="terminal.M_CODE"
               >
-                {{ terminal.viewValue }}
+                {{ terminal.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -664,77 +666,77 @@
                 <td></td>
                 <td></td>
               </tr>
+            </ng-container>
+            <tr>
+              <td></td>
+              <td>{{ terminal_code.terminal_code }}</td>
+              <td>{{ terminal_code.terminal_desc }}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <ng-container *ngFor="let data of getCurrentPageItems()">
+              <tr *ngFor="let row of data.detail">
+                <td></td>
+                <td></td>
+                <td>
+                  {{ row.SDTL_DATETIME | date }}
+                </td>
+                <td>{{ row?.SDTL_SALES_RCPTNO }}</td>
+                <td>
+                  {{ row?.SDTL_STOCK_CODE }}
+                </td>
+                <td>{{ row?.SDTL_SHORTDESC }}</td>
+                <td>{{ row?.SDTL_SALES_PRICELVL }}</td>
+                <td>{{ row?.SDTL_SALES_PRICE_SHIFT }}</td>
+                <td>
+                  {{ row?.SDTL_STATUS }}
+                </td>
+                <td>{{ row?.SDTL_QTY }}</td>
+                <td class="alignRight">
+                  RM {{ row?.SDTL_GROSS | number : "1.2-2" }}
+                </td>
+                <td class="alignRight">
+                  RM {{ row?.SDTL_DISCAMT | number : "1.2-2" }}
+                </td>
+                <td class="alignRight">
+                  RM {{ row?.SDTL_NETT | number : "1.2-2" }}
+                </td>
+                <td class="alignRight">
+                  RM {{ row?.SDTL_CHANGEPRC | number : "1.2-2" }}
+                </td>
+              </tr>
+
               <tr>
                 <td></td>
-                <td>{{ terminal_code.terminal_code }}</td>
-                <td>{{ terminal_code.terminal_desc }}</td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
+                <td class="boldText">SubTotal</td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="boldText">{{ data?.rcpt_quantity }}</td>
+                <td class="boldText alignRight">
+                  RM {{ data?.rcpt_gross_sales | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ data?.rcpt_discount | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ data?.rcpt_net_sales | number : "1.2-2" }}
+                </td>
                 <td></td>
               </tr>
-              <ng-container *ngFor="let data of getCurrentPageItems()">
-                <tr *ngFor="let row of data.detail">
-                  <td></td>
-                  <td></td>
-                  <td>
-                    {{ row.SDTL_DATETIME | date }}
-                  </td>
-                  <td>{{ row?.SDTL_SALES_RCPTNO }}</td>
-                  <td>
-                    {{ row?.SDTL_STOCK_CODE }}
-                  </td>
-                  <td>{{ row?.SDTL_SHORTDESC }}</td>
-                  <td>{{ row?.SDTL_SALES_PRICELVL }}</td>
-                  <td>{{ row?.SDTL_SALES_PRICE_SHIFT }}</td>
-                  <td>
-                    {{ row?.SDTL_STATUS }}
-                  </td>
-                  <td>{{ row?.SDTL_QTY }}</td>
-                  <td class="alignRight">
-                    RM {{ row?.SDTL_GROSS | number : "1.2-2" }}
-                  </td>
-                  <td class="alignRight">
-                    RM {{ row?.SDTL_DISCAMT | number : "1.2-2" }}
-                  </td>
-                  <td class="alignRight">
-                    RM {{ row?.SDTL_NETT | number : "1.2-2" }}
-                  </td>
-                  <td class="alignRight">
-                    RM {{ row?.SDTL_CHANGEPRC | number : "1.2-2" }}
-                  </td>
-                </tr>
-
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td class="boldText">SubTotal</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td class="boldText">{{ data?.rcpt_quantity }}</td>
-                  <td class="boldText alignRight">
-                    RM {{ data?.rcpt_gross_sales | number : "1.2-2" }}
-                  </td>
-                  <td class="boldText alignRight">
-                    RM {{ data?.rcpt_discount | number : "1.2-2" }}
-                  </td>
-                  <td class="boldText alignRight">
-                    RM {{ data?.rcpt_net_sales | number : "1.2-2" }}
-                  </td>
-                  <td></td>
-                </tr>
-              </ng-container>
             </ng-container>
           </tbody>
           <tbody *ngIf="errorMessage && !loadingSpinner">

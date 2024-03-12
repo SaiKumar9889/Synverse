@@ -84,8 +84,8 @@
               multiple
             >
               <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
-              <mat-option *ngFor="let store of stores" [value]="store.value">
-                {{ store.viewValue }}
+              <mat-option *ngFor="let store of stores" [value]="store.M_CODE">
+                {{ store.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -112,9 +112,9 @@
               >
               <mat-option
                 *ngFor="let payment of paymentId"
-                [value]="payment.value"
+                [value]="payment.M_CODE"
               >
-                {{ payment.viewValue }}
+                {{ payment.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -165,8 +165,8 @@
               <mat-option (click)="selectShiftAll()" [value]="'all'"
                 >All</mat-option
               >
-              <mat-option *ngFor="let shift of shiftId" [value]="shift.value">
-                {{ shift.viewValue }}
+              <mat-option *ngFor="let shift of shiftId" [value]="shift.M_CODE">
+                {{ shift.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -230,8 +230,8 @@
               multiple
             >
               <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
-              <mat-option *ngFor="let store of stores" [value]="store.value">
-                {{ store.viewValue }}
+              <mat-option *ngFor="let store of stores" [value]="store.M_CODE">
+                {{ store.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -249,9 +249,9 @@
               >
               <mat-option
                 *ngFor="let payment of paymentId"
-                [value]="payment.value"
+                [value]="payment.M_CODE"
               >
-                {{ payment.viewValue }}
+                {{ payment.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -284,8 +284,8 @@
               <mat-option (click)="selectShiftAll()" [value]="'all'"
                 >All</mat-option
               >
-              <mat-option *ngFor="let shift of shiftId" [value]="shift.value">
-                {{ shift.viewValue }}
+              <mat-option *ngFor="let shift of shiftId" [value]="shift.M_CODE">
+                {{ shift.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>

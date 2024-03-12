@@ -130,8 +130,24 @@ export class AppService {
     const url = `${this.apiUrl}/bereport/getstore`;
     return this.http.get<any>(url);
   }
-  getTerminal() {
-    const url = `${this.apiUrl}/bereport/getterminal?store_id=SC01,SC02`;
+  getTerminal(storeId: any) {
+    const url = `${this.apiUrl}/bereport/getterminal?store_id=${storeId}`;
+    return this.http.get<any>(url);
+  }
+  getPayment() {
+    const url = `${this.apiUrl}/bereport/getpaymenttype`;
+    return this.http.get<any>(url);
+  }
+  getPriceShift() {
+    const url = `${this.apiUrl}/bereport/getpriceshift`;
+    return this.http.get<any>(url);
+  }
+  getPriceLevel() {
+    const url = `${this.apiUrl}/bereport/getpricelevel`;
+    return this.http.get<any>(url);
+  }
+  getShift() {
+    const url = `${this.apiUrl}/bereport/getshift`;
     return this.http.get<any>(url);
   }
   vendorVoucher(

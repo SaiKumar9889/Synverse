@@ -82,8 +82,8 @@
               multiple
             >
               <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
-              <mat-option *ngFor="let store of stores" [value]="store.value">
-                {{ store.viewValue }}
+              <mat-option *ngFor="let store of stores" [value]="store.M_CODE">
+                {{ store.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -176,8 +176,8 @@
               multiple
             >
               <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
-              <mat-option *ngFor="let store of stores" [value]="store.value">
-                {{ store.viewValue }}
+              <mat-option *ngFor="let store of stores" [value]="store.M_CODE">
+                {{ store.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>

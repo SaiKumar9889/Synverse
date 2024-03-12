@@ -96,6 +96,9 @@ export class PriceLevelShiftComponent {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
         this.itemreportbypricelevelshift(this.fromDate, this.toDate);
+        this.getStore();
+        this.getPriceLevel();
+        this.getPriceShift();
       }
     });
     this.selectedFormDate();
@@ -143,15 +146,21 @@ export class PriceLevelShiftComponent {
 
   storeIdValue: string[] = [];
   selectedStoreId: any;
-  stores: any[] = [
-    { value: "01", viewValue: "DODO KOREA" },
-    { value: "SC01", viewValue: "Project Store" },
-    { value: "SC02", viewValue: "Project Store 2" },
+  stores: any = [
+    // { value: "01", viewValue: "DODO KOREA" },
+    // { value: "SC01", viewValue: "Project Store" },
+    // { value: "SC02", viewValue: "Project Store 2" },
   ];
+  getStore() {
+    this.appService.getStores().subscribe((result) => {
+      this.stores = result;
+      console.log(this.stores);
+    });
+  }
   onSelectionChange(event: any): void {
     setTimeout(() => {
       if (this.selectedItems.includes("all")) {
-        this.storeIdValue = this.stores.map((item) => item.value);
+        this.storeIdValue = this.stores.map((item: any) => item.M_CODE);
       } else {
         this.storeIdValue = event.value;
       }
@@ -161,7 +170,7 @@ export class PriceLevelShiftComponent {
 
   selectAll() {
     if (this.selectedItems.includes("all")) {
-      this.selectedItems = this.stores.map((item) => item.value);
+      this.selectedItems = this.stores.map((item: any) => item.M_CODE);
       this.selectedItems.push("all");
     } else {
       this.selectedItems.length = 0;
@@ -172,20 +181,26 @@ export class PriceLevelShiftComponent {
   selectedPaymentId: any;
   paymentIdValue: string[] = [];
   paymentId: any[] = [
-    { value: "P1", viewValue: "WEST MSIA" },
-    { value: "P2", viewValue: "EAST MSIA" },
-    { value: "P3", viewValue: "Price Lvl 3" },
-    { value: "P4", viewValue: "Price Lvl 4" },
-    { value: "P5", viewValue: "Price Lvl 5" },
-    { value: "P6", viewValue: "Price Lvl 6" },
-    { value: "P7", viewValue: "Price Lvl 7" },
-    { value: "P8", viewValue: "Price Lvl 8" },
-    { value: "P9", viewValue: "Price Lvl 9" },
+    // { value: "P1", viewValue: "WEST MSIA" },
+    // { value: "P2", viewValue: "EAST MSIA" },
+    // { value: "P3", viewValue: "Price Lvl 3" },
+    // { value: "P4", viewValue: "Price Lvl 4" },
+    // { value: "P5", viewValue: "Price Lvl 5" },
+    // { value: "P6", viewValue: "Price Lvl 6" },
+    // { value: "P7", viewValue: "Price Lvl 7" },
+    // { value: "P8", viewValue: "Price Lvl 8" },
+    // { value: "P9", viewValue: "Price Lvl 9" },
   ];
+  getPriceLevel() {
+    this.appService.getPriceLevel().subscribe((result) => {
+      this.paymentId = result;
+      console.log(this.stores);
+    });
+  }
   onPaymentChange(event: any): void {
     setTimeout(() => {
       if (this.selectedPaymentItems.includes("all")) {
-        this.paymentIdValue = this.paymentId.map((item) => item.value);
+        this.paymentIdValue = this.paymentId.map((item) => item.M_CODE);
         // this.paymentIdValue =
         //   "P1%22,%22P2%22,%22P3%22,%22P4%22,%22P5%22,%22P6%22,%22P7%22,%22P8%22,%22P9";
       } else {
@@ -197,7 +212,7 @@ export class PriceLevelShiftComponent {
 
   selectPaymentAll() {
     if (this.selectedPaymentItems.includes("all")) {
-      this.selectedPaymentItems = this.paymentId.map((item) => item.value);
+      this.selectedPaymentItems = this.paymentId.map((item) => item.M_CODE);
       this.selectedPaymentItems.push("all");
     } else {
       this.selectedPaymentItems.length = 0;
@@ -242,21 +257,28 @@ export class PriceLevelShiftComponent {
   selectedShiftId: any;
   shiftIdValue: string[] = [];
   shiftId: any[] = [
-    { value: "S1", viewValue: "NORMAL" },
-    { value: "S2", viewValue: "MEMBER" },
-    { value: "S3", viewValue: "DEALER" },
-    { value: "S4", viewValue: "Price shift 4" },
-    { value: "S5", viewValue: "Price shift 5" },
-    { value: "S6", viewValue: "Price shift 6" },
-    { value: "S7", viewValue: "Price shift 7" },
-    { value: "S8", viewValue: "Price shift 8" },
-    { value: "S9", viewValue: "Price shift 9" },
+    // { value: "S1", viewValue: "NORMAL" },
+    // { value: "S2", viewValue: "MEMBER" },
+    // { value: "S3", viewValue: "DEALER" },
+    // { value: "S4", viewValue: "Price shift 4" },
+    // { value: "S5", viewValue: "Price shift 5" },
+    // { value: "S6", viewValue: "Price shift 6" },
+    // { value: "S7", viewValue: "Price shift 7" },
+    // { value: "S8", viewValue: "Price shift 8" },
+    // { value: "S9", viewValue: "Price shift 9" },
   ];
+
+  getPriceShift() {
+    this.appService.getPriceShift().subscribe((result) => {
+      this.shiftId = result;
+      console.log(this.stores);
+    });
+  }
 
   onShiftChange(event: any): void {
     setTimeout(() => {
       if (this.selectedShiftItems.includes("all")) {
-        this.shiftIdValue = this.shiftId.map((item) => item.value);
+        this.shiftIdValue = this.shiftId.map((item) => item.M_CODE);
       } else {
         this.shiftIdValue = event.value;
       }
@@ -266,7 +288,7 @@ export class PriceLevelShiftComponent {
 
   selectShiftAll() {
     if (this.selectedShiftItems.includes("all")) {
-      this.selectedShiftItems = this.shiftId.map((item) => item.value);
+      this.selectedShiftItems = this.shiftId.map((item) => item.M_CODE);
       this.selectedShiftItems.push("all");
     } else {
       this.selectedShiftItems.length = 0;
