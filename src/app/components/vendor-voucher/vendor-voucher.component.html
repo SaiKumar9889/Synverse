@@ -606,6 +606,29 @@
     </div>
   </div>
 </div>
+<div
+  fxLayout="row wrap"
+  fxLayoutAlign="center center"
+  fxHide.sm
+  fxHide.lg
+  fxHide.md
+  fxHide.x
+>
+  <div *ngIf="errorMessage && !loadingSpinner">
+    <div
+      style="
+        position: static;
+        color: red;
+        width: 100%;
+
+        text-align: center;
+        margin-top: 20px;
+      "
+    >
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>
 <div *ngIf="loadingSpinner">
   <app-loader></app-loader>
 </div>

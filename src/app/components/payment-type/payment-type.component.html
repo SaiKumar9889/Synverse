@@ -320,7 +320,7 @@
           *ngIf="filteredData && !loadingSpinner"
           class="backgroundWhitePage"
         >
-          <div fxFlex="15">
+          <div fxFlex="12">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -579,7 +579,7 @@
           *ngIf="filteredData && !loadingSpinner"
           class="backgroundWhitePage"
         >
-          <div fxFlex="15">
+          <div fxFlex="12">
             <mat-form-field appearance="outline">
               <mat-label>Items per page:</mat-label>
               <mat-select
@@ -624,11 +624,15 @@
         </div>
       </div>
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm *ngIf="rows">
-        <div class="addedScroll" *ngIf="filteredData && !loadingSpinner">
+        <div
+          class="addedScroll"
+          *ngIf="filteredData && !loadingSpinner && visaDataSubtotal"
+        >
           <div
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
             class="addedBorder"
+            *ngIf="store_name"
           >
             <div fxFlex="40">
               <h4>Store</h4>
@@ -848,7 +852,7 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="filteredData && !loadingSpinner && visaDataSubtotal"
           class="backgroundWhitePage"
         >
           <div fxFlex="15">
@@ -896,7 +900,7 @@
         </div>
         <div
           class="addedBorder subTotalBorder"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="filteredData && !loadingSpinner && visaDataSubtotal"
         >
           <h4 class="blueText">Sub Total</h4>
           <hr />
@@ -924,7 +928,7 @@
         </div>
         <div
           class="addedBorder marginBottomAdded"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="filteredData && !loadingSpinner && visaDataSubtotal"
         >
           <h4 class="greenText">Grand Total</h4>
           <hr />
@@ -951,6 +955,28 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div
+  fxLayout="row wrap"
+  fxLayoutAlign="center center"
+  fxHide.sm
+  fxHide.lg
+  fxHide.md
+  fxHide.xl
+>
+  <div *ngIf="errorMessage && !loadingSpinner">
+    <div
+      style="
+        position: static;
+        color: red;
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+      "
+    >
+      {{ errorMessage }}
     </div>
   </div>
 </div>

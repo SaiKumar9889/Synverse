@@ -564,17 +564,26 @@ export class SoldItemAnlysisComponent {
         } else {
           this.errorMessage = null;
         }
-        if (result) {
-        }
+        // if (result.data[0].sold_item == "") {
+        //   this.errorMessage = "No Data Found";
+        // } else {
+        //   this.errorMessage = null;
+        // }
         setTimeout(() => {
           if (result) {
             this.store_code = result?.data[0]?.store_code;
             this.store_name = result?.data[0]?.store_desc;
-            this.terminal_code = result?.data[1]?.sold_item[0];
-            this.filteredData = Object.values(
-              result?.data[1]?.sold_item[0]?.data || {}
-            );
-            console.log(this.terminal_code);
+            if (result?.data[0]?.store_code === "SC01") {
+              this.terminal_code = result?.data[0]?.sold_item;
+              this.filteredData = Object.values(
+                result?.data[0]?.sold_item[0]?.data || {}
+              );
+            } else {
+              this.terminal_code = result?.data[1]?.sold_item;
+              this.filteredData = Object.values(
+                result?.data[1]?.sold_item[0]?.data || {}
+              );
+            }
             this.storesFilterData = Object.values(result?.data || {});
             this.subTotalTerminal = result?.data[1]?.sold_item[0];
             this.subTotalData = result?.data[1];

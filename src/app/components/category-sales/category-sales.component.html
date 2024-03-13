@@ -174,35 +174,99 @@
       </div>
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="start center">
-      <div fxFlex="100">
+      <div fxFlex="100" fxHide.xs>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData && !loadingSpinner"
+          class="backgroundWhitePage"
+        >
+          <div fxFlex="12">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
         <table>
           <thead>
             <tr>
-              <th (click)="sortTable('Store')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('Store')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Category</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('Store')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('Store')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>MCode</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('Store')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('Store')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Quantity</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('Store')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('Store')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Net Price</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('Store')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('Store')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Disc by mny</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
@@ -210,6 +274,23 @@
               </th>
             </tr>
           </thead>
+          <tbody *ngIf="filteredData && !loadingSpinner">
+            <tr *ngFor="let data of getCurrentPageItems()">
+              <td>
+                {{ data.category }}
+              </td>
+              <td>{{ data.mcode }}</td>
+              <td>
+                {{ data.qty }}
+              </td>
+              <td class="alignRight">
+                RM {{ data.netprice | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">
+                RM {{ data.discbymny | number : "1.2-2" }}
+              </td>
+            </tr>
+          </tbody>
           <tbody *ngIf="!loadingSpinner">
             <tr>
               <td
@@ -226,8 +307,233 @@
               </td>
             </tr>
           </tbody>
+          <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
+            <tr class="emptyRow">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+
+              <td class="boldText greenText">Total</td>
+              <td class="boldText greenText">
+                {{ grandTotalData?.qty_total }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.netprice_total | number : "1.2-2" }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM {{ grandTotalData?.discbymny_total | number : "1.2-2" }}
+              </td>
+            </tr>
+          </tfoot>
         </table>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData && !loadingSpinner"
+        >
+          <div fxFlex="12">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
       </div>
+      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
+        <div class="addedScroll" *ngIf="filteredData && !loadingSpinner">
+          <div
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between start"
+            *ngFor="let data of getCurrentPageItems()"
+            class="addedBorder addColor"
+          >
+            <div fxFlex="40">
+              <h4>Category</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.category }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+
+            <div fxFlex="40">
+              <h4>Mcode</h4>
+            </div>
+            <div fxFlex="60">
+              <p>{{ data.mcode }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Qty</h4>
+            </div>
+            <div>
+              <p>{{ data.qty }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Net Sales</h4>
+            </div>
+            <div>
+              <p>RM {{ data.netprice | number : "1.2-2" }}</p>
+            </div>
+            <div fxFlex="100"><hr /></div>
+            <div>
+              <h4>Disc by mny</h4>
+            </div>
+            <div>
+              <p>RM {{ data.discbymny | number : "1.2-2" }}</p>
+            </div>
+          </div>
+        </div>
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngIf="filteredData && !loadingSpinner"
+          class="marginBottomAdd"
+        >
+          <div fxFlex="15">
+            <mat-form-field appearance="outline">
+              <mat-label>Items per page:</mat-label>
+              <mat-select
+                id="itemsPerPage"
+                [(ngModel)]="itemsPerPage"
+                (selectionChange)="onItemsPerPageChange()"
+              >
+                <mat-option
+                  *ngFor="let option of itemsPerPageOptions"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <ng-container *ngFor="let page of getPageRange()">
+              <button
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <span *ngIf="shouldDisplayEllipsis()">...</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+          <div style="margin-top: 5px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
+          </div>
+        </div>
+        <div
+          class="addedBorder marginBottomAdded"
+          *ngIf="filteredData && !loadingSpinner"
+        >
+          <h4 class="greenText">Total</h4>
+          <hr />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Qty :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                {{ grandTotalData?.qty_total }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Net Price :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.netprice_total | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div>
+              <h4 class="greenText">Disc by mny :</h4>
+            </div>
+            <div>
+              <h4 class="greenText">
+                RM {{ grandTotalData?.discbymny_total | number : "1.2-2" }}
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  fxLayout="row wrap"
+  fxLayoutAlign="center center"
+  fxHide.sm
+  fxHide.lg
+  fxHide.md
+  fxHide.xl
+>
+  <div *ngIf="errorMessage && !loadingSpinner">
+    <div
+      style="
+        position: static;
+        color: red;
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+      "
+    >
+      {{ errorMessage }}
     </div>
   </div>
 </div>

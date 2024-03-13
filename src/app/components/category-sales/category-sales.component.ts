@@ -68,6 +68,13 @@ export class CategorySalesComponent {
   secondDate = new Date();
   fromDate: any;
   toDate: any;
+  itemsPerPage = 5;
+  currentPage = 1;
+  totalPages: number;
+  pagesToShow = 5;
+  Math: any;
+  itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
+  filteredData: any;
 
   constructor(
     private authService: AuthService,
@@ -118,7 +125,7 @@ export class CategorySalesComponent {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
 
-  storeIdValue: string[] = ["SC01"];
+  storeIdValue: string[] = ["01"];
   selectedStoreId: any;
   stores: any = [
     // { value: "01", viewValue: "DODO KOREA" },
@@ -165,16 +172,89 @@ export class CategorySalesComponent {
       .subscribe((result) => {
         console.log(result);
 
+        if (result && result.status == "failed") {
+          this.errorMessage = result.message;
+        }
+
         setTimeout(() => {
-          if (result && result.status == "failed") {
-            console.log(result.message);
-            this.errorMessage = result.message;
-            console.log(this.errorMessage);
+          if (result) {
+            this.filteredData = result.data;
+            this.storesFilterData = result.data;
+            this.grandTotalData = result;
+            this.filteredData = this.storesFilterData;
+            this.calculateTotalPages();
           }
           this.loadingSpinner = false;
         }, 1000);
       });
   }
+
+  calculateTotalPages() {
+    setTimeout(() => {
+      console.log(this.filteredData);
+      if (this.filteredData && this.itemsPerPage) {
+        this.totalPages = Math.ceil(
+          this.filteredData.length / this.itemsPerPage
+        );
+      }
+      console.log(this.totalPages);
+    }, 1000);
+  }
+
+  getCurrentPageItems(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredData.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  getPageRange(): number[] {
+    const startPage = Math.max(
+      1,
+      this.currentPage - Math.floor(this.pagesToShow / 2)
+    );
+    const endPage = Math.min(this.totalPages, startPage + this.pagesToShow - 1);
+
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, index) => startPage + index
+    );
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  onItemsPerPageChange() {
+    this.calculateTotalPages();
+    this.currentPage = 1;
+  }
+
+  getDisplayRange(): string {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const endIndex = Math.min(
+      this.currentPage * this.itemsPerPage,
+      this.filteredData.length
+    );
+    return `${startIndex} to ${endIndex}`;
+  }
+  shouldDisplayEllipsis(): boolean {
+    return (
+      this.totalPages > this.pagesToShow &&
+      this.currentPage + Math.floor(this.pagesToShow / 2) < this.totalPages
+    );
+  }
+
   columnToSort = "";
   sortDirection = "asc";
 

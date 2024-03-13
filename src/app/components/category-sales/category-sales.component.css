@@ -1,5 +1,5 @@
 thead th {
-  top: 0px !important;
+  top: 160px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background-color: #be2026;
@@ -12,25 +12,32 @@ tfoot tr {
   background: #fff;
   border: 1px solid #6d6a6ab3;
 }
+.headingTop {
+  top: 0px !important;
+}
 tfoot .emptyRow {
-  bottom: 56px !important;
+  bottom: 30px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
   border: 1px solid #6d6a6ab3;
   height: 28px;
 }
-tfoot .subTotalPL {
-  bottom: 28px !important;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-  z-index: 9;
+.backgroundWhite {
+  height: 100px;
+}
+.backgroundWhitePage {
   background: #fff;
+  position: sticky !important;
+  top: 100px !important;
+  width: 100% !important;
+  height: 60px;
 }
 @media screen and (max-width: 599px) {
   .addedScroll {
     padding: 5px 10px;
     overflow: scroll !important;
-    height: 420px !important;
+    height: 310px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   }
 }
