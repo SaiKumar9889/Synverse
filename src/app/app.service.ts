@@ -22,8 +22,15 @@ export class AppService {
     const url = `${this.apiUrl}/bereport/itemreportbypricelevelshift?start_date=${start}&end_date=${end}&sort_key=SDTL_STORE&store_id=${storeId}&datetype=lyear&file_type=${fileType}&price_shift=${shiftId}&price_level=${priceId}&stock_code=${stockId}`;
     return this.http.get<any>(url);
   }
-  terminalCollection(fileType: string, start: string, end: string) {
-    const url = `${this.apiUrl}/bereport/terminalcollectionreport?start_date=${start}&end_date=${end}&sort_key=PYMT_CLOSEDATE&datetype=lyear&file_type=${fileType}`;
+  terminalCollection(
+    fileType: string,
+    start: string,
+    end: string,
+    storeId: string,
+    terminalId: string,
+    paymentId: string
+  ) {
+    const url = `${this.apiUrl}/bereport/terminalcollectionreport?start_date=${start}&end_date=${end}&terminal_id=${terminalId}&store_id=${storeId}&payment_type=${paymentId}&sort_key=PYMT_CLOSEDATE&datetype=lyear&file_type=${fileType}`;
     return this.http.get<any>(url);
   }
   salesRemark(
@@ -37,8 +44,15 @@ export class AppService {
     const url = `${this.apiUrl}/bereport/salesremark?start_date=${start}&end_date=${end}&sort_key=SALES_REMARK1&store_id=${storeId}&datetype=lyear&file_type=${fileType}&terminal_id=${terminalId}&void=${checkbox}`;
     return this.http.get<any>(url);
   }
-  hourlySales(fileType: string, start: string, end: string, groupId: string) {
-    const url = `${this.apiUrl}/bereport/hourlysalesreportjson?start_date=${start}&end_date=${end}&group_key=${groupId}&datetype=lyear&file_type=${fileType}`;
+  hourlySales(
+    fileType: string,
+    start: string,
+    end: string,
+    groupId: string,
+    storeId: string,
+    terminalId: string
+  ) {
+    const url = `${this.apiUrl}/bereport/hourlysalesreportjson?start_date=${start}&end_date=${end}&terminal_id=${terminalId}&store_id=${storeId}&group_key=${groupId}&datetype=lyear&file_type=${fileType}`;
     return this.http.get<any>(url);
   }
   soldItemAnalysis(
@@ -146,8 +160,28 @@ export class AppService {
     const url = `${this.apiUrl}/bereport/getpricelevel`;
     return this.http.get<any>(url);
   }
+  getStock() {
+    const url = `${this.apiUrl}/bereport/getstock`;
+    return this.http.get<any>(url);
+  }
   getShift() {
     const url = `${this.apiUrl}/bereport/getshift`;
+    return this.http.get<any>(url);
+  }
+  getGroup() {
+    const url = `${this.apiUrl}/bereport/getgroup`;
+    return this.http.get<any>(url);
+  }
+  getDepartment(groupId: any) {
+    const url = `${this.apiUrl}/bereport/getdepartment?group_id=${groupId}`;
+    return this.http.get<any>(url);
+  }
+  getCategory() {
+    const url = `${this.apiUrl}/bereport/getcategory`;
+    return this.http.get<any>(url);
+  }
+  getUser() {
+    const url = `${this.apiUrl}/bereport/getuser`;
     return this.http.get<any>(url);
   }
   vendorVoucher(

@@ -69,6 +69,7 @@ export class VendorVoucherComponent {
   toDate: any;
   loadingSpinner: boolean;
   terminalDisabled: boolean = true;
+  departmentDisabled: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -94,6 +95,10 @@ export class VendorVoucherComponent {
         this.vendorVoucher(this.fromDate, this.toDate);
         this.getStore();
         this.getShift();
+        this.getUser();
+        this.getGroup();
+        this.getCategory();
+        this.getStock();
       }
     });
     this.selectedFormDate();
@@ -215,19 +220,30 @@ export class VendorVoucherComponent {
   selectedGroupId: any;
   groupIdValue: string[] = [];
   groupId: any[] = [
-    { value: "GC01", viewValue: "MAIN FOOD" },
-    { value: "GC02", viewValue: "FRIED FOOD" },
-    { value: "GC03", viewValue: "NOODLES" },
-    { value: "GC04", viewValue: "WESTERN" },
-    { value: "GC05", viewValue: "DESSERT" },
-    { value: "GC06", viewValue: "DRINK" },
+    // { value: "GC01", viewValue: "MAIN FOOD" },
+    // { value: "GC02", viewValue: "FRIED FOOD" },
+    // { value: "GC03", viewValue: "NOODLES" },
+    // { value: "GC04", viewValue: "WESTERN" },
+    // { value: "GC05", viewValue: "DESSERT" },
+    // { value: "GC06", viewValue: "DRINK" },
   ];
+
+  getGroup() {
+    this.appService.getGroup().subscribe((result) => {
+      this.groupId = result;
+      console.log(this.terminalId);
+    });
+  }
+
   onGroupChange(event: any): void {
+    this.departmentDisabled = false;
     setTimeout(() => {
       if (this.selectedGroupItems.includes("all")) {
-        this.groupIdValue = this.groupId.map((item) => item.value);
+        this.groupIdValue = this.groupId.map((item) => item.M_CODE);
+        this.getDepartment();
       } else {
         this.groupIdValue = event.value;
+        this.getDepartment();
       }
     }, 500);
   }
@@ -235,7 +251,7 @@ export class VendorVoucherComponent {
 
   selectGroupAll() {
     if (this.selectedGroupItems.includes("all")) {
-      this.selectedGroupItems = this.groupId.map((item) => item.value);
+      this.selectedGroupItems = this.groupId.map((item) => item.M_CODE);
       this.selectedGroupItems.push("all");
     } else {
       this.selectedGroupItems.length = 0;
@@ -246,17 +262,25 @@ export class VendorVoucherComponent {
   selectedDepartmentId: any;
   departmentIdValue: string[] = [];
   departmentId: any[] = [
-    { value: "DC01", viewValue: "MAIN FOOD" },
-    { value: "DC02", viewValue: "FRIED FOOD" },
-    { value: "DC03", viewValue: "NOODLES" },
-    { value: "DC04", viewValue: "WESTERN" },
-    { value: "DC05", viewValue: "DESSERT" },
-    { value: "DC06", viewValue: "DRINK" },
+    // { value: "DC01", viewValue: "MAIN FOOD" },
+    // { value: "DC02", viewValue: "FRIED FOOD" },
+    // { value: "DC03", viewValue: "NOODLES" },
+    // { value: "DC04", viewValue: "WESTERN" },
+    // { value: "DC05", viewValue: "DESSERT" },
+    // { value: "DC06", viewValue: "DRINK" },
   ];
+
+  getDepartment() {
+    this.appService.getDepartment(this.groupIdValue).subscribe((result) => {
+      this.departmentId = result;
+      console.log(this.terminalId);
+    });
+  }
+
   onDepartmentChange(event: any): void {
     setTimeout(() => {
       if (this.selectedDepartmentItems.includes("all")) {
-        this.departmentIdValue = this.departmentId.map((item) => item.value);
+        this.departmentIdValue = this.departmentId.map((item) => item.M_CODE);
       } else {
         this.departmentIdValue = event.value;
       }
@@ -267,7 +291,7 @@ export class VendorVoucherComponent {
   selectDepartmentAll() {
     if (this.selectedDepartmentItems.includes("all")) {
       this.selectedDepartmentItems = this.departmentId.map(
-        (item) => item.value
+        (item) => item.M_CODE
       );
       this.selectedDepartmentItems.push("all");
     } else {
@@ -279,13 +303,21 @@ export class VendorVoucherComponent {
   selectedCategoryId: any;
   categoryIdValue: string[] = [];
   categoryId: any[] = [
-    { value: "CC01", viewValue: "FOOD" },
-    { value: "CC02", viewValue: "DRINK" },
+    // { value: "CC01", viewValue: "FOOD" },
+    // { value: "CC02", viewValue: "DRINK" },
   ];
+
+  getCategory() {
+    this.appService.getCategory().subscribe((result) => {
+      this.categoryId = result;
+      console.log(this.terminalId);
+    });
+  }
+
   onCategoryChange(event: any): void {
     setTimeout(() => {
       if (this.selectedCategoryItems.includes("all")) {
-        this.categoryIdValue = this.categoryId.map((item) => item.value);
+        this.categoryIdValue = this.categoryId.map((item) => item.M_CODE);
       } else {
         this.categoryIdValue = event.value;
       }
@@ -295,7 +327,7 @@ export class VendorVoucherComponent {
 
   selectCategoryAll() {
     if (this.selectedCategoryItems.includes("all")) {
-      this.selectedCategoryItems = this.categoryId.map((item) => item.value);
+      this.selectedCategoryItems = this.categoryId.map((item) => item.M_CODE);
       this.selectedCategoryItems.push("all");
     } else {
       this.selectedCategoryItems.length = 0;
@@ -306,20 +338,26 @@ export class VendorVoucherComponent {
   selectedStockId: any;
   stockIdValue: string[] = [];
   stockId: any[] = [
-    { value: "SC01", viewValue: "NASI AYAM" },
-    { value: "SC02", viewValue: "NASI GORENG AYAM" },
-    { value: "SC03", viewValue: "MEE CURRY" },
-    { value: "SC04", viewValue: "CHICKEN CHOP" },
-    { value: "SC05", viewValue: "ICE CREAM SCOOP" },
-    { value: "SC07", viewValue: "CHOCOLATE AIS" },
-    { value: "SC10", viewValue: "Single Set Menu" },
-    { value: "SC11", viewValue: "Enter Set Menu" },
-    { value: "SC12", viewValue: "All Set Menu" },
+    // { value: "SC01", viewValue: "NASI AYAM" },
+    // { value: "SC02", viewValue: "NASI GORENG AYAM" },
+    // { value: "SC03", viewValue: "MEE CURRY" },
+    // { value: "SC04", viewValue: "CHICKEN CHOP" },
+    // { value: "SC05", viewValue: "ICE CREAM SCOOP" },
+    // { value: "SC07", viewValue: "CHOCOLATE AIS" },
+    // { value: "SC10", viewValue: "Single Set Menu" },
+    // { value: "SC11", viewValue: "Enter Set Menu" },
+    // { value: "SC12", viewValue: "All Set Menu" },
   ];
+  getStock() {
+    this.appService.getStock().subscribe((result) => {
+      this.stockId = result;
+      console.log(this.stores);
+    });
+  }
   onStockChange(event: any): void {
     setTimeout(() => {
       if (this.selectedStockItems.includes("all")) {
-        this.stockIdValue = this.stockId.map((item) => item.value);
+        this.stockIdValue = this.stockId.map((item) => item.M_STOCK_CODE);
       } else {
         this.stockIdValue = event.value;
       }
@@ -329,7 +367,7 @@ export class VendorVoucherComponent {
 
   selectStockAll() {
     if (this.selectedStockItems.includes("all")) {
-      this.selectedStockItems = this.stockId.map((item) => item.value);
+      this.selectedStockItems = this.stockId.map((item) => item.M_STOCK_CODE);
       this.selectedStockItems.push("all");
     } else {
       this.selectedStockItems.length = 0;
@@ -374,11 +412,19 @@ export class VendorVoucherComponent {
 
   operatorValue: string[] = [];
   selectedOperator: any;
-  operators: any[] = [{ value: "SYNV", viewValue: "SYNV" }];
+  operators: any[] = [
+    // { value: "SYNV", viewValue: "SYNV" }
+  ];
+  getUser() {
+    this.appService.getUser().subscribe((result) => {
+      this.operators = result;
+      console.log(this.stores);
+    });
+  }
   onOperatorChange(event: any): void {
     setTimeout(() => {
       if (this.selectedOperatorItems.includes("all")) {
-        this.operatorValue = this.operators.map((item) => item.value);
+        this.operatorValue = this.operators.map((item) => item.M_CODE);
       } else {
         this.operatorValue = event.value;
       }
@@ -388,7 +434,7 @@ export class VendorVoucherComponent {
 
   selectOperatorAll() {
     if (this.selectedOperatorItems.includes("all")) {
-      this.selectedOperatorItems = this.operators.map((item) => item.value);
+      this.selectedOperatorItems = this.operators.map((item) => item.M_CODE);
       this.selectedOperatorItems.push("all");
     } else {
       this.selectedOperatorItems.length = 0;
@@ -435,6 +481,9 @@ export class VendorVoucherComponent {
           if (result && result.data == "") {
             console.log(result.message);
             this.errorMessage = "Data not found";
+            console.log(this.errorMessage);
+          } else if (result && result.message == "Validation Error.") {
+            this.errorMessage = "stock_id does not exist.";
             console.log(this.errorMessage);
           } else {
             this.errorMessage = null;

@@ -28,6 +28,9 @@ thead th {
   z-index: 9;
   background-color: #be2026;
 }
+.headingTop {
+  top: 0px !important;
+}
 @media screen and (max-width: 599px) {
   .addedScroll {
     padding: 5px 10px;

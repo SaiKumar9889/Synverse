@@ -97,6 +97,7 @@ export class OperatorCollectionComponent {
         authService.setRefreshToken(result.refresh_token);
         this.operatorCollection(this.fromDate, this.toDate);
         this.getStore();
+        this.getUser();
       }
     });
     this.selectedFormDate();
@@ -180,11 +181,19 @@ export class OperatorCollectionComponent {
 
   operatorValue: string[] = [];
   selectedOperator: any;
-  operators: any[] = [{ value: "SYNV", viewValue: "SYNV" }];
+  operators: any[] = [
+    // { value: "SYNV", viewValue: "SYNV" }
+  ];
+  getUser() {
+    this.appService.getUser().subscribe((result) => {
+      this.operators = result;
+      console.log(this.stores);
+    });
+  }
   onOperatorChange(event: any): void {
     setTimeout(() => {
       if (this.selectedOperatorItems.includes("all")) {
-        this.operatorValue = this.operators.map((item) => item.value);
+        this.operatorValue = this.operators.map((item) => item.M_CODE);
       } else {
         this.operatorValue = event.value;
       }
@@ -194,7 +203,7 @@ export class OperatorCollectionComponent {
 
   selectOperatorAll() {
     if (this.selectedOperatorItems.includes("all")) {
-      this.selectedOperatorItems = this.operators.map((item) => item.value);
+      this.selectedOperatorItems = this.operators.map((item) => item.M_CODE);
       this.selectedOperatorItems.push("all");
     } else {
       this.selectedOperatorItems.length = 0;

@@ -99,6 +99,7 @@ export class PriceLevelShiftComponent {
         this.getStore();
         this.getPriceLevel();
         this.getPriceShift();
+        this.getStock();
       }
     });
     this.selectedFormDate();
@@ -223,20 +224,26 @@ export class PriceLevelShiftComponent {
   selectedStockId: any;
   stockIdValue: string[] = [];
   stockId: any[] = [
-    { value: "SC01", viewValue: "NASI AYAM" },
-    { value: "SC02", viewValue: "NASI GORENG AYAM" },
-    { value: "SC03", viewValue: "MEE CURRY" },
-    { value: "SC04", viewValue: "CHICKEN CHOP" },
-    { value: "SC05", viewValue: "ICE CREAM SCOOP" },
-    { value: "SC07", viewValue: "CHOCOLATE AIS" },
-    { value: "SC10", viewValue: "Single Set Menu" },
-    { value: "SC11", viewValue: "Enter Set Menu" },
-    { value: "SC12", viewValue: "All Set Menu" },
+    // { value: "SC01", viewValue: "NASI AYAM" },
+    // { value: "SC02", viewValue: "NASI GORENG AYAM" },
+    // { value: "SC03", viewValue: "MEE CURRY" },
+    // { value: "SC04", viewValue: "CHICKEN CHOP" },
+    // { value: "SC05", viewValue: "ICE CREAM SCOOP" },
+    // { value: "SC07", viewValue: "CHOCOLATE AIS" },
+    // { value: "SC10", viewValue: "Single Set Menu" },
+    // { value: "SC11", viewValue: "Enter Set Menu" },
+    // { value: "SC12", viewValue: "All Set Menu" },
   ];
+  getStock() {
+    this.appService.getStock().subscribe((result) => {
+      this.stockId = result;
+      console.log(this.stores);
+    });
+  }
   onStockChange(event: any): void {
     setTimeout(() => {
       if (this.selectedStockItems.includes("all")) {
-        this.stockIdValue = this.stockId.map((item) => item.value);
+        this.stockIdValue = this.stockId.map((item) => item.M_STOCK_CODE);
       } else {
         this.stockIdValue = event.value;
       }
@@ -246,7 +253,7 @@ export class PriceLevelShiftComponent {
 
   selectStockAll() {
     if (this.selectedStockItems.includes("all")) {
-      this.selectedStockItems = this.stockId.map((item) => item.value);
+      this.selectedStockItems = this.stockId.map((item) => item.M_STOCK_CODE);
       this.selectedStockItems.push("all");
     } else {
       this.selectedStockItems.length = 0;
@@ -321,9 +328,13 @@ export class PriceLevelShiftComponent {
           console.log(result.message);
           this.errorMessage = "No Data Found";
           console.log(this.errorMessage);
+        } else if (result && result.message == "Validation Error.") {
+          this.errorMessage = "stock_code does not exist.";
+          console.log(this.errorMessage);
         } else {
           this.errorMessage = null;
         }
+
         setTimeout(() => {
           if (result) {
             this.store_code = result?.data[0]?.store_code;

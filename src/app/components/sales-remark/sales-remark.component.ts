@@ -73,6 +73,7 @@ export class SalesRemarkComponent implements OnInit {
   fromDate: any;
   toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
+  terminalDisabled: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -97,6 +98,7 @@ export class SalesRemarkComponent implements OnInit {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
         this.salesRemark(this.fromDate, this.toDate);
+        this.getStore();
       }
     });
     this.selectedFormDate();
@@ -149,18 +151,26 @@ export class SalesRemarkComponent implements OnInit {
 
   storeIdValue: string[] = [];
   selectedStoreId: any;
-  stores: any[] = [
-    { value: "01", viewValue: "DODO KOREA" },
-    { value: "SC01", viewValue: "Project Store" },
-    { value: "SC02", viewValue: "Project Store 2" },
+  stores: any = [
+    // { value: "01", viewValue: "DODO KOREA" },
+    // { value: "SC01", viewValue: "Project Store" },
+    // { value: "SC02", viewValue: "Project Store 2" },
   ];
+  getStore() {
+    this.appService.getStores().subscribe((result) => {
+      this.stores = result;
+      console.log(this.stores);
+    });
+  }
   onSelectionChange(event: any): void {
     setTimeout(() => {
+      this.terminalDisabled = false;
       if (this.selectedItems.includes("all")) {
-        this.storeIdValue = this.stores.map((item) => item.value);
-        console.log(this.storeIdValue);
+        this.storeIdValue = this.stores.map((item: any) => item.M_CODE);
+        this.getTerminal();
       } else {
         this.storeIdValue = event.value;
+        this.getTerminal();
       }
     }, 500);
   }
@@ -168,22 +178,30 @@ export class SalesRemarkComponent implements OnInit {
 
   selectAll() {
     if (this.selectedItems.includes("all")) {
-      this.selectedItems = this.stores.map((item) => item.value);
+      this.selectedItems = this.stores.map((item: any) => item.M_CODE);
       this.selectedItems.push("all");
     } else {
       this.selectedItems.length = 0;
       this.selectedItems = [];
     }
   }
-
   terminalIdValue: string[] = [];
   selectedTerminalItems: string[] = [];
-  terminalId: any[] = [{ value: "T1", viewValue: "Terminal 1" }];
+  terminalId: any[] = [
+    // { value: "T1", viewValue: "Terminal 1" }
+  ];
+
+  getTerminal() {
+    this.appService.getTerminal(this.storeIdValue).subscribe((result) => {
+      this.terminalId = result;
+      console.log(this.terminalId);
+    });
+  }
 
   onTerminalChange(event: any): void {
     setTimeout(() => {
       if (this.selectedTerminalItems.includes("all")) {
-        this.terminalIdValue = this.terminalId.map((item) => item.value);
+        this.terminalIdValue = this.terminalId.map((item) => item.M_CODE);
       } else {
         this.terminalIdValue = event.value;
       }
@@ -192,7 +210,7 @@ export class SalesRemarkComponent implements OnInit {
 
   selectTerminalAll() {
     if (this.selectedTerminalItems.includes("all")) {
-      this.selectedTerminalItems = this.terminalId.map((item) => item.value);
+      this.selectedTerminalItems = this.terminalId.map((item) => item.M_CODE);
       this.selectedTerminalItems.push("all");
     } else {
       this.selectedTerminalItems.length = 0;

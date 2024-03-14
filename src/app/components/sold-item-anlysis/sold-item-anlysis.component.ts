@@ -77,6 +77,7 @@ export class SoldItemAnlysisComponent {
   toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
   terminalDisabled: boolean = true;
+  departmentDisabled: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -102,6 +103,9 @@ export class SoldItemAnlysisComponent {
         authService.setRefreshToken(result.refresh_token);
         this.salesRemark(this.fromDate, this.toDate);
         this.getStore();
+        this.getStock();
+        this.getGroup();
+        this.getCategory();
       }
     });
     this.selectedFormDate();
@@ -229,19 +233,30 @@ export class SoldItemAnlysisComponent {
   selectedGroupId: any;
   groupIdValue: string[] = [];
   groupId: any[] = [
-    { value: "GC01", viewValue: "MAIN FOOD" },
-    { value: "GC02", viewValue: "FRIED FOOD" },
-    { value: "GC03", viewValue: "NOODLES" },
-    { value: "GC04", viewValue: "WESTERN" },
-    { value: "GC05", viewValue: "DESSERT" },
-    { value: "GC06", viewValue: "DRINK" },
+    // { value: "GC01", viewValue: "MAIN FOOD" },
+    // { value: "GC02", viewValue: "FRIED FOOD" },
+    // { value: "GC03", viewValue: "NOODLES" },
+    // { value: "GC04", viewValue: "WESTERN" },
+    // { value: "GC05", viewValue: "DESSERT" },
+    // { value: "GC06", viewValue: "DRINK" },
   ];
+
+  getGroup() {
+    this.appService.getGroup().subscribe((result) => {
+      this.groupId = result;
+      console.log(this.terminalId);
+    });
+  }
+
   onGroupChange(event: any): void {
+    this.departmentDisabled = false;
     setTimeout(() => {
       if (this.selectedGroupItems.includes("all")) {
-        this.groupIdValue = this.groupId.map((item) => item.value);
+        this.groupIdValue = this.groupId.map((item) => item.M_CODE);
+        this.getDepartment();
       } else {
         this.groupIdValue = event.value;
+        this.getDepartment();
       }
     }, 500);
   }
@@ -249,7 +264,7 @@ export class SoldItemAnlysisComponent {
 
   selectGroupAll() {
     if (this.selectedGroupItems.includes("all")) {
-      this.selectedGroupItems = this.groupId.map((item) => item.value);
+      this.selectedGroupItems = this.groupId.map((item) => item.M_CODE);
       this.selectedGroupItems.push("all");
     } else {
       this.selectedGroupItems.length = 0;
@@ -260,17 +275,25 @@ export class SoldItemAnlysisComponent {
   selectedDepartmentId: any;
   departmentIdValue: string[] = [];
   departmentId: any[] = [
-    { value: "DC01", viewValue: "MAIN FOOD" },
-    { value: "DC02", viewValue: "FRIED FOOD" },
-    { value: "DC03", viewValue: "NOODLES" },
-    { value: "DC04", viewValue: "WESTERN" },
-    { value: "DC05", viewValue: "DESSERT" },
-    { value: "DC06", viewValue: "DRINK" },
+    // { value: "DC01", viewValue: "MAIN FOOD" },
+    // { value: "DC02", viewValue: "FRIED FOOD" },
+    // { value: "DC03", viewValue: "NOODLES" },
+    // { value: "DC04", viewValue: "WESTERN" },
+    // { value: "DC05", viewValue: "DESSERT" },
+    // { value: "DC06", viewValue: "DRINK" },
   ];
+
+  getDepartment() {
+    this.appService.getDepartment(this.groupIdValue).subscribe((result) => {
+      this.departmentId = result;
+      console.log(this.terminalId);
+    });
+  }
+
   onDepartmentChange(event: any): void {
     setTimeout(() => {
       if (this.selectedDepartmentItems.includes("all")) {
-        this.departmentIdValue = this.departmentId.map((item) => item.value);
+        this.departmentIdValue = this.departmentId.map((item) => item.M_CODE);
       } else {
         this.departmentIdValue = event.value;
       }
@@ -281,7 +304,7 @@ export class SoldItemAnlysisComponent {
   selectDepartmentAll() {
     if (this.selectedDepartmentItems.includes("all")) {
       this.selectedDepartmentItems = this.departmentId.map(
-        (item) => item.value
+        (item) => item.M_CODE
       );
       this.selectedDepartmentItems.push("all");
     } else {
@@ -293,13 +316,21 @@ export class SoldItemAnlysisComponent {
   selectedCategoryId: any;
   categoryIdValue: string[] = [];
   categoryId: any[] = [
-    { value: "CC01", viewValue: "FOOD" },
-    { value: "CC02", viewValue: "DRINK" },
+    // { value: "CC01", viewValue: "FOOD" },
+    // { value: "CC02", viewValue: "DRINK" },
   ];
+
+  getCategory() {
+    this.appService.getCategory().subscribe((result) => {
+      this.categoryId = result;
+      console.log(this.terminalId);
+    });
+  }
+
   onCategoryChange(event: any): void {
     setTimeout(() => {
       if (this.selectedCategoryItems.includes("all")) {
-        this.categoryIdValue = this.categoryId.map((item) => item.value);
+        this.categoryIdValue = this.categoryId.map((item) => item.M_CODE);
       } else {
         this.categoryIdValue = event.value;
       }
@@ -309,7 +340,7 @@ export class SoldItemAnlysisComponent {
 
   selectCategoryAll() {
     if (this.selectedCategoryItems.includes("all")) {
-      this.selectedCategoryItems = this.categoryId.map((item) => item.value);
+      this.selectedCategoryItems = this.categoryId.map((item) => item.M_CODE);
       this.selectedCategoryItems.push("all");
     } else {
       this.selectedCategoryItems.length = 0;
@@ -320,20 +351,26 @@ export class SoldItemAnlysisComponent {
   selectedStockId: any;
   stockIdValue: string[] = [];
   stockId: any[] = [
-    { value: "SC01", viewValue: "NASI AYAM" },
-    { value: "SC02", viewValue: "NASI GORENG AYAM" },
-    { value: "SC03", viewValue: "MEE CURRY" },
-    { value: "SC04", viewValue: "CHICKEN CHOP" },
-    { value: "SC05", viewValue: "ICE CREAM SCOOP" },
-    { value: "SC07", viewValue: "CHOCOLATE AIS" },
-    { value: "SC10", viewValue: "Single Set Menu" },
-    { value: "SC11", viewValue: "Enter Set Menu" },
-    { value: "SC12", viewValue: "All Set Menu" },
+    // { value: "SC01", viewValue: "NASI AYAM" },
+    // { value: "SC02", viewValue: "NASI GORENG AYAM" },
+    // { value: "SC03", viewValue: "MEE CURRY" },
+    // { value: "SC04", viewValue: "CHICKEN CHOP" },
+    // { value: "SC05", viewValue: "ICE CREAM SCOOP" },
+    // { value: "SC07", viewValue: "CHOCOLATE AIS" },
+    // { value: "SC10", viewValue: "Single Set Menu" },
+    // { value: "SC11", viewValue: "Enter Set Menu" },
+    // { value: "SC12", viewValue: "All Set Menu" },
   ];
+  getStock() {
+    this.appService.getStock().subscribe((result) => {
+      this.stockId = result;
+      console.log(this.stores);
+    });
+  }
   onStockChange(event: any): void {
     setTimeout(() => {
       if (this.selectedStockItems.includes("all")) {
-        this.stockIdValue = this.stockId.map((item) => item.value);
+        this.stockIdValue = this.stockId.map((item) => item.M_STOCK_CODE);
       } else {
         this.stockIdValue = event.value;
       }
@@ -343,7 +380,7 @@ export class SoldItemAnlysisComponent {
 
   selectStockAll() {
     if (this.selectedStockItems.includes("all")) {
-      this.selectedStockItems = this.stockId.map((item) => item.value);
+      this.selectedStockItems = this.stockId.map((item) => item.M_STOCK_CODE);
       this.selectedStockItems.push("all");
     } else {
       this.selectedStockItems.length = 0;
@@ -573,13 +610,14 @@ export class SoldItemAnlysisComponent {
           if (result) {
             this.store_code = result?.data[0]?.store_code;
             this.store_name = result?.data[0]?.store_desc;
+            if (result?.data[0]?.sold_item) {
+              this.terminal_code = result?.data[1]?.sold_item;
+            }
             if (result?.data[0]?.store_code === "SC01") {
-              this.terminal_code = result?.data[0]?.sold_item;
               this.filteredData = Object.values(
                 result?.data[0]?.sold_item[0]?.data || {}
               );
             } else {
-              this.terminal_code = result?.data[1]?.sold_item;
               this.filteredData = Object.values(
                 result?.data[1]?.sold_item[0]?.data || {}
               );

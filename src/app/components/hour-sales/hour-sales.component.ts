@@ -73,6 +73,7 @@ export class HourSalesComponent {
   fromDate: any;
   toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
+  terminalDisabled: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -97,6 +98,7 @@ export class HourSalesComponent {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
         this.hourlySales(this.fromDate, this.toDate);
+        this.getStore();
       }
     });
     this.selectedFormDate();
@@ -145,6 +147,75 @@ export class HourSalesComponent {
     console.log(this.filteredData);
   }
 
+  storeIdValue: string[] = [];
+  selectedStoreId: any;
+  stores: any = [
+    // { value: "01", viewValue: "DODO KOREA" },
+    // { value: "SC01", viewValue: "Project Store" },
+    // { value: "SC02", viewValue: "Project Store 2" },
+  ];
+  getStore() {
+    this.appService.getStores().subscribe((result) => {
+      this.stores = result;
+      console.log(this.stores);
+    });
+  }
+  onSelectionChange(event: any): void {
+    setTimeout(() => {
+      this.terminalDisabled = false;
+      if (this.selectedItems.includes("all")) {
+        this.storeIdValue = this.stores.map((item: any) => item.M_CODE);
+        this.getTerminal();
+      } else {
+        this.storeIdValue = event.value;
+        this.getTerminal();
+      }
+    }, 500);
+  }
+  selectedItems: string[] = [];
+
+  selectAll() {
+    if (this.selectedItems.includes("all")) {
+      this.selectedItems = this.stores.map((item: any) => item.M_CODE);
+      this.selectedItems.push("all");
+    } else {
+      this.selectedItems.length = 0;
+      this.selectedItems = [];
+    }
+  }
+  terminalIdValue: string[] = [];
+  selectedTerminalItems: string[] = [];
+  terminalId: any[] = [
+    // { value: "T1", viewValue: "Terminal 1" }
+  ];
+
+  getTerminal() {
+    this.appService.getTerminal(this.storeIdValue).subscribe((result) => {
+      this.terminalId = result;
+      console.log(this.terminalId);
+    });
+  }
+
+  onTerminalChange(event: any): void {
+    setTimeout(() => {
+      if (this.selectedTerminalItems.includes("all")) {
+        this.terminalIdValue = this.terminalId.map((item) => item.M_CODE);
+      } else {
+        this.terminalIdValue = event.value;
+      }
+    }, 500);
+  }
+
+  selectTerminalAll() {
+    if (this.selectedTerminalItems.includes("all")) {
+      this.selectedTerminalItems = this.terminalId.map((item) => item.M_CODE);
+      this.selectedTerminalItems.push("all");
+    } else {
+      this.selectedTerminalItems.length = 0;
+      this.selectedTerminalItems = [];
+    }
+  }
+
   selectedGroupingId: any;
   groupingIdValue: string = "store";
   groupingId: any[] = [
@@ -161,7 +232,18 @@ export class HourSalesComponent {
     console.log(this.searchFrom);
     console.log(this.searchTo);
     this.appService
-      .hourlySales("json", fromDate, toDate, this.groupingIdValue)
+      .hourlySales(
+        "json",
+        fromDate,
+        toDate,
+        this.groupingIdValue,
+        this.storeIdValue && this.storeIdValue.length
+          ? JSON.stringify(this.storeIdValue)
+          : "",
+        this.terminalIdValue && this.terminalIdValue.length
+          ? JSON.stringify(this.terminalIdValue)
+          : ""
+      )
       .subscribe((result) => {
         if (result && result.success == false) {
           console.log(result.message);

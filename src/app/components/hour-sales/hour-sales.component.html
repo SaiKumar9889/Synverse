@@ -74,6 +74,60 @@
         </div>
         <div
           fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Stores</mat-label>
+            <mat-select
+              [(ngModel)]="selectedItems"
+              (selectionChange)="onSelectionChange($event)"
+              multiple
+            >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
+              <mat-option *ngFor="let store of stores" [value]="store.M_CODE">
+                {{ store.M_DESC }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Terminal</mat-label>
+            <mat-select
+              [(ngModel)]="selectedTerminalItems"
+              (selectionChange)="onTerminalChange($event)"
+              [disabled]="terminalDisabled"
+              multiple
+            >
+              <mat-option (click)="selectTerminalAll()" [value]="'all'"
+                >All</mat-option
+              >
+              <mat-option
+                *ngFor="let terminal of terminalId"
+                [value]="terminal.M_CODE"
+              >
+                {{ terminal.M_DESC }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
           fxFlex.xs="73"
           class="alignCenter"
           *ngIf="priceLevelFormFields"
@@ -149,6 +203,42 @@
               [for]="toDate"
             ></mat-datepicker-toggle>
             <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Stores</mat-label>
+            <mat-select
+              [(ngModel)]="selectedItems"
+              (selectionChange)="onSelectionChange($event)"
+              multiple
+            >
+              <mat-option (click)="selectAll()" [value]="'all'">All</mat-option>
+              <mat-option *ngFor="let store of stores" [value]="store.M_CODE">
+                {{ store.M_DESC }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="15" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Terminal</mat-label>
+            <mat-select
+              [(ngModel)]="selectedTerminalItems"
+              (selectionChange)="onTerminalChange($event)"
+              [disabled]="terminalDisabled"
+              multiple
+            >
+              <mat-option (click)="selectTerminalAll()" [value]="'all'"
+                >All</mat-option
+              >
+              <mat-option
+                *ngFor="let terminal of terminalId"
+                [value]="terminal.M_CODE"
+              >
+                {{ terminal.M_DESC }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <div fxFlex="15" fxHide.xs class="alignCenter">
@@ -239,43 +329,64 @@
         <table>
           <thead>
             <tr>
-              <th (click)="sortTable('hourly_range')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('hourly_range')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Hourly</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('total_rcptno')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('total_rcptno')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>#RCPT</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('total_gross')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('total_gross')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Gross</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('total_disc')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('total_disc')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Discount</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('total_netsales')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('total_netsales')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Net</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('total')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('total')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Total</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>
                 </div>
               </th>
-              <th (click)="sortTable('contribution')">
+              <th
+                [ngClass]="!filteredData ? 'headingTop' : ''"
+                (click)="sortTable('contribution')"
+              >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
                   <div>Contribution</div>
                   <div><img src="../../../assets/sort.png" class="sort" /></div>

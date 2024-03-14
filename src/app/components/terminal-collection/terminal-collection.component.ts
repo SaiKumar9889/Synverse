@@ -73,6 +73,7 @@ export class TerminalCollectionComponent {
   fromDate: any;
   toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
+  terminalDisabled: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -96,6 +97,8 @@ export class TerminalCollectionComponent {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
         this.terminalCollection(this.fromDate, this.toDate);
+        this.getStore();
+        this.getPayment();
       }
     });
     this.selectedFormDate();
@@ -143,14 +146,137 @@ export class TerminalCollectionComponent {
     console.log(this.filteredData);
   }
 
+  storeIdValue: string[] = [];
+  selectedStoreId: any;
+  stores: any = [
+    // { value: "01", viewValue: "DODO KOREA" },
+    // { value: "SC01", viewValue: "Project Store" },
+    // { value: "SC02", viewValue: "Project Store 2" },
+  ];
+  getStore() {
+    this.appService.getStores().subscribe((result) => {
+      this.stores = result;
+      console.log(this.stores);
+    });
+  }
+  onSelectionChange(event: any): void {
+    setTimeout(() => {
+      this.terminalDisabled = false;
+      if (this.selectedItems.includes("all")) {
+        this.storeIdValue = this.stores.map((item: any) => item.M_CODE);
+        this.getTerminal();
+      } else {
+        this.storeIdValue = event.value;
+        this.getTerminal();
+      }
+    }, 500);
+  }
+  selectedItems: string[] = [];
+
+  selectAll() {
+    if (this.selectedItems.includes("all")) {
+      this.selectedItems = this.stores.map((item: any) => item.M_CODE);
+      this.selectedItems.push("all");
+    } else {
+      this.selectedItems.length = 0;
+      this.selectedItems = [];
+    }
+  }
+  terminalIdValue: string[] = [];
+  selectedTerminalItems: string[] = [];
+  terminalId: any[] = [
+    // { value: "T1", viewValue: "Terminal 1" }
+  ];
+
+  getTerminal() {
+    this.appService.getTerminal(this.storeIdValue).subscribe((result) => {
+      this.terminalId = result;
+      console.log(this.terminalId);
+    });
+  }
+
+  onTerminalChange(event: any): void {
+    setTimeout(() => {
+      if (this.selectedTerminalItems.includes("all")) {
+        this.terminalIdValue = this.terminalId.map((item) => item.M_CODE);
+      } else {
+        this.terminalIdValue = event.value;
+      }
+    }, 500);
+  }
+
+  selectTerminalAll() {
+    if (this.selectedTerminalItems.includes("all")) {
+      this.selectedTerminalItems = this.terminalId.map((item) => item.M_CODE);
+      this.selectedTerminalItems.push("all");
+    } else {
+      this.selectedTerminalItems.length = 0;
+      this.selectedTerminalItems = [];
+    }
+  }
+
+  selectedPaymentId: any;
+  paymentIdValue: string[] = [];
+  paymentId: any[] = [
+    // { value: "MASTER", viewValue: "MASTER" },
+    // { value: "PC01", viewValue: "Payment 1" },
+    // { value: "VISA", viewValue: "VISA" },
+  ];
+  getPayment() {
+    this.appService.getPayment().subscribe((result) => {
+      this.paymentId = result;
+      console.log(this.paymentId);
+    });
+  }
+  onPaymentChange(event: any): void {
+    setTimeout(() => {
+      if (this.selectedPaymentItems.includes("all")) {
+        this.paymentIdValue = this.paymentId.map((item) => item.M_CODE);
+      } else {
+        this.paymentIdValue = event.value;
+      }
+    }, 500);
+  }
+  selectedPaymentItems: string[] = [];
+
+  selectPaymentAll() {
+    if (this.selectedPaymentItems.includes("all")) {
+      this.selectedPaymentItems = this.paymentId.map((item) => item.M_CODE);
+      this.selectedPaymentItems.push("all");
+    } else {
+      this.selectedPaymentItems.length = 0;
+      this.selectedPaymentItems = [];
+    }
+  }
+  errorMessage: any = null;
   terminalCollection(fromDate: any, toDate: any) {
     this.loadingSpinner = true;
     this.appService
-      .terminalCollection("json", fromDate, toDate)
+      .terminalCollection(
+        "json",
+        fromDate,
+        toDate,
+        this.storeIdValue && this.storeIdValue.length
+          ? JSON.stringify(this.storeIdValue)
+          : "",
+        this.terminalIdValue && this.terminalIdValue.length
+          ? JSON.stringify(this.terminalIdValue)
+          : "",
+        this.paymentIdValue && this.paymentIdValue.length
+          ? JSON.stringify(this.paymentIdValue)
+          : ""
+      )
       .subscribe((result) => {
         this.store_code = result.data[0].store_code;
         this.store_name = result.data[0].store_name;
         setTimeout(() => {
+          if (result && result.data == "failed") {
+            console.log(result.message);
+            this.errorMessage = result.message;
+            console.log(this.errorMessage);
+          } else {
+            this.errorMessage = null;
+          }
           if (result) {
             this.filteredData = result.data[0].tax_trx;
             this.storesFilterData = result.data[0].tax_trx;

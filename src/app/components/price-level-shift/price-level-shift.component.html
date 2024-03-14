@@ -139,8 +139,11 @@
               <mat-option (click)="selectStockAll()" [value]="'all'"
                 >All</mat-option
               >
-              <mat-option *ngFor="let stock of stockId" [value]="stock.value">
-                {{ stock.viewValue }}
+              <mat-option
+                *ngFor="let stock of stockId"
+                [value]="stock.M_STOCK_CODE"
+              >
+                {{ stock.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -267,8 +270,11 @@
               <mat-option (click)="selectStockAll()" [value]="'all'"
                 >All</mat-option
               >
-              <mat-option *ngFor="let stock of stockId" [value]="stock.value">
-                {{ stock.viewValue }}
+              <mat-option
+                *ngFor="let stock of stockId"
+                [value]="stock.M_STOCK_CODE"
+              >
+                {{ stock.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>

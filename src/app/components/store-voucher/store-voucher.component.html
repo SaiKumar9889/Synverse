@@ -174,9 +174,9 @@
               >
               <mat-option
                 *ngFor="let operator of operators"
-                [value]="operator.value"
+                [value]="operator.M_CODE"
               >
-                {{ operator.viewValue }}
+                {{ operator.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -300,9 +300,9 @@
               >
               <mat-option
                 *ngFor="let operator of operators"
-                [value]="operator.value"
+                [value]="operator.M_CODE"
               >
-                {{ operator.viewValue }}
+                {{ operator.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>

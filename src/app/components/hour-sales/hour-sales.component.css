@@ -15,6 +15,9 @@ tfoot .subTotalPL {
 .backgroundWhite {
   height: 88px;
 }
+.headingTop {
+  top: 0px !important;
+}
 .backgroundWhitePage {
   background: #fff;
   position: sticky !important;

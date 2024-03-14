@@ -146,8 +146,8 @@
               <mat-option (click)="selectGroupAll()" [value]="'all'"
                 >All</mat-option
               >
-              <mat-option *ngFor="let group of groupId" [value]="group.value">
-                {{ group.viewValue }}
+              <mat-option *ngFor="let group of groupId" [value]="group.M_CODE">
+                {{ group.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -167,6 +167,7 @@
             <mat-select
               [(ngModel)]="selectedDepartmentItems"
               (selectionChange)="onDepartmentChange($event)"
+              [disabled]="departmentDisabled"
               multiple
             >
               <mat-option (click)="selectDepartmentAll()" [value]="'all'"
@@ -174,9 +175,9 @@
               >
               <mat-option
                 *ngFor="let department of departmentId"
-                [value]="department.value"
+                [value]="department.M_CODE"
               >
-                {{ department.viewValue }}
+                {{ department.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -203,9 +204,9 @@
               >
               <mat-option
                 *ngFor="let category of categoryId"
-                [value]="category.value"
+                [value]="category.M_CODE"
               >
-                {{ category.viewValue }}
+                {{ category.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -230,8 +231,11 @@
               <mat-option (click)="selectStockAll()" [value]="'all'"
                 >All</mat-option
               >
-              <mat-option *ngFor="let stock of stockId" [value]="stock.value">
-                {{ stock.viewValue }}
+              <mat-option
+                *ngFor="let stock of stockId"
+                [value]="stock.M_STOCK_CODE"
+              >
+                {{ stock.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -383,8 +387,8 @@
               <mat-option (click)="selectGroupAll()" [value]="'all'"
                 >All</mat-option
               >
-              <mat-option *ngFor="let group of groupId" [value]="group.value">
-                {{ group.viewValue }}
+              <mat-option *ngFor="let group of groupId" [value]="group.M_CODE">
+                {{ group.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -395,6 +399,7 @@
             <mat-select
               [(ngModel)]="selectedDepartmentItems"
               (selectionChange)="onDepartmentChange($event)"
+              [disabled]="departmentDisabled"
               multiple
             >
               <mat-option (click)="selectDepartmentAll()" [value]="'all'"
@@ -402,9 +407,9 @@
               >
               <mat-option
                 *ngFor="let department of departmentId"
-                [value]="department.value"
+                [value]="department.M_CODE"
               >
-                {{ department.viewValue }}
+                {{ department.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -422,9 +427,9 @@
               >
               <mat-option
                 *ngFor="let category of categoryId"
-                [value]="category.value"
+                [value]="category.M_CODE"
               >
-                {{ category.viewValue }}
+                {{ category.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -440,8 +445,11 @@
               <mat-option (click)="selectStockAll()" [value]="'all'"
                 >All</mat-option
               >
-              <mat-option *ngFor="let stock of stockId" [value]="stock.value">
-                {{ stock.viewValue }}
+              <mat-option
+                *ngFor="let stock of stockId"
+                [value]="stock.M_STOCK_CODE"
+              >
+                {{ stock.M_DESC }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -669,8 +677,8 @@
             </ng-container>
             <tr>
               <td></td>
-              <td>{{ terminal_code[0].terminal_code }}</td>
-              <td>{{ terminal_code[0].terminal_desc }}</td>
+              <td>{{ terminal_code[0]?.terminal_code }}</td>
+              <td>{{ terminal_code[0]?.terminal_desc }}</td>
               <td></td>
               <td></td>
               <td></td>
