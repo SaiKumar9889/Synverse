@@ -80,23 +80,23 @@ export class TerminalCollectionComponent {
     private appService: AppService,
     private datePipe: DatePipe
   ) {
-    this.fromDate =
-      this.firstDate.getFullYear() +
-      "-" +
-      (this.firstDate.getMonth() + 1) +
-      "-" +
-      this.firstDate.getDate();
-    this.toDate =
-      this.secondDate.getFullYear() +
-      "-" +
-      (this.secondDate.getMonth() + 1) +
-      "-" +
-      this.secondDate.getDate();
+    // this.fromDate =
+    //   this.firstDate.getFullYear() +
+    //   "-" +
+    //   (this.firstDate.getMonth() + 1) +
+    //   "-" +
+    //   this.firstDate.getDate();
+    // this.toDate =
+    //   this.secondDate.getFullYear() +
+    //   "-" +
+    //   (this.secondDate.getMonth() + 1) +
+    //   "-" +
+    //   this.secondDate.getDate();
     this.authService.login().subscribe((result) => {
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.terminalCollection(this.fromDate, this.toDate);
+        this.terminalCollection("", "");
         this.getStore();
         this.getPayment();
       }
@@ -126,7 +126,11 @@ export class TerminalCollectionComponent {
   }
   applyDateFilter() {
     this.itemsPerPage = 5;
-    this.terminalCollection(this.searchFrom, this.searchTo);
+    if (this.selectedDate === "custom") {
+      this.terminalCollection(this.searchFrom, this.searchTo);
+    } else {
+      this.terminalCollection("", "");
+    }
   }
 
   filteredData: any;
@@ -248,6 +252,20 @@ export class TerminalCollectionComponent {
       this.selectedPaymentItems = [];
     }
   }
+  dateValue: string[] = ["lyear"];
+  selectedDate: any;
+  dates: any = [
+    { value: "today", viewValue: "Today" },
+    { value: "yesterday", viewValue: "Yesterday" },
+    { value: "lweek", viewValue: "Last Week" },
+    { value: "lmth", viewValue: "Last Month" },
+    { value: "lyear", viewValue: "Last Year" },
+    { value: "custom", viewValue: "Custom Date" },
+  ];
+  onDateChange(event: any): void {
+    this.dateValue = event.value;
+    console.log(this.selectedDate);
+  }
   errorMessage: any = null;
   terminalCollection(fromDate: any, toDate: any) {
     this.loadingSpinner = true;
@@ -264,7 +282,8 @@ export class TerminalCollectionComponent {
           : "",
         this.paymentIdValue && this.paymentIdValue.length
           ? JSON.stringify(this.paymentIdValue)
-          : ""
+          : "",
+        this.dateValue
       )
       .subscribe((result) => {
         this.store_code = result.data[0].store_code;

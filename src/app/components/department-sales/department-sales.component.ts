@@ -49,8 +49,8 @@ export class DepartmentSalesComponent {
   searchTo: any = "2023-05-31";
   dateFrom: FormControl = new FormControl(
     new Date(
-      new Date().getFullYear(),
-      new Date().getMonth() - 1,
+      new Date().getFullYear() - 1,
+      new Date().getMonth(),
       new Date().getDate()
     )
   );
@@ -69,7 +69,7 @@ export class DepartmentSalesComponent {
   filteredData: any;
   firstDate = new Date(
     new Date().getFullYear(),
-    new Date().getMonth() - 1,
+    new Date().getMonth(),
     new Date().getDate()
   );
   secondDate = new Date();
@@ -82,7 +82,8 @@ export class DepartmentSalesComponent {
     private datePipe: DatePipe
   ) {
     this.fromDate =
-      this.firstDate.getFullYear() +
+      this.firstDate.getFullYear() -
+      1 +
       "-" +
       (this.firstDate.getMonth() + 1) +
       "-" +
@@ -127,7 +128,11 @@ export class DepartmentSalesComponent {
   }
   applyDateFilter() {
     this.itemsPerPage = 5;
-    this.departmentSales(this.searchFrom, this.searchTo);
+    if (this.selectedDate === "custom") {
+      this.departmentSales(this.searchFrom, this.searchTo);
+    } else {
+      this.departmentSales("", "");
+    }
   }
 
   applyFilter(event: Event) {
@@ -176,6 +181,22 @@ export class DepartmentSalesComponent {
       this.selectedItems = [];
     }
   }
+
+  dateValue: string[] = ["custom"];
+  selectedDate: any = "custom";
+  dates: any = [
+    { value: "today", viewValue: "Today" },
+    { value: "yesterday", viewValue: "Yesterday" },
+    { value: "lweek", viewValue: "Last Week" },
+    { value: "lmth", viewValue: "Last Month" },
+    { value: "lyear", viewValue: "Last Year" },
+    { value: "custom", viewValue: "Custom Date" },
+  ];
+  onDateChange(event: any): void {
+    this.dateValue = event.value;
+    console.log(this.selectedDate);
+  }
+
   errorMessage = null;
   departmentSales(fromDate: any, toDate: any) {
     this.loadingSpinner = true;
@@ -183,7 +204,13 @@ export class DepartmentSalesComponent {
     console.log(this.searchFrom);
     console.log(this.searchTo);
     this.appService
-      .departmentSales("json", fromDate, toDate, this.storeIdValue)
+      .departmentSales(
+        "json",
+        fromDate,
+        toDate,
+        this.storeIdValue,
+        this.dateValue
+      )
       .subscribe((result) => {
         if (result && result.status == "failed") {
           console.log(result.message);

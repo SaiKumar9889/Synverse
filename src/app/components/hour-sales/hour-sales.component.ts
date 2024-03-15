@@ -80,24 +80,24 @@ export class HourSalesComponent {
     private appService: AppService,
     private datePipe: DatePipe
   ) {
-    this.fromDate =
-      this.firstDate.getFullYear() +
-      "-" +
-      (this.firstDate.getMonth() + 1) +
-      "-" +
-      this.firstDate.getDate();
-    this.toDate =
-      this.secondDate.getFullYear() +
-      "-" +
-      (this.secondDate.getMonth() + 1) +
-      "-" +
-      this.secondDate.getDate();
+    // this.fromDate =
+    //   this.firstDate.getFullYear() +
+    //   "-" +
+    //   (this.firstDate.getMonth() + 1) +
+    //   "-" +
+    //   this.firstDate.getDate();
+    // this.toDate =
+    //   this.secondDate.getFullYear() +
+    //   "-" +
+    //   (this.secondDate.getMonth() + 1) +
+    //   "-" +
+    //   this.secondDate.getDate();
     this.authService.login().subscribe((result) => {
       console.log(result);
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.hourlySales(this.fromDate, this.toDate);
+        this.hourlySales("", "");
         this.getStore();
       }
     });
@@ -127,7 +127,11 @@ export class HourSalesComponent {
   applyDateFilter() {
     this.loadingSpinner = true;
     this.itemsPerPage = 5;
-    this.hourlySales(this.searchFrom, this.searchTo);
+    if (this.selectedDate === "custom") {
+      this.hourlySales(this.searchFrom, this.searchTo);
+    } else {
+      this.hourlySales("", "");
+    }
   }
 
   filteredData: any;
@@ -226,6 +230,22 @@ export class HourSalesComponent {
     this.groupingIdValue = event.value;
     console.log("Selection change event:", event.value);
   }
+
+  dateValue: string[] = ["lyear"];
+  selectedDate: any;
+  dates: any = [
+    { value: "today", viewValue: "Today" },
+    { value: "yesterday", viewValue: "Yesterday" },
+    { value: "lweek", viewValue: "Last Week" },
+    { value: "lmth", viewValue: "Last Month" },
+    { value: "lyear", viewValue: "Last Year" },
+    { value: "custom", viewValue: "Custom Date" },
+  ];
+  onDateChange(event: any): void {
+    this.dateValue = event.value;
+    console.log(this.selectedDate);
+  }
+
   errorMessage = null;
   hourlySales(fromDate: any, toDate: any) {
     this.errorMessage = null;
@@ -242,7 +262,8 @@ export class HourSalesComponent {
           : "",
         this.terminalIdValue && this.terminalIdValue.length
           ? JSON.stringify(this.terminalIdValue)
-          : ""
+          : "",
+        this.dateValue
       )
       .subscribe((result) => {
         if (result && result.success == false) {

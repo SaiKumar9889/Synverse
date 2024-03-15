@@ -48,8 +48,8 @@ export class GroupSalesComponent {
   searchTo: any = "2023-05-31";
   dateFrom: FormControl = new FormControl(
     new Date(
-      new Date().getFullYear(),
-      new Date().getMonth() - 1,
+      new Date().getFullYear() - 1,
+      new Date().getMonth(),
       new Date().getDate()
     )
   );
@@ -65,7 +65,7 @@ export class GroupSalesComponent {
   Math: any;
   firstDate = new Date(
     new Date().getFullYear(),
-    new Date().getMonth() - 1,
+    new Date().getMonth(),
     new Date().getDate()
   );
   secondDate = new Date();
@@ -124,7 +124,11 @@ export class GroupSalesComponent {
   }
   applyDateFilter() {
     this.itemsPerPage = 5;
-    this.groupSales(this.searchFrom, this.searchTo);
+    if (this.selectedDate === "custom") {
+      this.groupSales(this.searchFrom, this.searchTo);
+    } else {
+      this.groupSales("", "");
+    }
   }
 
   filteredData: any;
@@ -174,6 +178,22 @@ export class GroupSalesComponent {
       this.selectedItems = [];
     }
   }
+
+  dateValue: string[] = ["custom"];
+  selectedDate: any = "custom";
+  dates: any = [
+    { value: "today", viewValue: "Today" },
+    { value: "yesterday", viewValue: "Yesterday" },
+    { value: "lweek", viewValue: "Last Week" },
+    { value: "lmth", viewValue: "Last Month" },
+    { value: "lyear", viewValue: "Last Year" },
+    { value: "custom", viewValue: "Custom Date" },
+  ];
+  onDateChange(event: any): void {
+    this.dateValue = event.value;
+    console.log(this.selectedDate);
+  }
+
   errorMessage = null;
   groupSales(fromDate: any, toDate: any) {
     this.loadingSpinner = true;
@@ -181,7 +201,7 @@ export class GroupSalesComponent {
     console.log(this.searchFrom);
     console.log(this.searchTo);
     this.appService
-      .groupSales("json", fromDate, toDate, this.storeIdValue)
+      .groupSales("json", fromDate, toDate, this.storeIdValue, this.dateValue)
       .subscribe((result) => {
         if (result && result.status == "failed") {
           console.log(result.message);

@@ -80,23 +80,23 @@ export class ReceiptAnalysisComponent {
     private appService: AppService,
     private datePipe: DatePipe
   ) {
-    this.fromDate =
-      this.firstDate.getFullYear() +
-      "-" +
-      (this.firstDate.getMonth() + 1) +
-      "-" +
-      this.firstDate.getDate();
-    this.toDate =
-      this.secondDate.getFullYear() +
-      "-" +
-      (this.secondDate.getMonth() + 1) +
-      "-" +
-      this.secondDate.getDate();
+    // this.fromDate =
+    //   this.firstDate.getFullYear() +
+    //   "-" +
+    //   (this.firstDate.getMonth() + 1) +
+    //   "-" +
+    //   this.firstDate.getDate();
+    // this.toDate =
+    //   this.secondDate.getFullYear() +
+    //   "-" +
+    //   (this.secondDate.getMonth() + 1) +
+    //   "-" +
+    //   this.secondDate.getDate();
     this.authService.login().subscribe((result) => {
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.receiptAnalysis(this.fromDate, this.toDate);
+        this.receiptAnalysis("", "");
         this.getStore();
       }
     });
@@ -124,7 +124,11 @@ export class ReceiptAnalysisComponent {
   }
   applyDateFilter() {
     this.itemsPerPage = 5;
-    this.receiptAnalysis(this.searchFrom, this.searchTo);
+    if (this.selectedDate === "custom") {
+      this.receiptAnalysis(this.searchFrom, this.searchTo);
+    } else {
+      this.receiptAnalysis("", "");
+    }
   }
 
   filteredData: any;
@@ -211,6 +215,21 @@ export class ReceiptAnalysisComponent {
       this.selectedTerminalItems.length = 0;
       this.selectedTerminalItems = [];
     }
+  }
+
+  dateValue: string[] = ["lyear"];
+  selectedDate: any;
+  dates: any = [
+    { value: "today", viewValue: "Today" },
+    { value: "yesterday", viewValue: "Yesterday" },
+    { value: "lweek", viewValue: "Last Week" },
+    { value: "lmth", viewValue: "Last Month" },
+    { value: "lyear", viewValue: "Last Year" },
+    { value: "custom", viewValue: "Custom Date" },
+  ];
+  onDateChange(event: any): void {
+    this.dateValue = event.value;
+    console.log(this.selectedDate);
   }
 
   term1: any;
@@ -320,7 +339,8 @@ export class ReceiptAnalysisComponent {
         this.isCheckbox,
         this.isCombine,
         this.isNormal,
-        this.isRemark
+        this.isRemark,
+        this.dateValue
       )
       .subscribe((result) => {
         if (result && result.data == "") {
@@ -342,11 +362,16 @@ export class ReceiptAnalysisComponent {
             this.grandTotalData = result;
             if (this.storeIdValue[0] === "SC01") {
               this.filteredData = result?.data[0]?.terminal[0]?.detail;
+            } else if (
+              this.selectedDate == "custom" ||
+              this.selectedDate == "lmth"
+            ) {
+              this.filteredData = result?.data[0]?.terminal[0]?.detail;
             } else {
               this.filteredData = result?.data[1]?.terminal[0]?.detail;
             }
 
-            console.log(this.filteredData);
+            console.log(this.selectedDate);
             this.calculateTotalPages();
           }
           this.loadingSpinner = false;
@@ -368,7 +393,7 @@ export class ReceiptAnalysisComponent {
 
   getCurrentPageItems(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredData.slice(startIndex, startIndex + this.itemsPerPage);
+    return this.filteredData?.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
   getPageRange(): number[] {

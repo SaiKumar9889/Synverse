@@ -169,6 +169,12 @@ td {
   top: 0px;
   width: 100% !important;
 }
+.backgroundSizeIncrease {
+  background: #fff;
+  position: sticky !important;
+  top: 0px;
+  width: 100% !important;
+}
 mat-form-field {
   width: 90%;
   height: 30px !important;

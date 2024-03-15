@@ -27,6 +27,32 @@
           fxFlex.xs="100"
           class="alignCenter"
           *ngIf="priceLevelFormFields"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Selected Date</mat-label>
+            <mat-select
+              [(ngModel)]="selectedDate"
+              (selectionChange)="onDateChange($event)"
+            >
+              <mat-option *ngFor="let date of dates" [value]="date.value">
+                {{ date.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields && selectedDate == 'custom'"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
         >
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
@@ -48,7 +74,11 @@
           fxFlex="23"
           fxFlex.xs="100"
           class="alignCenter"
-          *ngIf="priceLevelFormFields"
+          *ngIf="priceLevelFormFields && selectedDate == 'custom'"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
         >
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
@@ -190,7 +220,25 @@
           </button>
         </div>
 
-        <div fxFlex="14" fxHide.xs class="alignCenter">
+        <div fxFlex="11" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Selected Date</mat-label>
+            <mat-select
+              [(ngModel)]="selectedDate"
+              (selectionChange)="onDateChange($event)"
+            >
+              <mat-option *ngFor="let date of dates" [value]="date.value">
+                {{ date.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="14"
+          fxHide.xs
+          class="alignCenter"
+          *ngIf="selectedDate == 'custom'"
+        >
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
@@ -207,7 +255,12 @@
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="14" fxHide.xs class="alignCenter">
+        <div
+          fxFlex="14"
+          fxHide.xs
+          class="alignCenter"
+          *ngIf="selectedDate == 'custom'"
+        >
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
             <input
@@ -224,7 +277,7 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="14" fxHide.xs class="alignCenter">
+        <div fxFlex="13" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
@@ -239,7 +292,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="14" fxHide.xs class="alignCenter">
+        <div fxFlex="13" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Price Level</mat-label>
             <mat-select
@@ -259,7 +312,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="14" fxHide.xs class="alignCenter">
+        <div fxFlex="13" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Stock Code</mat-label>
             <mat-select
@@ -279,7 +332,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="14" fxHide.xs class="alignCenter">
+        <div fxFlex="13" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Shift Code</mat-label>
             <mat-select
@@ -296,7 +349,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="14" fxHide.xs class="alignCenter">
+        <div fxFlex="9" fxHide.xs class="alignCenter">
           <button
             mat-flat-button
             class="btn"

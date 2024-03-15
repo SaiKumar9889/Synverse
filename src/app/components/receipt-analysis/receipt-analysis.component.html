@@ -31,6 +31,28 @@
           fxHide.xl
         >
           <mat-form-field appearance="outline">
+            <mat-label>Selected Date</mat-label>
+            <mat-select
+              [(ngModel)]="selectedDate"
+              (selectionChange)="onDateChange($event)"
+            >
+              <mat-option *ngFor="let date of dates" [value]="date.value">
+                {{ date.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="23"
+          fxFlex.xs="100"
+          class="alignCenter"
+          *ngIf="priceLevelFormFields && selectedDate == 'custom'"
+          fxHide.sm
+          fxHide.md
+          fxHide.lg
+          fxHide.xl
+        >
+          <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
               matInput
@@ -50,7 +72,7 @@
           fxFlex="23"
           fxFlex.xs="100"
           class="alignCenter"
-          *ngIf="priceLevelFormFields"
+          *ngIf="priceLevelFormFields && selectedDate == 'custom'"
           fxHide.sm
           fxHide.md
           fxHide.lg
@@ -177,7 +199,25 @@
           </button>
         </div>
 
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
+          <mat-form-field appearance="outline">
+            <mat-label>Selected Date</mat-label>
+            <mat-select
+              [(ngModel)]="selectedDate"
+              (selectionChange)="onDateChange($event)"
+            >
+              <mat-option *ngFor="let date of dates" [value]="date.value">
+                {{ date.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxFlex="14"
+          fxHide.xs
+          class="alignCenter"
+          *ngIf="selectedDate == 'custom'"
+        >
           <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
             <input
@@ -194,7 +234,12 @@
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div
+          fxFlex="14"
+          fxHide.xs
+          class="alignCenter"
+          *ngIf="selectedDate == 'custom'"
+        >
           <mat-form-field appearance="outline">
             <mat-label>To Date</mat-label>
             <input
@@ -211,7 +256,7 @@
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Stores</mat-label>
             <mat-select
@@ -226,7 +271,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="15" fxHide.xs class="alignCenter">
+        <div fxFlex="14" fxHide.xs class="alignCenter">
           <mat-form-field appearance="outline">
             <mat-label>Terminal</mat-label>
             <mat-select
@@ -265,6 +310,7 @@
           <mat-checkbox
             [checked]="isCheckedNormal"
             (change)="onNormalChange($event)"
+            [ngClass]="selectedDate === 'custom' ? 'checkboxTop' : ''"
             >Normal Sales</mat-checkbox
           >
         </div>
@@ -272,7 +318,7 @@
           <mat-checkbox
             [checked]="isCheckedRemark"
             (change)="onRemarkChange($event)"
-            class="checkboxTop"
+            [ngClass]="selectedDate === 'custom' ? 'checkboxTop' : ''"
             >Remark 1 NOT NULL</mat-checkbox
           >
         </div>

@@ -18,12 +18,12 @@ tfoot .subTotalPL {
 .backgroundWhitePage {
   background: #fff;
   position: sticky !important;
-  top: 80px !important;
+  top: 85px !important;
   width: 100% !important;
   height: 60px;
 }
 thead th {
-  top: 140px;
+  top: 145px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background-color: #be2026;

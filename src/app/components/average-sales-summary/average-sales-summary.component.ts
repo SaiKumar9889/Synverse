@@ -80,21 +80,21 @@ export class AverageSalesSummaryComponent {
   ) {
     this.authService.login().subscribe((result) => {
       if (result && result.access_token) {
-        this.fromDate =
-          this.firstDate.getFullYear() +
-          "-" +
-          (this.firstDate.getMonth() + 1) +
-          "-" +
-          this.firstDate.getDate();
-        this.toDate =
-          this.secondDate.getFullYear() +
-          "-" +
-          (this.secondDate.getMonth() + 1) +
-          "-" +
-          this.secondDate.getDate();
+        // this.fromDate =
+        //   this.firstDate.getFullYear() +
+        //   "-" +
+        //   (this.firstDate.getMonth() + 1) +
+        //   "-" +
+        //   this.firstDate.getDate();
+        // this.toDate =
+        //   this.secondDate.getFullYear() +
+        //   "-" +
+        //   (this.secondDate.getMonth() + 1) +
+        //   "-" +
+        //   this.secondDate.getDate();
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.averageSalesSummary(this.fromDate, this.toDate);
+        this.averageSalesSummary("", "");
         this.getStore();
         // this.calculateTotalPages();
       }
@@ -170,7 +170,11 @@ export class AverageSalesSummaryComponent {
   }
   applyDateFilter() {
     this.itemsPerPage = 5;
-    this.averageSalesSummary(this.searchFrom, this.searchTo);
+    if (this.selectedDate === "custom") {
+      this.averageSalesSummary(this.searchFrom, this.searchTo);
+    } else {
+      this.averageSalesSummary("", "");
+    }
   }
 
   filteredData: any[] = [];
@@ -224,6 +228,22 @@ export class AverageSalesSummaryComponent {
       this.isCheckbox = "F";
     }
   }
+
+  dateValue: string[] = ["lyear"];
+  selectedDate: any;
+  dates: any = [
+    { value: "today", viewValue: "Today" },
+    { value: "yesterday", viewValue: "Yesterday" },
+    { value: "lweek", viewValue: "Last Week" },
+    { value: "lmth", viewValue: "Last Month" },
+    { value: "lyear", viewValue: "Last Year" },
+    { value: "custom", viewValue: "Custom Date" },
+  ];
+  onDateChange(event: any): void {
+    this.dateValue = event.value;
+    console.log(this.selectedDate);
+  }
+
   errorMessage: any = null;
   averageSalesSummary(fromDate: any, toDate: any) {
     this.loadingSpinner = true;
@@ -236,7 +256,8 @@ export class AverageSalesSummaryComponent {
           ? JSON.stringify(this.storeIdValue)
           : "",
         this.salesValue,
-        this.isCheckbox
+        this.isCheckbox,
+        this.dateValue
       )
       .subscribe((result) => {
         if (result && result.data == "") {

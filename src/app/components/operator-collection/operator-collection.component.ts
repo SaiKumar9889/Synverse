@@ -79,23 +79,23 @@ export class OperatorCollectionComponent {
     private appService: AppService,
     private datePipe: DatePipe
   ) {
-    this.fromDate =
-      this.firstDate.getFullYear() +
-      "-" +
-      (this.firstDate.getMonth() + 1) +
-      "-" +
-      this.firstDate.getDate();
-    this.toDate =
-      this.secondDate.getFullYear() +
-      "-" +
-      (this.secondDate.getMonth() + 1) +
-      "-" +
-      this.secondDate.getDate();
+    // this.fromDate =
+    //   this.firstDate.getFullYear() +
+    //   "-" +
+    //   (this.firstDate.getMonth() + 1) +
+    //   "-" +
+    //   this.firstDate.getDate();
+    // this.toDate =
+    //   this.secondDate.getFullYear() +
+    //   "-" +
+    //   (this.secondDate.getMonth() + 1) +
+    //   "-" +
+    //   this.secondDate.getDate();
     this.authService.login().subscribe((result) => {
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.operatorCollection(this.fromDate, this.toDate);
+        this.operatorCollection("", "");
         this.getStore();
         this.getUser();
       }
@@ -125,7 +125,11 @@ export class OperatorCollectionComponent {
   }
   applyDateFilter() {
     this.itemsPerPage = 5;
-    this.operatorCollection(this.searchFrom, this.searchTo);
+    if (this.selectedDate === "custom") {
+      this.operatorCollection(this.searchFrom, this.searchTo);
+    } else {
+      this.operatorCollection("", "");
+    }
   }
 
   filteredData: any;
@@ -210,6 +214,22 @@ export class OperatorCollectionComponent {
       this.selectedOperatorItems = [];
     }
   }
+
+  dateValue: string[] = ["lyear"];
+  selectedDate: any;
+  dates: any = [
+    { value: "today", viewValue: "Today" },
+    { value: "yesterday", viewValue: "Yesterday" },
+    { value: "lweek", viewValue: "Last Week" },
+    { value: "lmth", viewValue: "Last Month" },
+    { value: "lyear", viewValue: "Last Year" },
+    { value: "custom", viewValue: "Custom Date" },
+  ];
+  onDateChange(event: any): void {
+    this.dateValue = event.value;
+    console.log(this.selectedDate);
+  }
+
   errorMessage: any = null;
   operatorCollection(fromDate: any, toDate: any) {
     this.loadingSpinner = true;
@@ -223,7 +243,8 @@ export class OperatorCollectionComponent {
           : "",
         this.operatorValue && this.operatorValue.length
           ? JSON.stringify(this.operatorValue)
-          : ""
+          : "",
+        this.dateValue
       )
       .subscribe((result) => {
         if (result && result.data == "") {

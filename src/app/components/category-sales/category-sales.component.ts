@@ -160,7 +160,26 @@ export class CategorySalesComponent {
   }
 
   applyDateFilter() {
-    this.categorySales(this.searchFrom, this.searchTo);
+    if (this.selectedDate === "custom") {
+      this.categorySales(this.searchFrom, this.searchTo);
+    } else {
+      this.categorySales("", "");
+    }
+  }
+
+  dateValue: string[] = ["custom"];
+  selectedDate: any = "custom";
+  dates: any = [
+    { value: "today", viewValue: "Today" },
+    { value: "yesterday", viewValue: "Yesterday" },
+    { value: "lweek", viewValue: "Last Week" },
+    { value: "lmth", viewValue: "Last Month" },
+    { value: "lyear", viewValue: "Last Year" },
+    { value: "custom", viewValue: "Custom Date" },
+  ];
+  onDateChange(event: any): void {
+    this.dateValue = event.value;
+    console.log(this.selectedDate);
   }
 
   errorMessage: any;
@@ -168,7 +187,13 @@ export class CategorySalesComponent {
     this.loadingSpinner = true;
     console.log(this.searchFrom);
     this.appService
-      .categorySales("json", fromDate, toDate, this.storeIdValue)
+      .categorySales(
+        "json",
+        fromDate,
+        toDate,
+        this.storeIdValue,
+        this.dateValue
+      )
       .subscribe((result) => {
         console.log(result);
 

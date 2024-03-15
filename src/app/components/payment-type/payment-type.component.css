@@ -12,21 +12,36 @@ tfoot .subTotalPL {
   z-index: 9;
   background: #fff;
 }
-.backgroundWhitePage {
+.backgroundWhitePage,
+.backgroundWhitePageIncrease {
   background: #fff;
   position: sticky !important;
-  top: 105px !important;
   width: 100% !important;
   height: 54px;
+}
+.backgroundWhitePage {
+  top: 105px !important;
+}
+.backgroundWhitePageIncrease {
+  top: 125px !important;
 }
 .backgroundWhite {
   height: 105px;
 }
-thead th {
-  top: 158px;
+.backgroundSizeIncrease {
+  height: 125px;
+}
+.thead th,
+.theadIncrease th {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background-color: #be2026;
+}
+.thead th {
+  top: 158px;
+}
+.theadIncrease th {
+  top: 178px;
 }
 @media screen and (max-width: 599px) {
   .addedScroll {

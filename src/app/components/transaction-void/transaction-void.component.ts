@@ -49,8 +49,8 @@ export class TransactionVoidComponent {
   searchTo: any = "2023-05-31";
   dateFrom: FormControl = new FormControl(
     new Date(
-      new Date().getFullYear(),
-      new Date().getMonth() - 1,
+      new Date().getFullYear() - 1,
+      new Date().getMonth(),
       new Date().getDate()
     )
   );
@@ -66,7 +66,7 @@ export class TransactionVoidComponent {
   Math: any;
   firstDate = new Date(
     new Date().getFullYear(),
-    new Date().getMonth() - 1,
+    new Date().getMonth(),
     new Date().getDate()
   );
   secondDate = new Date();
@@ -80,7 +80,8 @@ export class TransactionVoidComponent {
     private datePipe: DatePipe
   ) {
     this.fromDate =
-      this.firstDate.getFullYear() +
+      this.firstDate.getFullYear() -
+      1 +
       "-" +
       (this.firstDate.getMonth() + 1) +
       "-" +
@@ -125,7 +126,11 @@ export class TransactionVoidComponent {
   }
   applyDateFilter() {
     this.itemsPerPage = 5;
-    this.transactionVoid(this.searchFrom, this.searchTo);
+    if (this.selectedDate === "custom") {
+      this.transactionVoid(this.searchFrom, this.searchTo);
+    } else {
+      this.transactionVoid("", "");
+    }
   }
 
   filteredData: any;
@@ -180,11 +185,33 @@ export class TransactionVoidComponent {
       this.selectedItems = [];
     }
   }
+
+  dateValue: string[] = ["custom"];
+  selectedDate: any = "custom";
+  dates: any = [
+    { value: "today", viewValue: "Today" },
+    { value: "yesterday", viewValue: "Yesterday" },
+    { value: "lweek", viewValue: "Last Week" },
+    { value: "lmth", viewValue: "Last Month" },
+    { value: "lyear", viewValue: "Last Year" },
+    { value: "custom", viewValue: "Custom Date" },
+  ];
+  onDateChange(event: any): void {
+    this.dateValue = event.value;
+    console.log(this.selectedDate);
+  }
+
   errorMessage: any = null;
   transactionVoid(fromDate: any, toDate: any) {
     this.loadingSpinner = true;
     this.appService
-      .transactionVoid("json", fromDate, toDate, this.storeIdValue)
+      .transactionVoid(
+        "json",
+        fromDate,
+        toDate,
+        this.storeIdValue,
+        this.dateValue
+      )
       .subscribe((result) => {
         if (result && result.status == "failed") {
           console.log(result.message);

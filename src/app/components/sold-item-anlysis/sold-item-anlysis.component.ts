@@ -84,24 +84,24 @@ export class SoldItemAnlysisComponent {
     private appService: AppService,
     private datePipe: DatePipe
   ) {
-    this.fromDate =
-      this.firstDate.getFullYear() +
-      "-" +
-      (this.firstDate.getMonth() + 1) +
-      "-" +
-      this.firstDate.getDate();
-    this.toDate =
-      this.secondDate.getFullYear() +
-      "-" +
-      (this.secondDate.getMonth() + 1) +
-      "-" +
-      this.secondDate.getDate();
+    // this.fromDate =
+    //   this.firstDate.getFullYear() +
+    //   "-" +
+    //   (this.firstDate.getMonth() + 1) +
+    //   "-" +
+    //   this.firstDate.getDate();
+    // this.toDate =
+    //   this.secondDate.getFullYear() +
+    //   "-" +
+    //   (this.secondDate.getMonth() + 1) +
+    //   "-" +
+    //   this.secondDate.getDate();
     this.authService.login().subscribe((result) => {
       console.log(result);
       if (result && result.access_token) {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
-        this.salesRemark(this.fromDate, this.toDate);
+        this.salesRemark("", "");
         this.getStore();
         this.getStock();
         this.getGroup();
@@ -133,7 +133,11 @@ export class SoldItemAnlysisComponent {
   }
   applyDateFilter() {
     this.itemsPerPage = 5;
-    this.salesRemark(this.searchFrom, this.searchTo);
+    if (this.selectedDate === "custom") {
+      this.salesRemark(this.searchFrom, this.searchTo);
+    } else {
+      this.salesRemark("", "");
+    }
   }
 
   filteredData: any;
@@ -388,6 +392,21 @@ export class SoldItemAnlysisComponent {
     }
   }
 
+  dateValue: string[] = ["lyear"];
+  selectedDate: any;
+  dates: any = [
+    { value: "today", viewValue: "Today" },
+    { value: "yesterday", viewValue: "Yesterday" },
+    { value: "lweek", viewValue: "Last Week" },
+    { value: "lmth", viewValue: "Last Month" },
+    { value: "lyear", viewValue: "Last Year" },
+    { value: "custom", viewValue: "Custom Date" },
+  ];
+  onDateChange(event: any): void {
+    this.dateValue = event.value;
+    console.log(this.selectedDate);
+  }
+
   isChecked: boolean;
   isCheckedShift: boolean;
   isCheckedChange: boolean;
@@ -591,7 +610,8 @@ export class SoldItemAnlysisComponent {
         this.isCheckboxDiscount,
         this.isCheckboxTransaction,
         this.isCheckboxCombine,
-        this.isCheckboxNormal
+        this.isCheckboxNormal,
+        this.dateValue
       )
       .subscribe((result) => {
         if (result && result.data == "") {
