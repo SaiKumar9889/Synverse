@@ -232,7 +232,7 @@ export class HourSalesComponent {
   }
 
   dateValue: string[] = ["lyear"];
-  selectedDate: any;
+  selectedDate: any = "lyear";
   dates: any = [
     { value: "today", viewValue: "Today" },
     { value: "yesterday", viewValue: "Yesterday" },

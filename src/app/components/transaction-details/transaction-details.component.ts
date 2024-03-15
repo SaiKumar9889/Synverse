@@ -51,8 +51,8 @@ export class TransactionDetailsComponent implements OnInit {
   searchTo: any = "";
   dateFrom: FormControl = new FormControl(
     new Date(
-      new Date().getFullYear(),
-      new Date().getMonth() - 1,
+      new Date().getFullYear() - 1,
+      new Date().getMonth(),
       new Date().getDate()
     )
   );
@@ -69,7 +69,7 @@ export class TransactionDetailsComponent implements OnInit {
   Math: any;
   firstDate = new Date(
     new Date().getFullYear(),
-    new Date().getMonth() - 1,
+    new Date().getMonth(),
     new Date().getDate()
   );
   secondDate = new Date();
@@ -86,20 +86,21 @@ export class TransactionDetailsComponent implements OnInit {
     this.dates.map((res: any) => {
       this.viewValue = res.viewValue;
     });
-    // if (this.viewValue == "Custom Date") {
-    //   this.fromDate =
-    //     this.firstDate.getFullYear() +
-    //     "-" +
-    //     (this.firstDate.getMonth() + 1) +
-    //     "-" +
-    //     this.firstDate.getDate();
-    //   this.toDate =
-    //     this.secondDate.getFullYear() +
-    //     "-" +
-    //     (this.secondDate.getMonth() + 1) +
-    //     "-" +
-    //     this.secondDate.getDate();
-    // }
+    if (this.viewValue == "Custom Date") {
+      this.fromDate =
+        this.firstDate.getFullYear() -
+        1 +
+        "-" +
+        (this.firstDate.getMonth() + 1) +
+        "-" +
+        this.firstDate.getDate();
+      this.toDate =
+        this.secondDate.getFullYear() +
+        "-" +
+        (this.secondDate.getMonth() + 1) +
+        "-" +
+        this.secondDate.getDate();
+    }
 
     this.authService.login().subscribe((result) => {
       if (result && result.access_token) {
@@ -107,7 +108,7 @@ export class TransactionDetailsComponent implements OnInit {
         authService.setRefreshToken(result.refresh_token);
         console.log(this.dates);
 
-        this.transactionDetail("", "");
+        this.transactionDetail(this.fromDate, this.toDate);
 
         this.getStore();
       }
@@ -237,8 +238,8 @@ export class TransactionDetailsComponent implements OnInit {
     }
   }
 
-  dateValue: string[] = ["lyear"];
-  selectedDate: any;
+  dateValue: string[] = ["custom"];
+  selectedDate: any = "custom";
   dates: any = [
     { value: "today", viewValue: "Today" },
     { value: "yesterday", viewValue: "Yesterday" },
