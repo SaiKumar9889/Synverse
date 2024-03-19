@@ -381,10 +381,12 @@
                 {{ data?.qty }}
               </td>
               <td class="alignRight">
-                RM {{ data?.netprice | number : "1.2-2" }}
+                <span *ngIf="data?.netprice">RM</span>
+                {{ data?.netprice | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data?.discbymny | number : "1.2-2" }}
+                <span *ngIf="data?.discbymny">RM</span>
+                {{ data?.discbymny | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
@@ -554,14 +556,20 @@
               <h4>Net Sales</h4>
             </div>
             <div>
-              <p>RM {{ data?.netprice | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data?.netprice">RM</span>
+                {{ data?.netprice | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Disc by mny</h4>
             </div>
             <div>
-              <p>RM {{ data?.discbymny | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data?.discbymny">RM</span>
+                {{ data?.discbymny | number : "1.2-2" }}
+              </p>
             </div>
           </div>
         </div>

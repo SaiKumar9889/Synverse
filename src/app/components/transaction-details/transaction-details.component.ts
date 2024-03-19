@@ -307,11 +307,41 @@ export class TransactionDetailsComponent implements OnInit {
           if (result) {
             this.store_code = result?.data[0]?.store_code;
             this.store_name = result?.data[0]?.store_name;
-            this.filteredData = result?.data[0]?.transdetail;
+            let array: any = [];
+            if (result.data !== "failed") {
+              result.data.forEach((element: any) => {
+                array.push({
+                  store_code: element.store_code,
+                  store_name: element.store_name,
+                });
+                element.transdetail.forEach((element1: any) => {
+                  array.push({
+                    term: element1.term,
+                    date: element1.date,
+                    gross_sales: element1.gross_sales,
+                    item_disc: element1.item_disc,
+                    sub_disc: element1.sub_disc,
+                    net_sales: element1.net_sales,
+                    tax_1: element1.tax_1,
+                    tax_2: element1.tax_2,
+                    round: element1.round,
+                    total_sales: element1.total_sales,
+                    item_void: element1.item_void,
+                    all_void: element1.all_void,
+                    trans_void: element1.trans_void,
+                    refund: element1.refund,
+                  });
+                });
+              });
+              console.log(array);
+            }
+            console.log(result.data);
+            this.filteredData = array;
+
             this.storesFilterData = result?.data[0]?.transdetail;
             this.subTotalData = result?.data[0];
             this.grandTotalData = result;
-            this.filteredData = this.storesFilterData;
+            // this.filteredData = this.storesFilterData;
             this.calculateTotalPages();
           }
           this.loadingSpinner = false;

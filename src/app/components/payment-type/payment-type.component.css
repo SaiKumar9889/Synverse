@@ -1,16 +1,38 @@
-tfoot .emptyRow {
-  bottom: 60px !important;
+/* tfoot .emptyRow {
+  bottom: 150px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
   border: 1px solid #6d6a6ab3;
   height: 28px;
 }
+tfoot .paidAmount {
+  bottom: 120px !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 9;
+  background: #fff;
+}
+tfoot .visaData {
+  bottom: 90px !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 9;
+  background: #fff;
+}
+tfoot .masterData {
+  bottom: 60px !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 9;
+  background: #fff;
+}
 tfoot .subTotalPL {
   bottom: 30px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
+} */
+tfoot {
+  position: sticky;
+  bottom: 0;
 }
 .backgroundWhitePage,
 .backgroundWhitePageIncrease {
@@ -39,6 +61,9 @@ tfoot .subTotalPL {
 }
 .thead th {
   top: 158px;
+}
+.headingTop {
+  top: 0px !important;
 }
 .theadIncrease th {
   top: 178px;

@@ -294,13 +294,36 @@ export class TaxTransactionComponent implements OnInit {
         }
         setTimeout(() => {
           if (result) {
-            this.store_code = result?.data[0]?.store_code;
-            this.store_name = result?.data[0]?.store_name;
-            this.filteredData = result?.data[0]?.tax_trx;
+            // this.store_code = result?.data[0]?.store_code;
+            // this.store_name = result?.data[0]?.store_name;
+            let array: any = [];
+            if (result.data !== "failed") {
+              result?.data?.forEach((element: any) => {
+                element?.tax_trx?.forEach((element1: any) => {
+                  array.push({
+                    store: element1.store,
+                    terminal: element1.terminal,
+                    date: element1.date,
+                    rcpt: element1.rcpt,
+                    operator: element1.operator,
+                    shift: element1.shift,
+                    status: element1.status,
+                    gross: element1.gross,
+                    tax1: element1.tax1,
+                    tax2: element1.tax2,
+                    tax3: element1.tax3,
+                    tax4: element1.tax4,
+                    netSales: element1.netSales,
+                  });
+                });
+              });
+              console.log(array);
+            }
+            this.filteredData = array;
             this.storesFilterData = result?.data[0]?.tax_trx;
             this.subTotalData = result?.data[0];
             this.grandTotalData = result;
-            this.filteredData = this.storesFilterData;
+            // this.filteredData = this.storesFilterData;
             this.calculateTotalPages();
           }
           this.loadingSpinner = false;

@@ -50,8 +50,8 @@ export class CategorySalesComponent {
   searchTo: any = "2023-05-31";
   dateFrom: FormControl = new FormControl(
     new Date(
-      new Date().getFullYear(),
-      new Date().getMonth() - 1,
+      new Date().getFullYear() - 1,
+      new Date().getMonth(),
       new Date().getDate()
     )
   );
@@ -62,7 +62,7 @@ export class CategorySalesComponent {
   loadingSpinner: boolean;
   firstDate = new Date(
     new Date().getFullYear(),
-    new Date().getMonth() - 1,
+    new Date().getMonth(),
     new Date().getDate()
   );
   secondDate = new Date();
@@ -82,7 +82,8 @@ export class CategorySalesComponent {
     private datePipe: DatePipe
   ) {
     this.fromDate =
-      this.firstDate.getFullYear() +
+      this.firstDate.getFullYear() -
+      1 +
       "-" +
       (this.firstDate.getMonth() + 1) +
       "-" +
@@ -98,6 +99,7 @@ export class CategorySalesComponent {
         authService.setToken(result.access_token);
         authService.setRefreshToken(result.refresh_token);
         this.categorySales(this.fromDate, this.toDate);
+        console.log(this.fromDate, this.toDate);
         this.getStore();
       }
     });
@@ -203,7 +205,18 @@ export class CategorySalesComponent {
 
         setTimeout(() => {
           if (result) {
-            this.filteredData = result.data;
+            let array: any = [];
+            result?.data?.forEach((element: any) => {
+              array.push({
+                category: element.category,
+                mcode: element.mcode,
+                qty: element.qty,
+                netprice: element.netprice,
+                discbymny: element.discbymny,
+              });
+            });
+            console.log(array);
+            this.filteredData = array;
             this.storesFilterData = result.data;
             this.grandTotalData = result;
             this.filteredData = this.storesFilterData;

@@ -266,7 +266,7 @@ export class HourSalesComponent {
         this.dateValue
       )
       .subscribe((result) => {
-        if (result && result.success == false) {
+        if (result && result.data == "failed") {
           console.log(result.message);
           this.errorMessage = result.message;
           console.log(this.errorMessage);
@@ -274,13 +274,36 @@ export class HourSalesComponent {
 
         setTimeout(() => {
           if (result) {
-            this.store_code = result?.data[0]?.store_code;
-            this.store_name = result?.data[0]?.store_name;
-            this.filteredData = result?.data[0]?.hourly_sales;
+            // this.store_code = result?.data[0]?.store_code;
+            // this.store_name = result?.data[0]?.store_name;
+            let array: any = [];
+            if (result.data !== "failed") {
+              result?.data?.forEach((element: any) => {
+                array.push({
+                  store_code: element.store_code,
+                  store_name: element.store_name,
+                });
+
+                element?.hourly_sales?.forEach((element1: any) => {
+                  array.push({
+                    hourly_range: element1.hourly_range,
+                    total_rcptno: element1.total_rcptno,
+                    total_gross: element1.total_gross,
+                    total_disc: element1.total_disc,
+                    total_netsales: element1.total_netsales,
+                    total: element1.total,
+                    contribution: element1.contribution,
+                  });
+                });
+              });
+              console.log(array);
+            }
+
+            this.filteredData = array;
             this.storesFilterData = result?.data[0]?.hourly_sales;
             this.subTotalData = result?.data[0];
             this.grandTotalData = result;
-            this.filteredData = this.storesFilterData;
+            // this.filteredData = this.storesFilterData;
             this.calculateTotalPages();
           }
           this.loadingSpinner = false;

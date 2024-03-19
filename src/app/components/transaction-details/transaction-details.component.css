@@ -34,6 +34,9 @@ thead th {
 .headingTop {
   top: 0px !important;
 }
+b {
+  font-weight: 500;
+}
 @media screen and (max-width: 599px) {
   .addedScroll {
     padding: 5px 10px;

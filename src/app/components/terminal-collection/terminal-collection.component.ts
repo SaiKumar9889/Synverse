@@ -286,8 +286,8 @@ export class TerminalCollectionComponent {
         this.dateValue
       )
       .subscribe((result) => {
-        this.store_code = result.data[0].store_code;
-        this.store_name = result.data[0].store_name;
+        // this.store_code = result.data[0].store_code;
+        // this.store_name = result.data[0].store_name;
         setTimeout(() => {
           if (result && result.data == "failed") {
             console.log(result.message);
@@ -297,11 +297,36 @@ export class TerminalCollectionComponent {
             this.errorMessage = null;
           }
           if (result) {
-            this.filteredData = result.data[0].tax_trx;
+            let array: any = [];
+            if (result.data !== "failed") {
+              result.data.forEach((element: any) => {
+                array.push({
+                  store_code: element.store_code,
+                  store_name: element.store_name,
+                });
+                element.tax_trx.forEach((element1: any) => {
+                  array.push({
+                    date: element1.date,
+                    terminal: element1.terminal,
+                    netsales: element1.netsales,
+                    tax1: element1.tax1,
+                    tax2: element1.tax2,
+                    round: element1.round,
+                    ttl_sales: element1.ttl_sales,
+                    boost: element1.collection_type.BOOST,
+                    cash: element1.collection_type.CASH,
+                    food: element1.collection_type["FOOD.P"],
+                    grab: element1.collection_type.GRAB,
+                  });
+                });
+              });
+              console.log(array);
+            }
+            this.filteredData = array;
             this.storesFilterData = result.data[0].tax_trx;
             this.subTotalData = result.data[0];
             this.grandTotalData = result;
-            this.filteredData = this.storesFilterData;
+            // this.filteredData = this.storesFilterData;
             this.calculateTotalPages();
           }
           this.loadingSpinner = false;

@@ -219,7 +219,18 @@ export class DepartmentSalesComponent {
         }
         setTimeout(() => {
           if (result) {
-            this.filteredData = result.data;
+            let array: any = [];
+            result?.data?.forEach((element: any) => {
+              array.push({
+                department: element.department,
+                mcode: element.mcode,
+                qty: element.qty,
+                netprice: element.netprice,
+                discbymny: element.discbymny,
+              });
+            });
+            console.log(array);
+            this.filteredData = array;
             console.log(result);
             this.storesFilterData = result.data;
             this.grandTotalData = result;

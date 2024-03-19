@@ -326,7 +326,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
           class="backgroundWhitePage"
         >
           <div fxFlex="12">
@@ -376,7 +378,9 @@
           <thead>
             <tr>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('date')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -385,7 +389,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('terminal')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -394,7 +400,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('netsales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -403,7 +411,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('tax1')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -412,7 +422,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('tax2')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -421,7 +433,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('round')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -430,7 +444,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('ttl_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -439,7 +455,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('ttl_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -448,7 +466,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('ttl_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -457,7 +477,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('ttl_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -466,7 +488,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('ttl_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -475,7 +499,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('ttl_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -484,7 +510,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('ttl_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -493,7 +521,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('ttl_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -502,7 +532,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('ttl_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -511,7 +543,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('ttl_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -522,57 +556,57 @@
             </tr>
           </thead>
           <tbody *ngIf="filteredData && !loadingSpinner">
-            <tr>
-              <td>{{ store_code }}</td>
-              <td>{{ store_name }}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-
-            <tr *ngFor="let data of getCurrentPageItems()">
-              <td>
-                {{ data.date | date }}
-              </td>
-              <td>{{ data.terminal }}</td>
-              <td class="alignRight">
-                RM {{ data.netsales | number : "1.2-2" }}
-              </td>
-              <td class="alignRight">RM {{ data.tax1 | number : "1.2-2" }}</td>
-              <td class="alignRight">RM {{ data.tax2 | number : "1.2-2" }}</td>
-              <td class="alignRight">RM {{ data.round | number : "1.2-2" }}</td>
-              <td class="alignRight">
-                RM {{ data.ttl_sales | number : "1.2-2" }}
-              </td>
-              <td class="alignRight"></td>
-              <td class="alignRight">
-                RM {{ data.collection_type.BOOST | number : "1.2-2" }}
-              </td>
-              <td class="alignRight"></td>
-              <td class="alignRight"></td>
-              <td class="alignRight">
-                RM {{ data.collection_type.CASH | number : "1.2-2" }}
-              </td>
-              <td class="alignRight">
-                RM {{ data.collection_type["FOOD.P"] | number : "1.2-2" }}
-              </td>
-              <td class="alignRight"></td>
-              <td class="alignRight"></td>
-              <td class="alignRight">
-                RM {{ data.collection_type.GRAB | number : "1.2-2" }}
-              </td>
-            </tr>
+            <ng-container *ngFor="let data of getCurrentPageItems()">
+              <tr>
+                <td *ngIf="data.store_code">{{ data.store_code }}</td>
+                <td *ngIf="data.store_name">{{ data.store_name }}</td>
+                <td *ngIf="data.date">
+                  {{ data.date | date }}
+                </td>
+                <td *ngIf="data.terminal">{{ data.terminal }}</td>
+                <td class="alignRight">
+                  <span *ngIf="data.netsales">RM</span>
+                  {{ data.netsales | number : "1.2-2" }}
+                </td>
+                <td class="alignRight">
+                  <span *ngIf="data.tax1">RM</span>
+                  {{ data.tax1 | number : "1.2-2" }}
+                </td>
+                <td class="alignRight">
+                  <span *ngIf="data.tax2">RM</span>
+                  {{ data.tax2 | number : "1.2-2" }}
+                </td>
+                <td class="alignRight">
+                  <span *ngIf="data.round">RM</span>
+                  {{ data.round | number : "1.2-2" }}
+                </td>
+                <td class="alignRight">
+                  <span *ngIf="data.ttl_sales">RM</span>
+                  {{ data.ttl_sales | number : "1.2-2" }}
+                </td>
+                <td class="alignRight"></td>
+                <td class="alignRight">
+                  <span *ngIf="data.ttl_sales">RM</span>
+                  {{ data.boost | number : "1.2-2" }}
+                </td>
+                <td class="alignRight"></td>
+                <td class="alignRight"></td>
+                <td class="alignRight">
+                  <span *ngIf="data.ttl_sales">RM</span>
+                  {{ data.cash | number : "1.2-2" }}
+                </td>
+                <td class="alignRight">
+                  <span *ngIf="data.ttl_sales">RM</span>
+                  {{ data.food | number : "1.2-2" }}
+                </td>
+                <td class="alignRight"></td>
+                <td class="alignRight"></td>
+                <td class="alignRight">
+                  <span *ngIf="data.ttl_sales">RM</span>
+                  {{ data.grab | number : "1.2-2" }}
+                </td>
+              </tr>
+            </ng-container>
           </tbody>
           <tbody *ngIf="errorMessage && !loadingSpinner">
             <tr>
@@ -589,7 +623,14 @@
               </td>
             </tr>
           </tbody>
-          <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
+          <tfoot
+            class="footer-fixed"
+            *ngIf="
+              filteredData &&
+              !loadingSpinner &&
+              grandTotalData.data !== 'failed'
+            "
+          >
             <tr class="emptyRow">
               <td></td>
               <td></td>
@@ -632,25 +673,27 @@
               <td class="boldText blueText alignRight"></td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_collection_type.BOOST | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight"></td>
-              <td class="boldText blueText alignRight"></td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_collection_type.CASH | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
                 {{
-                  subTotalData?.sub_collection_type["FOOD.P"] | number : "1.2-2"
+                  subTotalData?.sub_collection_type?.BOOST | number : "1.2-2"
                 }}
               </td>
               <td class="boldText blueText alignRight"></td>
               <td class="boldText blueText alignRight"></td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_collection_type.GRAB | number : "1.2-2" }}
+                {{ subTotalData?.sub_collection_type?.CASH | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{
+                  subTotalData?.sub_collection_type?.["FOOD.P"] | number : "1.2-2"
+                }}
+              </td>
+              <td class="boldText blueText alignRight"></td>
+              <td class="boldText blueText alignRight"></td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ subTotalData?.sub_collection_type?.GRAB | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -675,21 +718,7 @@
               <td class="boldText greenText alignRight">
                 RM
                 {{
-                  grandTotalData?.grand_collection_type.BOOST | number : "1.2-2"
-                }}
-              </td>
-              <td class="boldText greenText alignRight"></td>
-              <td class="boldText greenText alignRight"></td>
-              <td class="boldText greenText alignRight">
-                RM
-                {{
-                  grandTotalData?.grand_collection_type.CASH | number : "1.2-2"
-                }}
-              </td>
-              <td class="boldText greenText alignRight">
-                RM
-                {{
-                  grandTotalData?.grand_collection_type["FOOD.P"]
+                  grandTotalData?.grand_collection_type?.BOOST
                     | number : "1.2-2"
                 }}
               </td>
@@ -698,7 +727,22 @@
               <td class="boldText greenText alignRight">
                 RM
                 {{
-                  grandTotalData?.grand_collection_type.GRAB | number : "1.2-2"
+                  grandTotalData?.grand_collection_type?.CASH | number : "1.2-2"
+                }}
+              </td>
+              <td class="boldText greenText alignRight">
+                RM
+                {{
+                  grandTotalData?.grand_collection_type?.["FOOD.P"]
+                    | number : "1.2-2"
+                }}
+              </td>
+              <td class="boldText greenText alignRight"></td>
+              <td class="boldText greenText alignRight"></td>
+              <td class="boldText greenText alignRight">
+                RM
+                {{
+                  grandTotalData?.grand_collection_type?.GRAB | number : "1.2-2"
                 }}
               </td>
             </tr>
@@ -707,7 +751,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
         >
           <div fxFlex="12">
             <mat-form-field appearance="outline">
@@ -759,7 +805,9 @@
         fxHide.lg
         fxHide.md
         fxHide.sm
-        *ngIf="filteredData && !loadingSpinner"
+        *ngIf="
+          filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+        "
       >
         <div class="addedScroll">
           <div
@@ -772,7 +820,7 @@
               <h4>Date</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ store_code }}</p>
+              <p>{{ data.store_code }}</p>
               <p>{{ data.date | date }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
@@ -781,41 +829,53 @@
               <h4>Terminal</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ store_name }}</p>
+              <p>{{ data.store_name }}</p>
               <p>{{ data.terminal }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div><h4>Net Sales</h4></div>
             <div>
-              <p>RM {{ data.netsales }}</p>
+              <p><span *ngIf="data.netsales">RM </span> {{ data.netsales }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Tax1</h4>
             </div>
             <div>
-              <p>RM {{ data.tax1 | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.tax1">RM </span>
+                {{ data.tax1 | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Tax2</h4>
             </div>
             <div>
-              <p>RM {{ data.tax2 | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.tax2">RM </span>
+                {{ data.tax2 | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Round</h4>
             </div>
             <div>
-              <p>RM {{ data.round | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.round">RM </span>
+                {{ data.round | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>TTL_Sales</h4>
             </div>
             <div>
-              <p>RM {{ data.ttl_sales | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.ttl_sales">RM </span>
+                {{ data.ttl_sales | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
@@ -829,7 +889,10 @@
               <h4>Boost</h4>
             </div>
             <div>
-              <p>RM {{ data.collection_type.BOOST | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.ttl_sales">RM </span>
+                {{ data.boost | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
@@ -850,14 +913,20 @@
               <h4>Cash</h4>
             </div>
             <div>
-              <p>RM {{ data.collection_type.CASH | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.ttl_sales">RM </span>
+                {{ data.cash | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>FOOD.P</h4>
             </div>
             <div>
-              <p>RM {{ data.collection_type["FOOD.P"] | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.ttl_sales">RM </span>
+                {{ data.food | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
@@ -878,7 +947,10 @@
               <h4>Grab</h4>
             </div>
             <div>
-              <p>RM {{ data.collection_type.GRAB | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.ttl_sales">RM </span>
+                {{ data.grab | number : "1.2-2" }}
+              </p>
             </div>
           </div>
         </div>
@@ -990,7 +1062,9 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_collection_type.BOOST | number : "1.2-2" }}
+                {{
+                  subTotalData?.sub_collection_type?.BOOST | number : "1.2-2"
+                }}
               </h4>
             </div>
           </div>
@@ -1017,7 +1091,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_collection_type.CASH | number : "1.2-2" }}
+                {{ subTotalData?.sub_collection_type?.CASH | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -1029,7 +1103,7 @@
               <h4 class="blueText">
                 RM
                 {{
-                  subTotalData?.sub_collection_type["FOOD.P"] | number : "1.2-2"
+                  subTotalData?.sub_collection_type?.["FOOD.P"] | number : "1.2-2"
                 }}
               </h4>
             </div>
@@ -1057,7 +1131,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_collection_type.GRAB | number : "1.2-2" }}
+                {{ subTotalData?.sub_collection_type?.GRAB | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -1131,7 +1205,8 @@
               <h4 class="greenText">
                 RM
                 {{
-                  grandTotalData?.grand_collection_type.BOOST | number : "1.2-2"
+                  grandTotalData?.grand_collection_type?.BOOST
+                    | number : "1.2-2"
                 }}
               </h4>
             </div>
@@ -1160,7 +1235,7 @@
               <h4 class="greenText">
                 RM
                 {{
-                  grandTotalData?.grand_collection_type.CASH | number : "1.2-2"
+                  grandTotalData?.grand_collection_type?.CASH | number : "1.2-2"
                 }}
               </h4>
             </div>
@@ -1173,7 +1248,7 @@
               <h4 class="greenText">
                 RM
                 {{
-                  grandTotalData?.grand_collection_type["FOOD.P"]
+                  grandTotalData?.grand_collection_type?.["FOOD.P"]
                     | number : "1.2-2"
                 }}
               </h4>
@@ -1203,7 +1278,7 @@
               <h4 class="greenText">
                 RM
                 {{
-                  grandTotalData?.grand_collection_type.GRAB | number : "1.2-2"
+                  grandTotalData?.grand_collection_type?.GRAB | number : "1.2-2"
                 }}
               </h4>
             </div>

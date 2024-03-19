@@ -300,7 +300,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
           class="backgroundWhitePage"
         >
           <div fxFlex="12">
@@ -351,7 +353,9 @@
           <thead>
             <tr>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('term')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -360,7 +364,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('date')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -369,7 +375,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('gross_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -378,7 +386,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('item_disc')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -387,7 +397,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('sub_disc')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -396,7 +408,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('net_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -405,7 +419,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('tax_1')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -414,7 +430,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('tax_2')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -423,7 +441,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('round')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -432,7 +452,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('total_sales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -441,7 +463,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('item_void')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -450,7 +474,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('all_void')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -459,7 +485,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('trans_void')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -468,7 +496,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('refund')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -479,61 +509,68 @@
             </tr>
           </thead>
           <tbody *ngIf="filteredData && !loadingSpinner">
-            <tr>
-              <td>{{ store_code }}</td>
-              <td>{{ store_name }}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-
             <tr *ngFor="let data of getCurrentPageItems()">
-              <td>
+              <td *ngIf="data.store_code">
+                <b>{{ data.store_code }}</b>
+              </td>
+              <td *ngIf="data.store_name">
+                <b>{{ data.store_name }}</b>
+              </td>
+              <td *ngIf="data.term">
                 {{ data.term }}
               </td>
-              <td>{{ data.date | date }}</td>
+              <td *ngIf="data.date">{{ data.date | date }}</td>
               <td class="alignRight">
-                RM {{ data.gross_sales | number : "1.2-2" }}
+                <span *ngIf="data.gross_sales">RM</span>
+                {{ data.gross_sales | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.item_disc | number : "1.2-2" }}
+                <span *ngIf="data.item_disc">RM</span>
+                {{ data.item_disc | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.sub_disc | number : "1.2-2" }}
+                <span *ngIf="data.sub_disc">RM</span>
+                {{ data.sub_disc | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.net_sales | number : "1.2-2" }}
+                <span *ngIf="data.net_sales">RM</span>
+                {{ data.net_sales | number : "1.2-2" }}
               </td>
-              <td class="alignRight">RM {{ data.tax_1 | number : "1.2-2" }}</td>
-              <td class="alignRight">RM {{ data.tax_2 | number : "1.2-2" }}</td>
+              <td class="alignRight">
+                <span *ngIf="data.tax_1">RM</span>
+                {{ data.tax_1 | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="data.tax_2">RM</span>
+                {{ data.tax_2 | number : "1.2-2" }}
+              </td>
               <td class="alignRight" *ngIf="data.round">
-                RM
+                <span *ngIf="data.round">RM</span>
                 {{ data.round | number : "1.2-2" }}
               </td>
-              <td class="alignRight" *ngIf="!data.round">RM 0.00</td>
               <td class="alignRight">
-                RM {{ data.total_sales | number : "1.2-2" }}
+                <span *ngIf="data.round === null">RM</span>
+                <span *ngIf="data.round === null">0.00</span>
               </td>
               <td class="alignRight">
-                RM {{ data.item_void | number : "1.2-2" }}
+                <span *ngIf="data.total_sales">RM</span>
+                {{ data.total_sales | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.all_void | number : "1.2-2" }}
+                <span *ngIf="data.item_void">RM</span>
+                {{ data.item_void | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.trans_void | number : "1.2-2" }}
+                <span *ngIf="data.all_void">RM</span>
+                {{ data.all_void | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.refund | number : "1.2-2" }}
+                <span *ngIf="data.trans_void">RM</span>
+                {{ data.trans_void | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="data.refund">RM</span>
+                {{ data.refund | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
@@ -552,7 +589,14 @@
               </td>
             </tr>
           </tbody>
-          <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
+          <tfoot
+            class="footer-fixed"
+            *ngIf="
+              filteredData &&
+              !loadingSpinner &&
+              grandTotalData.data !== 'failed'
+            "
+          >
             <tr class="emptyRow">
               <td></td>
               <td></td>
@@ -657,7 +701,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
         >
           <div fxFlex="12">
             <mat-form-field appearance="outline">
@@ -704,7 +750,12 @@
         </div>
       </div>
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
-        <div class="addedScroll" *ngIf="filteredData && !loadingSpinner">
+        <div
+          class="addedScroll"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
+        >
           <div
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
@@ -715,7 +766,7 @@
               <h4>Term</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ store_code }}</p>
+              <p>{{ data.store_code }}</p>
               <p>{{ data.term }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
@@ -724,103 +775,203 @@
               <h4>Date</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ store_name }}</p>
+              <p>{{ data.store_name }}</p>
               <p>{{ data.date | date }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div><h4>Gross_Sales</h4></div>
             <div>
-              <p>RM {{ data.gross_sales | number : "1.2-2" }}</p>
+              <p>
+                <span
+                  *ngIf="
+                    data.gross_sales === 0 ||
+                    (data.gross_sales !== 0 && data.gross_sales)
+                  "
+                  >RM</span
+                >
+                {{ data.gross_sales | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Item_Disc</h4>
             </div>
             <div>
-              <p>RM {{ data.item_disc | number : "1.2-2" }}</p>
+              <p>
+                <span
+                  *ngIf="
+                    data.item_disc === 0 ||
+                    (data.item_disc !== 0 && data.item_disc)
+                  "
+                  >RM</span
+                >
+                {{ data.item_disc | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Sub_Disc</h4>
             </div>
             <div>
-              <p>RM {{ data.sub_disc | number : "1.2-2" }}</p>
+              <p>
+                <span
+                  *ngIf="
+                    data.sub_disc === 0 ||
+                    (data.sub_disc !== 0 && data.sub_disc)
+                  "
+                  >RM</span
+                >
+                {{ data.sub_disc | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Net_Sales</h4>
             </div>
             <div>
-              <p>RM {{ data.net_sales | number : "1.2-2" }}</p>
+              <p>
+                <span
+                  *ngIf="
+                    data.net_sales === 0 ||
+                    (data.net_sales !== 0 && data.net_sales)
+                  "
+                  >RM</span
+                >
+                {{ data.net_sales | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Tax_1</h4>
             </div>
             <div>
-              <p>{{ data.tax_1 | number : "1.2-2" }}</p>
+              <p>
+                <span
+                  *ngIf="data.tax_1 === 0 || (data.tax_1 !== 0 && data.tax_1)"
+                  >RM</span
+                >
+                {{ data.tax_1 | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Tax_2</h4>
             </div>
             <div>
-              <p>RM {{ data.tax_2 | number : "1.2-2" }}</p>
+              <p>
+                <span
+                  *ngIf="data.tax_2 === 0 || (data.tax_2 !== 0 && data.tax_2)"
+                  >RM</span
+                >
+                {{ data.tax_2 | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div *ngIf="data.round">
               <h4>Round</h4>
             </div>
             <div *ngIf="data.round">
-              <p>RM {{ data.round | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.round">RM </span>
+                {{ data.round | number : "1.2-2" }}
+              </p>
             </div>
             <div *ngIf="!data.round">
               <h4>Round</h4>
             </div>
-            <div *ngIf="!data.round">
-              <p>RM 0.00</p>
+            <div>
+              <p>
+                <span *ngIf="data.round === null">RM </span>
+                <span *ngIf="data.round === null">0.00</span>
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Total_sales</h4>
             </div>
             <div>
-              <p>RM {{ data.total_sales | number : "1.2-2" }}</p>
+              <p>
+                <span
+                  *ngIf="
+                    data.total_sales === 0 ||
+                    (data.total_sales !== 0 && data.total_sales)
+                  "
+                  >RM</span
+                >
+                {{ data.total_sales | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Item_Void</h4>
             </div>
             <div>
-              <p>RM {{ data.item_void | number : "1.2-2" }}</p>
+              <p>
+                <span
+                  *ngIf="
+                    data.item_void === 0 ||
+                    (data.item_void !== 0 && data.item_void)
+                  "
+                  >RM</span
+                >
+                {{ data.item_void | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>All_Void</h4>
             </div>
             <div>
-              <p>RM {{ data.all_void | number : "1.2-2" }}</p>
+              <p>
+                <span
+                  *ngIf="
+                    data.all_void === 0 ||
+                    (data.all_void !== 0 && data.all_void)
+                  "
+                  >RM</span
+                >
+                {{ data.all_void | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Trans_Void</h4>
             </div>
             <div>
-              <p>RM {{ data.trans_void | number : "1.2-2" }}</p>
+              <p>
+                <span
+                  *ngIf="
+                    data.trans_void === 0 ||
+                    (data.trans_void !== 0 && data.trans_void)
+                  "
+                  >RM</span
+                >
+                {{ data.trans_void | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Refund</h4>
             </div>
             <div>
-              <p>RM {{ data.refund | number : "1.2-2" }}</p>
+              <p>
+                <span
+                  *ngIf="
+                    data.refund === 0 || (data.refund !== 0 && data.refund)
+                  "
+                  >RM</span
+                >
+                {{ data.refund | number : "1.2-2" }}
+              </p>
             </div>
           </div>
         </div>
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
           class="marginBottomAdd"
         >
           <div fxFlex="17" class="">
@@ -866,7 +1017,12 @@
             <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>
-        <div class="addedBorder" *ngIf="filteredData && !loadingSpinner">
+        <div
+          class="addedBorder"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
+        >
           <h4 class="blueText">Sub-Total</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -995,7 +1151,9 @@
         </div>
         <div
           class="addedBorder marginBottomAdded"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
         >
           <h4 class="greenText">Grand Total</h4>
           <hr />

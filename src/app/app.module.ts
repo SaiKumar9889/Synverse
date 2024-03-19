@@ -38,9 +38,10 @@ import { DepartmentSalesComponent } from "./components/department-sales/departme
 import { TransactionSalesComponent } from "./components/transaction-sales/transaction-sales.component";
 import { TransactionVoidComponent } from "./components/transaction-void/transaction-void.component";
 import { NgxPaginationModule } from "ngx-pagination";
-import { InactiveStockComponent } from './components/inactive-stock/inactive-stock.component';
-import { CategorySalesComponent } from './components/category-sales/category-sales.component';
-import { StoreVoucherComponent } from './components/store-voucher/store-voucher.component';
+import { InactiveStockComponent } from "./components/inactive-stock/inactive-stock.component";
+import { CategorySalesComponent } from "./components/category-sales/category-sales.component";
+import { StoreVoucherComponent } from "./components/store-voucher/store-voucher.component";
+import { ScrollingModule } from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { StoreVoucherComponent } from './components/store-voucher/store-voucher.
     ReactiveFormsModule,
     NgxPaginationModule,
     MatMomentDateModule,
+    ScrollingModule,
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.cubeGrid,
       backdropBackgroundColour: "rgba(0,0,0,0.1)",

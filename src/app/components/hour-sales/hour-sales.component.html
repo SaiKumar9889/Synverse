@@ -188,6 +188,7 @@
             class="btn"
             color="primary"
             (click)="applyDateFilter()"
+            *ngIf="grandTotalData.data !== 'failed'"
           >
             Apply
           </button>
@@ -319,7 +320,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
           class="backgroundWhitePage"
         >
           <div fxFlex="12">
@@ -375,7 +378,9 @@
           <thead>
             <tr>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('hourly_range')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -384,7 +389,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('total_rcptno')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -393,7 +400,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('total_gross')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -402,7 +411,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('total_disc')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -411,7 +422,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('total_netsales')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -420,7 +433,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('total')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -429,7 +444,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('contribution')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -440,32 +457,32 @@
             </tr>
           </thead>
           <tbody *ngIf="filteredData && !loadingSpinner">
-            <tr>
-              <td>{{ store_code }}</td>
-              <td>{{ store_name }}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-
             <tr *ngFor="let data of getCurrentPageItems()">
-              <td>
+              <td *ngIf="data.store_code">{{ data.store_code }}</td>
+              <td *ngIf="data.store_name">{{ data.store_name }}</td>
+              <td *ngIf="data.hourly_range">
                 {{ data.hourly_range }}
               </td>
-              <td>{{ data.total_rcptno }}</td>
+              <td *ngIf="data.total_rcptno">{{ data.total_rcptno }}</td>
               <td class="alignRight">
-                RM {{ data.total_gross | number : "1.2-2" }}
+                <span *ngIf="data.total_gross">RM</span>
+                {{ data.total_gross | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.total_disc | number : "1.2-2" }}
+                <span *ngIf="data.total_disc">RM</span>
+                {{ data.total_disc | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.total_netsales | number : "1.2-2" }}
+                <span *ngIf="data.total_netsales">RM</span>
+                {{ data.total_netsales | number : "1.2-2" }}
               </td>
-              <td class="alignRight">RM {{ data.total | number : "1.2-2" }}</td>
               <td class="alignRight">
-                RM {{ data.contribution | number : "1.2-2" }}
+                <span *ngIf="data.total">RM</span>
+                {{ data.total | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="data.total">RM</span>
+                {{ data.contribution | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
@@ -485,7 +502,7 @@
             </tr>
           </tbody>
           <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
-            <tr class="emptyRow">
+            <tr class="emptyRow" *ngIf="grandTotalData.data !== 'failed'">
               <td></td>
               <td></td>
               <td></td>
@@ -494,7 +511,7 @@
               <td></td>
               <td></td>
             </tr>
-            <tr class="subTotalPL">
+            <tr class="subTotalPL" *ngIf="grandTotalData.data !== 'failed'">
               <td class="boldText blueText">Sub-Total</td>
               <td class="boldText blueText alignRight">
                 {{ subTotalData?.sub_total_rcpt }}
@@ -518,7 +535,7 @@
                 RM {{ subTotalData?.sub_total_contribution | number : "1.2-2" }}
               </td>
             </tr>
-            <tr>
+            <tr *ngIf="grandTotalData.data !== 'failed'">
               <td class="boldText greenText">Grand Total</td>
               <td class="boldText greenText alignRight">
                 {{ grandTotalData?.grand_total_rcpt }}
@@ -547,7 +564,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
         >
           <div fxFlex="12">
             <mat-form-field appearance="outline">
@@ -599,7 +618,14 @@
           </div>
         </div>
       </div>
-      <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
+      <div
+        fxFlex="100"
+        fxHide.xl
+        fxHide.lg
+        fxHide.md
+        fxHide.sm
+        *ngIf="grandTotalData?.data !== 'failed'"
+      >
         <div class="addedScroll" *ngIf="filteredData && !loadingSpinner">
           <div
             fxLayout="row wrap"
@@ -611,8 +637,8 @@
               <h4>Hourly</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ store_code }}</p>
-              <p>{{ data.hourly_range }}</p>
+              <p *ngIf="data.store_code">{{ data.store_code }}</p>
+              <p *ngIf="data.hourly_range">{{ data.hourly_range }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
 
@@ -620,41 +646,56 @@
               <h4>#RCPT</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ store_name }}</p>
-              <p>{{ data.total_rcptno }}</p>
+              <p *ngIf="data.store_name">{{ data.store_name }}</p>
+              <p *ngIf="data.total_rcptno">{{ data.total_rcptno }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div><h4>Gross</h4></div>
             <div>
-              <p>RM {{ data.total_gross | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.total_gross">RM</span>
+                {{ data.total_gross | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Discount</h4>
             </div>
             <div>
-              <p>RM {{ data.total_disc | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.total_disc">RM</span>
+                {{ data.total_disc | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Net</h4>
             </div>
             <div>
-              <p>RM {{ data.total_netsales | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.total_netsales">RM</span>
+                {{ data.total_netsales | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Total</h4>
             </div>
             <div>
-              <p>RM {{ data.total | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.total">RM</span>
+                {{ data.total | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Contribution</h4>
             </div>
             <div>
-              <p>RM {{ data.contribution | number : "1.2-2" }}</p>
+              <p>
+                <span *ngIf="data.contribution">RM</span>
+                {{ data.contribution | number : "1.2-2" }}
+              </p>
             </div>
           </div>
         </div>
@@ -713,7 +754,7 @@
             <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>
-        <div class="addedBorder" *ngIf="filteredData && !loadingSpinner">
+        <div class="addedBorder" *ngIf="grandTotalData && !loadingSpinner">
           <h4 class="blueText">Sub-Total</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -780,7 +821,7 @@
         </div>
         <div
           class="addedBorder marginBottomAdded"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="grandTotalData && !loadingSpinner"
         >
           <h4 class="greenText">Grand Total</h4>
           <hr />

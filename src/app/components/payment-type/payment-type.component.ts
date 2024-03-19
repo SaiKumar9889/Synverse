@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { AuthService } from "../../auth.service";
 import { AppService } from "../../app.service";
 import {
@@ -38,7 +38,7 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
-export class PaymentTypeComponent implements OnInit {
+export class PaymentTypeComponent implements OnInit, OnDestroy {
   [x: string]: any;
   store_code: any;
   store_name: any;
@@ -97,7 +97,6 @@ export class PaymentTypeComponent implements OnInit {
     //   (this.secondDate.getMonth() + 1) +
     //   "-" +
     //   this.secondDate.getDate();
-    console.log(this.fromDate, this.toDate);
     this.authService.login().subscribe((result) => {
       if (result && result.access_token) {
         authService.setToken(result.access_token);
@@ -125,8 +124,8 @@ export class PaymentTypeComponent implements OnInit {
       this.dateFrom.value,
       "yyyy-MM-dd"
     );
-    console.log(this.searchFrom);
   }
+
   selectedToDate() {
     this.searchTo = this.datePipe.transform(this.dateTo.value, "yyyy-MM-dd");
   }
@@ -153,7 +152,6 @@ export class PaymentTypeComponent implements OnInit {
         item.round.toString().includes(filteredDataValue) ||
         item.ttl_sales.toString().includes(filteredDataValue)
     );
-    console.log(this.filteredData);
   }
 
   rows: any = [];
@@ -169,7 +167,6 @@ export class PaymentTypeComponent implements OnInit {
   getStore() {
     this.appService.getStores().subscribe((result) => {
       this.stores = result;
-      console.log(this.stores);
     });
   }
   onSelectionChange(event: any): void {
@@ -205,7 +202,6 @@ export class PaymentTypeComponent implements OnInit {
   getTerminal() {
     this.appService.getTerminal(this.storeIdValue).subscribe((result) => {
       this.terminalId = result;
-      console.log(this.terminalId);
     });
   }
 
@@ -239,7 +235,6 @@ export class PaymentTypeComponent implements OnInit {
   getPayment() {
     this.appService.getPayment().subscribe((result) => {
       this.paymentId = result;
-      console.log(this.paymentId);
     });
   }
   onPaymentChange(event: any): void {
@@ -275,7 +270,6 @@ export class PaymentTypeComponent implements OnInit {
   ];
   onDateChange(event: any): void {
     this.dateValue = event.value;
-    console.log(this.selectedDate);
   }
 
   isCheckedShift: boolean;
@@ -305,19 +299,15 @@ export class PaymentTypeComponent implements OnInit {
 
   logCheckboxState(): void {
     if (this.isChecked) {
-      console.log("true");
       this.isCheckbox = "true";
     } else {
-      console.log("false");
       this.isCheckbox = "false";
     }
   }
   shiftCheckboxState(): void {
     if (this.isCheckedShift) {
-      console.log("true");
       this.isCheckboxShift = "true";
     } else {
-      console.log("false");
       this.isCheckboxShift = "false";
     }
   }
@@ -354,10 +344,25 @@ export class PaymentTypeComponent implements OnInit {
   subTotalDataT6: any;
   subTotalT6: any;
   subTotalSC01: any;
+  PaymentTypeCode: any;
+  paymentArray: any;
+  visaArray: any;
+  masterArray: any;
+  cashArray: any;
+  duitArray: any;
+  grabArray: any;
+  shopeeArray: any;
+  walletArray: any;
+  subTotalCash: any;
+  subTotalDuit: any;
+  subTotalGrab: any;
+  subTotalShopee: any;
+  subTotalWallet: any;
+
   paymentType(fromDate: any, toDate: any) {
     this.loadingSpinner = true;
     this.errorMessage = null;
-    this.appService
+    this.PaymentTypeCode = this.appService
       .paymentType(
         "json",
         fromDate,
@@ -385,38 +390,194 @@ export class PaymentTypeComponent implements OnInit {
         }
         setTimeout(() => {
           if (result) {
-            this.store_code = result?.data[0]?.store_code;
-            this.store_name = result?.data[0]?.store_name;
+            let array: any = [];
+            if (result.data !== "failed") {
+              result.data.forEach((element: any) => {
+                array.push({
+                  store_code: element.store_code,
+                  store_name: element.store_name,
+                });
+                // element.splice(-4);
+                this.paymentArray = Object.values(
+                  element.payment["Payment 1"] || {}
+                );
+                this.paymentArray.splice(-4);
+                this.paymentArray.forEach((element1: any) => {
+                  array.push({
+                    terminal: element1.PYMT_MASTCODE,
+                    payment: element1.PYMT_PAYBYCODEDESC,
+                    date: element1.PYMT_CLOSEDATE,
+                    price_level: element1.PYMT_SALES_PRICELVL,
+                    shift: element1.PYMT_STATUS,
+                    net_sales: element1.PYMT_PAYAMT,
+                    rounding_adjust: element1.PYMT_ROUND_ADJ,
+                  });
 
-            this.filteredData = Object.values(
-              result?.data[0]?.payment?.["Payment 1"] || {}
-            );
+                  // element1?.splice(-4);
+                });
+                this.cashArray = Object.values(element.payment["CASH"] || {});
+                this.cashArray.splice(-4);
+
+                this.cashArray.forEach((element2: any) => {
+                  array.push({
+                    terminal: element2.PYMT_MASTCODE,
+                    payment: element2.PYMT_PAYBYCODEDESC,
+                    date: element2.PYMT_CLOSEDATE,
+                    price_level: element2.PYMT_SALES_PRICELVL,
+                    shift: element2.PYMT_STATUS,
+                    net_sales: element2.PYMT_PAYAMT,
+                    rounding_adjust: element2.PYMT_ROUND_ADJ,
+                  });
+
+                  // element3?.splice(-4);
+                });
+                this.duitArray = Object.values(
+                  element.payment["DUIT NOW"] || {}
+                );
+                this.duitArray.splice(-4);
+
+                this.duitArray.forEach((element3: any) => {
+                  array.push({
+                    terminal: element3.PYMT_MASTCODE,
+                    payment: element3.PYMT_PAYBYCODEDESC,
+                    date: element3.PYMT_CLOSEDATE,
+                    price_level: element3.PYMT_SALES_PRICELVL,
+                    shift: element3.PYMT_STATUS,
+                    net_sales: element3.PYMT_PAYAMT,
+                    rounding_adjust: element3.PYMT_ROUND_ADJ,
+                  });
+
+                  // element3?.splice(-4);
+                });
+
+                this.grabArray = Object.values(element.payment["GRAB"] || {});
+                this.grabArray.splice(-4);
+
+                this.grabArray.forEach((element4: any) => {
+                  array.push({
+                    terminal: element4.PYMT_MASTCODE,
+                    payment: element4.PYMT_PAYBYCODEDESC,
+                    date: element4.PYMT_CLOSEDATE,
+                    price_level: element4.PYMT_SALES_PRICELVL,
+                    shift: element4.PYMT_STATUS,
+                    net_sales: element4.PYMT_PAYAMT,
+                    rounding_adjust: element4.PYMT_ROUND_ADJ,
+                  });
+
+                  // element3?.splice(-4);
+                });
+
+                this.visaArray = Object.values(element.payment["VISA"] || {});
+                this.visaArray.splice(-4);
+
+                this.visaArray.forEach((element5: any) => {
+                  array.push({
+                    terminal: element5.PYMT_MASTCODE,
+                    payment: element5.PYMT_PAYBYCODEDESC,
+                    date: element5.PYMT_CLOSEDATE,
+                    price_level: element5.PYMT_SALES_PRICELVL,
+                    shift: element5.PYMT_STATUS,
+                    net_sales: element5.PYMT_PAYAMT,
+                    rounding_adjust: element5.PYMT_ROUND_ADJ,
+                  });
+
+                  // element2?.splice(-4);
+                });
+
+                this.shopeeArray = Object.values(
+                  element.payment["SHOPEE FOOD"] || {}
+                );
+                this.shopeeArray.splice(-4);
+
+                this.shopeeArray.forEach((element6: any) => {
+                  array.push({
+                    terminal: element6.PYMT_MASTCODE,
+                    payment: element6.PYMT_PAYBYCODEDESC,
+                    date: element6.PYMT_CLOSEDATE,
+                    price_level: element6.PYMT_SALES_PRICELVL,
+                    shift: element6.PYMT_STATUS,
+                    net_sales: element6.PYMT_PAYAMT,
+                    rounding_adjust: element6.PYMT_ROUND_ADJ,
+                  });
+
+                  // element2?.splice(-4);
+                });
+
+                this.walletArray = Object.values(
+                  element.payment["TNG E-WALLET"] || {}
+                );
+                this.walletArray.splice(-4);
+
+                this.walletArray.forEach((element7: any) => {
+                  array.push({
+                    terminal: element7.PYMT_MASTCODE,
+                    payment: element7.PYMT_PAYBYCODEDESC,
+                    date: element7.PYMT_CLOSEDATE,
+                    price_level: element7.PYMT_SALES_PRICELVL,
+                    shift: element7.PYMT_STATUS,
+                    net_sales: element7.PYMT_PAYAMT,
+                    rounding_adjust: element7.PYMT_ROUND_ADJ,
+                  });
+
+                  // element2?.splice(-4);
+                });
+
+                this.masterArray = Object.values(
+                  element.payment["MASTER"] || {}
+                );
+                this.masterArray.splice(-4);
+
+                this.masterArray.forEach((element8: any) => {
+                  array.push({
+                    terminal: element8.PYMT_MASTCODE,
+                    payment: element8.PYMT_PAYBYCODEDESC,
+                    date: element8.PYMT_CLOSEDATE,
+                    price_level: element8.PYMT_SALES_PRICELVL,
+                    shift: element8.PYMT_STATUS,
+                    net_sales: element8.PYMT_PAYAMT,
+                    rounding_adjust: element8.PYMT_ROUND_ADJ,
+                  });
+
+                  // element3?.splice(-4);
+                });
+              });
+              console.log(array);
+            }
+            this.filteredData = array;
             if (this.filteredData !== undefined) {
               // Your code to handle the non-undefined paymentValue
-              console.log(this.filteredData);
             }
             this.paidAmount = result?.data[0]?.payment?.["Payment 1"]?.paid_amt;
             this.roundAdj = result?.data[0]?.payment?.["Payment 1"]?.round_adj;
-            this.visaData = Object.values(
-              result?.data[0]?.payment?.["VISA"] || {}
-            );
+            this.subTotalCash = result?.data[0]?.payment?.["CASH"];
+            this.subTotalDuit = result?.data[0]?.payment?.["DUIT NOW"];
+            this.subTotalGrab = result?.data[0]?.payment?.["GRAB"];
+            this.subTotalShopee = result?.data[0]?.payment?.["SHOPEE FOOD"];
+            this.subTotalWallet = result?.data[0]?.payment?.["TNG E-WALLET"];
+
+            // this.visaData = Object.values(
+            //   result?.data[0]?.payment?.["VISA"] || {}
+            // );
 
             this.visaDataSubtotal = result?.data[0]?.payment?.["VISA"];
-            this.masterData = Object.values(
-              result?.data[0]?.payment?.["MASTER"] || {}
-            );
+            // this.masterData = Object.values(
+            //   result?.data[0]?.payment?.["MASTER"] || {}
+            // );
 
             this.masterDataSubtotal = result?.data[0]?.payment?.["MASTER"];
-            this.subTotalSC01 = result?.data[0];
+            this.subTotalSC01 = result?.data;
             this.grandTotalData = result;
             this.calculateTotalPages();
-            this.filteredData.splice(-4);
-            this.visaData.splice(-4);
-            this.masterData.splice(-4);
+            // this.filteredData.splice(-4);
+            // this.visaData.splice(-4);
+            // this.masterData.splice(-4);
           }
           this.loadingSpinner = false;
-        }, 1000);
+        }, 100);
       });
+  }
+  ngOnDestroy(): void {
+    this.PaymentTypeCode.unsubscribe();
   }
 
   calculateTotalPages() {
