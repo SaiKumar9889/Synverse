@@ -270,13 +270,41 @@ export class AverageSalesSummaryComponent {
         }
         setTimeout(() => {
           if (result) {
-            this.store_code = result?.data[0]?.store_code;
-            this.store_name = result?.data[0]?.store_desc;
-            this.filteredData = result?.data[0]?.average_sales;
+            // this.store_code = result?.data[0]?.store_code;
+            // this.store_name = result?.data[0]?.store_desc;
+            let array: any = [];
+            result.data.forEach((element: any) => {
+              array.push({
+                store_code: element.store_code,
+                store_desc: element.store_desc,
+              });
+              element.average_sales.forEach((element1: any) => {
+                array.push({
+                  CI_CLOSEDATE: element1.CI_CLOSEDATE,
+                  CI_DAY: element1.CI_DAY,
+                  F_SALES_DINEIN: element1.F_SALES_DINEIN,
+                  F_BILL_DINEIN: element1.F_BILL_DINEIN,
+                  AVG_DINEIN: element1.AVG_DINEIN,
+                  F_SALES_TABLE: element1.F_SALES_TABLE,
+                  F_BILL_TABLE: element1.F_BILL_TABLE,
+                  AVG_TABLE: element1.AVG_TABLE,
+                  F_PAX_TABLE: element1.F_PAX_TABLE,
+                  AVG_PAX_TABLE: element1.AVG_PAX_TABLE,
+                  F_SALES_TAKEAWAY: element1.F_SALES_TAKEAWAY,
+                  F_BILL_TAKEAWAY: element1.F_BILL_TAKEAWAY,
+                  AVG_TAKEAWAY: element1.AVG_TAKEAWAY,
+                  F_SALES_DELIVERY: element1.F_SALES_DELIVERY,
+                  F_BILL_DELIVERY: element1.F_BILL_DELIVERY,
+                  AVG_DELIVERY: element1.AVG_DELIVERY,
+                });
+              });
+            });
+            console.log(array);
+            this.filteredData = array;
             this.storesFilterData = result?.data[0]?.average_sales;
-            this.subTotalData = result?.data[0];
+            this.subTotalData = result?.data;
             this.grandTotalData = result;
-            this.filteredData = this.storesFilterData;
+            // this.filteredData = this.storesFilterData;
             this.loadingSpinner = false;
             console.log(this.filteredData);
             this.calculateTotalPages();

@@ -1,4 +1,4 @@
-tfoot .emptyRow {
+/* tfoot .emptyRow {
   bottom: 90px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
@@ -18,6 +18,10 @@ tfoot .subTotalSC01 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
+} */
+tfoot {
+  position: sticky;
+  bottom: 0px;
 }
 .backgroundWhite {
   height: 170px;
@@ -37,6 +41,9 @@ thead th {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background-color: #be2026;
+}
+p {
+  margin: 0px !important;
 }
 @media screen and (min-width: 1547px) {
   tfoot .emptyRow {

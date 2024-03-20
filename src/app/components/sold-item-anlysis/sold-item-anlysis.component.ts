@@ -578,6 +578,7 @@ export class SoldItemAnlysisComponent {
     }
   }
   errorMessage: any = null;
+  soldItemArray: any;
   salesRemark(fromDate: any, toDate: any) {
     this.loadingSpinner = true;
     console.log(this.searchFrom);
@@ -628,25 +629,52 @@ export class SoldItemAnlysisComponent {
         // }
         setTimeout(() => {
           if (result) {
-            this.store_code = result?.data[0]?.store_code;
-            this.store_name = result?.data[0]?.store_desc;
-            if (result?.data[0]?.sold_item) {
-              this.terminal_code = result?.data[1]?.sold_item;
-            }
-            if (result?.data[0]?.store_code === "SC01") {
-              this.filteredData = Object.values(
-                result?.data[0]?.sold_item[0]?.data || {}
-              );
-            } else {
-              this.filteredData = Object.values(
-                result?.data[1]?.sold_item[0]?.data || {}
-              );
-            }
+            let array: any = [];
+            result.data.forEach((element: any) => {
+              array.push({
+                store_code: element.store_code,
+                store_desc: element.store_desc,
+              });
+              element.sold_item.forEach((element1: any) => {
+                array.push({
+                  terminal_code: element1.terminal_code,
+                  terminal_desc: element1.terminal_desc,
+                });
+                this.soldItemArray = Object.values(element1.data || {});
+                this.soldItemArray.splice(-4);
+                this.soldItemArray.forEach((element2: any) => {
+                  element2.detail.forEach((element3: any) => {
+                    array.push({
+                      SDTL_DATETIME: element3.SDTL_DATETIME,
+                      SDTL_SALES_RCPTNO: element3.SDTL_SALES_RCPTNO,
+                      SDTL_STOCK_CODE: element3.SDTL_STOCK_CODE,
+                      SDTL_SHORTDESC: element3.SDTL_SHORTDESC,
+                      SDTL_SALES_PRICELVL: element3.SDTL_SALES_PRICELVL,
+                      SDTL_SALES_PRICE_SHIFT: element3.SDTL_SALES_PRICE_SHIFT,
+                      SDTL_STATUS: element3.SDTL_STATUS,
+                      SDTL_QTY: element3.SDTL_QTY,
+                      SDTL_GROSS: element3.SDTL_GROSS,
+                      SDTL_DISCAMT: element3.SDTL_DISCAMT,
+                      SDTL_NETT: element3.SDTL_NETT,
+                      SDTL_CHANGEPRC: element3.SDTL_CHANGEPRC,
+                    });
+                  });
+                  array.push({
+                    subTotal: "Subtotal",
+                    rcpt_quantity: element2.rcpt_quantity,
+                    rcpt_gross_sales: element2.rcpt_gross_sales,
+                    rcpt_discount: element2.rcpt_discount,
+                    rcpt_net_sales: element2.rcpt_net_sales,
+                  });
+                });
+              });
+            });
+            console.log(array);
             this.storesFilterData = Object.values(result?.data || {});
-            this.subTotalTerminal = result?.data[1]?.sold_item[0];
-            this.subTotalData = result?.data[1];
+            this.subTotalTerminal = result?.data;
+            this.subTotalData = result?.data;
             this.grandTotalData = result;
-            // this.filteredData = this.storesFilterData;
+            this.filteredData = array;
             this.calculateTotalPages();
           }
           this.loadingSpinner = false;

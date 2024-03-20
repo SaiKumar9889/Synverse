@@ -222,11 +222,26 @@ export class TransactionVoidComponent {
         }
         setTimeout(() => {
           if (result) {
-            this.filteredData = result.data;
+            let array: any = [];
+            result?.data?.forEach((element: any) => {
+              array.push({
+                Store: element.Store,
+                Ctrno: element.Ctrno,
+                OperId: element.OperId,
+                dateTime: element["Date time"],
+                closeDate: element["Close date"],
+                transNo: element["Trans No"],
+                netSales: element["Net sales"],
+                sumDiscbyMny: element["Sum disc by MNY"],
+                roundAdj: element["Round Adj"],
+              });
+            });
+            console.log(array);
+            this.filteredData = array;
             console.log(result);
             this.storesFilterData = result.data;
             this.grandTotalData = result;
-            this.filteredData = this.storesFilterData;
+            // this.filteredData = this.storesFilterData;
             this.calculateTotalPages();
           }
           this.loadingSpinner = false;

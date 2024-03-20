@@ -366,7 +366,11 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData &&
+            !loadingSpinner &&
+            grandTotalData?.message !== 'Validation Error.'
+          "
           class="backgroundWhitePage"
         >
           <div fxFlex="12">
@@ -416,7 +420,11 @@
           <thead>
             <tr>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.message === 'Validation Error.'
+                    ? 'headingTop'
+                    : ''
+                "
                 (click)="sortTable('SDTL_STOCK_CODE')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -425,7 +433,11 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.message === 'Validation Error.'
+                    ? 'headingTop'
+                    : ''
+                "
                 (click)="sortTable('SDTL_SHORTDESC')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -434,7 +446,11 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.message === 'Validation Error.'
+                    ? 'headingTop'
+                    : ''
+                "
                 (click)="sortTable('SDTL_QTY')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -443,7 +459,11 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.message === 'Validation Error.'
+                    ? 'headingTop'
+                    : ''
+                "
                 (click)="sortTable('SDTL_GROSS')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -452,7 +472,11 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.message === 'Validation Error.'
+                    ? 'headingTop'
+                    : ''
+                "
                 (click)="sortTable('SDTL_DISC')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -461,7 +485,11 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.message === 'Validation Error.'
+                    ? 'headingTop'
+                    : ''
+                "
                 (click)="sortTable('SDTL_NETSALES')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -472,31 +500,41 @@
             </tr>
           </thead>
           <tbody *ngIf="filteredData && !loadingSpinner">
-            <tr>
+            <!-- <tr>
               <td>STORE : {{ store_code }}</td>
               <td>{{ store_name }}</td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
-            </tr>
+            </tr> -->
 
             <tr *ngFor="let data of getCurrentPageItems()">
-              <td>
+              <td *ngIf="data.store_code">STORE : {{ data.store_code }}</td>
+              <td *ngIf="data.store_name">{{ data.store_name }}</td>
+              <td *ngIf="data.SDTL_SALES_PRICELVL">
                 PRICE LEVEL : {{ data.SDTL_SALES_PRICELVL }}<br />
                 PRICE SHIFT : {{ data.SDTL_SALES_PRICE_SHIFT }}<br />
                 {{ data.SDTL_STOCK_CODE }}
               </td>
-              <td>{{ data.SDTL_SHORTDESC }}</td>
-              <td>{{ data.SDTL_QTY }}</td>
-              <td class="alignRight">
-                RM {{ data.SDTL_GROSS | number : "1.2-2" }}
+              <td *ngIf="data.SDTL_SHORTDESC">{{ data.SDTL_SHORTDESC }}</td>
+              <td>
+                <p *ngIf="data.SDTL_QTY">{{ data.SDTL_QTY }}</p>
               </td>
               <td class="alignRight">
-                RM {{ data.SDTL_DISC | number : "1.2-2" }}
+                <p *ngIf="data.SDTL_GROSS">
+                  RM {{ data.SDTL_GROSS | number : "1.2-2" }}
+                </p>
               </td>
               <td class="alignRight">
-                RM {{ data.SDTL_NETSALES | number : "1.2-2" }}
+                <p *ngIf="data.SDTL_DISC">
+                  RM {{ data.SDTL_DISC | number : "1.2-2" }}
+                </p>
+              </td>
+              <td class="alignRight">
+                <p *ngIf="data.SDTL_NETSALES">
+                  RM {{ data.SDTL_NETSALES | number : "1.2-2" }}
+                </p>
               </td>
             </tr>
           </tbody>
@@ -515,53 +553,57 @@
               </td>
             </tr>
           </tbody>
-          <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
-            <tr class="emptyRow">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr class="subTotalPL">
+          <tfoot
+            class="footer-fixed"
+            *ngIf="
+              filteredData &&
+              !loadingSpinner &&
+              grandTotalData?.message !== 'Validation Error.'
+            "
+          >
+            <tr
+              class="subTotalPL"
+              *ngFor="let subtotal of subTotalPriceLevelData"
+            >
               <td></td>
               <td class="boldText">Sub Total PL/PS</td>
               <td class="boldText">
-                {{ subTotalPriceLevelData?.sub_total_price_level_quantity }}
+                {{ subtotal?.item_price?.P1?.sub_total_price_level_quantity }}
               </td>
               <td class="boldText alignRight">
                 RM
                 {{
-                  subTotalPriceLevelData?.sub_total_price_level_gross
+                  subtotal?.item_price?.P1?.sub_total_price_level_gross
                     | number : "1.2-2"
                 }}
               </td>
               <td class="boldText alignRight">
-                RM {{ subTotalPriceLevelData?.sub_total_price_level_disc }}
+                RM {{ subtotal?.item_price?.P1?.sub_total_price_level_disc }}
               </td>
               <td class="boldText alignRight">
                 RM
                 {{
-                  subTotalPriceLevelData?.sub_total_price_level_net_amount
+                  subtotal?.item_price?.P1?.sub_total_price_level_net_amount
                     | number : "1.2-2"
                 }}
               </td>
             </tr>
-            <tr class="subTotalSC01">
+            <tr class="subTotalSC01" *ngFor="let subtotal of subTotalData">
               <td></td>
-              <td class="boldText blueText">Sub Total {{ store_code }}</td>
               <td class="boldText blueText">
-                {{ subTotalData?.sub_total_quantity }}
+                Sub Total {{ subtotal.store_code }}
+              </td>
+              <td class="boldText blueText">
+                {{ subtotal?.sub_total_quantity }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_gross | number : "1.2-2" }}
+                RM {{ subtotal?.sub_total_gross | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_disc | number : "1.2-2" }}
+                RM {{ subtotal?.sub_total_disc | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_net_amount | number : "1.2-2" }}
+                RM {{ subtotal?.sub_total_net_amount | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -585,7 +627,11 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData &&
+            !loadingSpinner &&
+            grandTotalData?.message !== 'Validation Error.'
+          "
         >
           <div fxFlex="12">
             <mat-form-field appearance="outline">
@@ -637,7 +683,11 @@
         fxHide.lg
         fxHide.md
         fxHide.sm
-        *ngIf="filteredData && !loadingSpinner"
+        *ngIf="
+          filteredData &&
+          !loadingSpinner &&
+          grandTotalData?.message !== 'Validation Error.'
+        "
       >
         <div class="addedScroll">
           <div
@@ -650,8 +700,8 @@
               <h4>Code</h4>
             </div>
             <div fxFlex="60">
-              <p>STORE : {{ store_code }}</p>
-              <p>
+              <p *ngIf="data.store_code">STORE : {{ data.store_code }}</p>
+              <p *ngIf="data.SDTL_SALES_PRICELVL">
                 PRICE LEVEL : {{ data.SDTL_SALES_PRICELVL }}<br />
                 PRICE SHIFT : {{ data.SDTL_SALES_PRICE_SHIFT }}<br />
                 {{ data.SDTL_STOCK_CODE }}
@@ -662,47 +712,53 @@
               <h4>Description</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ store_name }}</p>
-              <p>{{ data.SDTL_SHORTDESC }}</p>
+              <p *ngIf="data.store_name">{{ data.store_name }}</p>
+              <p *ngIf="data.SDTL_SHORTDESC">{{ data.SDTL_SHORTDESC }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Quantity</h4>
             </div>
             <div>
-              <p>{{ data.SDTL_QTY }}</p>
+              <p *ngIf="data.SDTL_QTY">{{ data.SDTL_QTY }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Gross</h4>
             </div>
             <div>
-              <p>RM {{ data.SDTL_GROSS | number : "1.2-2" }}</p>
+              <p *ngIf="data.SDTL_GROSS">
+                RM {{ data.SDTL_GROSS | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Disc</h4>
             </div>
             <div>
-              <p>RM {{ data.SDTL_DISC | number : "1.2-2" }}</p>
+              <p *ngIf="data.SDTL_DISC">
+                RM {{ data.SDTL_DISC | number : "1.2-2" }}
+              </p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Net Amt</h4>
             </div>
             <div>
-              <p>RM {{ data.SDTL_NETSALES | number : "1.2-2" }}</p>
+              <p *ngIf="data.SDTL_NETSALES">
+                RM {{ data.SDTL_NETSALES | number : "1.2-2" }}
+              </p>
             </div>
           </div>
         </div>
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
-          class="marginBottomAdd"
+          *ngIf="filteredData && !loadingSpinner"
+          class="backgroundWhitePage"
         >
           <div fxFlex="15">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" class="marginAdded">
               <mat-label>Items per page:</mat-label>
               <mat-select
                 id="itemsPerPage"
@@ -717,6 +773,9 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
+          </div>
+          <div fxFlex="30" style="margin-top: 20px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
           <div class="pagination">
             <button (click)="previousPage()" [disabled]="currentPage === 1">
@@ -740,11 +799,11 @@
               Next
             </button>
           </div>
-          <div style="margin-top: 5px">
-            <p>Displaying: {{ getDisplayRange() }}</p>
-          </div>
         </div>
-        <div class="addedBorder">
+        <div
+          class="addedBorder subTotalBorder"
+          *ngFor="let subtotal of subTotalPriceLevelData"
+        >
           <h4>Sub Total PL/PS</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -753,7 +812,7 @@
             </div>
             <div>
               <h4>
-                {{ subTotalPriceLevelData?.sub_total_price_level_quantity }}
+                {{ subtotal?.item_price?.P1?.sub_total_price_level_quantity }}
               </h4>
             </div>
           </div>
@@ -765,7 +824,7 @@
               <h4>
                 RM
                 {{
-                  subTotalPriceLevelData?.sub_total_price_level_gross
+                  subtotal?.item_price?.P1?.sub_total_price_level_gross
                     | number : "1.2-2"
                 }}
               </h4>
@@ -777,7 +836,7 @@
             </div>
             <div>
               <h4>
-                RM {{ subTotalPriceLevelData?.sub_total_price_level_disc }}
+                RM {{ subtotal?.item_price?.P1?.sub_total_price_level_disc }}
               </h4>
             </div>
           </div>
@@ -789,15 +848,15 @@
               <h4>
                 RM
                 {{
-                  subTotalPriceLevelData?.sub_total_price_level_net_amount
+                  subtotal?.item_price?.P1?.sub_total_price_level_net_amount
                     | number : "1.2-2"
                 }}
               </h4>
             </div>
           </div>
         </div>
-        <div class="addedBorder">
-          <h4 class="blueText">Sub Total {{ store_code }}</h4>
+        <div class="addedBorder" *ngFor="let subtotal of subTotalData">
+          <h4 class="blueText">Sub Total {{ subtotal.store_code }}</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
@@ -805,7 +864,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                {{ subTotalData?.sub_total_quantity }}
+                {{ subtotal?.sub_total_quantity }}
               </h4>
             </div>
           </div>
@@ -816,7 +875,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_gross | number : "1.2-2" }}
+                {{ subtotal?.sub_total_gross | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -826,7 +885,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_disc | number : "1.2-2" }}
+                RM {{ subtotal?.sub_total_disc | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -836,7 +895,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_net_amount | number : "1.2-2" }}
+                RM {{ subtotal?.sub_total_net_amount | number : "1.2-2" }}
               </h4>
             </div>
           </div>

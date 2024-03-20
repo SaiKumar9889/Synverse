@@ -285,7 +285,7 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="filteredData && !loadingSpinner && subTotalData != ''"
           class="backgroundWhitePage"
         >
           <div fxFlex="12">
@@ -335,7 +335,7 @@
           <thead>
             <tr>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('CI_CLOSEDATE')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -344,7 +344,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('CI_DAY')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -353,7 +353,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('F_SALES_DINEIN')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -362,7 +362,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('F_BILL_DINEIN')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -371,7 +371,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('AVG_DINEIN')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -380,7 +380,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('F_SALES_TABLE')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -389,7 +389,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('F_BILL_TABLE')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -398,7 +398,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('AVG_TABLE')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -407,7 +407,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('F_PAX_TABLE')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -416,7 +416,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('AVG_PAX_TABLE')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -425,7 +425,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('F_SALES_TAKEAWAY')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -434,7 +434,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('F_BILL_TAKEAWAY')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -443,7 +443,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('AVG_TAKEAWAY')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -452,7 +452,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('F_SALES_DELIVERY')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -461,7 +461,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('F_BILL_DELIVERY')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -470,7 +470,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('AVG_DELIVERY')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -481,67 +481,67 @@
             </tr>
           </thead>
           <tbody *ngIf="filteredData && !loadingSpinner">
-            <tr>
-              <td>{{ store_code }}</td>
-              <td>{{ store_name }}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-
             <tr *ngFor="let data of getCurrentPageItems()">
-              <td>
+              <td *ngIf="data.store_code">{{ data.store_code }}</td>
+              <td *ngIf="data.store_desc">{{ data.store_desc }}</td>
+              <td *ngIf="data.CI_CLOSEDATE">
                 {{ data.CI_CLOSEDATE | date }}
               </td>
-              <td>{{ data.CI_DAY }}</td>
+              <td *ngIf="data.CI_DAY">{{ data.CI_DAY }}</td>
               <td class="alignRight">
-                RM {{ data.F_SALES_DINEIN | number : "1.2-2" }}
+                <span *ngIf="data.F_SALES_DINEIN">RM</span>
+                {{ data.F_SALES_DINEIN | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.F_BILL_DINEIN | number : "1.2-2" }}
+                <span *ngIf="data.F_BILL_DINEIN">RM</span>
+                {{ data.F_BILL_DINEIN | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.AVG_DINEIN | number : "1.2-2" }}
+                <span *ngIf="data.AVG_DINEIN">RM</span>
+                {{ data.AVG_DINEIN | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.F_SALES_TABLE | number : "1.2-2" }}
+                <span *ngIf="data.F_SALES_TABLE">RM</span>
+                {{ data.F_SALES_TABLE | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.F_BILL_TABLE | number : "1.2-2" }}
+                <span *ngIf="data.F_BILL_TABLE">RM</span>
+                {{ data.F_BILL_TABLE | number : "1.2-2" }}
               </td>
-              <td>RM {{ data.AVG_TABLE | number : "1.2-2" }}</td>
-              <td>RM {{ data.F_PAX_TABLE }}</td>
-              <td class="alignRight">
-                RM {{ data.AVG_PAX_TABLE | number : "1.2-2" }}
+              <td>
+                <span *ngIf="data.AVG_TABLE">RM</span>
+                {{ data.AVG_TABLE | number : "1.2-2" }}
               </td>
-              <td class="alignRight">
-                RM {{ data.F_SALES_TAKEAWAY | number : "1.2-2" }}
-              </td>
-              <td class="alignRight">
-                RM {{ data.F_BILL_TAKEAWAY | number : "1.2-2" }}
+              <td>
+                <span *ngIf="data.F_PAX_TABLE">RM</span> {{ data.F_PAX_TABLE }}
               </td>
               <td class="alignRight">
-                RM {{ data.AVG_TAKEAWAY | number : "1.2-2" }}
+                <span *ngIf="data.AVG_PAX_TABLE">RM</span>
+                {{ data.AVG_PAX_TABLE | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.F_SALES_DELIVERY | number : "1.2-2" }}
+                <span *ngIf="data.F_SALES_TAKEAWAY">RM</span>
+                {{ data.F_SALES_TAKEAWAY | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.F_BILL_DELIVERY | number : "1.2-2" }}
+                <span *ngIf="data.F_BILL_TAKEAWAY">RM</span>
+                {{ data.F_BILL_TAKEAWAY | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data.AVG_DELIVERY | number : "1.2-2" }}
+                <span *ngIf="data.AVG_TAKEAWAY">RM</span>
+                {{ data.AVG_TAKEAWAY | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="data.F_SALES_DELIVERY">RM</span>
+                {{ data.F_SALES_DELIVERY | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="data.F_BILL_DELIVERY">RM</span>
+                {{ data.F_BILL_DELIVERY | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">
+                <span *ngIf="data.AVG_DELIVERY">RM</span>
+                {{ data.AVG_DELIVERY | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
@@ -561,82 +561,66 @@
             </tr>
           </tbody>
           <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
-            <tr class="emptyRow">
+            <tr class="subTotalPL" *ngFor="let total of subTotalData">
               <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr class="subTotalPL">
-              <td></td>
-              <td class="boldText blueText">Sub Total of Store</td>
+              <td class="boldText blueText">
+                Sub Total of {{ total.store_code }}
+              </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_total_sales | number : "1.2-2" }}
+                RM {{ total?.sub_total_total_sales | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_total_bill | number : "1.2-2" }}
+                {{ total?.sub_total_total_bill | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_total_avg | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_total_table_sales | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_table_bill | number : "1.2-2" }}
+                RM {{ total?.sub_total_total_avg | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_table_avg | number : "1.2-2" }}
+                {{ total?.sub_total_table_sales | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM {{ total?.sub_total_table_bill | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_table_pax }}
+                {{ total?.sub_total_table_avg | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_table_pax_avg | number : "1.2-2" }}
+                {{ total?.sub_total_table_pax }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_take_away_sales | number : "1.2-2" }}
+                {{ total?.sub_total_table_pax_avg | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_take_away_bill | number : "1.2-2" }}
+                {{ total?.sub_total_take_away_sales | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_take_away_avg | number : "1.2-2" }}
+                {{ total?.sub_total_take_away_bill | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_delivery_sales | number : "1.2-2" }}
+                {{ total?.sub_total_take_away_avg | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_delivery_bill | number : "1.2-2" }}
+                {{ total?.sub_total_delivery_sales | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_delivery_avg | number : "1.2-2" }}
+                {{ total?.sub_total_delivery_bill | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ total?.sub_total_delivery_avg | number : "1.2-2" }}
               </td>
             </tr>
-            <tr>
+            <tr *ngIf="subTotalData != ''">
               <td></td>
               <td class="boldText greenText">Grand Total</td>
               <td class="boldText greenText alignRight">
@@ -714,7 +698,7 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="filteredData && !loadingSpinner && subTotalData != ''"
           class="backgroundWhitePage"
         >
           <div fxFlex="12">
@@ -762,18 +746,21 @@
         </div>
       </div>
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm>
-        <div class="addedScroll" *ngIf="filteredData && !loadingSpinner">
+        <div
+          class="addedScroll"
+          *ngIf="filteredData && !loadingSpinner && subTotalData != ''"
+        >
           <div
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
-            *ngFor="let data of filteredData"
+            *ngFor="let data of getCurrentPageItems()"
             class="addedBorder addColor"
           >
             <div fxFlex="40">
               <h4>Date</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ store_code }}</p>
+              <p>{{ data.store_code }}</p>
               <p>{{ data.CI_CLOSEDATE | date }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
@@ -782,102 +769,153 @@
               <h4>Day</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ store_name }}</p>
+              <p>{{ data.store_desc }}</p>
               <p>{{ data.CI_DAY }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div><h4>SALES AMT</h4></div>
             <div>
-              <p>RM {{ data.F_SALES_DINEIN | number : "1.2-2" }}</p>
+              <p *ngIf="data.F_SALES_DINEIN">
+                RM {{ data.F_SALES_DINEIN | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.F_SALES_DINEIN === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.F_BILL_DINEIN | number : "1.2-2" }}</p>
+              <p *ngIf="data.F_BILL_DINEIN">
+                RM {{ data.F_BILL_DINEIN | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.F_BILL_DINEIN === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>AVG/BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.AVG_DINEIN | number : "1.2-2" }}</p>
+              <p *ngIf="data.AVG_DINEIN">
+                RM
+                {{ data.AVG_DINEIN | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.AVG_DINEIN === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>SALES AMT</h4>
             </div>
             <div>
-              <p>RM {{ data.F_SALES_TABLE | number : "1.2-2" }}</p>
+              <p *ngIf="data.F_SALES_TABLE">
+                RM
+                {{ data.F_SALES_TABLE | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.F_SALES_TABLE === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.F_BILL_TABLE | number : "1.2-2" }}</p>
+              <p *ngIf="data.F_BILL_TABLE">
+                RM
+                {{ data.F_BILL_TABLE | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.F_BILL_TABLE === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div><h4>AVG/BILL</h4></div>
             <div>
-              <p>RM {{ data.AVG_TABLE | number : "1.2-2" }}</p>
+              <p *ngIf="data.AVG_TABLE">
+                RM
+                {{ data.AVG_TABLE | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.AVG_TABLE === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>PAX</h4>
             </div>
             <div>
-              <p>RM {{ data.F_PAX_TABLE }}</p>
+              <p *ngIf="data.F_PAX_TABLE">RM {{ data.F_PAX_TABLE }}</p>
+              <p *ngIf="data.F_PAX_TABLE === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>AVG/PAX</h4>
             </div>
             <div>
-              <p>RM {{ data.AVG_PAX_TABLE | number : "1.2-2" }}</p>
+              <p *ngIf="data.AVG_PAX_TABLE">
+                RM
+                {{ data.AVG_PAX_TABLE | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.AVG_PAX_TABLE === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>SALES AMT</h4>
             </div>
             <div>
-              <p>RM {{ data.F_SALES_TAKEAWAY | number : "1.2-2" }}</p>
+              <p *ngIf="data.F_SALES_TAKEAWAY">
+                RM
+                {{ data.F_SALES_TAKEAWAY | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.F_SALES_TAKEAWAY === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.F_BILL_TAKEAWAY | number : "1.2-2" }}</p>
+              <p *ngIf="data.F_BILL_TAKEAWAY">
+                RM
+                {{ data.F_BILL_TAKEAWAY | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.F_BILL_TAKEAWAY === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>AVG/BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.AVG_TAKEAWAY | number : "1.2-2" }}</p>
+              <p *ngIf="data.AVG_TAKEAWAY">
+                RM
+                {{ data.AVG_TAKEAWAY | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.AVG_TAKEAWAY === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>SALES AMT</h4>
             </div>
             <div>
-              <p>RM {{ data.F_SALES_DELIVERY | number : "1.2-2" }}</p>
+              <p *ngIf="data.F_SALES_DELIVERY">
+                RM
+                {{ data.F_SALES_DELIVERY | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.F_SALES_DELIVERY === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.F_BILL_DELIVERY | number : "1.2-2" }}</p>
+              <p *ngIf="data.F_BILL_DELIVERY">
+                RM
+                {{ data.F_BILL_DELIVERY | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.F_BILL_DELIVERY === 0">RM 0.00</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>AVG/BILL</h4>
             </div>
             <div>
-              <p>RM {{ data.AVG_DELIVERY | number : "1.2-2" }}</p>
+              <p *ngIf="data.AVG_DELIVERY">
+                RM
+                {{ data.AVG_DELIVERY | number : "1.2-2" }}
+              </p>
+              <p *ngIf="data.AVG_DELIVERY === 0">RM 0.00</p>
             </div>
           </div>
         </div>
@@ -885,11 +923,11 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="filteredData && !loadingSpinner && subTotalData != ''"
           class="backgroundWhitePage"
         >
           <div fxFlex="15">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" class="marginAdded">
               <mat-label>Items per page:</mat-label>
               <mat-select
                 id="itemsPerPage"
@@ -904,6 +942,9 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
+          </div>
+          <div fxFlex="30" style="margin-top: 20px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
           <div class="pagination">
             <button (click)="previousPage()" [disabled]="currentPage === 1">
@@ -927,168 +968,167 @@
               Next
             </button>
           </div>
-          <div style="margin-top: 5px">
-            <p>Displaying: {{ getDisplayRange() }}</p>
-          </div>
         </div>
-        <div class="addedBorder" *ngIf="filteredData && !loadingSpinner">
-          <h4 class="blueText">Sub Total of Store</h4>
-          <hr />
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">SALES AMT :</h4>
+        <div *ngIf="filteredData && !loadingSpinner" class="subTotalBorder">
+          <div class="addedBorder" *ngFor="let total of subTotalData">
+            <h4 class="blueText">Sub Total of {{ total.store_code }}</h4>
+            <hr />
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">SALES AMT :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM {{ total?.sub_total_total_sales | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-            <div>
-              <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_total_sales | number : "1.2-2" }}
-              </h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">BILL :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ total?.sub_total_total_bill | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">BILL :</h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">AVG/BILL :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM {{ total?.sub_total_total_avg | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_total_bill | number : "1.2-2" }}
-              </h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">SALES AMT :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ total?.sub_total_table_sales | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">AVG/BILL :</h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">BILL :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ total?.sub_total_table_bill | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-            <div>
-              <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_total_avg | number : "1.2-2" }}
-              </h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">AVG/BILL :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM {{ total?.sub_total_table_avg | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">SALES AMT :</h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">PAX :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ total?.sub_total_table_pax }}
+                </h4>
+              </div>
             </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_table_sales | number : "1.2-2" }}
-              </h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">AVG/PAX :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ total?.sub_total_table_pax_avg | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">BILL :</h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">SALES AMT :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ total?.sub_total_take_away_sales | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_table_bill | number : "1.2-2" }}
-              </h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">BILL :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ total?.sub_total_take_away_bill | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">AVG/BILL :</h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">AVG/BILL :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ total?.sub_total_take_away_avg | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-            <div>
-              <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_table_avg | number : "1.2-2" }}
-              </h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">SALES AMT :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ total?.sub_total_delivery_sales | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">PAX :</h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">BILL :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ total?.sub_total_delivery_bill | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_table_pax }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">AVG/PAX :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_table_pax_avg | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">SALES AMT :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_take_away_sales | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">BILL :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_take_away_bill | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">AVG/BILL :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_take_away_avg | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">SALES AMT :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_delivery_sales | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">BILL :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_delivery_bill | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">AVG/BILL :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_delivery_avg | number : "1.2-2" }}
-              </h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">AVG/BILL :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ total?.sub_total_delivery_avg | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
           </div>
         </div>
         <div
           class="addedBorder marginBottomAdded"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="filteredData && !loadingSpinner && subTotalData != ''"
         >
           <h4 class="greenText">Grand Total</h4>
           <hr />

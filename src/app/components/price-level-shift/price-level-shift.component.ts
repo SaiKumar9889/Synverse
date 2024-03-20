@@ -358,14 +358,39 @@ export class PriceLevelShiftComponent {
 
         setTimeout(() => {
           if (result) {
-            this.store_code = result?.data[0]?.store_code;
-            this.store_name = result?.data[0]?.store_name;
+            // this.store_code = result?.data[0]?.store_code;
+            // this.store_name = result?.data[0]?.store_name;
+            let array: any = [];
+            if (result.message !== "Validation Error.") {
+              result.data.forEach((element: any) => {
+                array.push({
+                  store_code: element.store_code,
+                  store_name: element.store_name,
+                });
+                element.item_price.P1.data.forEach((element1: any) => {
+                  array.push({
+                    SDTL_SALES_PRICELVL: element1.SDTL_SALES_PRICELVL,
+                    SDTL_SALES_PRICE_SHIFT: element1.SDTL_SALES_PRICE_SHIFT,
+                    SDTL_STOCK_CODE: element1.SDTL_STOCK_CODE,
+                    SDTL_SHORTDESC: element1.SDTL_SHORTDESC,
+                    SDTL_QTY: element1.SDTL_QTY,
+                    SDTL_GROSS: element1.SDTL_GROSS,
+                    SDTL_DISC: element1.SDTL_DISC,
+                    SDTL_NETSALES: element1.SDTL_NETSALES,
+                  });
+                });
+              });
+              console.log(array);
+            }
+
             this.storeData = result?.data[0]?.item_price.P1.data;
             this.storesFilterData = result?.data[0]?.item_price?.P1?.data;
-            this.subTotalPriceLevelData = result?.data[0]?.item_price?.P1;
-            this.subTotalData = result?.data[0];
+
+            this.subTotalPriceLevelData = result?.data;
+            console.log(this.subTotalPriceLevelData);
+            this.subTotalData = result?.data;
             this.grandTotalData = result;
-            this.filteredData = this.storesFilterData;
+            this.filteredData = array;
             console.log(this.filteredData);
             this.calculateTotalPages();
           }

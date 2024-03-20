@@ -289,7 +289,25 @@ export class SalesRemarkComponent implements OnInit {
         }
         setTimeout(() => {
           if (result) {
-            this.filteredData = result.data.remark;
+            let array: any = [];
+            // if (result.data !== "failed") {
+            result?.data?.remark?.forEach((element: any) => {
+              array.push({
+                SALES_STATUS: element.SALES_STATUS,
+                SALES_STORE: element.SALES_STORE,
+                SALES_CTRNO: element.SALES_CTRNO,
+                SALES_DATETIME: element.SALES_DATETIME,
+                SALES_RCPTNO: element.SALES_RCPTNO,
+                SALES_SHIFT: element.SALES_SHIFT,
+                SALES_QTY: element.SALES_QTY,
+                SALES_GROSS: element.SALES_GROSS,
+                SALES_NETSALES: element.SALES_NETSALES,
+                SALES_TOT_COST: element.SALES_TOT_COST,
+              });
+            });
+            console.log(array);
+            // }
+            this.filteredData = array;
             this.storesFilterData = result.data.remark;
             this.subTotalData = result.data;
             this.grandTotalData = result;

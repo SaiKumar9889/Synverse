@@ -81,11 +81,22 @@ export class InactiveStockComponent {
       }
       setTimeout(() => {
         if (result) {
-          this.filteredData = result.data;
+          let array: any = [];
+          result.data.forEach((element: any) => {
+            array.push({
+              M_SERIAL_NUMBER: element.M_SERIAL_NUMBER,
+              M_STOCK_CODE: element.M_STOCK_CODE,
+              M_DESC: element.M_DESC,
+              M_EXPIRED_DATE: element.M_EXPIRED_DATE,
+              M_DATE_INSERT: element.M_DATE_INSERT,
+            });
+          });
+          console.log(array);
+          this.filteredData = array;
           console.log(result);
           this.storesFilterData = result.data;
           this.grandTotalData = result;
-          this.filteredData = this.storesFilterData;
+          // this.filteredData = this.storesFilterData;
           this.loadingSpinner = false;
           this.calculateTotalPages();
         }

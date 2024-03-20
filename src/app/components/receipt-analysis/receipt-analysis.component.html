@@ -527,8 +527,7 @@
             </tr>
           </thead>
           <tbody *ngIf="!loadingSpinner">
-            <ng-container *ngFor="let data of storesFilterData">
-              <tr>
+            <!-- <tr>
                 <td>{{ data.store_code }}</td>
                 <td>{{ data.store_desc }}</td>
                 <td></td>
@@ -544,9 +543,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
-              </tr>
-              <ng-container *ngFor="let row of data.terminal">
-                <tr>
+              </tr> -->
+
+            <!-- <tr>
                   <td></td>
                   <td>{{ row.terminal_code }}</td>
                   <td>{{ row.terminal_desc }}</td>
@@ -562,26 +561,71 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                </tr>
-                <tr *ngFor="let item of getCurrentPageItems()">
-                  <td></td>
-                  <td></td>
-                  <td>{{ item.SALES_CLOSEDATE | date }}</td>
-                  <td>{{ item.SALES_TRANSNO }}</td>
-                  <td>{{ item.SALES_SHIFT }}</td>
-                  <td>{{ item.SALES_OPERID }}</td>
-                  <td>{{ item.SALES_PRICELVL }}</td>
-                  <td>{{ item.SALES_PRICE_SHIFT }}</td>
-                  <td>{{ item.SALES_STATUS }}</td>
-                  <td>{{ item.SALES_QTY }}</td>
-                  <td>RM {{ item.SALES_GROSS | number : "1.2-2" }}</td>
-                  <td>RM {{ item.SALES_SUMDISCBYMNY | number : "1.2-2" }}</td>
-                  <td>RM {{ item.SALES_TAXAMT | number : "1.2-2" }}</td>
-                  <td>RM {{ item.SALES_ROUND_ADJ | number : "1.2-2" }}</td>
-                  <td>RM {{ item.SALES_NETSALES | number : "1.2-2" }}</td>
-                </tr>
-              </ng-container>
-            </ng-container>
+                </tr> -->
+            <tr *ngFor="let item of getCurrentPageItems()">
+              <td *ngIf="item.store_code">{{ item.store_code }}</td>
+              <td *ngIf="!item.store_code"></td>
+              <td *ngIf="item.store_name">{{ item.store_name }}</td>
+              <td *ngIf="item.terminal_code">{{ item.terminal_code }}</td>
+              <td *ngIf="!item.terminal_code"></td>
+              <td *ngIf="item.terminal_desc">{{ item.terminal_desc }}</td>
+              <td *ngIf="item.SALES_CLOSEDATE">
+                {{ item.SALES_CLOSEDATE | date }}
+              </td>
+              <td>
+                <p *ngIf="item.SALES_TRANSNO">{{ item.SALES_TRANSNO }}</p>
+              </td>
+              <td>
+                <p *ngIf="item.SALES_SHIFT">{{ item.SALES_SHIFT }}</p>
+              </td>
+              <td>
+                <p *ngIf="item.SALES_OPERID">{{ item.SALES_OPERID }}</p>
+              </td>
+              <td>
+                <p *ngIf="item.SALES_PRICELVL">{{ item.SALES_PRICELVL }}</p>
+              </td>
+              <td>
+                <p *ngIf="item.SALES_PRICE_SHIFT">
+                  {{ item.SALES_PRICE_SHIFT }}
+                </p>
+              </td>
+              <td>
+                <p *ngIf="item.SALES_STATUS">{{ item.SALES_STATUS }}</p>
+              </td>
+              <td>
+                <p *ngIf="item.SALES_QTY">{{ item.SALES_QTY }}</p>
+              </td>
+              <td>
+                <p *ngIf="item.SALES_GROSS">
+                  RM {{ item.SALES_GROSS | number : "1.2-2" }}
+                </p>
+                <p *ngIf="item.SALES_GROSS === 0">RM 0.00</p>
+              </td>
+              <td>
+                <p *ngIf="item.SALES_SUMDISCBYMNY">
+                  RM {{ item.SALES_SUMDISCBYMNY | number : "1.2-2" }}
+                </p>
+                <p *ngIf="item.SALES_SUMDISCBYMNY === 0">RM 0.00</p>
+              </td>
+              <td>
+                <p *ngIf="item.SALES_TAXAMT">
+                  RM {{ item.SALES_TAXAMT | number : "1.2-2" }}
+                </p>
+                <p *ngIf="item.SALES_TAXAMT === 0">RM 0.00</p>
+              </td>
+              <td>
+                <p *ngIf="item.SALES_ROUND_ADJ">
+                  RM {{ item.SALES_ROUND_ADJ | number : "1.2-2" }}
+                </p>
+                <p *ngIf="item.SALES_ROUND_ADJ === 0">RM 0.00</p>
+              </td>
+              <td>
+                <p *ngIf="item.SALES_NETSALES">
+                  RM {{ item.SALES_NETSALES | number : "1.2-2" }}
+                </p>
+                <p *ngIf="item.SALES_NETSALES === 0">RM 0.00</p>
+              </td>
+            </tr>
           </tbody>
           <tbody *ngIf="errorMessage && !loadingSpinner">
             <tr>
@@ -606,7 +650,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="boldText">Terminal Total</td>
+                <td class="boldText">Terminal Total {{ data.store_code }}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -766,142 +810,140 @@
         *ngIf="storesFilterData && !loadingSpinner"
       >
         <div class="addedScroll">
-          <div
-            *ngFor="let data of storesFilterData"
-            fxLayout="row wrap"
-            fxLayoutAlign="space-between start"
-            class="addedBorder"
-          >
-            <div fxFlex="40">
-              <h4>Store</h4>
+          <div *ngFor="let item of getCurrentPageItems()">
+            <div
+              fxLayout="row wrap"
+              fxLayoutAlign="space-between start"
+              class="addedBorder addColor"
+              *ngIf="item.store_code"
+            >
+              <div fxFlex="40">
+                <h4>Store</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ item.store_code }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>Store</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ item.store_name }}</p>
+              </div>
             </div>
-            <div fxFlex="60">
-              <p>{{ data.store_code }}</p>
+            <div
+              fxLayout="row wrap"
+              fxLayoutAlign="space-between start"
+              class="addedBorder addColor"
+              *ngIf="item.terminal_code"
+            >
+              <div fxFlex="40">
+                <h4>Terminal Code</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ item.terminal_code }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>Terminal</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ item.terminal_desc }}</p>
+              </div>
             </div>
-            <div fxFlex="100"><hr /></div>
-            <div fxFlex="40">
-              <h4>Store</h4>
-            </div>
-            <div fxFlex="60">
-              <p>{{ data.store_desc }}</p>
-            </div>
-            <div fxFlex="100">
-              <div
-                fxLayout="row wrap"
-                fxLayoutAlign="space-between start"
-                class="addedBorder"
-                *ngFor="let row of data.terminal"
-              >
-                <div fxFlex="40">
-                  <h4>Terminal Code</h4>
-                </div>
-                <div fxFlex="60">
-                  <p>{{ row.terminal_code }}</p>
-                </div>
-                <div fxFlex="100"><hr /></div>
-                <div fxFlex="40">
-                  <h4>Terminal</h4>
-                </div>
-                <div fxFlex="60">
-                  <p>{{ row.terminal_desc }}</p>
-                </div>
-                <div fxFlex="100">
-                  <div
-                    fxLayout="row wrap"
-                    fxLayoutAlign="space-between start"
-                    *ngFor="let item of getCurrentPageItems()"
-                    class="addedBorder addColor"
-                  >
-                    <div><h4 fxFlex="40">Date</h4></div>
-                    <div fxFlex="60">
-                      <p>{{ item.SALES_CLOSEDATE | date }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>RCPTNO</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ item.SALES_TRANSNO }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Shift</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ item.SALES_SHIFT }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>OPERID</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ item.SALES_OPERID }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>P/L</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ item.SALES_PRICELVL }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>P/S</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ item.SALES_PRICE_SHIFT }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Status</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ item.SALES_STATUS }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div fxFlex="40">
-                      <h4>Qty</h4>
-                    </div>
-                    <div fxFlex="60">
-                      <p>{{ item.SALES_QTY }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Gross</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ item.SALES_GROSS | number : "1.2-2" }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Disc Amt</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ item.SALES_SUMDISCBYMNY | number : "1.2-2" }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Tax Amt</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ item.SALES_TAXAMT | number : "1.2-2" }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Round Adj</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ item.SALES_ROUND_ADJ | number : "1.2-2" }}</p>
-                    </div>
-                    <div fxFlex="100"><hr /></div>
-                    <div>
-                      <h4>Total Sales</h4>
-                    </div>
-                    <div>
-                      <p>RM {{ item.SALES_NETSALES | number : "1.2-2" }}</p>
-                    </div>
-                  </div>
-                </div>
+            <div
+              fxLayout="row wrap"
+              fxLayoutAlign="space-between start"
+              class="addedBorder addColor"
+              *ngIf="item.SALES_CLOSEDATE"
+            >
+              <div><h4 fxFlex="40">Date</h4></div>
+              <div fxFlex="60">
+                <p>{{ item.SALES_CLOSEDATE | date }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>RCPTNO</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ item.SALES_TRANSNO }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>Shift</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ item.SALES_SHIFT }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>OPERID</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ item.SALES_OPERID }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>P/L</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ item.SALES_PRICELVL }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>P/S</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ item.SALES_PRICE_SHIFT }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>Status</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ item.SALES_STATUS }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div fxFlex="40">
+                <h4>Qty</h4>
+              </div>
+              <div fxFlex="60">
+                <p>{{ item.SALES_QTY }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>Gross</h4>
+              </div>
+              <div>
+                <p>RM {{ item.SALES_GROSS | number : "1.2-2" }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>Disc Amt</h4>
+              </div>
+              <div>
+                <p>RM {{ item.SALES_SUMDISCBYMNY | number : "1.2-2" }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>Tax Amt</h4>
+              </div>
+              <div>
+                <p>RM {{ item.SALES_TAXAMT | number : "1.2-2" }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>Round Adj</h4>
+              </div>
+              <div>
+                <p>RM {{ item.SALES_ROUND_ADJ | number : "1.2-2" }}</p>
+              </div>
+              <div fxFlex="100"><hr /></div>
+              <div>
+                <h4>Total Sales</h4>
+              </div>
+              <div>
+                <p>RM {{ item.SALES_NETSALES | number : "1.2-2" }}</p>
               </div>
             </div>
           </div>
@@ -961,8 +1003,9 @@
             fxLayoutAlign="space-between start"
             *ngFor="let row of data.terminal"
             class="addedBorder"
+            [ngClass]="data.store_desc === 'DODO KOREA' ? 'subTotalBorder' : ''"
           >
-            <h4>Terminal Total</h4>
+            <h4>Terminal Total {{ data.store_code }}</h4>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Qty</h4>
@@ -1010,7 +1053,6 @@
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
             class="addedBorder"
-            [ngClass]="data.store_desc === 'DODO KOREA' ? 'subTotalBorder' : ''"
           >
             <h4 class="blueText" *ngIf="data.store_desc === 'DODO KOREA'">
               Sub Total 01

@@ -364,19 +364,19 @@
               <td>{{ data.Ctrno }}</td>
 
               <td>{{ data.OperId }}</td>
-              <td>{{ data["Date time"] | date }}</td>
+              <td>{{ data.dateTime | date }}</td>
               <td>
-                {{ data["Close date"] | date }}
+                {{ data.closeDate | date }}
               </td>
-              <td>{{ data["Trans No"] }}</td>
+              <td>{{ data.transNo }}</td>
               <td class="alignRight">
-                RM {{ data["Net sales"] | number : "1.2-2" }}
-              </td>
-              <td class="alignRight">
-                RM {{ data["Sum disc by MNY"] | number : "1.2-2" }}
+                RM {{ data.netSales | number : "1.2-2" }}
               </td>
               <td class="alignRight">
-                RM {{ data["Round Adj"] | number : "1.2-2" }}
+                RM {{ data.sumDiscbyMny | number : "1.2-2" }}
+              </td>
+              <td class="alignRight">
+                RM {{ data.roundAdj | number : "1.2-2" }}
               </td>
             </tr>
           </tbody>
@@ -507,42 +507,42 @@
               <h4>Date Time</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data["Date time"] | date }}</p>
+              <p>{{ data.dateTime | date }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40">
               <h4>Close Date</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data["Close date"] | date }}</p>
+              <p>{{ data.closeDate | date }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div fxFlex="40">
               <h4>Trans No</h4>
             </div>
             <div fxFlex="60">
-              <p>{{ data["Trans No"] }}</p>
+              <p>{{ data.transNo }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Net Sales</h4>
             </div>
             <div>
-              <p>RM {{ data["Net sales"] | number : "1.2-2" }}</p>
+              <p>RM {{ data.netSales | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Sum disc by MNY</h4>
             </div>
             <div>
-              <p>RM {{ data["Sum disc by MNY"] | number : "1.2-2" }}</p>
+              <p>RM {{ data.sumDiscbyMny | number : "1.2-2" }}</p>
             </div>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Round Adj</h4>
             </div>
             <div>
-              <p>RM {{ data["Round Adj"] | number : "1.2-2" }}</p>
+              <p>RM {{ data.roundAdj | number : "1.2-2" }}</p>
             </div>
           </div>
         </div>

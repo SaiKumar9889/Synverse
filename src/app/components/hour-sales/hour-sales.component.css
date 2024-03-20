@@ -1,4 +1,4 @@
-tfoot .emptyRow {
+/* tfoot .emptyRow {
   bottom: 60px !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
@@ -11,6 +11,10 @@ tfoot .subTotalPL {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   z-index: 9;
   background: #fff;
+} */
+tfoot {
+  position: sticky;
+  bottom: 0;
 }
 .backgroundWhite {
   height: 88px;

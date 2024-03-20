@@ -12,6 +12,9 @@ tbody {
   max-height: 200px;
   overflow-y: auto;
 }
+p {
+  margin: 0px !important;
+}
 .backgroundWhitePage {
   background: #fff;
   position: sticky !important;

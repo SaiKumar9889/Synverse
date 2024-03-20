@@ -360,17 +360,48 @@ export class ReceiptAnalysisComponent {
             this.subTotalTerminal = result?.data[0]?.terminal[0];
             this.subTotalData = result?.data[0];
             this.grandTotalData = result;
-            if (this.storeIdValue[0] === "SC01") {
-              this.filteredData = result?.data[0]?.terminal[0]?.detail;
-            } else if (
-              this.selectedDate == "custom" ||
-              this.selectedDate == "lmth"
-            ) {
-              this.filteredData = result?.data[0]?.terminal[0]?.detail;
-            } else {
-              this.filteredData = result?.data[1]?.terminal[0]?.detail;
-            }
+            // if (this.storeIdValue[0] === "SC01") {
 
+            // } else if (
+            //   this.selectedDate == "custom" ||
+            //   this.selectedDate == "lmth"
+            // ) {
+            //   this.filteredData = result?.data[0]?.terminal[0]?.detail;
+            // } else {
+            //   this.filteredData = result?.data[1]?.terminal[0]?.detail;
+            // }
+            let array: any = [];
+            result.data.forEach((element: any) => {
+              array.push({
+                store_code: element.store_code,
+                store_name: element.store_desc,
+              });
+              element.terminal.forEach((element1: any) => {
+                array.push({
+                  terminal_code: element1.terminal_code,
+                  terminal_desc: element1.terminal_desc,
+                });
+                element1.detail.forEach((element2: any) => {
+                  array.push({
+                    SALES_CLOSEDATE: element2.SALES_CLOSEDATE,
+                    SALES_TRANSNO: element2.SALES_TRANSNO,
+                    SALES_SHIFT: element2.SALES_SHIFT,
+                    SALES_OPERID: element2.SALES_OPERID,
+                    SALES_PRICELVL: element2.SALES_PRICELVL,
+                    SALES_PRICE_SHIFT: element2.SALES_PRICE_SHIFT,
+                    SALES_STATUS: element2.SALES_STATUS,
+                    SALES_QTY: element2.SALES_QTY,
+                    SALES_GROSS: element2.SALES_GROSS,
+                    SALES_SUMDISCBYMNY: element2.SALES_SUMDISCBYMNY,
+                    SALES_TAXAMT: element2.SALES_TAXAMT,
+                    SALES_ROUND_ADJ: element2.SALES_ROUND_ADJ,
+                    SALES_NETSALES: element2.SALES_NETSALES,
+                  });
+                });
+              });
+            });
+            console.log(array);
+            this.filteredData = array;
             console.log(this.selectedDate);
             this.calculateTotalPages();
           }
