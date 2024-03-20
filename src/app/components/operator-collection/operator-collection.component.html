@@ -272,7 +272,7 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="filteredData && !loadingSpinner && subTotalData != ''"
           class="backgroundWhitePage"
         >
           <div fxFlex="12">
@@ -322,7 +322,7 @@
           <thead>
             <tr>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('SALES_STORE')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -331,7 +331,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('SALES_OPERID')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -340,7 +340,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('name')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -349,7 +349,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('SALES_QTY_NS')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -358,7 +358,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('SALES_NETSALES_NS')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -367,7 +367,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('SALES_QTY_TV')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -376,7 +376,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('SALES_NETSALES_TV')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -385,7 +385,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('TOTAL_SALES_QTY_NS')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -394,7 +394,7 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="subTotalData == '' ? 'headingTop' : ''"
                 (click)="sortTable('TOTAL_SALES_NETSALES_NS')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -445,83 +445,74 @@
             </tr>
           </tbody>
           <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
-            <tr class="emptyRow">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr class="subTotalPL">
-              <td></td>
-              <td class="boldText">OPERID Subtotal</td>
-              <td></td>
-              <td class="boldText">
-                {{ subTotalPriceLevelData?.sub_total_operator_net_qty }}
-              </td>
-              <td class="boldText alignRight">
-                RM
-                {{
-                  subTotalPriceLevelData?.sub_total_operator_net_sales
-                    | number : "1.2-2"
-                }}
-              </td>
-              <td class="boldText">
-                {{ subTotalPriceLevelData?.sub_total_operator_net_qty_tv }}
-              </td>
-              <td class="boldText alignRight">
-                RM
-                {{
-                  subTotalPriceLevelData?.sub_total_operator_net_sales_tv
-                    | number : "1.2-2"
-                }}
-              </td>
-              <td class="boldText">
-                {{ subTotalPriceLevelData?.sub_total_operator_total_qty }}
-              </td>
-              <td class="boldText alignRight">
-                RM
-                {{
-                  subTotalPriceLevelData?.sub_total_operator_total_sales
-                    | number : "1.2-2"
-                }}
-              </td>
-            </tr>
-            <tr class="subTotalSC01">
-              <td></td>
-              <td class="boldText blueText">Store Subtotal</td>
+            <ng-container *ngFor="let subTotalPrice of subTotalPriceLevelData">
+              <tr class="subTotalPL">
+                <td></td>
+                <td class="boldText">
+                  OPERID Subtotal {{ subTotalPrice.store_id }}
+                </td>
+                <td></td>
+                <td class="boldText">
+                  {{ subTotalPrice?.sub_total_operator_net_qty }}
+                </td>
+                <td class="boldText alignRight">
+                  RM
+                  {{
+                    subTotalPrice?.sub_total_operator_net_sales
+                      | number : "1.2-2"
+                  }}
+                </td>
+                <td class="boldText">
+                  {{ subTotalPrice?.sub_total_operator_net_qty_tv }}
+                </td>
+                <td class="boldText alignRight">
+                  RM
+                  {{
+                    subTotalPrice?.sub_total_operator_net_sales_tv
+                      | number : "1.2-2"
+                  }}
+                </td>
+                <td class="boldText">
+                  {{ subTotalPrice?.sub_total_operator_total_qty }}
+                </td>
+                <td class="boldText alignRight">
+                  RM
+                  {{
+                    subTotalPrice?.sub_total_operator_total_sales
+                      | number : "1.2-2"
+                  }}
+                </td>
+              </tr>
+            </ng-container>
+            <tr class="subTotalSC01" *ngFor="let total of subTotalData">
               <td></td>
               <td class="boldText blueText">
-                {{ subTotalData?.subtotal_total_sale_quantity }}
+                Store Subtotal {{ total.store_code }}
+              </td>
+              <td></td>
+              <td class="boldText blueText">
+                {{ total?.subtotal_total_sale_quantity }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{
-                  subTotalData?.subtotal_total_sale_amount | number : "1.2-2"
-                }}
+                {{ total?.subtotal_total_sale_amount | number : "1.2-2" }}
               </td>
               <td class="boldText blueText">
-                {{ subTotalData?.subtotal_total_void_quantity }}
+                {{ total?.subtotal_total_void_quantity }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.subtotal_total_void_sale | number : "1.2-2" }}
+                {{ total?.subtotal_total_void_sale | number : "1.2-2" }}
               </td>
               <td class="boldText blueText">
-                {{ subTotalData?.subtotal_total_total_quantity }}
+                {{ total?.subtotal_total_total_quantity }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{
-                  subTotalData?.subtotal_total_total_amount | number : "1.2-2"
-                }}
+                {{ total?.subtotal_total_total_amount | number : "1.2-2" }}
               </td>
             </tr>
-            <tr>
+            <tr *ngIf="subTotalData != ''">
               <td></td>
               <td class="boldText greenText">Grand Total</td>
               <td></td>
@@ -554,7 +545,7 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="filteredData && !loadingSpinner && subTotalData != ''"
         >
           <div fxFlex="12">
             <mat-form-field appearance="outline">
@@ -606,7 +597,7 @@
         fxHide.lg
         fxHide.md
         fxHide.sm
-        *ngIf="filteredData && !loadingSpinner"
+        *ngIf="filteredData && !loadingSpinner && subTotalData != ''"
       >
         <div class="addedScroll">
           <div
@@ -721,8 +712,11 @@
             <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>
-        <div class="addedBorder">
-          <h4>OPERID Subtotal</h4>
+        <div
+          class="addedBorder"
+          *ngFor="let subTotalPrice of subTotalPriceLevelData"
+        >
+          <h4>OPERID Subtotal {{ subTotalPrice.store_id }}</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
@@ -730,7 +724,7 @@
             </div>
             <div>
               <h4>
-                {{ subTotalPriceLevelData?.sub_total_operator_net_qty }}
+                {{ subTotalPrice?.sub_total_operator_net_qty }}
               </h4>
             </div>
           </div>
@@ -742,8 +736,7 @@
               <h4>
                 RM
                 {{
-                  subTotalPriceLevelData?.sub_total_operator_net_sales
-                    | number : "1.2-2"
+                  subTotalPrice?.sub_total_operator_net_sales | number : "1.2-2"
                 }}
               </h4>
             </div>
@@ -754,7 +747,7 @@
             </div>
             <div>
               <h4>
-                {{ subTotalPriceLevelData?.sub_total_operator_net_qty_tv }}
+                {{ subTotalPrice?.sub_total_operator_net_qty_tv }}
               </h4>
             </div>
           </div>
@@ -766,7 +759,7 @@
               <h4>
                 RM
                 {{
-                  subTotalPriceLevelData?.sub_total_operator_net_sales_tv
+                  subTotalPrice?.sub_total_operator_net_sales_tv
                     | number : "1.2-2"
                 }}
               </h4>
@@ -778,7 +771,7 @@
             </div>
             <div>
               <h4>
-                {{ subTotalPriceLevelData?.sub_total_operator_total_qty }}
+                {{ subTotalPrice?.sub_total_operator_total_qty }}
               </h4>
             </div>
           </div>
@@ -790,15 +783,15 @@
               <h4>
                 RM
                 {{
-                  subTotalPriceLevelData?.sub_total_operator_total_sales
+                  subTotalPrice?.sub_total_operator_total_sales
                     | number : "1.2-2"
                 }}
               </h4>
             </div>
           </div>
         </div>
-        <div class="addedBorder">
-          <h4 class="blueText">Store Subtotal</h4>
+        <div class="addedBorder" *ngFor="let total of subTotalData">
+          <h4 class="blueText">Store Subtotal {{ total.store_code }}</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
@@ -806,7 +799,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                {{ subTotalData?.subtotal_total_sale_quantity }}
+                {{ total?.subtotal_total_sale_quantity }}
               </h4>
             </div>
           </div>
@@ -817,9 +810,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{
-                  subTotalData?.subtotal_total_sale_amount | number : "1.2-2"
-                }}
+                {{ total?.subtotal_total_sale_amount | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -829,7 +820,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                {{ subTotalData?.subtotal_total_void_quantity }}
+                {{ total?.subtotal_total_void_quantity }}
               </h4>
             </div>
           </div>
@@ -840,7 +831,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.subtotal_total_void_sale | number : "1.2-2" }}
+                {{ total?.subtotal_total_void_sale | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -850,7 +841,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                {{ subTotalData?.subtotal_total_total_quantity }}
+                {{ total?.subtotal_total_total_quantity }}
               </h4>
             </div>
           </div>
@@ -861,14 +852,12 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{
-                  subTotalData?.subtotal_total_total_amount | number : "1.2-2"
-                }}
+                {{ total?.subtotal_total_total_amount | number : "1.2-2" }}
               </h4>
             </div>
           </div>
         </div>
-        <div class="addedBorder marginBottomAdded">
+        <div class="addedBorder marginBottomAdded" *ngIf="subTotalData != ''">
           <h4 class="greenText">Grand Total</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">

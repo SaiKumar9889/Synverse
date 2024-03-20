@@ -43,7 +43,7 @@ export class OperatorCollectionComponent {
   store_name: any;
   storeData: any = [];
   storesFilterData: any = [];
-  subTotalPriceLevelData: any;
+  subTotalPriceLevelData: any = [];
   subTotalData: any;
   searchFrom: any = "";
   searchTo: any = "";
@@ -231,7 +231,10 @@ export class OperatorCollectionComponent {
   }
 
   errorMessage: any = null;
+  collectionArray: any;
+  collectionArrayValue: any;
   operatorCollection(fromDate: any, toDate: any) {
+    this.subTotalPriceLevelData = [];
     this.loadingSpinner = true;
     this.appService
       .operatorCollection(
@@ -256,14 +259,72 @@ export class OperatorCollectionComponent {
         }
         this.store_code = result.data.store_code;
         setTimeout(() => {
+          let array: any = [];
           if (result) {
+            result.data.forEach((element: any) => {
+              console.log(element);
+
+              // array.push({
+              //   store_code: element.store_code,
+              // });
+              this.collectionArray = Object.values(element.collection || {});
+              // this.collectionArray.splice(-4);
+              console.log(this.collectionArray);
+              this.collectionArray.forEach((element1: any) => {
+                console.log(element1);
+                element1.details.forEach((element2: any) => {
+                  array.push({
+                    SALES_STORE: element2.SALES_STORE,
+                    SALES_OPERID: element2.SALES_OPERID,
+                    SALES_QTY_NS: element2.SALES_QTY_NS,
+                    SALES_NETSALES_NS: element2.SALES_NETSALES_NS,
+                    SALES_QTY_TV: element2.SALES_QTY_TV,
+                    SALES_NETSALES_TV: element2.SALES_NETSALES_TV,
+                    TOTAL_SALES_QTY_NS: element2.TOTAL_SALES_QTY_NS,
+                    TOTAL_SALES_NETSALES_NS: element2.TOTAL_SALES_NETSALES_NS,
+                  });
+                });
+              });
+            });
+            console.log(array);
             this.storeData = result?.data[0]?.collection["5162"]?.details;
             this.storesFilterData =
               result?.data[0]?.collection["5162"]?.details;
-            this.subTotalPriceLevelData = result?.data[0]?.collection["5162"];
-            this.subTotalData = result?.data[0];
+            this.filteredData = array;
+            let subTotal: any = [];
+            result.data.forEach((element: any) => {
+              this.store_code = element.store_code;
+              this.collectionArrayValue = Object.values(
+                element.collection || {}
+              );
+
+              // this.subTotalPriceLevelData = this.collectionArrayValue;
+              this.collectionArrayValue.forEach((element2: any) => {
+                this.subTotalPriceLevelData.push({
+                  store_id: element.store_code,
+                  sub_total_operator_net_qty:
+                    element2.sub_total_operator_net_qty,
+                  sub_total_operator_net_sales:
+                    element2.sub_total_operator_net_sales,
+                  sub_total_operator_net_qty_tv:
+                    element2.sub_total_operator_net_qty_tv,
+                  sub_total_operator_net_sales_tv:
+                    element2.sub_total_operator_net_sales_tv,
+                  sub_total_operator_total_qty:
+                    element2.sub_total_operator_total_qty,
+                  sub_total_operator_total_sales:
+                    element2.sub_total_operator_total_sales,
+                });
+                // console.log(this.subTotalPriceLevelData);
+              });
+            });
+            console.log(this.subTotalPriceLevelData);
+            this.subTotalData = result?.data;
+            // if(this.subTotalData[0].store_code == '01'){
+            //   this.storeCode = this.subTotalData[0].store_code
+            // }
             this.grandTotalData = result;
-            this.filteredData = this.storesFilterData;
+
             this.calculateTotalPages();
           }
           this.loadingSpinner = false;
