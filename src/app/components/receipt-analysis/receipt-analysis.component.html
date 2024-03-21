@@ -650,7 +650,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="boldText">Terminal Total {{ data.store_code }}</td>
+                <td class="boldText">
+                  Terminal Total - Store {{ data.store_code }}
+                </td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -683,19 +685,19 @@
                   class="boldText blueText"
                   *ngIf="data.store_desc === 'DODO KOREA'"
                 >
-                  Sub Total 01
+                  Sub Total - Store 01
                 </td>
                 <td
                   class="boldText blueText"
                   *ngIf="data.store_desc === 'Project Store'"
                 >
-                  Sub Total SC01
+                  Sub Total - Store SC01
                 </td>
                 <td
                   class="boldText blueText"
                   *ngIf="data.store_desc === 'Project Store 2'"
                 >
-                  Sub Total SC02
+                  Sub Total - Store SC02
                 </td>
                 <td></td>
                 <td></td>
@@ -1003,9 +1005,9 @@
             fxLayoutAlign="space-between start"
             *ngFor="let row of data.terminal"
             class="addedBorder"
-            [ngClass]="data.store_desc === 'DODO KOREA' ? 'subTotalBorder' : ''"
+            [ngClass]="row.terminal_code === 'T1' ? 'subTotalBorder' : ''"
           >
-            <h4>Terminal Total {{ data.store_code }}</h4>
+            <h4>Terminal Total - Store {{ data.store_code }}</h4>
             <div fxFlex="100"><hr /></div>
             <div>
               <h4>Qty</h4>
@@ -1053,15 +1055,16 @@
             fxLayout="row wrap"
             fxLayoutAlign="space-between start"
             class="addedBorder"
+            [ngClass]="data.store_code === '01' ? 'subTotalBorder' : ''"
           >
             <h4 class="blueText" *ngIf="data.store_desc === 'DODO KOREA'">
-              Sub Total 01
+              Sub Total - Store 01
             </h4>
             <h4 class="blueText" *ngIf="data.store_desc === 'Project Store'">
-              Sub Total SC01
+              Sub Total - Store SC01
             </h4>
             <h4 class="blueText" *ngIf="data.store_desc === 'Project Store 2'">
-              Sub Total SC02
+              Sub Total - Store SC02
             </h4>
             <div fxFlex="100"><hr /></div>
             <div>

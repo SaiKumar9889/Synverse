@@ -309,9 +309,9 @@ export class SalesRemarkComponent implements OnInit {
             // }
             this.filteredData = array;
             this.storesFilterData = result.data.remark;
-            this.subTotalData = result.data;
+            this.subTotalData = result?.data;
             this.grandTotalData = result;
-            this.filteredData = this.storesFilterData;
+            // this.filteredData = this.storesFilterData;
             this.calculateTotalPages();
           }
           this.loadingSpinner = false;

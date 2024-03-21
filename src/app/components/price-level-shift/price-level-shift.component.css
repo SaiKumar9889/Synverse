@@ -32,7 +32,7 @@ tfoot {
 .backgroundWhitePage {
   background: #fff;
   position: sticky !important;
-  top: 80px !important;
+  top: 85px !important;
   width: 100% !important;
   height: 60px;
 }

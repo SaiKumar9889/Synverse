@@ -500,7 +500,18 @@
               <td></td>
               <td></td>
               <td></td>
-              <td class="boldText blueText">Sub Total</td>
+              <td class="boldText blueText">
+                <p *ngFor="let data of getCurrentPageItems() | slice : 0 : 1">
+                  <span *ngIf="data.SALES_STORE == '01'">
+                    Sub Total - Store {{ data.SALES_STORE }}</span
+                  >
+                </p>
+                <p *ngFor="let data of getCurrentPageItems() | slice : 1 : 2">
+                  <span *ngIf="data.SALES_STORE == 'SC01'">
+                    Sub Total - Store {{ data.SALES_STORE }}</span
+                  >
+                </p>
+              </td>
               <td class="boldText blueText alignRight">
                 {{ subTotalData?.sub_total_quantity }}
               </td>

@@ -15,6 +15,9 @@ tbody {
 tbody p {
   margin: 0px !important;
 }
+.subTotalDecrease {
+  margin-top: 0px;
+}
 .backgroundWhitePage {
   background: #fff;
   position: sticky !important;

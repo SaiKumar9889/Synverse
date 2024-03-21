@@ -564,7 +564,7 @@
             <tr class="subTotalPL" *ngFor="let total of subTotalData">
               <td></td>
               <td class="boldText blueText">
-                Sub Total of {{ total.store_code }}
+                Sub Total of - Store {{ total.store_code }}
               </td>
               <td class="boldText blueText alignRight">
                 RM {{ total?.sub_total_total_sales | number : "1.2-2" }}
@@ -971,7 +971,9 @@
         </div>
         <div *ngIf="filteredData && !loadingSpinner" class="subTotalBorder">
           <div class="addedBorder" *ngFor="let total of subTotalData">
-            <h4 class="blueText">Sub Total of {{ total.store_code }}</h4>
+            <h4 class="blueText">
+              Sub Total of - Store {{ total.store_code }}
+            </h4>
             <hr />
             <div fxLayout="row wrap" fxLayoutAlign="space-between start">
               <div>
