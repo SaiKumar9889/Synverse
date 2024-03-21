@@ -631,24 +631,6 @@
               grandTotalData.data !== 'failed'
             "
           >
-            <tr class="emptyRow">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
             <tr class="subTotalPL" *ngFor="let item of subTotalData">
               <td></td>
               <td class="boldText blueText">
@@ -957,11 +939,11 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData"
-          class="marginBottomAdd"
+          *ngIf="filteredData && !loadingSpinner"
+          class="backgroundWhitePage"
         >
           <div fxFlex="15">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" class="marginAdded">
               <mat-label>Items per page:</mat-label>
               <mat-select
                 id="itemsPerPage"
@@ -976,6 +958,9 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
+          </div>
+          <div style="margin-top: 20px">
+            <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
           <div class="pagination">
             <button (click)="previousPage()" [disabled]="currentPage === 1">
@@ -999,11 +984,12 @@
               Next
             </button>
           </div>
-          <div style="margin-top: 5px">
-            <p>Displaying: {{ getDisplayRange() }}</p>
-          </div>
         </div>
-        <div class="addedBorder" *ngFor="let item of subTotalData">
+        <div
+          class="addedBorder"
+          *ngFor="let item of subTotalData"
+          [ngClass]="item.store_code === '01' ? 'subTotalBorder' : ''"
+        >
           <h4 class="blueText">Sub-Total of - Store {{ item.store_code }}</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">

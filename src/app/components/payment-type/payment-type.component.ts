@@ -358,6 +358,7 @@ export class PaymentTypeComponent implements OnInit, OnDestroy {
   subTotalGrab: any;
   subTotalShopee: any;
   subTotalWallet: any;
+  subTotalPayment: any;
 
   paymentType(fromDate: any, toDate: any) {
     this.loadingSpinner = true;
@@ -547,8 +548,8 @@ export class PaymentTypeComponent implements OnInit, OnDestroy {
             if (this.filteredData !== undefined) {
               // Your code to handle the non-undefined paymentValue
             }
-            this.paidAmount = result?.data[0]?.payment?.["Payment 1"]?.paid_amt;
-            this.roundAdj = result?.data[0]?.payment?.["Payment 1"]?.round_adj;
+            this.subTotalPayment = result?.data;
+            // this.roundAdj = result?.data[0]?.payment?.["Payment 1"]?.round_adj;
             this.subTotalCash = result?.data[0]?.payment?.["CASH"];
             this.subTotalDuit = result?.data[0]?.payment?.["DUIT NOW"];
             this.subTotalGrab = result?.data[0]?.payment?.["GRAB"];
@@ -559,12 +560,12 @@ export class PaymentTypeComponent implements OnInit, OnDestroy {
             //   result?.data[0]?.payment?.["VISA"] || {}
             // );
 
-            this.visaDataSubtotal = result?.data[0]?.payment?.["VISA"];
+            this.visaDataSubtotal = result?.data;
             // this.masterData = Object.values(
             //   result?.data[0]?.payment?.["MASTER"] || {}
             // );
 
-            this.masterDataSubtotal = result?.data[0]?.payment?.["MASTER"];
+            this.masterDataSubtotal = result?.data;
             this.subTotalSC01 = result?.data;
             this.grandTotalData = result;
             this.calculateTotalPages();

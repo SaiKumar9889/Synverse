@@ -60,6 +60,7 @@
               placeholder="From Date"
               [formControl]="dateFrom"
               (dateChange)="selectedFormDate()"
+              [min]="minDate"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -211,6 +212,7 @@
               placeholder="From Date"
               [formControl]="dateFrom"
               (dateChange)="selectedFormDate()"
+              [min]="minDate"
             />
             <mat-datepicker-toggle
               matSuffix

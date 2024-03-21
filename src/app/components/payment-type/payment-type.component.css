@@ -75,7 +75,7 @@ tfoot p {
   .addedScroll {
     padding: 5px 10px;
     overflow: scroll !important;
-    height: 580px !important;
+    height: 400px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   }
   .marginAdded {
@@ -83,5 +83,8 @@ tfoot p {
   }
   .subTotalBorder {
     margin-top: 35px;
+  }
+  .backgroundSizeIncrease {
+    height: auto !important;
   }
 }

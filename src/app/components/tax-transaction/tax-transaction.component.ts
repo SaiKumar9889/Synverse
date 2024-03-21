@@ -79,6 +79,7 @@ export class TaxTransactionComponent implements OnInit {
   toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
   terminalDisabled: boolean = true;
+  minDate: Date = new Date();
 
   constructor(
     private authService: AuthService,
@@ -107,6 +108,12 @@ export class TaxTransactionComponent implements OnInit {
     });
     this.selectedFormDate();
     this.selectedToDate();
+    this.minDate = this.calculateMinDate();
+    console.log(this.minDate);
+  }
+  calculateMinDate(): Date {
+    const today = new Date();
+    return new Date(today.getFullYear() - 3, today.getMonth(), today.getDate());
   }
   formFieldsAdded() {
     this.priceLevelFormFields = true;
