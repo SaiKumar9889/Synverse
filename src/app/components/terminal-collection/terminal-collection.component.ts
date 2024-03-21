@@ -324,7 +324,7 @@ export class TerminalCollectionComponent {
             }
             this.filteredData = array;
             this.storesFilterData = result.data[0].tax_trx;
-            this.subTotalData = result.data[0];
+            this.subTotalData = result.data;
             this.grandTotalData = result;
             // this.filteredData = this.storesFilterData;
             this.calculateTotalPages();

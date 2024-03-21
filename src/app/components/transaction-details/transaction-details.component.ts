@@ -339,7 +339,7 @@ export class TransactionDetailsComponent implements OnInit {
             this.filteredData = array;
 
             this.storesFilterData = result?.data[0]?.transdetail;
-            this.subTotalData = result?.data[0];
+            this.subTotalData = result?.data;
             this.grandTotalData = result;
             // this.filteredData = this.storesFilterData;
             this.calculateTotalPages();

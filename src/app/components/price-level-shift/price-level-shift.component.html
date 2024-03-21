@@ -566,7 +566,9 @@
               *ngFor="let subtotal of subTotalPriceLevelData"
             >
               <td></td>
-              <td class="boldText">Sub Total PL/PS</td>
+              <td class="boldText">
+                Sub Total PL/PS {{ subtotal.store_code }}
+              </td>
               <td class="boldText">
                 {{ subtotal?.item_price?.P1?.sub_total_price_level_quantity }}
               </td>
@@ -804,7 +806,7 @@
           class="addedBorder subTotalBorder"
           *ngFor="let subtotal of subTotalPriceLevelData"
         >
-          <h4>Sub Total PL/PS</h4>
+          <h4>Sub Total PL/PS {{ subtotal.store_code }}</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>

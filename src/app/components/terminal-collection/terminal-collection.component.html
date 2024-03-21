@@ -649,51 +649,51 @@
               <td></td>
               <td></td>
             </tr>
-            <tr class="subTotalPL">
+            <tr class="subTotalPL" *ngFor="let item of subTotalData">
               <td></td>
-              <td class="boldText blueText">Sub-Total of</td>
+              <td class="boldText blueText">
+                Sub-Total of - Store {{ item.store_code }}
+              </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_net_sales }}
+                RM {{ item?.sub_net_sales }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_tax_1 | number : "1.2-2" }}
+                {{ item?.sub_tax_1 | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_tax_2 | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_round | number : "1.2-2" }}
+                RM {{ item?.sub_tax_2 | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_ttl_sales | number : "1.2-2" }}
+                {{ item?.sub_round | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ item?.sub_ttl_sales | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight"></td>
               <td class="boldText blueText alignRight">
                 RM
+                {{ item?.sub_collection_type?.BOOST | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight"></td>
+              <td class="boldText blueText alignRight"></td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ item?.sub_collection_type?.CASH | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
                 {{
-                  subTotalData?.sub_collection_type?.BOOST | number : "1.2-2"
+                  item?.sub_collection_type?.["FOOD.P"] | number : "1.2-2"
                 }}
               </td>
               <td class="boldText blueText alignRight"></td>
               <td class="boldText blueText alignRight"></td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_collection_type?.CASH | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{
-                  subTotalData?.sub_collection_type?.["FOOD.P"] | number : "1.2-2"
-                }}
-              </td>
-              <td class="boldText blueText alignRight"></td>
-              <td class="boldText blueText alignRight"></td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_collection_type?.GRAB | number : "1.2-2" }}
+                {{ item?.sub_collection_type?.GRAB | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -1003,15 +1003,15 @@
             <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>
-        <div class="addedBorder">
-          <h4 class="blueText">Sub-Total of</h4>
+        <div class="addedBorder" *ngFor="let item of subTotalData">
+          <h4 class="blueText">Sub-Total of - Store {{ item.store_code }}</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
               <h4 class="blueText">Netsales :</h4>
             </div>
             <div>
-              <h4 class="blueText">RM {{ subTotalData?.sub_net_sales }}</h4>
+              <h4 class="blueText">RM {{ item?.sub_net_sales }}</h4>
             </div>
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -1021,7 +1021,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_tax_1 | number : "1.2-2" }}
+                {{ item?.sub_tax_1 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -1031,7 +1031,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_tax_2 | number : "1.2-2" }}
+                RM {{ item?.sub_tax_2 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -1042,7 +1042,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_round | number : "1.2-2" }}
+                {{ item?.sub_round | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -1062,9 +1062,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{
-                  subTotalData?.sub_collection_type?.BOOST | number : "1.2-2"
-                }}
+                {{ item?.sub_collection_type?.BOOST | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -1091,7 +1089,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_collection_type?.CASH | number : "1.2-2" }}
+                {{ item?.sub_collection_type?.CASH | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -1103,7 +1101,7 @@
               <h4 class="blueText">
                 RM
                 {{
-                  subTotalData?.sub_collection_type?.["FOOD.P"] | number : "1.2-2"
+                  item?.sub_collection_type?.["FOOD.P"] | number : "1.2-2"
                 }}
               </h4>
             </div>
@@ -1131,7 +1129,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_collection_type?.GRAB | number : "1.2-2" }}
+                {{ item?.sub_collection_type?.GRAB | number : "1.2-2" }}
               </h4>
             </div>
           </div>

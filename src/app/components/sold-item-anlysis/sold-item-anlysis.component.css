@@ -42,7 +42,7 @@ thead th {
   z-index: 9;
   background-color: #be2026;
 }
-p {
+tbody p {
   margin: 0px !important;
 }
 @media screen and (min-width: 1547px) {

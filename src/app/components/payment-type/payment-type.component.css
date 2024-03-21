@@ -34,6 +34,9 @@ tfoot {
   position: sticky;
   bottom: 0;
 }
+tfoot p {
+  margin: 0px;
+}
 .backgroundWhitePage,
 .backgroundWhitePageIncrease {
   background: #fff;

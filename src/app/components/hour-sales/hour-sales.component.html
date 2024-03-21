@@ -513,14 +513,8 @@
             </tr> -->
             <ng-container *ngFor="let total of subTotalData">
               <tr class="subTotalPL" *ngIf="grandTotalData.data !== 'failed'">
-                <td class="boldText blueText" *ngIf="total.store_code === '01'">
-                  Sub-Total of 01
-                </td>
-                <td
-                  class="boldText blueText"
-                  *ngIf="total.store_code === 'SC01'"
-                >
-                  Sub-Total of SC01
+                <td class="boldText blueText">
+                  Sub-Total of - Store {{ total.store_code }}
                 </td>
                 <td class="boldText blueText alignRight">
                   {{ total?.sub_total_rcpt }}
@@ -764,68 +758,70 @@
             <p>Displaying: {{ getDisplayRange() }}</p>
           </div>
         </div>
-        <div class="addedBorder" *ngIf="grandTotalData && !loadingSpinner">
-          <h4 class="blueText">Sub-Total</h4>
-          <hr />
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">#RCPT :</h4>
+        <div *ngIf="grandTotalData && !loadingSpinner">
+          <div class="addedBorder" *ngFor="let item of subTotalData">
+            <h4 class="blueText">Sub-Total - Store {{ item.store_code }}</h4>
+            <hr />
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">#RCPT :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">RM {{ item?.sub_total_rcpt }}</h4>
+              </div>
             </div>
-            <div>
-              <h4 class="blueText">RM {{ subTotalData?.sub_total_rcpt }}</h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">Gross :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ item?.sub_total_gross | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">Gross :</h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">Discount :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM {{ item?.sub_total_disc | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_gross | number : "1.2-2" }}
-              </h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">Net :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ item?.sub_total_netsales | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">Discount :</h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">Total :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM
+                  {{ item?.sub_total_total | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
-            <div>
-              <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_disc | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">Net :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_netsales | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">Total :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM
-                {{ subTotalData?.sub_total_total | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4 class="blueText">Contribution :</h4>
-            </div>
-            <div>
-              <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_contribution | number : "1.2-2" }}
-              </h4>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div>
+                <h4 class="blueText">Contribution :</h4>
+              </div>
+              <div>
+                <h4 class="blueText">
+                  RM {{ item?.sub_total_contribution | number : "1.2-2" }}
+                </h4>
+              </div>
             </div>
           </div>
         </div>

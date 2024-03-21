@@ -650,7 +650,12 @@
               <td></td>
               <td></td>
               <td></td>
-              <td class="boldText">Sub Total of VISA</td>
+              <td
+                *ngFor="let data of getCurrentPageItems() | slice : 0 : 1"
+                class="boldText"
+              >
+                <p>Sub Total of VISA - Store {{ data.store_code }}</p>
+              </td>
               <td></td>
               <td></td>
               <td class="boldText alignRight">
@@ -695,7 +700,13 @@
               <td></td>
               <td></td>
               <td></td>
-              <td class="boldText">Sub Total of MASTER</td>
+              <td
+                *ngFor="let data of getCurrentPageItems() | slice : 0 : 1"
+                class="boldText"
+              >
+                <p>Sub Total of MASTER - Store {{ data.store_code }}</p>
+              </td>
+
               <td></td>
               <td></td>
               <td class="boldText alignRight">

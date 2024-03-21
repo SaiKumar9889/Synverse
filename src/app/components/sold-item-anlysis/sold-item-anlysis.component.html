@@ -625,7 +625,7 @@
             <tr>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('date')"
               >
@@ -636,7 +636,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('terminal')"
               >
@@ -647,7 +647,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('SDTL_DATETIME')"
               >
@@ -658,7 +658,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('SDTL_SALES_RCPTNO')"
               >
@@ -669,7 +669,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('SDTL_STOCK_CODE')"
               >
@@ -680,7 +680,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('SDTL_SHORTDESC')"
               >
@@ -691,7 +691,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('SDTL_SALES_PRICELVL')"
               >
@@ -702,7 +702,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('SDTL_SALES_PRICE_SHIFT')"
               >
@@ -713,7 +713,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('SDTL_STATUS')"
               >
@@ -724,7 +724,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('SDTL_QTY')"
               >
@@ -735,7 +735,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('SDTL_GROSS')"
               >
@@ -746,7 +746,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('SDTL_DISCAMT')"
               >
@@ -757,7 +757,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('SDTL_NETT')"
               >
@@ -768,7 +768,7 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.grand_total_quantity === 0 ? 'headingTop' : ''
+                  grandTotalData?.grand_total_disc === 0 ? 'headingTop' : ''
                 "
                 (click)="sortTable('SDTL_CHANGEPRC')"
               >
@@ -994,9 +994,9 @@
             </ng-container>
             <ng-container
               *ngIf="
-                grandTotalData?.grand_total_quantity !== 0 &&
-                grandTotalData?.grand_total_gross_sales != 0 &&
-                grandTotalData?.grand_total_disc != 0 &&
+                grandTotalData?.grand_total_quantity !== 0 ||
+                grandTotalData?.grand_total_gross_sales != 0 ||
+                grandTotalData?.grand_total_disc != 0 ||
                 grandTotalData?.grand_total_net_sales != 0
               "
             >
@@ -1029,9 +1029,9 @@
             </ng-container>
             <tr
               *ngIf="
-                grandTotalData?.grand_total_quantity !== 0 &&
-                grandTotalData?.grand_total_gross_sales != 0 &&
-                grandTotalData?.grand_total_disc != 0 &&
+                grandTotalData?.grand_total_quantity !== 0 ||
+                grandTotalData?.grand_total_gross_sales != 0 ||
+                grandTotalData?.grand_total_disc != 0 ||
                 grandTotalData?.grand_total_net_sales != 0
               "
             >
@@ -1127,10 +1127,9 @@
         fxHide.md
         fxHide.sm
         *ngIf="
-          filteredData &&
-          grandTotalData?.grand_total_quantity !== 0 &&
-          grandTotalData?.grand_total_gross_sales != 0 &&
-          grandTotalData?.grand_total_disc != 0 &&
+          (filteredData && grandTotalData?.grand_total_quantity !== 0) ||
+          grandTotalData?.grand_total_gross_sales != 0 ||
+          grandTotalData?.grand_total_disc != 0 ||
           grandTotalData?.grand_total_net_sales != 0
         "
       >
@@ -1432,7 +1431,7 @@
               </div>
               <div>
                 <h4 class="blueText">
-                  {{ subTotalData?.sub_total_net_quantity }}
+                  {{ subtotal?.sub_total_net_quantity }}
                 </h4>
               </div>
             </div>
@@ -1443,7 +1442,7 @@
               <div>
                 <h4 class="blueText">
                   RM
-                  {{ subTotalData?.sub_total_net_gross | number : "1.2-2" }}
+                  {{ subtotal?.sub_total_net_gross | number : "1.2-2" }}
                 </h4>
               </div>
             </div>
@@ -1454,7 +1453,7 @@
               <div>
                 <h4 class="blueText">
                   RM
-                  {{ subTotalData?.sub_total_net_discount | number : "1.2-2" }}
+                  {{ subtotal?.sub_total_net_discount | number : "1.2-2" }}
                 </h4>
               </div>
             </div>
@@ -1465,7 +1464,7 @@
               <div>
                 <h4 class="blueText">
                   RM
-                  {{ subTotalData?.sub_total_net_sales | number : "1.2-2" }}
+                  {{ subtotal?.sub_total_net_sales | number : "1.2-2" }}
                 </h4>
               </div>
             </div>

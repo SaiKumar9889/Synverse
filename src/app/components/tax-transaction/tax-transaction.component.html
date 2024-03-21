@@ -560,35 +560,37 @@
               <td></td>
               <td></td>
             </tr>
-            <tr class="subTotalPL">
+            <tr class="subTotalPL" *ngFor="let item of subTotalData">
               <td></td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
-              <td class="boldText blueText">Sub-Total of</td>
+              <td class="boldText blueText">
+                Sub-Total of {{ item.store_code }}
+              </td>
               <td></td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_gross | number : "1.2-2" }}
+                RM {{ item?.sub_total_gross | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_tax1 | number : "1.2-2" }}
+                {{ item?.sub_total_tax1 | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_tax2 | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_total_tax3 | number : "1.2-2" }}
+                RM {{ item?.sub_total_tax2 | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_tax4 | number : "1.2-2" }}
+                {{ item?.sub_total_tax3 | number : "1.2-2" }}
               </td>
               <td class="boldText blueText alignRight">
                 RM
-                {{ subTotalData?.sub_total_netsales | number : "1.2-2" }}
+                {{ item?.sub_total_tax4 | number : "1.2-2" }}
+              </td>
+              <td class="boldText blueText alignRight">
+                RM
+                {{ item?.sub_total_netsales | number : "1.2-2" }}
               </td>
             </tr>
             <tr>
@@ -829,8 +831,11 @@
             </button>
           </div>
         </div>
-        <div class="addedBorder subTotalBorder">
-          <h4 class="blueText">Sub-Total of</h4>
+        <div
+          class="addedBorder subTotalBorder"
+          *ngFor="let item of subTotalData"
+        >
+          <h4 class="blueText">Sub-Total of {{ item.store_code }}</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">
             <div>
@@ -838,7 +843,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_gross | number : "1.2-2" }}
+                RM {{ item?.sub_total_gross | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -849,7 +854,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_tax1 | number : "1.2-2" }}
+                {{ item?.sub_total_tax1 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -859,7 +864,7 @@
             </div>
             <div>
               <h4 class="blueText">
-                RM {{ subTotalData?.sub_total_tax2 | number : "1.2-2" }}
+                RM {{ item?.sub_total_tax2 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -870,7 +875,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_tax3 | number : "1.2-2" }}
+                {{ item?.sub_total_tax3 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -881,7 +886,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_tax4 | number : "1.2-2" }}
+                {{ item?.sub_total_tax4 | number : "1.2-2" }}
               </h4>
             </div>
           </div>
@@ -892,7 +897,7 @@
             <div>
               <h4 class="blueText">
                 RM
-                {{ subTotalData?.sub_total_netsales | number : "1.2-2" }}
+                {{ item?.sub_total_netsales | number : "1.2-2" }}
               </h4>
             </div>
           </div>
