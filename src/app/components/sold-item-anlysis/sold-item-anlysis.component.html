@@ -969,7 +969,7 @@
                   <td></td>
                   <td></td>
                   <td class="boldText">
-                    Terminal Total {{ subtotal.store_code }}
+                    Terminal Total - Store {{ subtotal.store_code }}
                   </td>
                   <td></td>
                   <td></td>
@@ -1007,7 +1007,7 @@
                 <td></td>
                 <td></td>
                 <td class="boldText blueText">
-                  Sub Total {{ total.store_code }}
+                  Sub Total - Store {{ total.store_code }}
                 </td>
                 <td></td>
                 <td></td>
@@ -1374,11 +1374,11 @@
         </div>
         <div
           class="addedBorder subTotalBorder"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="filteredData && !loadingSpinner && subTotalTerminal"
         >
           <div *ngFor="let subtotal of subTotalTerminal">
             <div *ngFor="let item of subtotal.sold_item">
-              <h4>Terminal Total {{ subtotal.store_code }}</h4>
+              <h4>Terminal Total - Store {{ subtotal.store_code }}</h4>
               <hr />
               <div fxLayout="row wrap" fxLayoutAlign="space-between start">
                 <div>
@@ -1421,9 +1421,11 @@
             </div>
           </div>
         </div>
-        <div *ngIf="filteredData && !loadingSpinner">
+        <div *ngIf="filteredData && !loadingSpinner && subTotalData">
           <div class="addedBorder" *ngFor="let subtotal of subTotalData">
-            <h4 class="blueText">Sub Total {{ subtotal.store_code }}</h4>
+            <h4 class="blueText">
+              Sub Total - Store {{ subtotal.store_code }}
+            </h4>
             <hr />
             <div fxLayout="row wrap" fxLayoutAlign="space-between start">
               <div>

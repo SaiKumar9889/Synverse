@@ -42,4 +42,10 @@ thead th {
     height: 230px !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   }
+  .marginAdded {
+    margin: 25px 0px 15px;
+  }
+  .subTotalBorder {
+    margin-top: 35px;
+  }
 }

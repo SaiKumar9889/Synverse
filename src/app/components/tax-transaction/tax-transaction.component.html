@@ -834,8 +834,9 @@
           </div>
         </div>
         <div
-          class="addedBorder subTotalBorder"
+          class="addedBorder subTotalMargin"
           *ngFor="let item of subTotalData"
+          [ngClass]="item.store_code ? 'subTotalBorder' : ''"
         >
           <h4 class="blueText">Sub-Total of {{ item.store_code }}</h4>
           <hr />

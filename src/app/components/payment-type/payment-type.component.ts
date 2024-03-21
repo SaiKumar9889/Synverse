@@ -382,10 +382,8 @@ export class PaymentTypeComponent implements OnInit, OnDestroy {
         this.dateValue
       )
       .subscribe(async (result) => {
-        if (result && result.success == false) {
-          // if (result.data && result.data.group_key) {
+        if (result && result.data == "failed") {
           this.errorMessage = result?.message;
-          // }
         } else {
           this.errorMessage = null;
         }

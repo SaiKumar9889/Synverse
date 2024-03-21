@@ -370,6 +370,12 @@ export class HourSalesComponent {
     );
     return `${startIndex} to ${endIndex}`;
   }
+  shouldDisplayEllipsis(): boolean {
+    return (
+      this.totalPages > this.pagesToShow &&
+      this.currentPage + Math.floor(this.pagesToShow / 2) < this.totalPages
+    );
+  }
 
   columnToSort = "";
   sortDirection = "asc";

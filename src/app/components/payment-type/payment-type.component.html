@@ -591,7 +591,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="boldText">Sub Total of Payment 1</td>
+                <td class="boldText">
+                  Sub Total of Payment 1 - Store {{ data.store_code }}
+                </td>
                 <td></td>
                 <td></td>
                 <td class="boldText alignRight">
@@ -603,53 +605,59 @@
                   {{ data?.payment?.["Payment 1"]?.round_adj | number : "1.2-2" }}
                 </td>
               </tr>
-            </ng-container>
-            <tr *ngIf="subTotalCash" class="paidAmount">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of Cash</td>
-              <td></td>
-              <td></td>
-              <td class="boldText alignRight">
-                RM {{ subTotalCash?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText alignRight">
-                RM {{ subTotalCash?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr *ngIf="subTotalDuit" class="paidAmount">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of Duit Now</td>
-              <td></td>
-              <td></td>
-              <td class="boldText alignRight">
-                RM {{ subTotalDuit?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText alignRight">
-                RM {{ subTotalDuit?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr *ngIf="subTotalGrab" class="paidAmount">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of Grab</td>
-              <td></td>
-              <td></td>
-              <td class="boldText alignRight">
-                RM {{ subTotalGrab?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText alignRight">
-                RM {{ subTotalGrab?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <ng-container *ngFor="let data of visaDataSubtotal">
+              <tr *ngIf="data?.payment?.['CASH']" class="paidAmount">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText">
+                  Sub Total of Cash - Store {{ data.store_code }}
+                </td>
+                <td></td>
+                <td></td>
+                <td class="boldText alignRight">
+                  RM {{ data?.payment?.["CASH"]?.paid_amt | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ data?.payment?.["CASH"]?.round_adj | number : "1.2-2" }}
+                </td>
+              </tr>
+              <tr *ngIf="data?.payment?.['DUIT NOW']" class="paidAmount">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText">
+                  Sub Total of Duit Now - Store {{ data.store_code }}
+                </td>
+                <td></td>
+                <td></td>
+                <td class="boldText alignRight">
+                  RM
+                  {{ data?.payment?.["DUIT NOW"]?.paid_amt | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM
+                  {{ data?.payment?.["DUIT NOW"]?.round_adj | number : "1.2-2" }}
+                </td>
+              </tr>
+              <tr *ngIf="data?.payment?.['GRAB']" class="paidAmount">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText">
+                  Sub Total of Grab - Store {{ data.store_code }}
+                </td>
+                <td></td>
+                <td></td>
+                <td class="boldText alignRight">
+                  RM {{ data?.payment?.["GRAB"]?.paid_amt | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ data?.payment?.["GRAB"]?.round_adj | number : "1.2-2" }}
+                </td>
+              </tr>
               <tr *ngIf="data?.payment?.['VISA']" class="visaData">
                 <td></td>
                 <td></td>
@@ -667,38 +675,44 @@
                   RM {{ data?.payment?.["VISA"]?.round_adj }}
                 </td>
               </tr>
-            </ng-container>
-            <tr *ngIf="subTotalShopee" class="paidAmount">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of Shopee Food</td>
-              <td></td>
-              <td></td>
-              <td class="boldText alignRight">
-                RM {{ subTotalShopee?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText alignRight">
-                RM {{ subTotalShopee?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <tr *ngIf="subTotalWallet" class="paidAmount">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText">Sub Total of TNG E-WALLET</td>
-              <td></td>
-              <td></td>
-              <td class="boldText alignRight">
-                RM {{ subTotalWallet?.paid_amt | number : "1.2-2" }}
-              </td>
-              <td class="boldText alignRight">
-                RM {{ subTotalWallet?.round_adj | number : "1.2-2" }}
-              </td>
-            </tr>
-            <ng-container *ngFor="let data of masterDataSubtotal">
+              <tr *ngIf="data?.payment?.['SHOPEE FOOD']" class="paidAmount">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText">
+                  Sub Total of Shopee Food - Store {{ data.store_code }}
+                </td>
+                <td></td>
+                <td></td>
+                <td class="boldText alignRight">
+                  RM
+                  {{ data?.payment?.['SHOPEE FOOD']?.paid_amt | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM
+                  {{ data?.payment?.['SHOPEE FOOD']?.round_adj | number : "1.2-2" }}
+                </td>
+              </tr>
+              <tr *ngIf="data?.payment?.['TNG E-WALLET']" class="paidAmount">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText">
+                  Sub Total of TNG E-WALLET - Store {{ data.store_code }}
+                </td>
+                <td></td>
+                <td></td>
+                <td class="boldText alignRight">
+                  RM
+                  {{ data?.payment?.['TNG E-WALLET']?.paid_amt | number : "1.2-2" }}
+                </td>
+                <td class="boldText alignRight">
+                  RM
+                  {{ data?.payment?.['TNG E-WALLET']?.round_adj | number : "1.2-2" }}
+                </td>
+              </tr>
               <tr *ngIf="data?.payment?.['MASTER']" class="visaData">
                 <td></td>
                 <td></td>
@@ -808,7 +822,9 @@
       <div fxFlex="100" fxHide.xl fxHide.lg fxHide.md fxHide.sm *ngIf="rows">
         <div
           class="addedScroll"
-          *ngIf="filteredData && !loadingSpinner && visaDataSubtotal"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
         >
           <div
             fxLayout="row wrap"
@@ -899,7 +915,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner && visaDataSubtotal"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
           class="backgroundWhitePage"
         >
           <div fxFlex="15">
@@ -945,13 +963,12 @@
             </button>
           </div>
         </div>
-        <div
-          class="addedBorder subTotalBorder"
-          *ngIf="filteredData && !loadingSpinner"
-        >
+        <div class="subTotalBorder" *ngIf="filteredData && !loadingSpinner">
           <div *ngFor="let data of subTotalPayment">
-            <div *ngIf="data?.payment?.['Payment 1']">
-              <h4 class="blueText">Sub Total of Payment 1</h4>
+            <div *ngIf="data?.payment?.['Payment 1']" class="addedBorder">
+              <h4 class="blueText">
+                Sub Total of Payment 1 - Store {{ data.store_code }}
+              </h4>
               <hr />
               <div fxLayout="row wrap" fxLayoutAlign="space-between start">
                 <div>
@@ -979,95 +996,150 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          class="addedBorder"
-          *ngIf="filteredData && !loadingSpinner && subTotalCash"
-        >
-          <h4 class="blueText">Sub Total of Cash</h4>
-          <hr />
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Amount</h4>
-            </div>
-            <div>
-              <h4>
-                RM
-                {{ subTotalCash?.paid_amt | number : "1.2-2" }}
+            <div *ngIf="data?.payment?.['CASH']" class="addedBorder">
+              <h4 class="blueText">
+                Sub Total of Cash - Store {{ data.store_code }}
               </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Rounding Adjust :</h4>
-            </div>
-            <div>
-              <h4 *ngIf="roundAdj">
-                RM
-                {{ subTotalCash?.round_adj | number : "1.2-2" }}
-              </h4>
-              <h4 *ngIf="!roundAdj">RM 0.00</h4>
-            </div>
-          </div>
-        </div>
-        <div
-          class="addedBorder"
-          *ngIf="filteredData && !loadingSpinner && subTotalDuit"
-        >
-          <h4 class="blueText">Sub Total of Duit Now</h4>
-          <hr />
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Amount</h4>
-            </div>
-            <div>
-              <h4>
-                RM
-                {{ subTotalDuit?.paid_amt | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Rounding Adjust :</h4>
-            </div>
-            <div>
-              <h4 *ngIf="roundAdj">
-                RM
-                {{ subTotalDuit?.round_adj | number : "1.2-2" }}
-              </h4>
-              <h4 *ngIf="!roundAdj">RM 0.00</h4>
-            </div>
-          </div>
-        </div>
-        <div
-          class="addedBorder"
-          *ngIf="filteredData && !loadingSpinner && subTotalGrab"
-        >
-          <h4 class="blueText">Sub Total of Grab</h4>
-          <hr />
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Amount</h4>
-            </div>
-            <div>
-              <h4>
-                RM
-                {{ subTotalGrab?.paid_amt | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Rounding Adjust :</h4>
-            </div>
-            <div>
-              <h4 *ngIf="roundAdj">
-                RM
-                {{ subTotalGrab?.round_adj | number : "1.2-2" }}
-              </h4>
-              <h4 *ngIf="!roundAdj">RM 0.00</h4>
+              <hr />
+              <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                <div>
+                  <h4>Amount</h4>
+                </div>
+                <div>
+                  <h4>
+                    RM
+                    {{ data?.payment?.['CASH']?.paid_amt | number : "1.2-2" }}
+                  </h4>
+                </div>
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                <div>
+                  <h4>Rounding Adjust :</h4>
+                </div>
+                <div>
+                  <h4 *ngIf="roundAdj">
+                    RM
+                    {{ data?.payment?.['CASH']?.round_adj | number : "1.2-2" }}
+                  </h4>
+                  <h4 *ngIf="!roundAdj">RM 0.00</h4>
+                </div>
+              </div>
+              <div *ngIf="data?.payment?.['DUIT NOW']" class="addedBorder">
+                <h4 class="blueText">
+                  Sub Total of Duit Now - Store {{ data.store_code }}
+                </h4>
+                <hr />
+                <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                  <div>
+                    <h4>Amount</h4>
+                  </div>
+                  <div>
+                    <h4>
+                      RM
+                      {{ data?.payment?.['DUIT NOW']?.paid_amt | number : "1.2-2" }}
+                    </h4>
+                  </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                  <div>
+                    <h4>Rounding Adjust :</h4>
+                  </div>
+                  <div>
+                    <h4 *ngIf="roundAdj">
+                      RM
+                      {{ data?.payment?.['DUIT NOW']?.round_adj | number : "1.2-2" }}
+                    </h4>
+                    <h4 *ngIf="!roundAdj">RM 0.00</h4>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="data?.payment?.['GRAB']" class="addedBorder">
+                <h4 class="blueText">
+                  Sub Total of Grab - Store {{ data.store_code }}
+                </h4>
+                <hr />
+                <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                  <div>
+                    <h4>Amount</h4>
+                  </div>
+                  <div>
+                    <h4>
+                      RM
+                      {{ data?.payment?.['GRAB']?.paid_amt | number : "1.2-2" }}
+                    </h4>
+                  </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                  <div>
+                    <h4>Rounding Adjust :</h4>
+                  </div>
+                  <div>
+                    <h4 *ngIf="roundAdj">
+                      RM
+                      {{ data?.payment?.['GRAB']?.round_adj | number : "1.2-2" }}
+                    </h4>
+                    <h4 *ngIf="!roundAdj">RM 0.00</h4>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="data?.payment?.['SHOPEE FOOD']" class="addedBorder">
+                <h4 class="blueText">
+                  Sub Total of Shopee Food - Store {{ data.store_code }}
+                </h4>
+                <hr />
+                <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                  <div>
+                    <h4>Amount</h4>
+                  </div>
+                  <div>
+                    <h4>
+                      RM
+                      {{ data?.payment?.['SHOPEE FOOD']?.paid_amt | number : "1.2-2" }}
+                    </h4>
+                  </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                  <div>
+                    <h4>Rounding Adjust :</h4>
+                  </div>
+                  <div>
+                    <h4 *ngIf="roundAdj">
+                      RM
+                      {{ data?.payment?.['SHOPEE FOOD']?.round_adj | number : "1.2-2" }}
+                    </h4>
+                    <h4 *ngIf="!roundAdj">RM 0.00</h4>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="data?.payment?.['TNG E-WALLET']" class="addedBorder">
+                <h4 class="blueText">
+                  Sub Total of TNG E-WALLET - Store {{ data.store_code }}
+                </h4>
+                <hr />
+                <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                  <div>
+                    <h4>Amount</h4>
+                  </div>
+                  <div>
+                    <h4>
+                      RM
+                      {{ data?.payment?.['TNG E-WALLET']?.paid_amt | number : "1.2-2" }}
+                    </h4>
+                  </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                  <div>
+                    <h4>Rounding Adjust :</h4>
+                  </div>
+                  <div>
+                    <h4 *ngIf="roundAdj">
+                      RM
+                      {{ data?.payment?.['TNG E-WALLET']?.round_adj | number : "1.2-2" }}
+                    </h4>
+                    <h4 *ngIf="!roundAdj">RM 0.00</h4>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1099,66 +1171,6 @@
                   RM {{ data?.payment?.["VISA"]?.round_adj | number : "1.2-2" }}
                 </h4>
               </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="addedBorder"
-          *ngIf="filteredData && !loadingSpinner && subTotalShopee"
-        >
-          <h4 class="blueText">Sub Total of Shopee Food</h4>
-          <hr />
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Amount</h4>
-            </div>
-            <div>
-              <h4>
-                RM
-                {{ subTotalShopee?.paid_amt | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Rounding Adjust :</h4>
-            </div>
-            <div>
-              <h4 *ngIf="roundAdj">
-                RM
-                {{ subTotalShopee?.round_adj | number : "1.2-2" }}
-              </h4>
-              <h4 *ngIf="!roundAdj">RM 0.00</h4>
-            </div>
-          </div>
-        </div>
-        <div
-          class="addedBorder"
-          *ngIf="filteredData && !loadingSpinner && subTotalWallet"
-        >
-          <h4 class="blueText">Sub Total of TNG E-WALLET</h4>
-          <hr />
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Amount</h4>
-            </div>
-            <div>
-              <h4>
-                RM
-                {{ subTotalWallet?.paid_amt | number : "1.2-2" }}
-              </h4>
-            </div>
-          </div>
-          <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-            <div>
-              <h4>Rounding Adjust :</h4>
-            </div>
-            <div>
-              <h4 *ngIf="roundAdj">
-                RM
-                {{ subTotalWallet?.round_adj | number : "1.2-2" }}
-              </h4>
-              <h4 *ngIf="!roundAdj">RM 0.00</h4>
             </div>
           </div>
         </div>
@@ -1227,7 +1239,9 @@
         </div>
         <div
           class="addedBorder marginBottomAdded"
-          *ngIf="filteredData && !loadingSpinner && visaDataSubtotal"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData.data !== 'failed'
+          "
         >
           <h4 class="greenText">Grand Total</h4>
           <hr />
@@ -1265,7 +1279,7 @@
   fxHide.md
   fxHide.xl
 >
-  <div *ngIf="errorMessage && !loadingSpinner">
+  <div *ngIf="errorMessage">
     <div
       style="
         position: static;

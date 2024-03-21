@@ -52,4 +52,10 @@ thead th {
   .subTotalBorder {
     margin-top: 35px;
   }
+  .subTotalMargin {
+    margin-top: 35px;
+  }
+  .subTotalMar {
+    margin-top: 0px;
+  }
 }
