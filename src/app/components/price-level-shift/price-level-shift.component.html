@@ -369,7 +369,8 @@
           *ngIf="
             filteredData &&
             !loadingSpinner &&
-            grandTotalData?.message !== 'Validation Error.'
+            grandTotalData?.message !== 'Validation Error.' &&
+            grandTotalData?.grand_quantity !== 0
           "
           class="backgroundWhitePage"
         >
@@ -421,7 +422,8 @@
             <tr>
               <th
                 [ngClass]="
-                  grandTotalData?.message === 'Validation Error.'
+                  grandTotalData?.message === 'Validation Error.' ||
+                  grandTotalData?.grand_quantity === 0
                     ? 'headingTop'
                     : ''
                 "
@@ -434,7 +436,8 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.message === 'Validation Error.'
+                  grandTotalData?.message === 'Validation Error.' ||
+                  grandTotalData?.grand_quantity === 0
                     ? 'headingTop'
                     : ''
                 "
@@ -447,7 +450,8 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.message === 'Validation Error.'
+                  grandTotalData?.message === 'Validation Error.' ||
+                  grandTotalData?.grand_quantity === 0
                     ? 'headingTop'
                     : ''
                 "
@@ -460,7 +464,8 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.message === 'Validation Error.'
+                  grandTotalData?.message === 'Validation Error.' ||
+                  grandTotalData?.grand_quantity === 0
                     ? 'headingTop'
                     : ''
                 "
@@ -473,7 +478,8 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.message === 'Validation Error.'
+                  grandTotalData?.message === 'Validation Error.' ||
+                  grandTotalData?.grand_quantity === 0
                     ? 'headingTop'
                     : ''
                 "
@@ -486,7 +492,8 @@
               </th>
               <th
                 [ngClass]="
-                  grandTotalData?.message === 'Validation Error.'
+                  grandTotalData?.message === 'Validation Error.' ||
+                  grandTotalData?.grand_quantity === 0
                     ? 'headingTop'
                     : ''
                 "
@@ -608,7 +615,7 @@
                 RM {{ subtotal?.sub_total_net_amount | number : "1.2-2" }}
               </td>
             </tr>
-            <tr>
+            <tr *ngIf="grandTotalData?.grand_quantity !== 0">
               <td></td>
               <td class="boldText greenText">Grand Total</td>
               <td class="boldText greenText">
@@ -632,7 +639,8 @@
           *ngIf="
             filteredData &&
             !loadingSpinner &&
-            grandTotalData?.message !== 'Validation Error.'
+            grandTotalData?.message !== 'Validation Error.' &&
+            grandTotalData?.grand_quantity !== 0
           "
         >
           <div fxFlex="12">
@@ -688,7 +696,8 @@
         *ngIf="
           filteredData &&
           !loadingSpinner &&
-          grandTotalData?.message !== 'Validation Error.'
+          grandTotalData?.message !== 'Validation Error.' &&
+          grandTotalData?.grand_quantity !== 0
         "
       >
         <div class="addedScroll">
@@ -756,7 +765,11 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData &&
+            !loadingSpinner &&
+            grandTotalData?.grand_quantity !== 0
+          "
           class="backgroundWhitePage"
         >
           <div fxFlex="15">
@@ -902,7 +915,10 @@
             </div>
           </div>
         </div>
-        <div class="addedBorder marginBottomAdded">
+        <div
+          class="addedBorder marginBottomAdded"
+          *ngIf="grandTotalData?.grand_quantity !== 0"
+        >
           <h4 class="greenText">Grand Total</h4>
           <hr />
           <div fxLayout="row wrap" fxLayoutAlign="space-between start">

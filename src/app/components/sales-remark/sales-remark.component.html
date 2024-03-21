@@ -301,7 +301,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData?.data !== 'failed'
+          "
           class="backgroundWhitePage"
         >
           <div fxFlex="12">
@@ -351,7 +353,9 @@
           <thead>
             <tr>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('SALES_STATUS')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -360,7 +364,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('SALES_STORE')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -369,7 +375,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('SALES_CTRNO')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -378,7 +386,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('SALES_DATETIME')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -387,7 +397,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('SALES_RCPTNO')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -396,7 +408,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('SALES_SHIFT')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -405,7 +419,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('SALES_QTY')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -414,7 +430,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('SALES_GROSS')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -423,7 +441,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('SALES_NETSALES')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -432,7 +452,9 @@
                 </div>
               </th>
               <th
-                [ngClass]="!filteredData ? 'headingTop' : ''"
+                [ngClass]="
+                  grandTotalData?.data === 'failed' ? 'headingTop' : ''
+                "
                 (click)="sortTable('SALES_TOT_COST')"
               >
                 <div fxLayout="row wrap" fxLayoutAlign="start center">
@@ -481,7 +503,14 @@
               </td>
             </tr>
           </tbody>
-          <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
+          <tfoot
+            class="footer-fixed"
+            *ngIf="
+              filteredData &&
+              !loadingSpinner &&
+              grandTotalData?.data !== 'failed'
+            "
+          >
             <tr class="emptyRow">
               <td></td>
               <td></td>
@@ -552,7 +581,9 @@
         <div
           fxLayout="row wrap"
           fxLayoutAlign="space-between center"
-          *ngIf="filteredData && !loadingSpinner"
+          *ngIf="
+            filteredData && !loadingSpinner && grandTotalData?.data !== 'failed'
+          "
         >
           <div fxFlex="12">
             <mat-form-field appearance="outline">
@@ -604,7 +635,9 @@
         fxHide.lg
         fxHide.md
         fxHide.sm
-        *ngIf="filteredData && !loadingSpinner"
+        *ngIf="
+          filteredData && !loadingSpinner && grandTotalData?.data !== 'failed'
+        "
       >
         <div class="addedScroll">
           <div

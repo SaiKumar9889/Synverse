@@ -391,7 +391,7 @@ export class PriceLevelShiftComponent {
             this.subTotalData = result?.data;
             this.grandTotalData = result;
             this.filteredData = array;
-            console.log(this.filteredData);
+            console.log(this.grandTotalData.data);
             this.calculateTotalPages();
           }
           this.loadingSpinner = false;
