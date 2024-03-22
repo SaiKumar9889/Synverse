@@ -445,73 +445,103 @@
             </tr>
           </tbody>
           <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
-            <ng-container *ngFor="let subTotalPrice of subTotalPriceLevelData">
-              <tr class="subTotalPL">
+            <tr>
+              <td *ngIf="arrowUpOpen">
+                All Sub Total Values View
+                <img
+                  (click)="arrowOpen()"
+                  class="image alignRight"
+                  src="../../../assets/down-arrow.svg"
+                />
+              </td>
+              <td *ngIf="!arrowUpOpen">
+                All Sub Total Values Close
+                <img
+                  (click)="arrowClose()"
+                  class="image alignRight"
+                  src="../../../assets/up-arrow.svg"
+                />
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <ng-container *ngIf="!arrowUpOpen">
+              <ng-container
+                *ngFor="let subTotalPrice of subTotalPriceLevelData"
+              >
+                <tr class="subTotalPL">
+                  <td></td>
+                  <td class="boldText">
+                    OPERID Subtotal - Store {{ subTotalPrice.store_id }}
+                  </td>
+                  <td></td>
+                  <td class="boldText">
+                    {{ subTotalPrice?.sub_total_operator_net_qty }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{
+                      subTotalPrice?.sub_total_operator_net_sales
+                        | number : "1.2-2"
+                    }}
+                  </td>
+                  <td class="boldText">
+                    {{ subTotalPrice?.sub_total_operator_net_qty_tv }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{
+                      subTotalPrice?.sub_total_operator_net_sales_tv
+                        | number : "1.2-2"
+                    }}
+                  </td>
+                  <td class="boldText">
+                    {{ subTotalPrice?.sub_total_operator_total_qty }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{
+                      subTotalPrice?.sub_total_operator_total_sales
+                        | number : "1.2-2"
+                    }}
+                  </td>
+                </tr>
+              </ng-container>
+              <tr class="subTotalSC01" *ngFor="let total of subTotalData">
                 <td></td>
-                <td class="boldText">
-                  OPERID Subtotal - Store {{ subTotalPrice.store_id }}
+                <td class="boldText blueText">
+                  Store Subtotal - Store {{ total.store_code }}
                 </td>
                 <td></td>
-                <td class="boldText">
-                  {{ subTotalPrice?.sub_total_operator_net_qty }}
+                <td class="boldText blueText">
+                  {{ total?.subtotal_total_sale_quantity }}
                 </td>
-                <td class="boldText alignRight">
+                <td class="boldText blueText alignRight">
                   RM
-                  {{
-                    subTotalPrice?.sub_total_operator_net_sales
-                      | number : "1.2-2"
-                  }}
+                  {{ total?.subtotal_total_sale_amount | number : "1.2-2" }}
                 </td>
-                <td class="boldText">
-                  {{ subTotalPrice?.sub_total_operator_net_qty_tv }}
+                <td class="boldText blueText">
+                  {{ total?.subtotal_total_void_quantity }}
                 </td>
-                <td class="boldText alignRight">
+                <td class="boldText blueText alignRight">
                   RM
-                  {{
-                    subTotalPrice?.sub_total_operator_net_sales_tv
-                      | number : "1.2-2"
-                  }}
+                  {{ total?.subtotal_total_void_sale | number : "1.2-2" }}
                 </td>
-                <td class="boldText">
-                  {{ subTotalPrice?.sub_total_operator_total_qty }}
+                <td class="boldText blueText">
+                  {{ total?.subtotal_total_total_quantity }}
                 </td>
-                <td class="boldText alignRight">
+                <td class="boldText blueText alignRight">
                   RM
-                  {{
-                    subTotalPrice?.sub_total_operator_total_sales
-                      | number : "1.2-2"
-                  }}
+                  {{ total?.subtotal_total_total_amount | number : "1.2-2" }}
                 </td>
               </tr>
             </ng-container>
-            <tr class="subTotalSC01" *ngFor="let total of subTotalData">
-              <td></td>
-              <td class="boldText blueText">
-                Store Subtotal - Store {{ total.store_code }}
-              </td>
-              <td></td>
-              <td class="boldText blueText">
-                {{ total?.subtotal_total_sale_quantity }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.subtotal_total_sale_amount | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText">
-                {{ total?.subtotal_total_void_quantity }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.subtotal_total_void_sale | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText">
-                {{ total?.subtotal_total_total_quantity }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.subtotal_total_total_amount | number : "1.2-2" }}
-              </td>
-            </tr>
             <tr *ngIf="subTotalData != ''">
               <td></td>
               <td class="boldText greenText">Grand Total</td>

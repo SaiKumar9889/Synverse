@@ -79,6 +79,55 @@ export class PaymentTypeComponent implements OnInit, OnDestroy {
   toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
   terminalDisabled: boolean = true;
+  errorMessage = null;
+  paidAmount: any;
+  roundAdj: any;
+  visaData: any;
+  visaDataSubtotal: any;
+  masterData: any;
+  masterDataSubtotal: any;
+  subTotalDataT1: any;
+  subTotalT1: any;
+  filteredDataT2: any;
+  paidAmountT2: any;
+  subTotalDataT2: any;
+  subTotalT2: any;
+  filteredDataT3: any;
+  paidAmountT3: any;
+  subTotalDataT3: any;
+  subTotalT3: any;
+
+  filteredDataT4: any;
+  paidAmountT4: any;
+  subTotalDataT4: any;
+  subTotalT4: any;
+
+  filteredDataT5: any;
+  paidAmountT5: any;
+  subTotalDataT5: any;
+  subTotalT5: any;
+
+  filteredDataT6: any;
+  paidAmountT6: any;
+  subTotalDataT6: any;
+  subTotalT6: any;
+  subTotalSC01: any;
+  PaymentTypeCode: any;
+  paymentArray: any;
+  visaArray: any;
+  masterArray: any;
+  cashArray: any;
+  duitArray: any;
+  grabArray: any;
+  shopeeArray: any;
+  walletArray: any;
+  subTotalCash: any;
+  subTotalDuit: any;
+  subTotalGrab: any;
+  subTotalShopee: any;
+  subTotalWallet: any;
+  subTotalPayment: any;
+  arrowUpOpen: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -114,6 +163,14 @@ export class PaymentTypeComponent implements OnInit, OnDestroy {
   }
   formFieldsRemoved() {
     this.priceLevelFormFields = false;
+  }
+
+  arrowOpen() {
+    this.arrowUpOpen = false;
+  }
+
+  arrowClose() {
+    this.arrowUpOpen = true;
   }
 
   title = "synverse";
@@ -311,54 +368,6 @@ export class PaymentTypeComponent implements OnInit, OnDestroy {
       this.isCheckboxShift = "false";
     }
   }
-  errorMessage = null;
-  paidAmount: any;
-  roundAdj: any;
-  visaData: any;
-  visaDataSubtotal: any;
-  masterData: any;
-  masterDataSubtotal: any;
-  subTotalDataT1: any;
-  subTotalT1: any;
-  filteredDataT2: any;
-  paidAmountT2: any;
-  subTotalDataT2: any;
-  subTotalT2: any;
-  filteredDataT3: any;
-  paidAmountT3: any;
-  subTotalDataT3: any;
-  subTotalT3: any;
-
-  filteredDataT4: any;
-  paidAmountT4: any;
-  subTotalDataT4: any;
-  subTotalT4: any;
-
-  filteredDataT5: any;
-  paidAmountT5: any;
-  subTotalDataT5: any;
-  subTotalT5: any;
-
-  filteredDataT6: any;
-  paidAmountT6: any;
-  subTotalDataT6: any;
-  subTotalT6: any;
-  subTotalSC01: any;
-  PaymentTypeCode: any;
-  paymentArray: any;
-  visaArray: any;
-  masterArray: any;
-  cashArray: any;
-  duitArray: any;
-  grabArray: any;
-  shopeeArray: any;
-  walletArray: any;
-  subTotalCash: any;
-  subTotalDuit: any;
-  subTotalGrab: any;
-  subTotalShopee: any;
-  subTotalWallet: any;
-  subTotalPayment: any;
 
   paymentType(fromDate: any, toDate: any) {
     this.loadingSpinner = true;

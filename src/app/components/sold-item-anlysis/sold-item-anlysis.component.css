@@ -45,6 +45,12 @@ thead th {
 tbody p {
   margin: 0px !important;
 }
+.image {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
 @media screen and (min-width: 1547px) {
   tfoot .emptyRow {
     bottom: 96px !important;

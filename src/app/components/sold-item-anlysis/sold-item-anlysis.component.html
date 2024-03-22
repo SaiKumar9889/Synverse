@@ -953,79 +953,115 @@
             </tr>
           </tbody>
           <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
-            <ng-container
-              *ngIf="
-                grandTotalData?.grand_total_quantity !== 0 &&
-                grandTotalData?.grand_total_gross_sales != 0 &&
-                grandTotalData?.grand_total_disc != 0 &&
-                grandTotalData?.grand_total_net_sales != 0
-              "
-            >
-              <ng-container *ngFor="let subtotal of subTotalTerminal">
-                <tr class="subTotalPL" *ngFor="let item of subtotal.sold_item">
+            <tr>
+              <td *ngIf="arrowUpOpen">
+                All Sub Total Values View
+                <img
+                  (click)="arrowOpen()"
+                  class="image alignRight"
+                  src="../../../assets/down-arrow.svg"
+                />
+              </td>
+              <td *ngIf="!arrowUpOpen">
+                All Sub Total Values Close
+                <img
+                  (click)="arrowClose()"
+                  class="image alignRight"
+                  src="../../../assets/up-arrow.svg"
+                />
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <ng-container *ngIf="!arrowUpOpen">
+              <ng-container
+                *ngIf="
+                  grandTotalData?.grand_total_quantity !== 0 &&
+                  grandTotalData?.grand_total_gross_sales != 0 &&
+                  grandTotalData?.grand_total_disc != 0 &&
+                  grandTotalData?.grand_total_net_sales != 0
+                "
+              >
+                <ng-container *ngFor="let subtotal of subTotalTerminal">
+                  <tr
+                    class="subTotalPL"
+                    *ngFor="let item of subtotal.sold_item"
+                  >
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="boldText">
+                      Terminal Total - Store {{ subtotal.store_code }}
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="boldText">
+                      {{ item?.terminal_quantity }}
+                    </td>
+                    <td class="boldText alignRight">
+                      RM
+                      {{ item?.terminal_gross_sales | number : "1.2-2" }}
+                    </td>
+                    <td class="boldText alignRight">
+                      RM {{ item?.terminal_disc | number : "1.2-2" }}
+                    </td>
+                    <td class="boldText alignRight">
+                      RM
+                      {{ item?.terminal_net_sales | number : "1.2-2" }}
+                    </td>
+                    <td></td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  grandTotalData?.grand_total_quantity !== 0 ||
+                  grandTotalData?.grand_total_gross_sales != 0 ||
+                  grandTotalData?.grand_total_disc != 0 ||
+                  grandTotalData?.grand_total_net_sales != 0
+                "
+              >
+                <tr class="subTotalSC01" *ngFor="let total of subTotalData">
                   <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td class="boldText">
-                    Terminal Total - Store {{ subtotal.store_code }}
+                  <td class="boldText blueText">
+                    Sub Total - Store {{ total.store_code }}
                   </td>
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td class="boldText">
-                    {{ item?.terminal_quantity }}
+                  <td class="boldText blueText">
+                    {{ total?.sub_total_net_quantity }}
                   </td>
-                  <td class="boldText alignRight">
-                    RM
-                    {{ item?.terminal_gross_sales | number : "1.2-2" }}
+                  <td class="boldText blueText alignRight">
+                    RM {{ total?.sub_total_net_gross | number : "1.2-2" }}
                   </td>
-                  <td class="boldText alignRight">
-                    RM {{ item?.terminal_disc | number : "1.2-2" }}
+                  <td class="boldText blueText alignRight">
+                    RM {{ total?.sub_total_net_discount | number : "1.2-2" }}
                   </td>
-                  <td class="boldText alignRight">
-                    RM
-                    {{ item?.terminal_net_sales | number : "1.2-2" }}
+                  <td class="boldText blueText alignRight">
+                    RM {{ total?.sub_total_net_sales | number : "1.2-2" }}
                   </td>
                   <td></td>
                 </tr>
               </ng-container>
-            </ng-container>
-            <ng-container
-              *ngIf="
-                grandTotalData?.grand_total_quantity !== 0 ||
-                grandTotalData?.grand_total_gross_sales != 0 ||
-                grandTotalData?.grand_total_disc != 0 ||
-                grandTotalData?.grand_total_net_sales != 0
-              "
-            >
-              <tr class="subTotalSC01" *ngFor="let total of subTotalData">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText blueText">
-                  Sub Total - Store {{ total.store_code }}
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText blueText">
-                  {{ total?.sub_total_net_quantity }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ total?.sub_total_net_gross | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ total?.sub_total_net_discount | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ total?.sub_total_net_sales | number : "1.2-2" }}
-                </td>
-                <td></td>
-              </tr>
             </ng-container>
             <tr
               *ngIf="

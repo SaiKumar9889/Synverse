@@ -29,6 +29,12 @@ tfoot {
 .backgroundWhite {
   height: 84px;
 }
+.image {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
 .backgroundWhitePage {
   background: #fff;
   position: sticky !important;

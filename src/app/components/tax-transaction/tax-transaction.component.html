@@ -547,8 +547,23 @@
               grandTotalData.data !== 'failed'
             "
           >
-            <tr class="emptyRow">
-              <td></td>
+            <tr>
+              <td *ngIf="arrowUpOpen">
+                All Sub Total Values View
+                <img
+                  (click)="arrowOpen()"
+                  class="image alignRight"
+                  src="../../../assets/down-arrow.svg"
+                />
+              </td>
+              <td *ngIf="!arrowUpOpen">
+                All Sub Total Values Close
+                <img
+                  (click)="arrowClose()"
+                  class="image alignRight"
+                  src="../../../assets/up-arrow.svg"
+                />
+              </td>
               <td></td>
               <td></td>
               <td></td>
@@ -562,39 +577,41 @@
               <td></td>
               <td></td>
             </tr>
-            <tr class="subTotalPL" *ngFor="let item of subTotalData">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText blueText">
-                Sub-Total of {{ item.store_code }}
-              </td>
-              <td></td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_total_gross | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_total_tax1 | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_total_tax2 | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_total_tax3 | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_total_tax4 | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_total_netsales | number : "1.2-2" }}
-              </td>
-            </tr>
+            <ng-container *ngIf="!arrowUpOpen">
+              <tr class="subTotalPL" *ngFor="let item of subTotalData">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText blueText">
+                  Sub-Total of {{ item.store_code }}
+                </td>
+                <td></td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_total_gross | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_total_tax1 | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_total_tax2 | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_total_tax3 | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_total_tax4 | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_total_netsales | number : "1.2-2" }}
+                </td>
+              </tr>
+            </ng-container>
             <tr>
               <td></td>
               <td></td>

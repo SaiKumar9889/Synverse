@@ -73,6 +73,7 @@ export class AverageSalesSummaryComponent {
   fromDate: any;
   toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
+  arrowUpOpen: boolean = true;
   constructor(
     private authService: AuthService,
     private appService: AppService,
@@ -153,6 +154,14 @@ export class AverageSalesSummaryComponent {
   }
   formFieldsRemoved() {
     this.priceLevelFormFields = false;
+  }
+
+  arrowOpen() {
+    this.arrowUpOpen = false;
+  }
+
+  arrowClose() {
+    this.arrowUpOpen = true;
   }
 
   title = "synverse";

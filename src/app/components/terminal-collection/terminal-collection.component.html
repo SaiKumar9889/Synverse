@@ -631,53 +631,88 @@
               grandTotalData.data !== 'failed'
             "
           >
-            <tr class="subTotalPL" *ngFor="let item of subTotalData">
+            <tr>
+              <td *ngIf="arrowUpOpen">
+                All Sub Total Values View
+                <img
+                  (click)="arrowOpen()"
+                  class="image alignRight"
+                  src="../../../assets/down-arrow.svg"
+                />
+              </td>
+              <td *ngIf="!arrowUpOpen">
+                All Sub Total Values Close
+                <img
+                  (click)="arrowClose()"
+                  class="image alignRight"
+                  src="../../../assets/up-arrow.svg"
+                />
+              </td>
               <td></td>
-              <td class="boldText blueText">
-                Sub-Total of - Store {{ item.store_code }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_net_sales }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_tax_1 | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_tax_2 | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_round | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_ttl_sales | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight"></td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_collection_type?.BOOST | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight"></td>
-              <td class="boldText blueText alignRight"></td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_collection_type?.CASH | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{
-                  item?.sub_collection_type?.["FOOD.P"] | number : "1.2-2"
-                }}
-              </td>
-              <td class="boldText blueText alignRight"></td>
-              <td class="boldText blueText alignRight"></td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_collection_type?.GRAB | number : "1.2-2" }}
-              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
+            <ng-container *ngIf="!arrowUpOpen">
+              <tr class="subTotalPL" *ngFor="let item of subTotalData">
+                <td></td>
+                <td class="boldText blueText">
+                  Sub-Total of - Store {{ item.store_code }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_net_sales }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_tax_1 | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_tax_2 | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_round | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_ttl_sales | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight"></td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_collection_type?.BOOST | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight"></td>
+                <td class="boldText blueText alignRight"></td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_collection_type?.CASH | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{
+                  item?.sub_collection_type?.["FOOD.P"] | number : "1.2-2"
+                  }}
+                </td>
+                <td class="boldText blueText alignRight"></td>
+                <td class="boldText blueText alignRight"></td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_collection_type?.GRAB | number : "1.2-2" }}
+                </td>
+              </tr>
+            </ng-container>
             <tr>
               <td></td>
               <td class="boldText greenText">Grand Total</td>

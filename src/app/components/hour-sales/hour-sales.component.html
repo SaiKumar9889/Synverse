@@ -501,42 +501,59 @@
             </tr>
           </tbody>
           <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
-            <!-- <tr class="emptyRow" *ngIf="grandTotalData.data !== 'failed'">
+            <tr>
+              <td *ngIf="arrowUpOpen">
+                All Sub Total Values View
+                <img
+                  (click)="arrowOpen()"
+                  class="image alignRight"
+                  src="../../../assets/down-arrow.svg"
+                />
+              </td>
+              <td *ngIf="!arrowUpOpen">
+                All Sub Total Values Close
+                <img
+                  (click)="arrowClose()"
+                  class="image alignRight"
+                  src="../../../assets/up-arrow.svg"
+                />
+              </td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
-            </tr> -->
-            <ng-container *ngFor="let total of subTotalData">
-              <tr class="subTotalPL" *ngIf="grandTotalData.data !== 'failed'">
-                <td class="boldText blueText">
-                  Sub-Total of - Store {{ total.store_code }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  {{ total?.sub_total_rcpt }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM
-                  {{ total?.sub_total_gross | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ total?.sub_total_disc | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM
-                  {{ total?.sub_total_netsales | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM
-                  {{ total?.sub_total_total | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ total?.sub_total_contribution | number : "1.2-2" }}
-                </td>
-              </tr>
+            </tr>
+            <ng-container *ngIf="!arrowUpOpen">
+              <ng-container *ngFor="let total of subTotalData">
+                <tr class="subTotalPL" *ngIf="grandTotalData.data !== 'failed'">
+                  <td class="boldText blueText">
+                    Sub-Total of - Store {{ total.store_code }}
+                  </td>
+                  <td class="boldText blueText alignRight">
+                    {{ total?.sub_total_rcpt }}
+                  </td>
+                  <td class="boldText blueText alignRight">
+                    RM
+                    {{ total?.sub_total_gross | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText blueText alignRight">
+                    RM {{ total?.sub_total_disc | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText blueText alignRight">
+                    RM
+                    {{ total?.sub_total_netsales | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText blueText alignRight">
+                    RM
+                    {{ total?.sub_total_total | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText blueText alignRight">
+                    RM {{ total?.sub_total_contribution | number : "1.2-2" }}
+                  </td>
+                </tr>
+              </ng-container>
             </ng-container>
             <tr *ngIf="grandTotalData.data !== 'failed'">
               <td class="boldText greenText">Grand Total</td>

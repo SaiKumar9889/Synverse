@@ -75,6 +75,8 @@ export class ReceiptAnalysisComponent {
   toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
   terminalDisabled: boolean = true;
+  arrowUpOpen: boolean = true;
+
   constructor(
     private authService: AuthService,
     private appService: AppService,
@@ -108,6 +110,14 @@ export class ReceiptAnalysisComponent {
   }
   formFieldsRemoved() {
     this.priceLevelFormFields = false;
+  }
+
+  arrowOpen() {
+    this.arrowUpOpen = false;
+  }
+
+  arrowClose() {
+    this.arrowUpOpen = true;
   }
 
   title = "synverse";

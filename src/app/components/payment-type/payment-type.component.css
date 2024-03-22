@@ -56,9 +56,9 @@ tfoot p {
 .backgroundSizeIncrease {
   height: 125px;
 }
-tfoot td {
+/* tfoot td {
   padding: 2px 8px !important;
-}
+} */
 .thead th,
 .theadIncrease th {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
@@ -73,6 +73,12 @@ tfoot td {
 }
 .theadIncrease th {
   top: 178px;
+}
+.image {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-left: 5px;
 }
 @media screen and (max-width: 599px) {
   .addedScroll {

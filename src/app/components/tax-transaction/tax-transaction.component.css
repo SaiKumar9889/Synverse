@@ -21,6 +21,12 @@ thead th {
 .headingTop {
   top: 0px !important;
 }
+.image {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
 @media screen and (min-width: 1455px) {
   tfoot .emptyRow {
     bottom: 66px !important;

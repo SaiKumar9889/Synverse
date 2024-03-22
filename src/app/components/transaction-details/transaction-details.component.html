@@ -597,51 +597,84 @@
               grandTotalData.data !== 'failed'
             "
           >
-            <tr class="subTotalPL" *ngFor="let item of subTotalData">
+            <tr>
+              <td *ngIf="arrowUpOpen">
+                All Sub Total Values View
+                <img
+                  (click)="arrowOpen()"
+                  class="image alignRight"
+                  src="../../../assets/down-arrow.svg"
+                />
+              </td>
+              <td *ngIf="!arrowUpOpen">
+                All Sub Total Values Close
+                <img
+                  (click)="arrowClose()"
+                  class="image alignRight"
+                  src="../../../assets/up-arrow.svg"
+                />
+              </td>
               <td></td>
-              <td class="boldText blueText">
-                Sub-Total - Store {{ item.store_code }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_gross_sale | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_item_disc | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_subtotal_disc | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_net_sales | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ item?.sub_tax_1 | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_tax_2 | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_round_adjust | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_total_sale | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_item_void | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_all_void | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_trans_void | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ item?.sub_refund | number : "1.2-2" }}
-              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
+            <ng-container *ngIf="!arrowUpOpen">
+              <tr class="subTotalPL" *ngFor="let item of subTotalData">
+                <td></td>
+                <td class="boldText blueText">
+                  Sub-Total - Store {{ item.store_code }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_gross_sale | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_item_disc | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_subtotal_disc | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_net_sales | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ item?.sub_tax_1 | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_tax_2 | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_round_adjust | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_total_sale | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_item_void | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_all_void | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_trans_void | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ item?.sub_refund | number : "1.2-2" }}
+                </td>
+              </tr>
+            </ng-container>
             <tr>
               <td></td>
               <td class="boldText greenText">Grand Total</td>

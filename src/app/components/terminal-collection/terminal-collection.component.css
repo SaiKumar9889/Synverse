@@ -21,6 +21,13 @@ thead th {
 .headingTop {
   top: 0px !important;
 }
+
+.image {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
 @media screen and (max-width: 599px) {
   .addedScroll {
     padding: 5px 10px;

@@ -73,6 +73,7 @@ export class PriceLevelShiftComponent {
   fromDate: any;
   toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
+  arrowUpOpen: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -110,6 +111,13 @@ export class PriceLevelShiftComponent {
   }
   formFieldsRemoved() {
     this.priceLevelFormFields = false;
+  }
+  arrowOpen() {
+    this.arrowUpOpen = false;
+  }
+
+  arrowClose() {
+    this.arrowUpOpen = true;
   }
 
   title = "synverse";

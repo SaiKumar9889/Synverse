@@ -78,6 +78,7 @@ export class SoldItemAnlysisComponent {
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
   terminalDisabled: boolean = true;
   departmentDisabled: boolean = true;
+  arrowUpOpen: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -116,6 +117,14 @@ export class SoldItemAnlysisComponent {
   }
   formFieldsRemoved() {
     this.priceLevelFormFields = false;
+  }
+
+  arrowOpen() {
+    this.arrowUpOpen = false;
+  }
+
+  arrowClose() {
+    this.arrowUpOpen = true;
   }
 
   title = "synverse";

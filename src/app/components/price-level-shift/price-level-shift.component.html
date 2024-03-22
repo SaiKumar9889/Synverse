@@ -568,53 +568,78 @@
               grandTotalData?.message !== 'Validation Error.'
             "
           >
-            <tr
-              class="subTotalPL"
-              *ngFor="let subtotal of subTotalPriceLevelData"
-            >
+            <tr>
+              <td *ngIf="arrowUpOpen">
+                All Sub Total Values View
+                <img
+                  (click)="arrowOpen()"
+                  class="image alignRight"
+                  src="../../../assets/down-arrow.svg"
+                />
+              </td>
+              <td *ngIf="!arrowUpOpen">
+                All Sub Total Values Close
+                <img
+                  (click)="arrowClose()"
+                  class="image alignRight"
+                  src="../../../assets/up-arrow.svg"
+                />
+              </td>
               <td></td>
-              <td class="boldText">
-                Sub Total PL/PS - Store {{ subtotal.store_code }}
-              </td>
-              <td class="boldText">
-                {{ subtotal?.item_price?.P1?.sub_total_price_level_quantity }}
-              </td>
-              <td class="boldText alignRight">
-                RM
-                {{
-                  subtotal?.item_price?.P1?.sub_total_price_level_gross
-                    | number : "1.2-2"
-                }}
-              </td>
-              <td class="boldText alignRight">
-                RM {{ subtotal?.item_price?.P1?.sub_total_price_level_disc }}
-              </td>
-              <td class="boldText alignRight">
-                RM
-                {{
-                  subtotal?.item_price?.P1?.sub_total_price_level_net_amount
-                    | number : "1.2-2"
-                }}
-              </td>
-            </tr>
-            <tr class="subTotalSC01" *ngFor="let subtotal of subTotalData">
               <td></td>
-              <td class="boldText blueText">
-                Sub Total - Store {{ subtotal.store_code }}
-              </td>
-              <td class="boldText blueText">
-                {{ subtotal?.sub_total_quantity }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ subtotal?.sub_total_gross | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ subtotal?.sub_total_disc | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ subtotal?.sub_total_net_amount | number : "1.2-2" }}
-              </td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
+            <ng-container *ngIf="!arrowUpOpen">
+              <tr
+                class="subTotalPL"
+                *ngFor="let subtotal of subTotalPriceLevelData"
+              >
+                <td></td>
+                <td class="boldText">
+                  Sub Total PL/PS - Store {{ subtotal.store_code }}
+                </td>
+                <td class="boldText">
+                  {{ subtotal?.item_price?.P1?.sub_total_price_level_quantity }}
+                </td>
+                <td class="boldText alignRight">
+                  RM
+                  {{
+                    subtotal?.item_price?.P1?.sub_total_price_level_gross
+                      | number : "1.2-2"
+                  }}
+                </td>
+                <td class="boldText alignRight">
+                  RM {{ subtotal?.item_price?.P1?.sub_total_price_level_disc }}
+                </td>
+                <td class="boldText alignRight">
+                  RM
+                  {{
+                    subtotal?.item_price?.P1?.sub_total_price_level_net_amount
+                      | number : "1.2-2"
+                  }}
+                </td>
+              </tr>
+              <tr class="subTotalSC01" *ngFor="let subtotal of subTotalData">
+                <td></td>
+                <td class="boldText blueText">
+                  Sub Total - Store {{ subtotal.store_code }}
+                </td>
+                <td class="boldText blueText">
+                  {{ subtotal?.sub_total_quantity }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ subtotal?.sub_total_gross | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ subtotal?.sub_total_disc | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ subtotal?.sub_total_net_amount | number : "1.2-2" }}
+                </td>
+              </tr>
+            </ng-container>
             <tr *ngIf="grandTotalData?.grand_quantity !== 0">
               <td></td>
               <td class="boldText greenText">Grand Total</td>

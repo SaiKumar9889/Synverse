@@ -511,8 +511,23 @@
               grandTotalData?.data !== 'failed'
             "
           >
-            <tr class="emptyRow">
-              <td></td>
+            <tr>
+              <td *ngIf="arrowUpOpen">
+                All Sub Total Values View
+                <img
+                  (click)="arrowOpen()"
+                  class="image alignRight"
+                  src="../../../assets/down-arrow.svg"
+                />
+              </td>
+              <td *ngIf="!arrowUpOpen">
+                All Sub Total Values Close
+                <img
+                  (click)="arrowClose()"
+                  class="image alignRight"
+                  src="../../../assets/up-arrow.svg"
+                />
+              </td>
               <td></td>
               <td></td>
               <td></td>
@@ -523,39 +538,41 @@
               <td></td>
               <td></td>
             </tr>
-            <tr class="subTotalPL">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="boldText blueText">
-                <p *ngFor="let data of getCurrentPageItems() | slice : 0 : 1">
-                  <span *ngIf="data.SALES_STORE == '01'">
-                    Sub Total - Store {{ data.SALES_STORE }}</span
-                  >
-                </p>
-                <p *ngFor="let data of getCurrentPageItems() | slice : 1 : 2">
-                  <span *ngIf="data.SALES_STORE == 'SC01'">
-                    Sub Total - Store {{ data.SALES_STORE }}</span
-                  >
-                </p>
-              </td>
-              <td class="boldText blueText alignRight">
-                {{ subTotalData?.sub_total_quantity }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_total_gross | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ subTotalData?.sub_total_net | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ subTotalData?.sub_total_sales | number : "1.2-2" }}
-              </td>
-            </tr>
+            <ng-container *ngIf="!arrowUpOpen">
+              <tr class="subTotalPL">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="boldText blueText">
+                  <p *ngFor="let data of getCurrentPageItems() | slice : 0 : 1">
+                    <span *ngIf="data.SALES_STORE == '01'">
+                      Sub Total - Store {{ data.SALES_STORE }}</span
+                    >
+                  </p>
+                  <p *ngFor="let data of getCurrentPageItems() | slice : 1 : 2">
+                    <span *ngIf="data.SALES_STORE == 'SC01'">
+                      Sub Total - Store {{ data.SALES_STORE }}</span
+                    >
+                  </p>
+                </td>
+                <td class="boldText blueText alignRight">
+                  {{ subTotalData?.sub_total_quantity }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ subTotalData?.sub_total_gross | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ subTotalData?.sub_total_net | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ subTotalData?.sub_total_sales | number : "1.2-2" }}
+                </td>
+              </tr>
+            </ng-container>
             <tr>
               <td></td>
               <td></td>

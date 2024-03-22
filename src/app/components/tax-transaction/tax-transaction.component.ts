@@ -80,6 +80,7 @@ export class TaxTransactionComponent implements OnInit {
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
   terminalDisabled: boolean = true;
   minDate: Date = new Date();
+  arrowUpOpen: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -120,6 +121,13 @@ export class TaxTransactionComponent implements OnInit {
   }
   formFieldsRemoved() {
     this.priceLevelFormFields = false;
+  }
+  arrowOpen() {
+    this.arrowUpOpen = false;
+  }
+
+  arrowClose() {
+    this.arrowUpOpen = true;
   }
 
   title = "synverse";

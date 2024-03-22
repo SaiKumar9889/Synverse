@@ -585,170 +585,202 @@
             class="footer-fixed"
             *ngIf="!loadingSpinner && grandTotalData?.data !== 'failed'"
           >
-            <ng-container *ngFor="let data of subTotalPayment">
-              <tr class="paidAmount" *ngIf="data?.payment?.['Payment 1']">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText">
-                  Sub Total of Payment 1 - Store {{ data.store_code }}
-                </td>
-                <td></td>
-                <td></td>
-                <td class="boldText alignRight">
-                  RM
-                  {{ data?.payment?.["Payment 1"]?.paid_amt | number : "1.2-2" }}
-                </td>
-                <td class="boldText alignRight">
-                  RM
-                  {{ data?.payment?.["Payment 1"]?.round_adj | number : "1.2-2" }}
-                </td>
-              </tr>
-              <tr *ngIf="data?.payment?.['CASH']" class="paidAmount">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText">
-                  Sub Total of Cash - Store {{ data.store_code }}
-                </td>
-                <td></td>
-                <td></td>
-                <td class="boldText alignRight">
-                  RM {{ data?.payment?.["CASH"]?.paid_amt | number : "1.2-2" }}
-                </td>
-                <td class="boldText alignRight">
-                  RM {{ data?.payment?.["CASH"]?.round_adj | number : "1.2-2" }}
-                </td>
-              </tr>
-              <tr *ngIf="data?.payment?.['DUIT NOW']" class="paidAmount">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText">
-                  Sub Total of Duit Now - Store {{ data.store_code }}
-                </td>
-                <td></td>
-                <td></td>
-                <td class="boldText alignRight">
-                  RM
-                  {{ data?.payment?.["DUIT NOW"]?.paid_amt | number : "1.2-2" }}
-                </td>
-                <td class="boldText alignRight">
-                  RM
-                  {{ data?.payment?.["DUIT NOW"]?.round_adj | number : "1.2-2" }}
-                </td>
-              </tr>
-              <tr *ngIf="data?.payment?.['GRAB']" class="paidAmount">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText">
-                  Sub Total of Grab - Store {{ data.store_code }}
-                </td>
-                <td></td>
-                <td></td>
-                <td class="boldText alignRight">
-                  RM {{ data?.payment?.["GRAB"]?.paid_amt | number : "1.2-2" }}
-                </td>
-                <td class="boldText alignRight">
-                  RM {{ data?.payment?.["GRAB"]?.round_adj | number : "1.2-2" }}
-                </td>
-              </tr>
-              <tr *ngIf="data?.payment?.['VISA']" class="visaData">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText">
-                  Sub Total of VISA - Store {{ data.store_code }}
-                </td>
-                <td></td>
-                <td></td>
-                <td class="boldText alignRight">
-                  RM {{ data?.payment?.["VISA"]?.paid_amt }}
-                </td>
-                <td class="boldText alignRight">
-                  RM {{ data?.payment?.["VISA"]?.round_adj }}
-                </td>
-              </tr>
-              <tr *ngIf="data?.payment?.['SHOPEE FOOD']" class="paidAmount">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText">
-                  Sub Total of Shopee Food - Store {{ data.store_code }}
-                </td>
-                <td></td>
-                <td></td>
-                <td class="boldText alignRight">
-                  RM
-                  {{ data?.payment?.['SHOPEE FOOD']?.paid_amt | number : "1.2-2" }}
-                </td>
-                <td class="boldText alignRight">
-                  RM
-                  {{ data?.payment?.['SHOPEE FOOD']?.round_adj | number : "1.2-2" }}
-                </td>
-              </tr>
-              <tr *ngIf="data?.payment?.['TNG E-WALLET']" class="paidAmount">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText">
-                  Sub Total of TNG E-WALLET - Store {{ data.store_code }}
-                </td>
-                <td></td>
-                <td></td>
-                <td class="boldText alignRight">
-                  RM
-                  {{ data?.payment?.['TNG E-WALLET']?.paid_amt | number : "1.2-2" }}
-                </td>
-                <td class="boldText alignRight">
-                  RM
-                  {{ data?.payment?.['TNG E-WALLET']?.round_adj | number : "1.2-2" }}
-                </td>
-              </tr>
-              <tr *ngIf="data?.payment?.['MASTER']" class="visaData">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText">
-                  Sub Total of MASTER - Store {{ data.store_code }}
-                </td>
-                <td></td>
-                <td></td>
-                <td class="boldText alignRight">
-                  RM {{ data?.payment?.["MASTER"]?.paid_amt }}
-                </td>
-                <td class="boldText alignRight">
-                  RM {{ data?.payment?.["MASTER"]?.round_adj }}
-                </td>
-              </tr>
-            </ng-container>
-            <ng-container *ngIf="subTotalSC01">
-              <tr class="subTotalPL" *ngFor="let store of subTotalSC01">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="blueText boldText">
-                  Sub Total of - Store {{ store.store_code }}
-                </td>
-                <td></td>
-                <td></td>
-                <td class="blueText boldText alignRight">
-                  RM {{ store?.sub_total_paid_amt | number : "1.2-2" }}
-                </td>
-                <td class="blueText boldText alignRight">
-                  RM {{ store?.sub_total_round_adj | number : "1.2-2" }}
-                </td>
-              </tr>
+            <tr>
+              <td *ngIf="arrowUpOpen">
+                All Sub Total Values View
+                <img
+                  (click)="arrowOpen()"
+                  class="image alignRight"
+                  src="../../../assets/down-arrow.svg"
+                />
+              </td>
+              <td *ngIf="!arrowUpOpen">
+                All Sub Total Values Close
+                <img
+                  (click)="arrowClose()"
+                  class="image alignRight"
+                  src="../../../assets/up-arrow.svg"
+                />
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <ng-container *ngIf="!arrowUpOpen">
+              <ng-container *ngFor="let data of subTotalPayment">
+                <tr class="paidAmount" *ngIf="data?.payment?.['Payment 1']">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText">
+                    Sub Total of Payment 1 - Store {{ data.store_code }}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{ data?.payment?.["Payment 1"]?.paid_amt | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{ data?.payment?.["Payment 1"]?.round_adj | number : "1.2-2" }}
+                  </td>
+                </tr>
+                <tr *ngIf="data?.payment?.['CASH']" class="paidAmount">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText">
+                    Sub Total of Cash - Store {{ data.store_code }}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{ data?.payment?.["CASH"]?.paid_amt | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{ data?.payment?.["CASH"]?.round_adj | number : "1.2-2" }}
+                  </td>
+                </tr>
+                <tr *ngIf="data?.payment?.['DUIT NOW']" class="paidAmount">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText">
+                    Sub Total of Duit Now - Store {{ data.store_code }}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{ data?.payment?.["DUIT NOW"]?.paid_amt | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{ data?.payment?.["DUIT NOW"]?.round_adj | number : "1.2-2" }}
+                  </td>
+                </tr>
+                <tr *ngIf="data?.payment?.['GRAB']" class="paidAmount">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText">
+                    Sub Total of Grab - Store {{ data.store_code }}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{ data?.payment?.["GRAB"]?.paid_amt | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{ data?.payment?.["GRAB"]?.round_adj | number : "1.2-2" }}
+                  </td>
+                </tr>
+                <tr *ngIf="data?.payment?.['VISA']" class="visaData">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText">
+                    Sub Total of VISA - Store {{ data.store_code }}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText alignRight">
+                    RM {{ data?.payment?.["VISA"]?.paid_amt }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM {{ data?.payment?.["VISA"]?.round_adj }}
+                  </td>
+                </tr>
+                <tr *ngIf="data?.payment?.['SHOPEE FOOD']" class="paidAmount">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText">
+                    Sub Total of Shopee Food - Store {{ data.store_code }}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{ data?.payment?.['SHOPEE FOOD']?.paid_amt | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{ data?.payment?.['SHOPEE FOOD']?.round_adj | number : "1.2-2" }}
+                  </td>
+                </tr>
+                <tr *ngIf="data?.payment?.['TNG E-WALLET']" class="paidAmount">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText">
+                    Sub Total of TNG E-WALLET - Store {{ data.store_code }}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{ data?.payment?.['TNG E-WALLET']?.paid_amt | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM
+                    {{ data?.payment?.['TNG E-WALLET']?.round_adj | number : "1.2-2" }}
+                  </td>
+                </tr>
+                <tr *ngIf="data?.payment?.['MASTER']" class="visaData">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText">
+                    Sub Total of MASTER - Store {{ data.store_code }}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText alignRight">
+                    RM {{ data?.payment?.["MASTER"]?.paid_amt }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM {{ data?.payment?.["MASTER"]?.round_adj }}
+                  </td>
+                </tr>
+              </ng-container>
+              <ng-container *ngIf="subTotalSC01">
+                <tr class="subTotalPL" *ngFor="let store of subTotalSC01">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="blueText boldText">
+                    Sub Total of - Store {{ store.store_code }}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td class="blueText boldText alignRight">
+                    RM {{ store?.sub_total_paid_amt | number : "1.2-2" }}
+                  </td>
+                  <td class="blueText boldText alignRight">
+                    RM {{ store?.sub_total_round_adj | number : "1.2-2" }}
+                  </td>
+                </tr>
+              </ng-container>
             </ng-container>
             <tr *ngIf="grandTotalData">
               <td></td>

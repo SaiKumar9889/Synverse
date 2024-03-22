@@ -643,84 +643,118 @@
             </tr>
           </tbody>
           <tfoot class="footer-fixed" *ngIf="!loadingSpinner">
-            <ng-container *ngFor="let data of storesFilterData">
-              <tr *ngFor="let row of data.terminal" class="terminal">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText">
-                  Terminal Total - Store {{ data.store_code }}
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText">
-                  {{ row.terminal_quantity }}
-                </td>
-                <td class="boldText alignRight">
-                  RM {{ row.terminal_sales | number : "1.2-2" }}
-                </td>
-                <td class="boldText alignRight">
-                  RM {{ row.terminal_discount | number : "1.2-2" }}
-                </td>
-                <td class="boldText alignRight">
-                  RM {{ row.terminal_tax_amt | number : "1.2-2" }}
-                </td>
-                <td class="boldText alignRight">
-                  RM {{ row.terminal_round_adj | number : "1.2-2" }}
-                </td>
-                <td class="boldText alignRight">
-                  RM {{ row.terminal_amount | number : "1.2-2" }}
-                </td>
-              </tr>
-              <tr class="child-element">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td
-                  class="boldText blueText"
-                  *ngIf="data.store_desc === 'DODO KOREA'"
-                >
-                  Sub Total - Store 01
-                </td>
-                <td
-                  class="boldText blueText"
-                  *ngIf="data.store_desc === 'Project Store'"
-                >
-                  Sub Total - Store SC01
-                </td>
-                <td
-                  class="boldText blueText"
-                  *ngIf="data.store_desc === 'Project Store 2'"
-                >
-                  Sub Total - Store SC02
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="boldText blueText">
-                  {{ data.sub_total_quantity }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_sales | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_discount | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_tax_amt | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_round_adj | number : "1.2-2" }}
-                </td>
-                <td class="boldText blueText alignRight">
-                  RM {{ data.sub_total_amount | number : "1.2-2" }}
-                </td>
-              </tr>
+            <tr>
+              <td *ngIf="arrowUpOpen">
+                All Sub Total Values View
+                <img
+                  (click)="arrowOpen()"
+                  class="image alignRight"
+                  src="../../../assets/down-arrow.svg"
+                />
+              </td>
+              <td *ngIf="!arrowUpOpen">
+                All Sub Total Values Close
+                <img
+                  (click)="arrowClose()"
+                  class="image alignRight"
+                  src="../../../assets/up-arrow.svg"
+                />
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <ng-container *ngIf="!arrowUpOpen">
+              <ng-container *ngFor="let data of storesFilterData">
+                <tr *ngFor="let row of data.terminal" class="terminal">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText">
+                    Terminal Total - Store {{ data.store_code }}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText">
+                    {{ row.terminal_quantity }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM {{ row.terminal_sales | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM {{ row.terminal_discount | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM {{ row.terminal_tax_amt | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM {{ row.terminal_round_adj | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText alignRight">
+                    RM {{ row.terminal_amount | number : "1.2-2" }}
+                  </td>
+                </tr>
+                <tr class="child-element">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td
+                    class="boldText blueText"
+                    *ngIf="data.store_desc === 'DODO KOREA'"
+                  >
+                    Sub Total - Store 01
+                  </td>
+                  <td
+                    class="boldText blueText"
+                    *ngIf="data.store_desc === 'Project Store'"
+                  >
+                    Sub Total - Store SC01
+                  </td>
+                  <td
+                    class="boldText blueText"
+                    *ngIf="data.store_desc === 'Project Store 2'"
+                  >
+                    Sub Total - Store SC02
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="boldText blueText">
+                    {{ data.sub_total_quantity }}
+                  </td>
+                  <td class="boldText blueText alignRight">
+                    RM {{ data.sub_total_sales | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText blueText alignRight">
+                    RM {{ data.sub_total_discount | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText blueText alignRight">
+                    RM {{ data.sub_total_tax_amt | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText blueText alignRight">
+                    RM {{ data.sub_total_round_adj | number : "1.2-2" }}
+                  </td>
+                  <td class="boldText blueText alignRight">
+                    RM {{ data.sub_total_amount | number : "1.2-2" }}
+                  </td>
+                </tr>
+              </ng-container>
             </ng-container>
             <tr>
               <td></td>

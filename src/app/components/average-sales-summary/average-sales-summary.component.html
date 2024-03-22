@@ -561,65 +561,100 @@
             </tr>
           </tbody>
           <tfoot class="footer-fixed" *ngIf="filteredData && !loadingSpinner">
-            <tr class="subTotalPL" *ngFor="let total of subTotalData">
+            <tr>
+              <td *ngIf="arrowUpOpen">
+                All Sub Total Values View
+                <img
+                  (click)="arrowOpen()"
+                  class="image alignRight"
+                  src="../../../assets/down-arrow.svg"
+                />
+              </td>
+              <td *ngIf="!arrowUpOpen">
+                All Sub Total Values Close
+                <img
+                  (click)="arrowClose()"
+                  class="image alignRight"
+                  src="../../../assets/up-arrow.svg"
+                />
+              </td>
               <td></td>
-              <td class="boldText blueText">
-                Sub Total of - Store {{ total.store_code }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ total?.sub_total_total_sales | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.sub_total_total_bill | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ total?.sub_total_total_avg | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.sub_total_table_sales | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM {{ total?.sub_total_table_bill | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.sub_total_table_avg | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.sub_total_table_pax }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.sub_total_table_pax_avg | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.sub_total_take_away_sales | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.sub_total_take_away_bill | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.sub_total_take_away_avg | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.sub_total_delivery_sales | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.sub_total_delivery_bill | number : "1.2-2" }}
-              </td>
-              <td class="boldText blueText alignRight">
-                RM
-                {{ total?.sub_total_delivery_avg | number : "1.2-2" }}
-              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
+            <ng-container *ngIf="!arrowUpOpen">
+              <tr class="subTotalPL" *ngFor="let total of subTotalData">
+                <td></td>
+                <td class="boldText blueText">
+                  Sub Total of - Store {{ total.store_code }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ total?.sub_total_total_sales | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ total?.sub_total_total_bill | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ total?.sub_total_total_avg | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ total?.sub_total_table_sales | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM {{ total?.sub_total_table_bill | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ total?.sub_total_table_avg | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ total?.sub_total_table_pax }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ total?.sub_total_table_pax_avg | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ total?.sub_total_take_away_sales | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ total?.sub_total_take_away_bill | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ total?.sub_total_take_away_avg | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ total?.sub_total_delivery_sales | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ total?.sub_total_delivery_bill | number : "1.2-2" }}
+                </td>
+                <td class="boldText blueText alignRight">
+                  RM
+                  {{ total?.sub_total_delivery_avg | number : "1.2-2" }}
+                </td>
+              </tr>
+            </ng-container>
             <tr *ngIf="subTotalData != ''">
               <td></td>
               <td class="boldText greenText">Grand Total</td>

@@ -74,6 +74,7 @@ export class SalesRemarkComponent implements OnInit {
   toDate: any;
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
   terminalDisabled: boolean = true;
+  arrowUpOpen: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -109,6 +110,14 @@ export class SalesRemarkComponent implements OnInit {
   }
   formFieldsRemoved() {
     this.priceLevelFormFields = false;
+  }
+
+  arrowOpen() {
+    this.arrowUpOpen = false;
+  }
+
+  arrowClose() {
+    this.arrowUpOpen = true;
   }
 
   title = "synverse";

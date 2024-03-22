@@ -78,6 +78,7 @@ export class TransactionDetailsComponent implements OnInit {
   itemsPerPageOptions = [5, 10, 15, 20, 50, 100];
   terminalDisabled: boolean = true;
   viewValue: any;
+  arrowUpOpen: boolean = true;
   constructor(
     private authService: AuthService,
     private appService: AppService,
@@ -119,6 +120,15 @@ export class TransactionDetailsComponent implements OnInit {
       }
     });
   }
+
+  arrowOpen() {
+    this.arrowUpOpen = false;
+  }
+
+  arrowClose() {
+    this.arrowUpOpen = true;
+  }
+
   formFieldsAdded() {
     this.priceLevelFormFields = true;
   }
